@@ -3046,7 +3046,7 @@ Extras > Slashed Zero".
       if (V !== R) return V - R;
       const [H, z] = w("slant");
       return H !== z ? H - z : x.font.subfamilyName.localeCompare(A.font.subfamilyName);
-    }), i.push({ name: s, fonts: T, settings: { styleSettings: _, axisSettings: b, includeFeatures: { features: m, stylisticSets: v, characterVariants: S }, includeCharacters: { includeNamedSubsets: d, includeUnicodeRanges: E(""), includeAllCharacters: E(false) } }, enableSubsetting: E(true) });
+    }), i.push({ name: s, fonts: T, settings: { styleSettings: _, axisSettings: b, includeFeatures: { features: m, stylisticSets: v, characterVariants: S }, includeCharacters: { includeNamedSubsets: d, includeUnicodeRanges: E(""), includeAllCharacters: E(d.length === 0) } }, enableSubsetting: E(true) });
   }
   return i;
 }, br = (e) => {
