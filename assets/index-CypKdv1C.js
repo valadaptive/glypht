@@ -3376,7 +3376,7 @@ const wt = (e, t, n) => {
   });
 };
 function Lr(e) {
-  return new Worker("/assets/font-worker-CQscHS5O.js", { name: e == null ? void 0 : e.name });
+  return new Worker("/assets/font-worker-B9CFF_zZ.js", { name: e == null ? void 0 : e.name });
 }
 const qr = "/assets/woff1-CegnQ5iO.wasm", $r = "/assets/woff2-D3LCZaiZ.wasm";
 function Hr(e) {
