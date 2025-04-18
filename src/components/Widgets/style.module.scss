@@ -1,0 +1,169 @@
+@use '../../css/theme.scss' as theme;
+@use '../../css/global.scss' as global;
+@use '../../css/buttons.scss' as buttons;
+
+.select-wrapper {
+    position: relative;
+
+    &::after {
+        width: 24px;
+        height: 24px;
+        display: inline-block;
+        background-color: theme.$interactive-normal;
+        mask: url('../../assets/icons/select-arrow.svg');
+
+        position: absolute;
+        top: calc(50% - 12px);
+        right: 0.325rem;
+
+        content: '';
+        pointer-events: none;
+    }
+}
+
+.select {
+    appearance: none;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.spinbox-wrapper {
+    @include global.textbox();
+    padding: 0;
+    display: flex;
+    overflow: hidden;
+}
+
+.spinbox-display, input[type=number].spinbox-field {
+    width: 3.5rem;
+    padding: global.$textbox-padding-y 0 global.$textbox-padding-y global.$textbox-padding-x;
+    background: none;
+    border: none;
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: theme.$text;
+    outline: none;
+    cursor: ns-resize;
+}
+
+input[type=number].spinbox-field {
+    appearance: textfield;
+
+    &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+        display: none;
+    }
+}
+
+.spinbox-buttons {
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid theme.$interactive-normal;
+}
+
+.spinbox-button {
+    width: 1rem;
+    flex: 1 1 auto;
+    cursor: pointer;
+    background-color: theme.$base-color-secondary-dark;
+
+    &:hover {
+        background-color: theme.$base-color-secondary;
+    }
+
+    &:active {
+        background-color: theme.$base-color-tertiary;
+    }
+    user-select: none;
+
+    @include theme.bg-fade();
+}
+
+.spinbox-button-divider {
+    height: 1px;
+    background-color: theme.$interactive-normal;
+}
+
+.spinbox-up, .spinbox-down {
+    background-color: theme.$interactive-normal;
+    width: 100%;
+    height: 100%;
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+}
+
+.spinbox-up {
+    mask-image: url('../../assets/icons/spinbox-arrow-up.svg');
+}
+
+.spinbox-down {
+    mask-image: url('../../assets/icons/spinbox-arrow-down.svg');
+}
+
+.icon-button {
+    padding: 0.25rem;
+    cursor: pointer;
+    display: flex;
+    border-radius: theme.$radius;
+
+    &:hover {
+        background-color: theme.$toggle-hover;
+    }
+
+    &:active {
+        background-color: theme.$toggle-active;
+    }
+}
+
+.toggle-icon.toggledOn {
+    background-color: theme.$toggle-active;
+}
+
+.button-contents {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    min-height: 24px;
+}
+
+.checkbox-toggle {
+    display: inline-flex;
+    align-items: center;
+
+    &.disabled {
+        color: theme.$text-detail;
+    }
+}
+
+.button {
+    flex: 0 0 auto;
+    border: none;
+    border-radius: theme.$radius;
+    color: white;
+    cursor: pointer;
+    font-size: 90%;
+    font-weight: 600;
+    padding: 0.5rem 0.75rem;
+    height: 2.5rem;
+
+    @include buttons.button-color(theme.$primary, theme.$primary-hover, theme.$primary-active, theme.$primary-muted, white);
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+
+    &.green {
+        @include buttons.button-color(theme.$green, theme.$green-hover, theme.$green-active, theme.$green-muted, white);
+    }
+
+    &.yellow {
+        @include buttons.button-color(theme.$yellow, theme.$yellow-hover, theme.$yellow-active, theme.$yellow-muted, white);
+    }
+
+    &.red {
+        @include buttons.button-color(theme.$red, theme.$red-hover, theme.$red-active, theme.$red-muted, white);
+    }
+}

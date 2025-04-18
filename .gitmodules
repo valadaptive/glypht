@@ -1,0 +1,18 @@
+[submodule "harfbuzz"]
+	path = c-libs-wrapper/harfbuzz
+	url = https://github.com/harfbuzz/harfbuzz
+[submodule "feature-tags"]
+	path = feature-tags
+	url = https://github.com/simoncozens/feature-tags
+[submodule "nam-files"]
+	path = nam-files
+	url = https://github.com/googlefonts/nam-files
+[submodule "sfnt2woff-zopfli"]
+	path = c-libs-wrapper/sfnt2woff-zopfli
+	url = https://github.com/valadaptive/sfnt2woff-zopfli
+[submodule "woff2"]
+	path = c-libs-wrapper/woff2
+	url = https://github.com/google/woff2
+[submodule "c-libs-wrapper/zlib-ng"]
+	path = c-libs-wrapper/zlib-ng
+	url = https://github.com/zlib-ng/zlib-ng

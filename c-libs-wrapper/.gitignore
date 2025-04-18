@@ -1,0 +1,8 @@
+brotli-build
+woff2-build
+zlib-build
+*.o
+*.tmp
+blake3/*.wasm
+compile_commands.json
+.cache

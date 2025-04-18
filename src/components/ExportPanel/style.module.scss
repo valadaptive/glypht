@@ -1,0 +1,236 @@
+@use '../../css/theme.scss';
+@use '../../css/global.scss';
+
+.export-panel {
+    background-color: theme.$base-color-tertiary;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 auto;
+    max-width: 50%;
+}
+
+.spacer {
+    flex: 1 1 0;
+}
+
+.splitter {
+    height: 100%;
+    flex-shrink: 0;
+    cursor: ew-resize;
+    border-left: 1px solid transparent;
+    padding-left: 0.5rem;
+    overflow: visible;
+    position: absolute;
+    box-sizing: border-box;
+
+    &:hover {
+        border-left-color: theme.$interactive-muted;
+    }
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.grow-button {
+    flex-grow: 1;
+}
+
+.css-path-prefix-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.css-path-prefix-bar > label {
+    @include global.detail-label();
+}
+
+.css-path-prefix {
+    flex: 1 1 0;
+}
+
+.css-preview {
+    overflow: auto;
+    margin: 0;
+    padding: 0.5rem;
+    border-radius: theme.$radius;
+    background-color: theme.$base-color-secondary-dark;
+}
+
+.export-buttons {
+    padding: theme.$pane-padding;
+
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+
+    gap: 1rem;
+}
+
+.loader-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 0;
+    padding: 1rem;
+}
+
+.export-formats {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.save-load-settings {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    flex: 0 0 auto;
+
+    & > * {
+        flex: 1 0 auto;
+    }
+}
+
+.upload-more {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.export-results {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 auto;
+}
+
+.exported-fonts, .exported-css {
+    flex: 1 1 auto;
+    overflow: auto;
+}
+
+.exported-fonts {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    padding: 0 1rem;
+    max-height: 50%;
+    flex-shrink: 0;
+}
+
+.exported-font-files {
+    display: flex;
+    overflow: auto;
+    flex: 1 1 auto;
+    position: relative;
+    align-items: flex-start;
+}
+
+.font-file-table-wrapper {
+    width: 100%;
+    overflow: auto;
+    height: 200px;
+    position: relative;
+}
+
+.font-file-table {
+    width: 100%;
+    overflow: auto;
+
+    & td {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    & td.font-name {
+        max-width: 0;
+    }
+
+    & td.font-file-size {
+        width: 5.5em;
+    }
+
+    & th {
+        position: sticky;
+        top: 0;
+        background-color: theme.$base-color-tertiary;
+        z-index: 1;
+    }
+}
+
+.font-file-size {
+    @include global.tabular-nums();
+    & > * {
+        vertical-align: middle;
+    }
+}
+
+.download-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.exported-css {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.more-settings {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    background-color: theme.$base-color-secondary-dark;
+    outline: none;
+    border: 1px solid theme.$divider;
+    border-radius: theme.$radius;
+    padding: 1rem;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.setting {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    & > label {
+        @include global.detail-label();
+    }
+}
+
+.spinbox-setting > :last-child {
+    margin-left: auto;
+}
+
+.spacer {
+    flex: 1 1 0;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    padding-top: 0;
+}
+
+.github-link {
+    display: flex;
+}

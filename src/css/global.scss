@@ -1,0 +1,167 @@
+@use './theme.scss';
+
+$font: Inter, sans-serif;
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background-color: theme.$base-color-primary;
+    color: theme.$text;
+    scrollbar-color: theme.$base-color-tertiary theme.$base-color-primary;
+
+    & ::-webkit-scrollbar {
+        background-color: theme.$base-color-primary;
+    }
+
+    & ::-webkit-scrollbar-thumb {
+        background-color: theme.$base-color-tertiary;
+    }
+}
+
+::selection {
+    background-color: theme.$text;
+    color: theme.$base-color-primary;
+}
+
+body, button, input, select {
+    font-family: $font;
+    font-feature-settings: 'ss07', 'ss08', 'cv10';
+}
+
+@mixin tabular-nums {
+    font-feature-settings: 'ss07', 'ss08', 'cv10', 'tnum';
+}
+
+.tabular-nums {
+    @include tabular-nums();
+}
+
+$textbox-padding-x: 0.675rem;
+$textbox-padding-y: 0.5rem;
+
+
+@mixin textbox {
+    background-color: theme.$base-color-tertiary;
+    outline: 1px solid theme.$interactive-normal;
+    border: none;
+    border-radius: 4px;
+    color: theme.$text;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: $textbox-padding-y $textbox-padding-x;
+
+    &:focus-within {
+        outline: 2px solid theme.$interactive-active;
+    }
+
+    &:disabled {
+        color: theme.$text-detail;
+        outline-color: theme.$interactive-muted;
+
+        &::placeholder {
+            color: theme.$interactive-muted;
+        }
+    }
+
+    &::placeholder {
+        color: theme.$interactive-normal;
+    }
+}
+
+@mixin detail-label {
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+input[type=text], input[type=password], textarea, select {
+    @include textbox();
+}
+
+input[type=checkbox] {
+    accent-color: theme.$interactive-active;
+}
+
+input[type=number] {
+    @include tabular-nums();
+}
+
+textarea {
+    resize: none;
+    margin: 0;
+    font-family: $font;
+}
+
+a {
+    color: theme.$link;
+    text-decoration: underline;
+    text-decoration-color: theme.$link-underline;
+
+    &:hover {
+        text-decoration-thickness: 2px;
+    }
+}
+
+body.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#loader {
+    width: 4rem;
+    height: 4rem;
+
+    border-radius: 100%;
+    border: 4px solid transparent;
+    border-top-color: theme.$interactive-active;
+
+    animation: 1s infinite normal linear spin;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.fancy-table {
+    border-collapse: collapse;
+    & th {
+        text-align: left;
+    }
+
+    & tbody > :nth-child(even) {
+        background-color: theme.$base-color-secondary;
+    }
+
+    & tbody > :nth-child(odd) {
+        background-color: theme.$base-color-primary;
+    }
+
+    & thead {
+        background-color: theme.$base-color-tertiary;
+    }
+
+    & th, td {
+        padding: 0.25rem;
+    }
+}
+
+.hl-dk { color: #569cd6 }
+.hl-ok { color: #dcdcaa }
+.hl-kw { color: #569cd6 }
+//.hl-pn { color: var(--) }
+.hl-p { color: #d4d4d4 }
+.hl-b { color: #d4d4d4 }
+.hl-pu { color: #d4d4d4 }
+.hl-s { color: #ce9178 }
+.hl-n { color: #b5cea8 }
+.hl-se { color: #d4d4d4 }
