@@ -7,6 +7,9 @@ declare namespace RuntimeExports {
     function stackAlloc(sz: any): any;
     function stackRestore(val: any): any;
     function stackSave(): any;
+    let HEAPU8: any;
+    let HEAPU32: any;
+    let HEAPF32: any;
 }
 interface WasmModule {
   _malloc(_0: number): number;

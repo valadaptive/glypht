@@ -7,6 +7,9 @@ declare namespace RuntimeExports {
     function stackAlloc(sz: any): any;
     function stackRestore(val: any): any;
     function stackSave(): any;
+    let HEAPU8: any;
+    let HEAPU32: any;
+    let HEAPF32: any;
 }
 interface WasmModule {
   _hb_blob_create(_0: number, _1: number, _2: number, _3: number, _4: number): number;

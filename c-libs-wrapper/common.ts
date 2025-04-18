@@ -4,16 +4,8 @@ type MainModule = {
     stackSave(): number;
     addFunction(fn: (...args: never[]) => unknown, sig: string): number;
     HEAPF32: Float32Array;
-    HEAPF64: Float64Array;
-    HEAP_DATA_VIEW: never;
-    HEAP8: Int8Array;
     HEAPU8: Uint8Array;
-    HEAP16: Int16Array;
-    HEAPU16: Uint16Array;
-    HEAP32: Int32Array;
     HEAPU32: Uint32Array;
-    HEAP64: BigInt64Array;
-    HEAPU64: BigUint64Array;
 };
 
 export type MainModuleExt<T> = Omit<T, keyof MainModule> & MainModule & {

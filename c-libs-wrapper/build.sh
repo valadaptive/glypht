@@ -34,7 +34,7 @@ em++ \
     -s EXPORT_ES6 \
     -s EXPORT_NAME=createWoff2 \
     -s EXPORTED_FUNCTIONS=@woff2.symbols \
-    -s EXPORTED_RUNTIME_METHODS='["addFunction", "wasmMemory", "wasmExports", "stackAlloc", "stackRestore", "stackSave"]' \
+    -s EXPORTED_RUNTIME_METHODS='["addFunction", "wasmMemory", "wasmExports", "stackAlloc", "stackRestore", "stackSave", "HEAPU8", "HEAPU32", "HEAPF32"]' \
     -s INITIAL_MEMORY=65MB \
     -s ALLOW_TABLE_GROWTH \
     -s ALLOW_MEMORY_GROWTH \
@@ -72,7 +72,7 @@ emcc \
     -s EXPORT_ES6 \
     -s EXPORT_NAME=createWoff1 \
     -s EXPORTED_FUNCTIONS=@woff1.symbols \
-    -s EXPORTED_RUNTIME_METHODS='["addFunction", "wasmMemory", "wasmExports", "stackAlloc", "stackRestore", "stackSave"]' \
+    -s EXPORTED_RUNTIME_METHODS='["addFunction", "wasmMemory", "wasmExports", "stackAlloc", "stackRestore", "stackSave", "HEAPU8", "HEAPU32", "HEAPF32"]' \
     -s INITIAL_MEMORY=65MB \
     -s ALLOW_TABLE_GROWTH \
     -s ALLOW_MEMORY_GROWTH \
@@ -125,7 +125,7 @@ em++ \
     -s EXPORT_ES6 \
     -s EXPORT_NAME=createHarfBuzz \
     -s EXPORTED_FUNCTIONS=@hb.symbols \
-    -s EXPORTED_RUNTIME_METHODS='["addFunction", "wasmMemory", "wasmExports", "stackAlloc", "stackRestore", "stackSave"]' \
+    -s EXPORTED_RUNTIME_METHODS='["addFunction", "wasmMemory", "wasmExports", "stackAlloc", "stackRestore", "stackSave", "HEAPU8", "HEAPU32", "HEAPF32"]' \
     -s INITIAL_MEMORY=65MB \
     -s ALLOW_TABLE_GROWTH \
     -s ALLOW_MEMORY_GROWTH \
