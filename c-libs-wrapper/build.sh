@@ -95,9 +95,10 @@ emcc \
     -c \
     -fPIC \
     --no-entry \
-    blake3/blake3.c \
-    blake3/blake3_dispatch.c \
-    blake3/blake3_portable.c \
+    -IBLAKE3/c \
+    BLAKE3/c/blake3.c \
+    BLAKE3/c/blake3_dispatch.c \
+    BLAKE3/c/blake3_portable.c \
     blake3-wrapper.c
 
 # harfbuzz (+ blake3 in the same file)

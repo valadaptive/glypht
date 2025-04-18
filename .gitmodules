@@ -16,3 +16,6 @@
 [submodule "c-libs-wrapper/zlib-ng"]
 	path = c-libs-wrapper/zlib-ng
 	url = https://github.com/zlib-ng/zlib-ng
+[submodule "c-libs-wrapper/BLAKE3"]
+	path = c-libs-wrapper/BLAKE3
+	url = https://github.com/BLAKE3-team/BLAKE3

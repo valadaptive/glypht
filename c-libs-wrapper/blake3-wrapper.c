@@ -1,4 +1,4 @@
-#include "blake3/blake3.h"
+#include "blake3.h"
 #include <stdint.h>
 
 struct blake3_output {
