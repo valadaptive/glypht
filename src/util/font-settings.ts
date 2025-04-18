@@ -451,7 +451,7 @@ export const settingsFromFonts = (fonts: FontRef[]): FamilySettings[] => {
                 includeCharacters: {
                     includeNamedSubsets: subsetToggles,
                     includeUnicodeRanges: signal(''),
-                    includeAllCharacters: signal(false),
+                    includeAllCharacters: signal(subsetToggles.length === 0),
                 },
             },
             enableSubsetting: signal(true),
