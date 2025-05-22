@@ -44,22 +44,24 @@ export const useResizablePanel = (
                 }
             };
             onMouseUp = () => {
-                document.removeEventListener('mousemove', onMouseMove);
-                document.removeEventListener('mouseup', onMouseUp);
+                document.removeEventListener('pointermove', onMouseMove);
+                document.removeEventListener('pointerup', onMouseUp);
+                document.removeEventListener('pointerleave', onMouseUp);
             };
-            document.addEventListener('mousemove', onMouseMove, {signal: abortController.signal});
-            document.addEventListener('mouseup', onMouseUp, {signal: abortController.signal});
+            document.addEventListener('pointermove', onMouseMove, {signal: abortController.signal});
+            document.addEventListener('pointerup', onMouseUp, {signal: abortController.signal});
+            document.addEventListener('pointerleave', onMouseUp, {signal: abortController.signal});
         };
 
         if (element) {
-            element.addEventListener('mousedown', onMouseDown);
+            element.addEventListener('pointerdown', onMouseDown, {signal: abortController.signal});
         }
-    }, [minSize, maxSize, panelSize]);
+    }, [minSize, maxSize, panelSize, direction]);
 
     return {
         resizerRef: refCallback,
         panelRef,
-        panelSize: panelSize,
+        panelSize,
     };
 };
 

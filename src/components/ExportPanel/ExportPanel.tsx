@@ -1,4 +1,4 @@
-import {useCallback, useMemo, useRef} from 'preact/hooks';
+import {useCallback, useEffect, useMemo, useRef, useState} from 'preact/hooks';
 import {ExportedFont, useAppState} from '../../app-state';
 import style from './style.module.scss';
 import {settingsToCSS} from '../../util/font-settings';
@@ -263,11 +263,32 @@ const ExportPanel = () => {
             });
     }, [appState, addToast]);
 
-    const {resizerRef, panelRef, panelSize} = useResizablePanel(500, 400, 10000, 'horizontal');
-
     const settingsOpen = useSignal(false);
 
     const moreSettingsButtonRef = useRef(null);
+
+    // I would've liked to use useSignal here but it can't take an initializer function
+    const [isPortrait, setIsPortrait] = useState(() => window.matchMedia('(orientation: portrait)').matches);
+
+    useEffect(() => {
+        const mediaQueryList = window.matchMedia('(orientation: portrait)');
+
+        const handleOrientationChange = (event: MediaQueryListEvent) => {
+            setIsPortrait(event.matches);
+        };
+
+        mediaQueryList.addEventListener('change', handleOrientationChange);
+        return () => {
+            mediaQueryList.removeEventListener('change', handleOrientationChange);
+        };
+    }, [isPortrait]);
+
+    const {resizerRef, panelRef, panelSize} = useResizablePanel(
+        500,
+        isPortrait ? 200 : 400,
+        10000,
+        isPortrait ? 'vertical' : 'horizontal',
+    );
 
     if (fonts.value.length === 0) {
         return null;
@@ -293,7 +314,11 @@ const ExportPanel = () => {
     }
 
     return (
-        <div className={style.exportPanel} ref={panelRef} style={{width: `${panelSize.value}px`}}>
+        <div
+            className={classNames(style.exportPanel, isPortrait ? style.vertical : style.horizontal)}
+            ref={panelRef}
+            style={{[isPortrait ? 'height' : 'width']: `${panelSize.value}px`}}
+        >
             <div className={style.splitter} ref={resizerRef} />
             <div className={style.exportButtons}>
                 <div className={style.row}>

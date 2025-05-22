@@ -7,7 +7,10 @@
     display: flex;
     flex-direction: column;
     flex: 0 1 auto;
-    max-width: 50%;
+
+    &.horizontal {
+        max-width: 50%;
+    }
 }
 
 .spacer {
@@ -15,17 +18,64 @@
 }
 
 .splitter {
-    height: 100%;
-    flex-shrink: 0;
-    cursor: ew-resize;
-    border-left: 1px solid transparent;
-    padding-left: 0.5rem;
     overflow: visible;
     position: absolute;
     box-sizing: border-box;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
-        border-left-color: theme.$interactive-muted;
+        border-color: theme.$interactive-muted;
+    }
+}
+
+.vertical .splitter {
+    width: 100%;
+    height: var(--splitter-size);
+    cursor: ns-resize;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+}
+
+.horizontal .splitter {
+    height: 100%;
+    width: var(--splitter-size);
+    cursor: ew-resize;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+}
+
+:root {
+    --splitter-size: 0.5rem;
+}
+
+@media (pointer: coarse) {
+    :root {
+        --splitter-size: 1rem;
+    }
+}
+
+@media (hover: none) {
+    .splitter {
+        background-color: theme.$base-color-tertiary;
+    }
+
+    .vertical .splitter {
+        transform: translateY(calc(var(--splitter-size) / -2));
+    }
+
+    .splitter::after {
+        content: '';
+        background-color: theme.$divider;
+        height: 2px;
+        width: 50%;
+        border-radius: var(--splitter-size);
+        display: flex;
+        align-self: center;
     }
 }
 

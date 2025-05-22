@@ -13,6 +13,12 @@
     overflow: auto;
 }
 
+@media (orientation: portrait) {
+    .display-pane {
+        flex-direction: column;
+    }
+}
+
 .main-pane {
     flex: 1 1 0;
     min-width: 50%;
