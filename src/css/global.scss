@@ -5,6 +5,10 @@ $font: Inter, sans-serif;
 html, body {
     width: 100%;
     height: 100%;
+
+    // Moving the divider to resize the bottom panel in portrait mode is done with a vertical swipe. Reloading on mobile
+    // browsers is done with the same gesture.
+    overscroll-behavior: none;
 }
 
 body {
