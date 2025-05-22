@@ -555,11 +555,11 @@ This usually happens when you export a JSX literal and not the component.
     }
   };
 }();
-const ps = "_app_sst3a_51", gs = "_display-pane_sst3a_58", ms = "_main-pane_sst3a_69", hn = { app: ps, displayPane: gs, mainPane: ms }, ys = "_loading_1ckv1_130", bs = "_no-fonts_1ckv1_220", vs = "_upload-header_1ckv1_231", ws = "_upload-sub_1ckv1_236", _s = "_upload-icon_1ckv1_241", xs = "_families_1ckv1_253", Ss = "_family-settings_1ckv1_259", ks = "_family-header_1ckv1_269", Ts = "_family-name_1ckv1_277", Fs = "_copy-paste-buttons_1ckv1_282", As = "_remove-font_1ckv1_286", Cs = "_remove-font-family_1ckv1_286", Ns = "_num-fonts_1ckv1_290", Is = "_single-font-settings_1ckv1_296", Ms = "_single-font-header_1ckv1_307", Os = "_single-font-file-size_1ckv1_313", js = "_single-font-subfamily_1ckv1_318", Rs = "_family-settings-body_1ckv1_322", Es = "_settings-section_1ckv1_327", Us = "_settings-section-title_1ckv1_344", Ps = "_settings-section-title-text_1ckv1_352", Ds = "_settings-section-body_1ckv1_356", Bs = "_settings-grid_1ckv1_361", Ls = "_single-font-settings-body_1ckv1_368", qs = "_settings-sub-section_1ckv1_373", $s = "_checkbox-section_1ckv1_384", zs = "_checkboxes_1ckv1_384", Hs = "_disabled_1ckv1_387", Vs = "_style-setting_1ckv1_391", Ws = "_style-setting-name_1ckv1_395", Js = "_settings-list_1ckv1_402", Ks = "_static-setting_1ckv1_411", Xs = "_axis-setting_1ckv1_415", Gs = "_axis-setting-modes_1ckv1_423", Ys = "_spinbox-range_1ckv1_427", Zs = "_label_1ckv1_433", Qs = "_unicode-range-textbox_1ckv1_444", er = "_axis-range-textbox_1ckv1_449", tr = "_invalid_1ckv1_453", C = { loading: ys, noFonts: bs, uploadHeader: vs, uploadSub: ws, uploadIcon: _s, families: xs, familySettings: Ss, familyHeader: ks, familyName: Ts, copyPasteButtons: Fs, removeFont: As, removeFontFamily: Cs, numFonts: Ns, singleFontSettings: Is, singleFontHeader: Ms, singleFontFileSize: Os, singleFontSubfamily: js, familySettingsBody: Rs, settingsSection: Es, settingsSectionTitle: Us, settingsSectionTitleText: Ps, settingsSectionBody: Ds, settingsGrid: Bs, singleFontSettingsBody: Ls, settingsSubSection: qs, checkboxSection: $s, checkboxes: zs, disabled: Hs, styleSetting: Vs, styleSettingName: Ws, settingsList: Js, staticSetting: Ks, axisSetting: Xs, axisSettingModes: Gs, spinboxRange: Ys, label: Zs, unicodeRangeTextbox: Qs, axisRangeTextbox: er, invalid: tr };
-var Ne, B, fn, fa, ut = 0, ii = [], K = F, da = K.__b, pa = K.__r, ga = K.diffed, ma = K.__c, ya = K.unmount, ba = K.__;
+const ps = "_app_sst3a_51", gs = "_display-pane_sst3a_58", ms = "_main-pane_sst3a_69", hn = { app: ps, displayPane: gs, mainPane: ms }, ys = "_loading_1ckv1_130", bs = "_no-fonts_1ckv1_220", vs = "_upload-header_1ckv1_231", ws = "_upload-sub_1ckv1_236", _s = "_upload-icon_1ckv1_241", xs = "_families_1ckv1_253", Ss = "_family-settings_1ckv1_259", ks = "_family-header_1ckv1_269", Ts = "_family-name_1ckv1_277", Fs = "_copy-paste-buttons_1ckv1_282", As = "_remove-font_1ckv1_286", Cs = "_remove-font-family_1ckv1_286", Ns = "_num-fonts_1ckv1_290", Is = "_single-font-settings_1ckv1_296", Ms = "_single-font-header_1ckv1_307", Os = "_single-font-file-size_1ckv1_313", js = "_single-font-subfamily_1ckv1_318", Rs = "_family-settings-body_1ckv1_322", Es = "_settings-section_1ckv1_327", Us = "_settings-section-title_1ckv1_344", Ps = "_settings-section-title-text_1ckv1_352", Ds = "_settings-section-body_1ckv1_356", qs = "_settings-grid_1ckv1_361", Bs = "_single-font-settings-body_1ckv1_368", Ls = "_settings-sub-section_1ckv1_373", $s = "_checkbox-section_1ckv1_384", zs = "_checkboxes_1ckv1_384", Hs = "_disabled_1ckv1_387", Vs = "_style-setting_1ckv1_391", Ws = "_style-setting-name_1ckv1_395", Js = "_settings-list_1ckv1_402", Ks = "_static-setting_1ckv1_411", Xs = "_axis-setting_1ckv1_415", Gs = "_axis-setting-modes_1ckv1_423", Ys = "_spinbox-range_1ckv1_427", Zs = "_label_1ckv1_433", Qs = "_unicode-range-textbox_1ckv1_444", er = "_axis-range-textbox_1ckv1_449", tr = "_invalid_1ckv1_453", C = { loading: ys, noFonts: bs, uploadHeader: vs, uploadSub: ws, uploadIcon: _s, families: xs, familySettings: Ss, familyHeader: ks, familyName: Ts, copyPasteButtons: Fs, removeFont: As, removeFontFamily: Cs, numFonts: Ns, singleFontSettings: Is, singleFontHeader: Ms, singleFontFileSize: Os, singleFontSubfamily: js, familySettingsBody: Rs, settingsSection: Es, settingsSectionTitle: Us, settingsSectionTitleText: Ps, settingsSectionBody: Ds, settingsGrid: qs, singleFontSettingsBody: Bs, settingsSubSection: Ls, checkboxSection: $s, checkboxes: zs, disabled: Hs, styleSetting: Vs, styleSettingName: Ws, settingsList: Js, staticSetting: Ks, axisSetting: Xs, axisSettingModes: Gs, spinboxRange: Ys, label: Zs, unicodeRangeTextbox: Qs, axisRangeTextbox: er, invalid: tr };
+var Ne, q, fn, fa, ut = 0, ii = [], K = F, da = K.__b, pa = K.__r, ga = K.diffed, ma = K.__c, ya = K.unmount, ba = K.__;
 function Ye(e, t) {
-  K.__h && K.__h(B, e, ut || t), ut = 0;
-  var n = B.__H || (B.__H = { __: [], __h: [] });
+  K.__h && K.__h(q, e, ut || t), ut = 0;
+  var n = q.__H || (q.__H = { __: [], __h: [] });
   return e >= n.__.length && n.__.push({}), n.__[e];
 }
 function si(e) {
@@ -570,7 +570,7 @@ function nr(e, t, n) {
   if (a.t = e, !a.__c && (a.__ = [oi(void 0, t), function(o) {
     var l = a.__N ? a.__N[0] : a.__[0], u = a.t(l, o);
     l !== u && (a.__N = [u, a.__[1]], a.__c.setState({}));
-  }], a.__c = B, !B.__f)) {
+  }], a.__c = q, !q.__f)) {
     var i = function(o, l, u) {
       if (!a.__c.__H) return true;
       var c = a.__c.__H.__.filter(function(p) {
@@ -587,25 +587,25 @@ function nr(e, t, n) {
         }
       }), s && s.call(this, o, l, u) || h;
     };
-    B.__f = true;
-    var s = B.shouldComponentUpdate, r = B.componentWillUpdate;
-    B.componentWillUpdate = function(o, l, u) {
+    q.__f = true;
+    var s = q.shouldComponentUpdate, r = q.componentWillUpdate;
+    q.componentWillUpdate = function(o, l, u) {
       if (this.__e) {
         var c = s;
         s = void 0, i(o, l, u), s = c;
       }
       r && r.call(this, o, l, u);
-    }, B.shouldComponentUpdate = i;
+    }, q.shouldComponentUpdate = i;
   }
   return a.__N || a.__;
 }
 function It(e, t) {
   var n = Ye(Ne++, 3);
-  !K.__s && Pn(n.__H, t) && (n.__ = e, n.u = t, B.__H.__h.push(n));
+  !K.__s && Pn(n.__H, t) && (n.__ = e, n.u = t, q.__H.__h.push(n));
 }
 function Jt(e, t) {
   var n = Ye(Ne++, 4);
-  !K.__s && Pn(n.__H, t) && (n.__ = e, n.u = t, B.__h.push(n));
+  !K.__s && Pn(n.__H, t) && (n.__ = e, n.u = t, q.__h.push(n));
 }
 function ee(e) {
   return ut = 5, _e(function() {
@@ -622,13 +622,13 @@ function M(e, t) {
   }, t);
 }
 function ft(e) {
-  var t = B.context[e.__c], n = Ye(Ne++, 9);
-  return n.c = e, t ? (n.__ == null && (n.__ = true, t.sub(B)), t.props.value) : e.__;
+  var t = q.context[e.__c], n = Ye(Ne++, 9);
+  return n.c = e, t ? (n.__ == null && (n.__ = true, t.sub(q)), t.props.value) : e.__;
 }
 function ri() {
   var e = Ye(Ne++, 11);
   if (!e.__) {
-    for (var t = B.__v; t !== null && !t.__m && t.__ !== null; ) t = t.__;
+    for (var t = q.__v; t !== null && !t.__m && t.__ !== null; ) t = t.__;
     var n = t.__m || (t.__m = [0, 0]);
     e.__ = "P" + n[0] + "-" + n[1]++;
   }
@@ -642,21 +642,21 @@ function ar() {
   }
 }
 K.__b = function(e) {
-  B = null, da && da(e);
+  q = null, da && da(e);
 }, K.__ = function(e, t) {
   e && t.__k && t.__k.__m && (e.__m = t.__k.__m), ba && ba(e, t);
 }, K.__r = function(e) {
   pa && pa(e), Ne = 0;
-  var t = (B = e.__c).__H;
-  t && (fn === B ? (t.__h = [], B.__h = [], t.__.forEach(function(n) {
+  var t = (q = e.__c).__H;
+  t && (fn === q ? (t.__h = [], q.__h = [], t.__.forEach(function(n) {
     n.__N && (n.__ = n.__N), n.u = n.__N = void 0;
-  })) : (t.__h.forEach(Tt), t.__h.forEach(Sn), t.__h = [], Ne = 0)), fn = B;
+  })) : (t.__h.forEach(Tt), t.__h.forEach(Sn), t.__h = [], Ne = 0)), fn = q;
 }, K.diffed = function(e) {
   ga && ga(e);
   var t = e.__c;
   t && t.__H && (t.__H.__h.length && (ii.push(t) !== 1 && fa === K.requestAnimationFrame || ((fa = K.requestAnimationFrame) || ir)(ar)), t.__H.__.forEach(function(n) {
     n.u && (n.__H = n.u), n.u = void 0;
-  })), fn = B = null;
+  })), fn = q = null;
 }, K.__c = function(e, t) {
   t.some(function(n) {
     try {
@@ -688,12 +688,12 @@ function ir(e) {
   va && (t = requestAnimationFrame(n));
 }
 function Tt(e) {
-  var t = B, n = e.__c;
-  typeof n == "function" && (e.__c = void 0, n()), B = t;
+  var t = q, n = e.__c;
+  typeof n == "function" && (e.__c = void 0, n()), q = t;
 }
 function Sn(e) {
-  var t = B;
-  e.__c = e.__(), B = t;
+  var t = q;
+  e.__c = e.__(), q = t;
 }
 function Pn(e, t) {
   return !e || e.length !== t.length || t.some(function(n, a) {
@@ -3036,7 +3036,7 @@ Extras > Slashed Zero".
     for (const S of o) T.push({ font: S.font, styleSettings: a(S.uniqueStyleValues, m) });
     T.sort((S, A) => {
       const w = (U) => {
-        const q = S.styleSettings[U] ?? _[U], W = A.styleSettings[U] ?? _[U], Ee = q.type === "variable" ? q.value.defaultValue : q.value, ue = W.type === "variable" ? W.value.defaultValue : W.value;
+        const L = S.styleSettings[U] ?? _[U], W = A.styleSettings[U] ?? _[U], Ee = L.type === "variable" ? L.value.defaultValue : L.value, ue = W.type === "variable" ? W.value.defaultValue : W.value;
         return [Ee, ue];
       }, [k, I] = w("width");
       if (k !== I) return k - I;
@@ -3189,7 +3189,7 @@ Extras > Slashed Zero".
   a.type === "single" ? c += `-${gr.get($(a.value)) ?? $(a.value)}` : c += `-wght${$(a.value.min)}_${$(a.value.max)}`;
   for (const h of e.axes) t.has(h.tag) && (c += `-${h.tag}${$(h.min)}_${$(h.max)}`);
   return o.length > 0 && (c += `-${o}`), c;
-}, Bn = (e, t, n) => {
+}, qn = (e, t, n) => {
   const a = new fr();
   t.length > 0 && !t.endsWith("/") && (t += "/");
   for (const { font: i, data: s, filename: r } of e) {
@@ -3200,16 +3200,16 @@ Extras > Slashed Zero".
     a.spans.pop(), a.spans.pop(), a.endDeclaration(), a.endRule();
   }
   return a;
-}, Ln = (e) => ({ curMin: e.curMin.value, curMax: e.curMax.value, curSingle: e.curSingle.value, curMultiValue: e.curMultiValue.value, mode: e.mode.value }), Sr = (e) => e.type === "single" ? e : { type: "variable", value: Ln(e.value) }, qn = (e) => {
+}, Bn = (e) => ({ curMin: e.curMin.value, curMax: e.curMax.value, curSingle: e.curSingle.value, curMultiValue: e.curMultiValue.value, mode: e.mode.value }), Sr = (e) => e.type === "single" ? e : { type: "variable", value: Bn(e.value) }, Ln = (e) => {
   const t = {};
   for (const n of ["weight", "width", "italic", "slant"]) e[n] && (t[n] = Sr(e[n]));
   return t;
 }, Ti = (e) => {
   const t = (n) => n.map(({ feature: a, include: i }) => ({ tag: a.tag, include: i.value }));
-  return { styleSettings: qn(e.styleSettings), axisSettings: e.axisSettings.map(({ tag: n, name: a, range: i }) => ({ tag: n, name: a, range: Ln(i) })), includeFeatures: { features: t(e.includeFeatures.features), stylisticSets: t(e.includeFeatures.stylisticSets), characterVariants: t(e.includeFeatures.characterVariants) }, includeCharacters: { includeNamedSubsets: e.includeCharacters.includeNamedSubsets.map(({ name: n, include: a }) => ({ name: n, include: a.value })), includeUnicodeRanges: e.includeCharacters.includeUnicodeRanges.value, includeAllCharacters: e.includeCharacters.includeAllCharacters.value } };
+  return { styleSettings: Ln(e.styleSettings), axisSettings: e.axisSettings.map(({ tag: n, name: a, range: i }) => ({ tag: n, name: a, range: Bn(i) })), includeFeatures: { features: t(e.includeFeatures.features), stylisticSets: t(e.includeFeatures.stylisticSets), characterVariants: t(e.includeFeatures.characterVariants) }, includeCharacters: { includeNamedSubsets: e.includeCharacters.includeNamedSubsets.map(({ name: n, include: a }) => ({ name: n, include: a.value })), includeUnicodeRanges: e.includeCharacters.includeUnicodeRanges.value, includeAllCharacters: e.includeCharacters.includeAllCharacters.value } };
 }, pn = (e) => {
   const t = [];
-  for (const { font: n, styleSettings: a } of e.fonts) t.push({ fontUid: n.uid, styleSettings: qn(a) });
+  for (const { font: n, styleSettings: a } of e.fonts) t.push({ fontUid: n.uid, styleSettings: Ln(a) });
   return { name: e.name, fonts: t, settings: Ti(e.settings), enableSubsetting: e.enableSubsetting.value };
 }, Fi = (e, t) => {
   e.curMin.value = Math.max(t.curMin, e.min), e.curMax.value = Math.min(t.curMax, e.max), e.curSingle.value = Math.max(e.min, Math.min(t.curSingle, e.max)), e.curMultiValue.value = t.curMultiValue, e.mode.value = t.mode;
@@ -3244,7 +3244,7 @@ Extras > Slashed Zero".
     i && Pe(a, i.styleSettings);
   }
   e.enableSubsetting.value = t.enableSubsetting;
-}, Fr = (e) => ({ settings: Ti(e.settings), type: "subsetSettingsV1" }), Ar = (e) => ({ settings: qn(e), type: "styleSettingsV1" }), Cr = (e) => ({ settings: e.map(({ tag: t, name: n, range: a }) => ({ tag: t, name: n, range: Ln(a) })), type: "axisSettingsV1" }), Nr = (e) => ({ settings: { features: e.features.map(({ feature: t, include: n }) => ({ tag: t.tag, include: n.value })), stylisticSets: e.stylisticSets.map(({ feature: t, include: n }) => ({ tag: t.tag, include: n.value })), characterVariants: e.characterVariants.map(({ feature: t, include: n }) => ({ tag: t.tag, include: n.value })) }, type: "featureSettingsV1" }), Ir = (e) => ({ settings: { includeNamedSubsets: e.includeNamedSubsets.map(({ name: t, include: n }) => ({ name: t, include: n.value })), includeUnicodeRanges: e.includeUnicodeRanges.value, includeAllCharacters: e.includeAllCharacters.value }, type: "includeCharactersSettingsV1" }), Mr = (e, t) => {
+}, Fr = (e) => ({ settings: Ti(e.settings), type: "subsetSettingsV1" }), Ar = (e) => ({ settings: Ln(e), type: "styleSettingsV1" }), Cr = (e) => ({ settings: e.map(({ tag: t, name: n, range: a }) => ({ tag: t, name: n, range: Bn(a) })), type: "axisSettingsV1" }), Nr = (e) => ({ settings: { features: e.features.map(({ feature: t, include: n }) => ({ tag: t.tag, include: n.value })), stylisticSets: e.stylisticSets.map(({ feature: t, include: n }) => ({ tag: t.tag, include: n.value })), characterVariants: e.characterVariants.map(({ feature: t, include: n }) => ({ tag: t.tag, include: n.value })) }, type: "featureSettingsV1" }), Ir = (e) => ({ settings: { includeNamedSubsets: e.includeNamedSubsets.map(({ name: t, include: n }) => ({ name: t, include: n.value })), includeUnicodeRanges: e.includeUnicodeRanges.value, includeAllCharacters: e.includeAllCharacters.value }, type: "includeCharactersSettingsV1" }), Mr = (e, t) => {
   switch (t.type) {
     case "subsetSettingsV1": {
       Ai(e.settings, t.settings);
@@ -3365,7 +3365,7 @@ const wt = (e, t, n) => {
       u.originId === i && (u.type === "compressed-font" ? (o.abort(), s(u.message)) : u.type === "error" && (o.abort(), r(u.message)));
     }, { signal: o.signal });
   });
-}, Br = (e, t, n) => {
+}, qr = (e, t, n) => {
   const a = gt++;
   return e.postMessage({ type: "decompress-font", message: { data: t, algorithm: n }, id: a }, [t.buffer]), new Promise((i, s) => {
     const r = new AbortController();
@@ -3375,15 +3375,15 @@ const wt = (e, t, n) => {
     }, { signal: r.signal });
   });
 };
-function Lr(e) {
+function Br(e) {
   return new Worker("/assets/font-worker-B9CFF_zZ.js", { name: e == null ? void 0 : e.name });
 }
-const qr = "/assets/woff1-CegnQ5iO.wasm", $r = "/assets/woff2-D3LCZaiZ.wasm";
+const Lr = "/assets/woff1-CegnQ5iO.wasm", $r = "/assets/woff2-D3LCZaiZ.wasm";
 function zr(e) {
   return new Worker("/assets/compression-worker-CHYDAgBs.js", { name: e == null ? void 0 : e.name });
 }
 const Ci = (async () => {
-  const [e, t] = await Promise.all([qr, $r].map((a) => fetch(a).then((i) => i.blob()).then((i) => URL.createObjectURL(i)))), n = [];
+  const [e, t] = await Promise.all([Lr, $r].map((a) => fetch(a).then((i) => i.blob()).then((i) => URL.createObjectURL(i)))), n = [];
   for (let a = 0; a < navigator.hardwareConcurrency; a++) {
     const i = new zr();
     i.postMessage({ type: "init-woff-wasm", message: { woff1: e, woff2: t }, id: -1 }), n.push(i);
@@ -3415,8 +3415,8 @@ const Ci = (async () => {
   const s = new Promise((r, o) => {
     a = r, i = o;
   });
-  return Et.push({ resolve: a, reject: i, fn: async (r) => await Br(r, e, t) }), $n(n), s;
-}, ze = new Lr();
+  return Et.push({ resolve: a, reject: i, fn: async (r) => await qr(r, e, t) }), $n(n), s;
+}, ze = new Br();
 class Hr {
   constructor() {
     this.fonts = E([]), this.fontsBeingLoaded = E(0), this._exportedFonts = E({ state: "not_loaded" }), this.exportedFonts = Ot(() => this._exportedFonts.value), this.exportSettings = { formats: { ttf: E(true), woff: E(false), woff2: E(true) }, woffCompression: E(1), woff2Compression: E(11), includeTTFinCSS: E(true) }, this.cssPathPrefix = E("");
@@ -3631,7 +3631,7 @@ const Mi = (e) => (Ii = e, navigator.clipboard.writeText(e)), Eo = async () => {
     if (e instanceof Error && e.name === "NotAllowedError") return Ii;
     throw e;
   }
-}, Uo = "_toast-container_nx7qf_51", Po = "_toast-wrapper_nx7qf_67", Do = "_toast_nx7qf_51", Bo = "_success_nx7qf_94", Lo = "_warning_nx7qf_98", qo = "_error_nx7qf_103", $o = "_toast-row_nx7qf_108", zo = "_toast-icon_nx7qf_116", Ho = "_toast-contents_nx7qf_120", Vo = "_separate-contents_nx7qf_124", Wo = "_toast-title_nx7qf_128", Jo = "_plain_nx7qf_131", Ko = "_timeout-bar_nx7qf_135", Xo = "_toast-placeholder_nx7qf_150", Q = { toastContainer: Uo, toastWrapper: Po, toast: Do, success: Bo, warning: Lo, error: qo, toastRow: $o, toastIcon: zo, toastContents: Ho, separateContents: Vo, toastTitle: Wo, plain: Jo, timeoutBar: Ko, toastPlaceholder: Xo };
+}, Uo = "_toast-container_nx7qf_51", Po = "_toast-wrapper_nx7qf_67", Do = "_toast_nx7qf_51", qo = "_success_nx7qf_94", Bo = "_warning_nx7qf_98", Lo = "_error_nx7qf_103", $o = "_toast-row_nx7qf_108", zo = "_toast-icon_nx7qf_116", Ho = "_toast-contents_nx7qf_120", Vo = "_separate-contents_nx7qf_124", Wo = "_toast-title_nx7qf_128", Jo = "_plain_nx7qf_131", Ko = "_timeout-bar_nx7qf_135", Xo = "_toast-placeholder_nx7qf_150", Q = { toastContainer: Uo, toastWrapper: Po, toast: Do, success: qo, warning: Bo, error: Lo, toastRow: $o, toastIcon: zo, toastContents: Ho, separateContents: Vo, toastTitle: Wo, plain: Jo, timeoutBar: Ko, toastPlaceholder: Xo };
 class Ut {
   constructor(t) {
     this.inner = t;
@@ -3836,7 +3836,7 @@ const Vn = Un(void 0), Oi = ({ children: e }) => {
     });
   }, [e]);
   return t.value.length === 0 ? n.value > 0 ? f("div", { className: C.loading, children: f(Pt, { size: 320 }) }) : f("div", { className: C.noFonts, onDragEnter: i, onDragOver: s, onDrop: r, onDragLeave: o, onClick: l, children: [f(fe, { type: "upload", title: "", className: C.uploadIcon, size: "8rem" }), f("span", { className: C.uploadHeader, children: "Click to upload fonts" }), f("span", { className: C.uploadSub, children: "or drag and drop" })] }) : f("div", { className: C.families, onDragEnter: i, onDragOver: s, onDrop: r, onDragLeave: o, children: t.value.map((u) => f(ll, { familySettings: u })) });
-}, cl = "_export-panel_1ac67_208", hl = "_horizontal_1ac67_215", fl = "_spacer_1ac67_219", dl = "_splitter_1ac67_223", pl = "_vertical_1ac67_236", gl = "_row_1ac67_280", ml = "_grow-button_1ac67_286", yl = "_css-path-prefix-bar_1ac67_290", bl = "_css-path-prefix_1ac67_290", vl = "_css-preview_1ac67_306", wl = "_export-buttons_1ac67_314", _l = "_loader-wrapper_1ac67_322", xl = "_export-formats_1ac67_330", Sl = "_save-load-settings_1ac67_336", kl = "_upload-more_1ac67_347", Tl = "_export-results_1ac67_353", Fl = "_exported-fonts_1ac67_360", Al = "_exported-css_1ac67_360", Cl = "_exported-font-files_1ac67_374", Nl = "_font-file-table_1ac67_382", Il = "_font-name_1ac67_398", Ml = "_font-file-size_1ac67_401", Ol = "_more-settings_1ac67_432", jl = "_setting_1ac67_448", Rl = "_spinbox-setting_1ac67_458", El = "_footer_1ac67_466", Ul = "_github-link_1ac67_474", j = { exportPanel: cl, horizontal: hl, spacer: fl, splitter: dl, vertical: pl, row: gl, growButton: ml, cssPathPrefixBar: yl, cssPathPrefix: bl, cssPreview: vl, exportButtons: wl, loaderWrapper: _l, exportFormats: xl, saveLoadSettings: Sl, uploadMore: kl, exportResults: Tl, exportedFonts: Fl, exportedCss: Al, exportedFontFiles: Cl, fontFileTable: Nl, fontName: Il, fontFileSize: Ml, moreSettings: Ol, setting: jl, spinboxSetting: Rl, footer: El, githubLink: Ul };
+}, cl = "_export-panel_1q2ci_208", hl = "_horizontal_1q2ci_215", fl = "_spacer_1q2ci_219", dl = "_splitter_1q2ci_223", pl = "_vertical_1q2ci_237", gl = "_row_1q2ci_282", ml = "_grow-button_1q2ci_288", yl = "_css-path-prefix-bar_1q2ci_292", bl = "_css-path-prefix_1q2ci_292", vl = "_css-preview_1q2ci_308", wl = "_export-buttons_1q2ci_316", _l = "_loader-wrapper_1q2ci_324", xl = "_export-formats_1q2ci_332", Sl = "_save-load-settings_1q2ci_338", kl = "_upload-more_1q2ci_349", Tl = "_export-results_1q2ci_355", Fl = "_exported-fonts_1q2ci_362", Al = "_exported-css_1q2ci_362", Cl = "_exported-font-files_1q2ci_376", Nl = "_font-file-table_1q2ci_384", Il = "_font-name_1q2ci_400", Ml = "_font-file-size_1q2ci_403", Ol = "_more-settings_1q2ci_434", jl = "_setting_1q2ci_450", Rl = "_spinbox-setting_1q2ci_460", El = "_footer_1q2ci_468", Ul = "_github-link_1q2ci_476", j = { exportPanel: cl, horizontal: hl, spacer: fl, splitter: dl, vertical: pl, row: gl, growButton: ml, cssPathPrefixBar: yl, cssPathPrefix: bl, cssPreview: vl, exportButtons: wl, loaderWrapper: _l, exportFormats: xl, saveLoadSettings: Sl, uploadMore: kl, exportResults: Tl, exportedFonts: Fl, exportedCss: Al, exportedFontFiles: Cl, fontFileTable: Nl, fontName: Il, fontFileSize: Ml, moreSettings: Ol, setting: jl, spinboxSetting: Rl, footer: El, githubLink: Ul };
 var Na = {}, Pl = function(e, t, n, a, i) {
   var s = new Worker(Na[t] || (Na[t] = URL.createObjectURL(new Blob([e + ';addEventListener("error",function(e){e=e.error;postMessage({$e$:[e.message,e.code,e.stack]})})'], { type: "text/javascript" }))));
   return s.onmessage = function(r) {
@@ -3852,10 +3852,10 @@ var Na = {}, Pl = function(e, t, n, a, i) {
   return { b: n, r: i };
 }, Di = Pi(Qt, 2), Dl = Di.b, Dt = Di.r;
 Dl[28] = 258, Dt[258] = 28;
-var Bl = Pi(en, 0), An = Bl.r, Bt = new ie(32768);
-for (var L = 0; L < 32768; ++L) {
-  var Fe = (L & 43690) >> 1 | (L & 21845) << 1;
-  Fe = (Fe & 52428) >> 2 | (Fe & 13107) << 2, Fe = (Fe & 61680) >> 4 | (Fe & 3855) << 4, Bt[L] = ((Fe & 65280) >> 8 | (Fe & 255) << 8) >> 1;
+var ql = Pi(en, 0), An = ql.r, qt = new ie(32768);
+for (var B = 0; B < 32768; ++B) {
+  var Fe = (B & 43690) >> 1 | (B & 21845) << 1;
+  Fe = (Fe & 52428) >> 2 | (Fe & 13107) << 2, Fe = (Fe & 61680) >> 4 | (Fe & 3855) << 4, qt[B] = ((Fe & 65280) >> 8 | (Fe & 255) << 8) >> 1;
 }
 var We = function(e, t, n) {
   for (var a = e.length, i = 0, s = new ie(t); i < a; ++i) e[i] && ++s[e[i] - 1];
@@ -3865,22 +3865,22 @@ var We = function(e, t, n) {
   if (n) {
     o = new ie(1 << t);
     var l = 15 - t;
-    for (i = 0; i < a; ++i) if (e[i]) for (var u = i << 4 | e[i], c = t - e[i], h = r[e[i] - 1]++ << c, p = h | (1 << c) - 1; h <= p; ++h) o[Bt[h] >> l] = u;
-  } else for (o = new ie(a), i = 0; i < a; ++i) e[i] && (o[i] = Bt[r[e[i] - 1]++] >> 15 - e[i]);
+    for (i = 0; i < a; ++i) if (e[i]) for (var u = i << 4 | e[i], c = t - e[i], h = r[e[i] - 1]++ << c, p = h | (1 << c) - 1; h <= p; ++h) o[qt[h] >> l] = u;
+  } else for (o = new ie(a), i = 0; i < a; ++i) e[i] && (o[i] = qt[r[e[i] - 1]++] >> 15 - e[i]);
   return o;
 }, Ie = new Z(288);
-for (var L = 0; L < 144; ++L) Ie[L] = 8;
-for (var L = 144; L < 256; ++L) Ie[L] = 9;
-for (var L = 256; L < 280; ++L) Ie[L] = 7;
-for (var L = 280; L < 288; ++L) Ie[L] = 8;
+for (var B = 0; B < 144; ++B) Ie[B] = 8;
+for (var B = 144; B < 256; ++B) Ie[B] = 9;
+for (var B = 256; B < 280; ++B) Ie[B] = 7;
+for (var B = 280; B < 288; ++B) Ie[B] = 8;
 var ct = new Z(32);
-for (var L = 0; L < 32; ++L) ct[L] = 5;
-var Bi = We(Ie, 9, 0), Li = We(ct, 5, 0), Jn = function(e) {
+for (var B = 0; B < 32; ++B) ct[B] = 5;
+var qi = We(Ie, 9, 0), Bi = We(ct, 5, 0), Jn = function(e) {
   return (e + 7) / 8 | 0;
 }, Kn = function(e, t, n) {
   return (t == null || t < 0) && (t = 0), (n == null || n > e.length) && (n = e.length), new Z(e.subarray(t, n));
-}, Ll = ["unexpected EOF", "invalid block type", "invalid length/literal", "invalid distance", "stream finished", "no stream handler", , "no callback", "invalid UTF-8 data", "extra field too long", "date not in range 1980-2099", "filename too long", "stream finishing", "invalid zip data"], se = function(e, t, n) {
-  var a = new Error(t || Ll[e]);
+}, Bl = ["unexpected EOF", "invalid block type", "invalid length/literal", "invalid distance", "stream finished", "no stream handler", , "no callback", "invalid UTF-8 data", "extra field too long", "date not in range 1980-2099", "filename too long", "stream finishing", "invalid zip data"], se = function(e, t, n) {
+  var a = new Error(t || Bl[e]);
   if (a.code = e, Error.captureStackTrace && Error.captureStackTrace(a, se), !n) throw a;
   return a;
 }, me = function(e, t, n) {
@@ -3905,7 +3905,7 @@ var Bi = We(Ie, 9, 0), Li = We(ct, 5, 0), Jn = function(e) {
   var o = n[0], l = n[1], u = 0, c = 1, h = 2;
   for (n[0] = { s: -1, f: o.f + l.f, l: o, r: l }; c != i - 1; ) o = n[n[u].f < n[h].f ? u++ : h++], l = n[u != c && n[u].f < n[h].f ? u++ : h++], n[c++] = { s: -1, f: o.f + l.f, l: o, r: l };
   for (var p = s[0].s, a = 1; a < i; ++a) s[a].s > p && (p = s[a].s);
-  var m = new ie(p + 1), b = Lt(n[c - 1], m, 0);
+  var m = new ie(p + 1), b = Bt(n[c - 1], m, 0);
   if (b > t) {
     var a = 0, d = 0, y = b - t, g = 1 << y;
     for (s.sort(function(S, A) {
@@ -3926,8 +3926,8 @@ var Bi = We(Ie, 9, 0), Li = We(ct, 5, 0), Jn = function(e) {
     b = t;
   }
   return { t: new Z(m), l: b };
-}, Lt = function(e, t, n) {
-  return e.s == -1 ? Math.max(Lt(e.l, t, n + 1), Lt(e.r, t, n + 1)) : t[e.s] = n;
+}, Bt = function(e, t, n) {
+  return e.s == -1 ? Math.max(Bt(e.l, t, n + 1), Bt(e.r, t, n + 1)) : t[e.s] = n;
 }, Cn = function(e) {
   for (var t = e.length; t && !e[--t]; ) ;
   for (var n = new ie(++t), a = 0, i = e[0], s = 1, r = function(l) {
@@ -3960,33 +3960,33 @@ var Bi = We(Ie, 9, 0), Li = We(ct, 5, 0), Jn = function(e) {
   for (var k = At(A, 7), I = k.t, N = k.l, O = 19; O > 4 && !I[Fn[O - 1]]; --O) ;
   var V = u + 5 << 3, R = Ve(i, Ie) + Ve(s, ct) + r, z = Ve(i, p) + Ve(s, d) + r + 14 + 3 * O + Ve(A, I) + 2 * A[16] + 3 * A[17] + 7 * A[18];
   if (l >= 0 && V <= R && V <= z) return Xn(t, c, e.subarray(l, l + u));
-  var H, U, q, W;
+  var H, U, L, W;
   if (me(t, c, 1 + (z < R)), c += 2, z < R) {
-    H = We(p, m, 0), U = p, q = We(d, y, 0), W = d;
+    H = We(p, m, 0), U = p, L = We(d, y, 0), W = d;
     var Ee = We(I, N, 0);
     me(t, c, x - 257), me(t, c + 5, S - 1), me(t, c + 10, O - 4), c += 14;
     for (var w = 0; w < O; ++w) me(t, c + 3 * w, I[Fn[w]]);
     c += 3 * O;
-    for (var ue = [v, T], tt = 0; tt < 2; ++tt) for (var Le = ue[tt], w = 0; w < Le.length; ++w) {
-      var ge = Le[w] & 31;
-      me(t, c, Ee[ge]), c += I[ge], ge > 15 && (me(t, c, Le[w] >> 5 & 127), c += Le[w] >> 12);
+    for (var ue = [v, T], tt = 0; tt < 2; ++tt) for (var Be = ue[tt], w = 0; w < Be.length; ++w) {
+      var ge = Be[w] & 31;
+      me(t, c, Ee[ge]), c += I[ge], ge > 15 && (me(t, c, Be[w] >> 5 & 127), c += Be[w] >> 12);
     }
-  } else H = Bi, U = Ie, q = Li, W = ct;
+  } else H = qi, U = Ie, L = Bi, W = ct;
   for (var w = 0; w < o; ++w) {
     var ne = a[w];
     if (ne > 255) {
       var ge = ne >> 18 & 31;
       He(t, c, H[ge + 257]), c += U[ge + 257], ge > 7 && (me(t, c, ne >> 23 & 31), c += Qt[ge]);
-      var qe = ne & 31;
-      He(t, c, q[qe]), c += W[qe], qe > 3 && (He(t, c, ne >> 5 & 8191), c += en[qe]);
+      var Le = ne & 31;
+      He(t, c, L[Le]), c += W[Le], Le > 3 && (He(t, c, ne >> 5 & 8191), c += en[Le]);
     } else He(t, c, H[ne]), c += U[ne];
   }
   return He(t, c, H[256]), c + U[256];
-}, qi = new Zt([65540, 131080, 131088, 131104, 262176, 1048704, 1048832, 2114560, 2117632]), Gn = new Z(0), $i = function(e, t, n, a, i, s) {
+}, Li = new Zt([65540, 131080, 131088, 131104, 262176, 1048704, 1048832, 2114560, 2117632]), Gn = new Z(0), $i = function(e, t, n, a, i, s) {
   var r = s.z || e.length, o = new Z(a + r + 5 * (1 + Math.ceil(r / 7e3)) + i), l = o.subarray(a, o.length - i), u = s.l, c = (s.r || 0) & 7;
   if (t) {
     c && (l[0] = s.r >> 3);
-    for (var h = qi[t - 1], p = h >> 13, m = h & 8191, b = (1 << n) - 1, d = s.p || new ie(32768), y = s.h || new ie(b + 1), g = Math.ceil(n / 3), v = 2 * g, x = function(on) {
+    for (var h = Li[t - 1], p = h >> 13, m = h & 8191, b = (1 << n) - 1, d = s.p || new ie(32768), y = s.h || new ie(b + 1), g = Math.ceil(n / 3), v = 2 * g, x = function(on) {
       return (e[on] ^ e[on + 1] << g ^ e[on + 2] << v) & b;
     }, _ = new Zt(25e3), T = new ie(288), S = new ie(32), A = 0, w = 0, k = s.i || 0, I = 0, N = s.w || 0, O = 0; k + 2 < r; ++k) {
       var V = x(k), R = k & 32767, z = y[V];
@@ -3997,13 +3997,13 @@ var Bi = We(Ie, 9, 0), Li = We(ct, 5, 0), Jn = function(e) {
           for (var U = 0; U < 286; ++U) T[U] = 0;
           for (var U = 0; U < 30; ++U) S[U] = 0;
         }
-        var q = 2, W = 0, Ee = m, ue = R - z & 32767;
-        if (H > 2 && V == x(k - ue)) for (var tt = Math.min(p, H) - 1, Le = Math.min(32767, k), ge = Math.min(258, H); ue <= Le && --Ee && R != z; ) {
-          if (e[k + q] == e[k + q - ue]) {
+        var L = 2, W = 0, Ee = m, ue = R - z & 32767;
+        if (H > 2 && V == x(k - ue)) for (var tt = Math.min(p, H) - 1, Be = Math.min(32767, k), ge = Math.min(258, H); ue <= Be && --Ee && R != z; ) {
+          if (e[k + L] == e[k + L - ue]) {
             for (var ne = 0; ne < ge && e[k + ne] == e[k + ne - ue]; ++ne) ;
-            if (ne > q) {
-              if (q = ne, W = ue, ne > tt) break;
-              for (var qe = Math.min(ue, ne - 2), aa = 0, U = 0; U < qe; ++U) {
+            if (ne > L) {
+              if (L = ne, W = ue, ne > tt) break;
+              for (var Le = Math.min(ue, ne - 2), aa = 0, U = 0; U < Le; ++U) {
                 var sn = k - ue + U & 32767, ts = d[sn], ia = sn - ts & 32767;
                 ia > aa && (aa = ia, z = sn);
               }
@@ -4012,9 +4012,9 @@ var Bi = We(Ie, 9, 0), Li = We(ct, 5, 0), Jn = function(e) {
           R = z, z = d[R], ue += R - z & 32767;
         }
         if (W) {
-          _[I++] = 268435456 | Dt[q] << 18 | An[W];
-          var sa = Dt[q] & 31, ra = An[W] & 31;
-          w += Qt[sa] + en[ra], ++T[257 + sa], ++S[ra], N = k + q, ++A;
+          _[I++] = 268435456 | Dt[L] << 18 | An[W];
+          var sa = Dt[L] & 31, ra = An[W] & 31;
+          w += Qt[sa] + en[ra], ++T[257 + sa], ++S[ra], N = k + L, ++A;
         } else _[I++] = e[k], ++T[e[k]];
       }
     }
@@ -4028,7 +4028,7 @@ var Bi = We(Ie, 9, 0), Li = We(ct, 5, 0), Jn = function(e) {
     s.i = r;
   }
   return Kn(o, 0, a + Jn(c) + i);
-}, ql = function() {
+}, Ll = function() {
   for (var e = new Int32Array(256), t = 0; t < 256; ++t) {
     for (var n = t, a = 9; --a; ) n = (n & 1 && -306674912) ^ n >>> 1;
     e[t] = n;
@@ -4037,7 +4037,7 @@ var Bi = We(Ie, 9, 0), Li = We(ct, 5, 0), Jn = function(e) {
 }(), $l = function() {
   var e = -1;
   return { p: function(t) {
-    for (var n = e, a = 0; a < t.length; ++a) n = ql[n & 255 ^ t[a]] ^ n >>> 8;
+    for (var n = e, a = 0; a < t.length; ++a) n = Ll[n & 255 ^ t[a]] ^ n >>> 8;
     e = n;
   }, d: function() {
     return ~e;
@@ -4082,7 +4082,7 @@ var Bi = We(Ie, 9, 0), Li = We(ct, 5, 0), Jn = function(e) {
   var l = zi({}, xt[n].e);
   return Pl(xt[n].c + ";onmessage=function(e){for(var k in e.data)self[k]=e.data[k];onmessage=" + t.toString() + "}", n, l, zl(l), a);
 }, Vl = function() {
-  return [Z, ie, Zt, Qt, en, Fn, Dt, An, Bi, Ie, Li, ct, Bt, qi, Gn, We, me, He, At, Lt, Cn, Ve, Xn, Nn, Jn, Kn, $i, Yn, Gl, Wl];
+  return [Z, ie, Zt, Qt, en, Fn, Dt, An, qi, Ie, Bi, ct, qt, Li, Gn, We, me, He, At, Bt, Cn, Ve, Xn, Nn, Jn, Kn, $i, Yn, Gl, Wl];
 }, Wl = function(e) {
   return postMessage(e, [e.buffer]);
 }, Ma = function(e) {
@@ -4186,7 +4186,7 @@ var Ql = function(e) {
   return c && (e.set(o, t), t += c), t;
 }, eu = function(e, t, n, a, i) {
   J(e, t, 101010256), J(e, t + 8, n), J(e, t + 10, n), J(e, t + 12, a), J(e, t + 16, i);
-}, qt = function() {
+}, Lt = function() {
   function e(t) {
     this.filename = t, this.c = $l(), this.size = 0, this.compression = 0;
   }
@@ -4198,14 +4198,14 @@ var Ql = function(e) {
 }(), Ua = function() {
   function e(t, n) {
     var a = this;
-    n || (n = {}), qt.call(this, t), this.d = new Xl(n, function(i, s, r) {
+    n || (n = {}), Lt.call(this, t), this.d = new Xl(n, function(i, s, r) {
       a.ondata(i, s, r);
     }), this.compression = 8, this.flag = Ql(n.level), this.terminate = this.d.terminate;
   }
   return e.prototype.process = function(t, n) {
     this.d.push(t, n);
   }, e.prototype.push = function(t, n) {
-    qt.prototype.push.call(this, t, n);
+    Lt.prototype.push.call(this, t, n);
   }, e;
 }(), tu = function() {
   function e(t) {
@@ -4294,11 +4294,11 @@ const nu = (e, t) => {
       r.add(c), c.push(u.ttf.slice(), true);
     }
     if (u.woff) {
-      const c = new qt(l + ".woff");
+      const c = new Lt(l + ".woff");
       r.add(c), c.push(u.woff, true);
     }
     if (u.woff2) {
-      const c = new qt(l + ".woff2");
+      const c = new Lt(l + ".woff2");
       r.add(c), c.push(u.woff2, true);
     }
   }
@@ -4439,17 +4439,17 @@ const fu = function(e) {
       var N, O;
       const R = (((N = s.flip) == null ? void 0 : N.index) || 0) + 1, z = A[R];
       if (z) return { data: { index: R, overflows: I }, reset: { placement: z } };
-      let H = (O = I.filter((U) => U.overflows[0] <= 0).sort((U, q) => U.overflows[1] - q.overflows[1])[0]) == null ? void 0 : O.placement;
+      let H = (O = I.filter((U) => U.overflows[0] <= 0).sort((U, L) => U.overflows[1] - L.overflows[1])[0]) == null ? void 0 : O.placement;
       if (!H) switch (m) {
         case "bestFit": {
           var V;
-          const U = (V = I.filter((q) => {
+          const U = (V = I.filter((L) => {
             if (S) {
-              const W = De(q.placement);
+              const W = De(L.placement);
               return W === v || W === "y";
             }
             return true;
-          }).map((q) => [q.placement, q.overflows.filter((W) => W > 0).reduce((W, Ee) => W + Ee, 0)]).sort((q, W) => q[1] - W[1])[0]) == null ? void 0 : V[0];
+          }).map((L) => [L.placement, L.overflows.filter((W) => W > 0).reduce((W, Ee) => W + Ee, 0)]).sort((L, W) => L[1] - W[1])[0]) == null ? void 0 : V[0];
           U && (H = U);
           break;
         }
@@ -4532,7 +4532,7 @@ function de(e) {
 function xe(e) {
   return tn() ? e instanceof HTMLElement || e instanceof le(e).HTMLElement : false;
 }
-function Ba(e) {
+function qa(e) {
   return !tn() || typeof ShadowRoot > "u" ? false : e instanceof ShadowRoot || e instanceof le(e).ShadowRoot;
 }
 function bt(e) {
@@ -4578,8 +4578,8 @@ function an(e) {
 }
 function Oe(e) {
   if (et(e) === "html") return e;
-  const t = e.assignedSlot || e.parentNode || Ba(e) && e.host || Se(e);
-  return Ba(t) ? t.host : t;
+  const t = e.assignedSlot || e.parentNode || qa(e) && e.host || Se(e);
+  return qa(t) ? t.host : t;
 }
 function Ki(e) {
   const t = Oe(e);
@@ -4622,7 +4622,7 @@ function Gi(e) {
 function wu(e, t, n) {
   return t === void 0 && (t = false), !n || t && n !== le(e) ? false : t;
 }
-function Be(e, t, n, a) {
+function qe(e, t, n, a) {
   t === void 0 && (t = false), n === void 0 && (n = false);
   const i = e.getBoundingClientRect(), s = ta(e);
   let r = we(1);
@@ -4641,7 +4641,7 @@ function Be(e, t, n, a) {
 }
 function na(e, t) {
   const n = an(e).scrollLeft;
-  return t ? t.left + n : Be(Se(e)).left + n;
+  return t ? t.left + n : qe(Se(e)).left + n;
 }
 function Yi(e, t, n) {
   n === void 0 && (n = false);
@@ -4655,7 +4655,7 @@ function _u(e) {
   let l = { scrollLeft: 0, scrollTop: 0 }, u = we(1);
   const c = we(0), h = xe(a);
   if ((h || !h && !s) && ((et(a) !== "body" || bt(r)) && (l = an(a)), xe(a))) {
-    const m = Be(a);
+    const m = qe(a);
     u = Je(a), c.x = m.x + a.clientLeft, c.y = m.y + a.clientTop;
   }
   const p = r && !h && !s ? Yi(r, l, true) : we(0);
@@ -4681,10 +4681,10 @@ function ku(e, t) {
   return { width: s, height: r, x: o, y: l };
 }
 function Tu(e, t) {
-  const n = Be(e, true, t === "fixed"), a = n.top + e.clientTop, i = n.left + e.clientLeft, s = xe(e) ? Je(e) : we(1), r = e.clientWidth * s.x, o = e.clientHeight * s.y, l = i * s.x, u = a * s.y;
+  const n = qe(e, true, t === "fixed"), a = n.top + e.clientTop, i = n.left + e.clientLeft, s = xe(e) ? Je(e) : we(1), r = e.clientWidth * s.x, o = e.clientHeight * s.y, l = i * s.x, u = a * s.y;
   return { width: r, height: o, x: l, y: u };
 }
-function La(e, t, n) {
+function Ba(e, t, n) {
   let a;
   if (t === "viewport") a = ku(e, n);
   else if (t === "document") a = Su(Se(e));
@@ -4714,9 +4714,9 @@ function Fu(e, t) {
 function Au(e) {
   let { element: t, boundary: n, rootBoundary: a, strategy: i } = e;
   const r = [...n === "clippingAncestors" ? nn(t) ? [] : Fu(t, this._c) : [].concat(n), a], o = r[0], l = r.reduce((u, c) => {
-    const h = La(t, c, i);
+    const h = Ba(t, c, i);
     return u.top = oe(h.top, u.top), u.right = Xe(h.right, u.right), u.bottom = Xe(h.bottom, u.bottom), u.left = oe(h.left, u.left), u;
-  }, La(t, o, i));
+  }, Ba(t, o, i));
   return { width: l.right - l.left, height: l.bottom - l.top, x: l.left, y: l.top };
 }
 function Cu(e) {
@@ -4724,11 +4724,11 @@ function Cu(e) {
   return { width: t, height: n };
 }
 function Nu(e, t, n) {
-  const a = xe(t), i = Se(t), s = n === "fixed", r = Be(e, true, s, t);
+  const a = xe(t), i = Se(t), s = n === "fixed", r = qe(e, true, s, t);
   let o = { scrollLeft: 0, scrollTop: 0 };
   const l = we(0);
   if (a || !a && !s) if ((et(t) !== "body" || bt(i)) && (o = an(t)), a) {
-    const p = Be(t, true, s, t);
+    const p = qe(t, true, s, t);
     l.x = p.x + t.clientLeft, l.y = p.y + t.clientTop;
   } else i && (l.x = na(i));
   const u = i && !a && !s ? Yi(i, o) : we(0), c = r.left + o.scrollLeft - l.x - u.x, h = r.top + o.scrollTop - l.y - u.y;
@@ -4737,7 +4737,7 @@ function Nu(e, t, n) {
 function bn(e) {
   return pe(e).position === "static";
 }
-function qa(e, t) {
+function La(e, t) {
   if (!xe(e) || pe(e).position === "fixed") return null;
   if (t) return t(e);
   let n = e.offsetParent;
@@ -4754,8 +4754,8 @@ function Qi(e, t) {
     }
     return n;
   }
-  let a = qa(e, t);
-  for (; a && yu(a) && bn(a); ) a = qa(a, t);
+  let a = La(e, t);
+  for (; a && yu(a) && bn(a); ) a = La(a, t);
   return a && Ge(a) && bn(a) && !Qn(a) ? n : a || bu(e) || n;
 }
 const Iu = async function(e) {
@@ -4816,10 +4816,10 @@ function $a(e, t, n, a) {
       (x = m) == null || x.observe(t);
     })), n();
   }), u && !l && m.observe(u), m.observe(t));
-  let b, d = l ? Be(e) : null;
+  let b, d = l ? qe(e) : null;
   l && y();
   function y() {
-    const g = Be(e);
+    const g = qe(e);
     d && !es(d, g) && n(), d = g, b = requestAnimationFrame(y);
   }
   return n(), () => {
@@ -4832,7 +4832,7 @@ function $a(e, t, n, a) {
 const Ru = pu, Eu = gu, Uu = fu, Pu = mu, Du = (e, t, n) => {
   const a = /* @__PURE__ */ new Map(), i = { platform: Ou, ...n }, s = { ...i.platform, _c: a };
   return hu(e, t, { ...i, platform: s });
-}, Bu = (e) => {
+}, qu = (e) => {
   const t = ee(() => {
   }), n = ee(null), a = M((o) => {
     n.current = o, t.current(), i.current !== null && o !== null && (t.current = $a(o, i.current, r));
@@ -4846,7 +4846,7 @@ const Ru = pu, Eu = gu, Uu = fu, Pu = mu, Du = (e, t, n) => {
     });
   }, []);
   return Jt(() => () => t.current(), []), { reference: a, floating: s };
-}, Lu = (e, t, n, a) => {
+}, Bu = (e, t, n, a) => {
   const i = je(e), s = ee(null), r = ee(null), o = M((u) => {
     r.current = u;
   }, [i]);
@@ -4871,9 +4871,9 @@ const Ru = pu, Eu = gu, Uu = fu, Pu = mu, Du = (e, t, n) => {
     };
     u && u.addEventListener("pointerdown", m, { signal: c.signal });
   }, [t, n, i, a]), panelRef: o, panelSize: i };
-}, qu = "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20xml:space='preserve'%20width='128'%20height='128'%3e%3cpath%20fill='%23fcc21b'%20d='M125.74%2074.99c7.79-29.66-8.507-56.66-38.005-62.083C24.313%201.249-3.8%2053.67.83%2094.54c0%2013.63%2028.17%2024.69%2062.93%2024.69%2032.58%200%2059.37-9.73%2062.59-22.17q.33-1.245.33-2.52c.01-6.48-4.12-7.46-.94-19.55'/%3e%3cpath%20fill='%232f2f2f'%20d='M28.073%2042.118c2.28-4.54%207.2-6.69%2010.99-4.84%203.78%201.86%205.01%207.03%202.74%2011.56s-7.18%206.69-10.97%204.83c-3.78-1.86-5.02-7.04-2.76-11.55M93.541%2053.449c-1.09%205.07-5.41%208.47-9.65%207.59-4.27-.89-6.84-5.72-5.77-10.79%201.09-5.08%205.41-8.48%209.67-7.59%204.25.87%206.83%205.69%205.75%2010.79'/%3e%3cpath%20fill='%23fcc21b'%20d='M10.415%2046.678c1.349-9.29%201.124-28.397%202.622-35.664C14.536%203.746%2017.721.823%2025.1%206.594c6.955%205.439%2012.337%2010.322%2014.386%2011.528M102.41%2018.649c5.563-3.656%2014.517-8%2018.119-8.636%203.548-.626%207.682-.212%207.1%205.404-.678%206.53-3.391%2020.132-3.286%2027.338'/%3e%3cpath%20fill='none'%20stroke='%232f2f2f'%20stroke-linecap='round'%20stroke-linejoin='round'%20stroke-width='6'%20d='M38.677%2063.99c1.309%204.264%204.257%2011.373%206.04%2013.249%202.967-2.225%209.093-8.665%209.94-9.725%202.506%202.594%205.863%208.868%208.59%2012.043%203.39-2.119%209.473-7.929%2011.28-9.673'/%3e%3cpath%20fill='%232f2f2f'%20d='M28.621%2061.813c.317%203.329-20.531%202.594-20.455%201.124.08-1.53%2020.224-3.549%2020.455-1.124M25.699%2070.3c2.007%202.675-19.201%2012.794-20.05%2010.383-.706-2.005%2019.418-11.226%2020.05-10.383M89.517%2069.914c.45-3.314%2020.957%202.485%2020.548%203.9-.426%201.472-20.875-1.486-20.548-3.9M88.278%2079.466c.905-.914%2019.818%2010.186%2018.207%2011.94-2.587%202.817-19.439-10.697-18.207-11.94'/%3e%3c/svg%3e", $u = ({ fonts: e }) => {
+}, Lu = "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20xml:space='preserve'%20width='128'%20height='128'%3e%3cpath%20fill='%23fcc21b'%20d='M125.74%2074.99c7.79-29.66-8.507-56.66-38.005-62.083C24.313%201.249-3.8%2053.67.83%2094.54c0%2013.63%2028.17%2024.69%2062.93%2024.69%2032.58%200%2059.37-9.73%2062.59-22.17q.33-1.245.33-2.52c.01-6.48-4.12-7.46-.94-19.55'/%3e%3cpath%20fill='%232f2f2f'%20d='M28.073%2042.118c2.28-4.54%207.2-6.69%2010.99-4.84%203.78%201.86%205.01%207.03%202.74%2011.56s-7.18%206.69-10.97%204.83c-3.78-1.86-5.02-7.04-2.76-11.55M93.541%2053.449c-1.09%205.07-5.41%208.47-9.65%207.59-4.27-.89-6.84-5.72-5.77-10.79%201.09-5.08%205.41-8.48%209.67-7.59%204.25.87%206.83%205.69%205.75%2010.79'/%3e%3cpath%20fill='%23fcc21b'%20d='M10.415%2046.678c1.349-9.29%201.124-28.397%202.622-35.664C14.536%203.746%2017.721.823%2025.1%206.594c6.955%205.439%2012.337%2010.322%2014.386%2011.528M102.41%2018.649c5.563-3.656%2014.517-8%2018.119-8.636%203.548-.626%207.682-.212%207.1%205.404-.678%206.53-3.391%2020.132-3.286%2027.338'/%3e%3cpath%20fill='none'%20stroke='%232f2f2f'%20stroke-linecap='round'%20stroke-linejoin='round'%20stroke-width='6'%20d='M38.677%2063.99c1.309%204.264%204.257%2011.373%206.04%2013.249%202.967-2.225%209.093-8.665%209.94-9.725%202.506%202.594%205.863%208.868%208.59%2012.043%203.39-2.119%209.473-7.929%2011.28-9.673'/%3e%3cpath%20fill='%232f2f2f'%20d='M28.621%2061.813c.317%203.329-20.531%202.594-20.455%201.124.08-1.53%2020.224-3.549%2020.455-1.124M25.699%2070.3c2.007%202.675-19.201%2012.794-20.05%2010.383-.706-2.005%2019.418-11.226%2020.05-10.383M89.517%2069.914c.45-3.314%2020.957%202.485%2020.548%203.9-.426%201.472-20.875-1.486-20.548-3.9M88.278%2079.466c.905-.914%2019.818%2010.186%2018.207%2011.94-2.587%202.817-19.439-10.697-18.207-11.94'/%3e%3c/svg%3e", $u = ({ fonts: e }) => {
   const { cssPathPrefix: t, exportSettings: n } = Re(), a = Hn(t, 500, true), i = _e(() => {
-    const r = Bn(e, a.value, n.includeTTFinCSS.value);
+    const r = qn(e, a.value, n.includeTTFinCSS.value);
     return r.spans.length > 0 && r.spans[r.spans.length - 1].type === xi.Whitespace && r.spans.pop(), r;
   }, [e, a.value, n.includeTTFinCSS.value]), s = (r) => {
     r && r.replaceChildren(i.getNodes());
@@ -4882,17 +4882,17 @@ const Ru = pu, Eu = gu, Uu = fu, Pu = mu, Du = (e, t, n) => {
 }, zu = ({ fonts: e, exportedFormats: t }) => {
   const { cssPathPrefix: n, exportSettings: a } = Re(), i = je(false), s = M(async () => {
     i.value = true;
-    const r = await nu(e, Bn(e, n.value, a.includeTTFinCSS.value).getString());
+    const r = await nu(e, qn(e, n.value, a.includeTTFinCSS.value).getString());
     it("fonts.zip", r), i.value = false;
   }, [e, n, a.includeTTFinCSS]);
   return f("div", { className: j.exportedFonts, children: [f("div", { className: j.exportedFontFiles, children: f("table", { className: Y(j.fontFileTable, "fancy-table"), children: [f("thead", { children: f("tr", { children: [f("th", { scope: "col", children: "Filename" }), t.ttf && f("th", { scope: "col", children: "TTF" }), t.woff && f("th", { scope: "col", children: "WOFF" }), t.woff2 && f("th", { scope: "col", children: "WOFF2" })] }) }), f("tbody", { children: e.map(({ filename: r, data: o }) => f("tr", { children: [f("td", { className: j.fontName, children: r }), t.ttf && f("td", { className: j.fontFileSize, children: o.ttf ? f(re, { children: [f("span", { children: [Ft(o.ttf.length), " "] }), f(ve, { type: "download", title: "Download", onClick: () => it(r + ".ttf", new Blob([o.ttf], { type: "font/ttf" })) })] }) : null }), t.woff && f("td", { className: j.fontFileSize, children: o.woff ? f(re, { children: [f("span", { children: [Ft(o.woff.length), " "] }), f(ve, { type: "download", title: "Download", onClick: () => it(r + ".woff", new Blob([o.woff], { type: "font/woff" })) })] }) : null }), t.woff2 && f("td", { className: j.fontFileSize, children: o.woff2 ? f(re, { children: [f("span", { children: [Ft(o.woff2.length), " "] }), f(ve, { type: "download", title: "Download", onClick: () => it(r + ".woff2", new Blob([o.woff2], { type: "font/woff2" })) })] }) : null })] })) })] }) }), f(at, { onClick: s, disabled: i.value, children: [i.value ? f(Pt, { size: 24 }) : f(fe, { type: "download", title: "" }), f("span", { children: "Download .zip" })] })] });
 }, Hu = ({ fonts: e }) => {
   const { cssPathPrefix: t, exportSettings: n } = Re(), a = M(() => {
-    Mi(Bn(e, t.value, n.includeTTFinCSS.value).getString());
+    Mi(qn(e, t.value, n.includeTTFinCSS.value).getString());
   }, [e, t, n.includeTTFinCSS]);
   return f("div", { className: j.exportedCss, children: [f("div", { className: j.cssPathPrefixBar, children: [f("label", { children: "CSS path prefix:" }), f(zn, { className: j.cssPathPrefix, value: t }), f(ve, { type: "copy", title: "Copy CSS to clipboard", onClick: a })] }), f($u, { fonts: e })] });
 }, Vu = ({ relativeTo: e, active: t }) => {
-  const { reference: n, floating: a } = Bu(() => ({ placement: "bottom", middleware: [Ru(4), Eu({ padding: 8 }), Pu({ apply({ availableWidth: o, availableHeight: l, elements: u }) {
+  const { reference: n, floating: a } = qu(() => ({ placement: "bottom", middleware: [Ru(4), Eu({ padding: 8 }), Pu({ apply({ availableWidth: o, availableHeight: l, elements: u }) {
     const { floating: c } = u;
     c.style.maxWidth = `${o}px`, c.style.maxHeight = `${l}px`;
   }, padding: 8 }), Uu()] }));
@@ -4934,7 +4934,7 @@ const Ru = pu, Eu = gu, Uu = fu, Pu = mu, Du = (e, t, n) => {
       g.removeEventListener("change", v);
     };
   }, [h]);
-  const { resizerRef: m, panelRef: b, panelSize: d } = Lu(500, h ? 200 : 400, 1e4, h ? "vertical" : "horizontal");
+  const { resizerRef: m, panelRef: b, panelSize: d } = Bu(500, h ? 200 : 400, 1e4, h ? "vertical" : "horizontal");
   if (t.value.length === 0) return null;
   let y = null;
   if (e.exportedFonts.value.state === "loaded") {
@@ -4944,7 +4944,7 @@ const Ru = pu, Eu = gu, Uu = fu, Pu = mu, Du = (e, t, n) => {
     const { progress: g } = e.exportedFonts.value;
     y = f("div", { className: j.loaderWrapper, children: f(Pt, { size: 128, className: j.exportLoader, progress: g }) });
   }
-  return f("div", { className: Y(j.exportPanel, h ? j.vertical : j.horizontal), ref: b, style: { [h ? "height" : "width"]: `${d.value}px` }, children: [f("div", { className: j.splitter, ref: m }), f("div", { className: j.exportButtons, children: [f("div", { className: j.row, children: [f(at, { onClick: s, disabled: e.exportedFonts.value.state === "loading", className: j.growButton, children: "Export" }), f("div", { className: j.exportFormats, children: [f(Ce, { label: "TTF", checked: a.formats.ttf }), f(Ce, { label: "WOFF", checked: a.formats.woff }), f(Ce, { label: "WOFF2", checked: a.formats.woff2 }), f(Ro, { type: "gear", title: "More settings", toggled: u, innerRef: c })] })] }), f(Vu, { relativeTo: c, active: u }), f("div", { className: j.saveLoadSettings, children: [f(at, { onClick: o, children: [f(fe, { type: "download", title: "" }), "Save settings"] }), f(at, { onClick: l, children: [f(fe, { type: "upload", title: "" }), "Load settings"] })] }), f("div", { className: j.uploadMore, children: f(at, { onClick: r, className: j.growButton, children: [n.value > 0 ? f(Pt, { size: 24 }) : f(fe, { type: "upload", title: "" }), "Upload more fonts"] }) })] }), y, f("div", { className: j.spacer }), f("div", { className: j.footer, children: [f("span", { children: ["Made with ", f("img", { src: qu, alt: "blobCat", width: "128", height: "128", style: "width: 1em; height: 1em; vertical-align: middle" }), " by ", f("a", { href: "https://github.com/valadaptive", children: "valadaptive" })] }), f("div", { className: j.spacer }), f("a", { href: "https://github.com/valadaptive/glypht", className: j.githubLink, children: f(fe, { type: "github", title: "View this project on GitHub", clickableStyle: true, size: "1rem" }) })] })] });
+  return f("div", { className: Y(j.exportPanel, h ? j.vertical : j.horizontal), ref: b, style: { [h ? "height" : "width"]: `${d.value}px` }, children: [f("div", { className: j.splitter, ref: m }), f("div", { className: j.exportButtons, children: [f("div", { className: j.row, children: [f(at, { onClick: s, disabled: e.exportedFonts.value.state === "loading", className: j.growButton, children: "Export" }), f("div", { className: j.exportFormats, children: [f(Ce, { label: "TTF", checked: a.formats.ttf }), f(Ce, { label: "WOFF", checked: a.formats.woff }), f(Ce, { label: "WOFF2", checked: a.formats.woff2 }), f(Ro, { type: "gear", title: "More settings", toggled: u, innerRef: c })] })] }), f(Vu, { relativeTo: c, active: u }), f("div", { className: j.saveLoadSettings, children: [f(at, { onClick: o, children: [f(fe, { type: "download", title: "" }), "Save settings"] }), f(at, { onClick: l, children: [f(fe, { type: "upload", title: "" }), "Load settings"] })] }), f("div", { className: j.uploadMore, children: f(at, { onClick: r, className: j.growButton, children: [n.value > 0 ? f(Pt, { size: 24 }) : f(fe, { type: "upload", title: "" }), "Upload more fonts"] }) })] }), y, f("div", { className: j.spacer }), f("div", { className: j.footer, children: [f("span", { children: ["Made with ", f("img", { src: Lu, alt: "blobCat", width: "128", height: "128", style: "width: 1em; height: 1em; vertical-align: middle" }), " by ", f("a", { href: "https://github.com/valadaptive", children: "valadaptive" })] }), f("div", { className: j.spacer }), f("a", { href: "https://github.com/valadaptive/glypht", className: j.githubLink, children: f(fe, { type: "github", title: "View this project on GitHub", clickableStyle: true, size: "1rem" }) })] })] });
 }, Ju = () => f("div", { className: hn.app, children: f("div", { className: hn.displayPane, children: [f("div", { className: hn.mainPane, children: f(ul, {}) }), f(Wu, {})] }) }), Ku = Vr();
 function Xu() {
   return f(Ni.Provider, { value: Ku, children: f(Yo, { children: f(tl, { children: f(Ju, {}) }) }) });
