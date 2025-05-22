@@ -1,7 +1,6 @@
 import woff1Url from '../../c-libs-wrapper/woff1.wasm?url';
 import woff2Url from '../../c-libs-wrapper/woff2.wasm?url';
 import {MessageToWorker, postCompressFont, postDecompressFont} from './messages';
-import CompressionWorker from './compression-worker?worker';
 
 const init = (async() => {
     const [woff1BlobUrl, woff2BlobUrl] = await Promise.all([woff1Url, woff2Url]
@@ -11,7 +10,7 @@ const init = (async() => {
 
     const workers = [];
     for (let i = 0; i < navigator.hardwareConcurrency; i++) {
-        const worker = new CompressionWorker();
+        const worker = new Worker(new URL('./compression-worker.js', import.meta.url), {type: 'module'});
         worker.postMessage({
             type: 'init-woff-wasm',
             message: {woff1: woff1BlobUrl, woff2: woff2BlobUrl},

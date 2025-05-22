@@ -13,8 +13,7 @@ import Loader from '../Loader/Loader';
 import saveToFile from '../../util/save-to-file';
 import Icon, {IconButton} from '../Icon/Icon';
 import showOpenFilePicker, {showFontPicker} from '../../util/file-picker';
-import {useAddToast} from '../Toast/Toast';
-import {Motif} from '../../util/motif';
+import {useAddErrorToast} from '../Toast/Toast';
 import {RefObject} from 'preact';
 import useFloating from '../../util/floating';
 import {flip, offset, shift, size} from '@floating-ui/dom';
@@ -215,7 +214,7 @@ const MoreSettings = ({relativeTo, active}: {relativeTo: RefObject<HTMLElement>;
 const ExportPanel = () => {
     const appState = useAppState();
     const {fonts, fontsBeingLoaded, exportSettings} = appState;
-    const addToast = useAddToast();
+    const addErrorToast = useAddErrorToast();
 
     const exportFonts = useCallback(() => {
         appState.exportFonts();
@@ -228,13 +227,9 @@ const ExportPanel = () => {
             }
         })
             .catch(err => {
-                addToast({
-                    title: 'Failed to upload fonts',
-                    contents: String(err),
-                    motif: Motif.ERROR,
-                });
+                addErrorToast('Failed to upload fonts', err);
             });
-    }, [appState, addToast]);
+    }, [appState, addErrorToast]);
 
     const saveSettingsToFile = useCallback(() => {
         const savedSettings = appState.saveAllSettings();
@@ -255,13 +250,9 @@ const ExportPanel = () => {
             }
         })
             .catch(err => {
-                addToast({
-                    title: 'Failed to load settings',
-                    contents: String(err),
-                    motif: Motif.ERROR,
-                });
+                addErrorToast('Failed to load settings', err);
             });
-    }, [appState, addToast]);
+    }, [appState, addErrorToast]);
 
     const settingsOpen = useSignal(false);
 

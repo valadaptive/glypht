@@ -29,7 +29,7 @@ import {useThrottledSignal} from '../../util/throttle';
 import {parseRanges, parseUnicodeRanges} from '../../util/parse-ranges';
 import Icon, {IconButton} from '../Icon/Icon';
 import {copyText, pasteText} from '../../util/clipboard';
-import {useAddToast} from '../Toast/Toast';
+import {useAddErrorToast} from '../Toast/Toast';
 import {Motif} from '../../util/motif';
 import Loader from '../Loader/Loader';
 import {showFontPicker} from '../../util/file-picker';
@@ -113,14 +113,10 @@ const SingleFontSettings = ({font, styleSettings, enableSubsetting}: {
     enableSubsetting: boolean;
 }) => {
     const appState = useAppState();
-    const addToast = useAddToast();
+    const addErrorToast = useAddErrorToast();
     const removeFont = useCallback(() => {
         appState.removeFont(font).catch(err => {
-            addToast({
-                title: 'Failed to remove font',
-                contents: String(err),
-                motif: Motif.ERROR,
-            });
+            addErrorToast('Failed to remove font', err);
         });
     }, [font]);
 
@@ -353,15 +349,11 @@ const FontFamilySettings = ({familySettings}: {familySettings: FamilySettings}) 
     const appState = useAppState();
     const {name, fonts, settings} = familySettings;
 
-    const addToast = useAddToast();
+    const addErrorToast = useAddErrorToast();
 
     const removeFamily = useCallback(() => {
         appState.removeFontFamily(familySettings).catch(err => {
-            addToast({
-                title: 'Failed to remove font family',
-                contents: String(err),
-                motif: Motif.ERROR,
-            });
+            addErrorToast('Failed to remove font family', err);
         });
     }, [familySettings]);
 
@@ -541,7 +533,7 @@ const hasFiles = (event: DragEvent): event is DragEvent & {dataTransfer: DataTra
 const FontInfo = () => {
     const appState = useAppState();
     const {fonts, fontsBeingLoaded} = appState;
-    const addToast = useAddToast();
+    const addErrorToast = useAddErrorToast();
 
     const onDragEnter = useCallback((event: DragEvent) => {
         if (!hasFiles(event)) return;
@@ -560,11 +552,7 @@ const FontInfo = () => {
         const files = Array.from(event.dataTransfer.files);
         if (files.length > 0) {
             appState.addFonts(files.map(file => file as Blob)).catch(err => {
-                addToast({
-                    title: 'Failed to add fonts',
-                    contents: String(err),
-                    motif: Motif.ERROR,
-                });
+                addErrorToast('Failed to add fonts', err);
             });
         }
     }, []);
@@ -580,11 +568,7 @@ const FontInfo = () => {
             }
         })
             .catch(err => {
-                addToast({
-                    title: 'Failed to upload fonts',
-                    contents: String(err),
-                    motif: Motif.ERROR,
-                });
+                addErrorToast('Failed to upload fonts', err);
             });
     }, [appState]);
 

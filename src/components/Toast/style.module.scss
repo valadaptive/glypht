@@ -52,17 +52,20 @@
     &.success {
         background-color: theme.$green;
         border: none;
+        --icon-button-color: currentColor;
     }
 
     &.warning {
         background-color: theme.$yellow;
         border: none;
         color: theme.$base-color-tertiary;
+        --icon-button-color: currentColor;
     }
 
     &.error {
         background-color: theme.$red;
         border: none;
+        --icon-button-color: currentColor;
     }
 }
 
@@ -115,4 +118,14 @@
 .toast-placeholder {
     visibility: hidden;
     transition: min-height 0.175s ease-out;
+}
+
+.error-message {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.error-stack {
+    white-space: pre-wrap;
+    font-family: monospace;
 }
