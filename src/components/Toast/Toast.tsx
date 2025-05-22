@@ -86,7 +86,6 @@ const Toast = ({children, toastRef, closeToast, showCloseButton, timeout, motif 
                         title='Close'
                         onClick={closeToast}
                         className={style.toastIcon}
-                        motif={motif === Motif.PRIMARY ? undefined : Motif.MONOCHROME}
                     />}
                 </div>
                 {typeof title === 'undefined' || title === 'null' ?
@@ -127,11 +126,26 @@ export type AddToastOptions = Partial<{
 
 export const useAddToast = () => {
     const context = useContext(ToastContext);
-    if (!context) throw new Error('useToast requires a ToastProvider');
+    if (!context) throw new Error('useAddToast requires a ToastProvider');
 
     return useCallback((options: AddToastOptions) => {
         context.addToast(options);
     }, [context]);
+};
+
+export const useAddErrorToast = () => {
+    const addToast = useAddToast();
+
+    return useCallback((title: string, error: unknown) => {
+        addToast({
+            motif: Motif.ERROR,
+            title,
+            contents: <>
+                {String(error)}
+                {typeof error === 'object' && error !== null && 'stack' in error ? (error as Error).stack : null}
+            </>,
+        });
+    }, []);
 };
 
 const ToastPlaceholder = ({height: initialHeight, onTransitionEnd}: {height: number; onTransitionEnd: () => void}) => {

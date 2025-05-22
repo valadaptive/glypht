@@ -95,3 +95,6 @@ const subsetFont = (fontId: number, settings: SubsetSettings): {
     const subsettedFont = font.subset(settings);
     return {subsettedFont, transfer: [subsettedFont.data.buffer]};
 };
+
+// Start preloading the HarfBuzz WASM module as soon as we load
+void init();

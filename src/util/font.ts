@@ -12,13 +12,16 @@ import {SubsetSettings} from './font-settings';
 import bytesToHex from './bytes-to-hex';
 
 let hb!: MainModule;
-let hbPromise: Promise<MainModule> | null = null;
+let initPromise: Promise<void> | null = null;
 
 export const init = async() => {
-    if (!hbPromise) {
-        hbPromise = createHarfbuzz();
-        hb = await hbPromise;
+    if (initPromise) {
+        await initPromise;
+        return;
+    }
 
+    initPromise = (async() => {
+        hb = await createHarfbuzz();
         for (const [name, ranges] of Object.entries(SUBSET_RANGES)) {
             const set = new hb.HbSet();
             for (const range of ranges) {
@@ -43,7 +46,7 @@ export const init = async() => {
             defaultLayoutFeatureTags.add(tagName(featureTag));
         }
         hb._hb_subset_input_destroy(subsetInput);
-    }
+    })();
 };
 
 const decoder = new TextDecoder();

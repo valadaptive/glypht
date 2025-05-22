@@ -57,11 +57,15 @@
     }
 }
 
+:root {
+    --icon-button-color: #{theme.$interactive-normal};
+}
+
 .icon-button {
     width: 24px;
     height: 24px;
     cursor: pointer;
-    color: theme.$interactive-normal;
+    color: var(--icon-button-color);
     @include theme.fade(color, opacity);
 
     @include button-color(theme.$interactive-hover, theme.$interactive-active, theme.$interactive-muted);

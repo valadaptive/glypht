@@ -52,17 +52,20 @@
     &.success {
         background-color: theme.$green;
         border: none;
+        --icon-button-color: currentColor;
     }
 
     &.warning {
         background-color: theme.$yellow;
         border: none;
         color: theme.$base-color-tertiary;
+        --icon-button-color: currentColor;
     }
 
     &.error {
         background-color: theme.$red;
         border: none;
+        --icon-button-color: currentColor;
     }
 }
 

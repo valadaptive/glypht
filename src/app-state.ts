@@ -50,10 +50,9 @@ type AllSavedSettings = {
     type: 'AllSettingsV1';
 };
 
-import FontWorker from './util/font-worker?worker';
 import {compressFromTTF, decompressToTTF} from './util/woff';
 import {SubsettedFont} from './util/font';
-const fontWorker = new FontWorker();
+const fontWorker = new Worker(new URL('./util/font-worker.js', import.meta.url), {type: 'module'});
 
 export class AppState {
     public fonts: Signal<FamilySettings[]> = signal([]);
