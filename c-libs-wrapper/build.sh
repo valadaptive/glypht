@@ -6,7 +6,7 @@ set -e
 mkdir -p brotli-build
 cd brotli-build
 emcmake cmake -DCMAKE_POLICY_DEFAULT_CMP0069=NEW -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=TRUE -DBUILD_SHARED_LIBS=OFF -DBROTLI_BUNDLED_MODE=OFF -DCMAKE_BUILD_TYPE=Release ../woff2/brotli
-emmake make -j16 brotlicommon-static brotlienc-static brotlidec-static
+emmake make -j16 brotlicommon brotlienc brotlidec
 
 cd ..
 
@@ -51,9 +51,9 @@ em++ \
     woff2-build/libwoff2common.a \
     woff2-build/libwoff2dec.a \
     woff2-build/libwoff2enc.a \
-    brotli-build/libbrotlicommon-static.a \
-    brotli-build/libbrotlidec-static.a \
-    brotli-build/libbrotlienc-static.a
+    brotli-build/libbrotlicommon.a \
+    brotli-build/libbrotlidec.a \
+    brotli-build/libbrotlienc.a
 
 # zlib(-ng) + zopfli + woff1
 
