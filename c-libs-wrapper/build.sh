@@ -38,10 +38,11 @@ em++ \
     -s INITIAL_MEMORY=65MB \
     -s ALLOW_TABLE_GROWTH \
     -s ALLOW_MEMORY_GROWTH \
-    -s MAIN_MODULE=2 \
+    -s MAIN_MODULE=0 \
     -s TEXTDECODER=2 \
     -s DYNAMIC_EXECUTION=0 \
     -s ASSERTIONS=0 \
+    -s ENVIRONMENT=web,webview,worker \
     -o woff2.js \
     --emit-tsd woff2.d.ts \
     -Oz \
@@ -76,10 +77,11 @@ emcc \
     -s INITIAL_MEMORY=65MB \
     -s ALLOW_TABLE_GROWTH \
     -s ALLOW_MEMORY_GROWTH \
-    -s MAIN_MODULE=2 \
+    -s MAIN_MODULE=0 \
     -s TEXTDECODER=2 \
     -s DYNAMIC_EXECUTION=0 \
     -s ASSERTIONS=0 \
+    -s ENVIRONMENT=web,webview,worker \
     -o woff1.js \
     --emit-tsd woff1.d.ts \
     -Oz \
@@ -130,10 +132,11 @@ em++ \
     -s INITIAL_MEMORY=65MB \
     -s ALLOW_TABLE_GROWTH \
     -s ALLOW_MEMORY_GROWTH \
-    -s MAIN_MODULE=2 \
+    -s MAIN_MODULE=0 \
     -s TEXTDECODER=2 \
     -s DYNAMIC_EXECUTION=0 \
     -s ASSERTIONS=0 \
+    -s ENVIRONMENT=web,webview,worker \
     -o hb.js \
     --emit-tsd hb.d.ts \
     -Oz \
