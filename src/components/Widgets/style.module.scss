@@ -143,30 +143,21 @@ input[type=number].spinbox-field {
 
 .button {
     flex: 0 0 auto;
-    border: none;
-    border-radius: theme.$radius;
-    color: white;
+    border-top: 1px solid theme.$base-color-highlight;
+    border-bottom: 2px solid theme.$base-color-tertiary;
+    outline: 1px solid theme.$base-color-outline;
+    color: theme.$text;
+    background: url('../../assets/grain.png'), var(--shading);
+    background-blend-mode: soft-light, normal;
+    text-shadow: 0 1px theme.$base-color-primary;
     cursor: pointer;
     font-size: 90%;
     font-weight: 600;
     padding: 0.5rem 0.75rem;
+    margin: 1px;
     height: 2.5rem;
-
-    @include buttons.button-color(theme.$primary, theme.$primary-hover, theme.$primary-active, theme.$primary-muted, white);
 
     &:disabled {
         cursor: not-allowed;
-    }
-
-    &.green {
-        @include buttons.button-color(theme.$green, theme.$green-hover, theme.$green-active, theme.$green-muted, white);
-    }
-
-    &.yellow {
-        @include buttons.button-color(theme.$yellow, theme.$yellow-hover, theme.$yellow-active, theme.$yellow-muted, white);
-    }
-
-    &.red {
-        @include buttons.button-color(theme.$red, theme.$red-hover, theme.$red-active, theme.$red-muted, white);
     }
 }
