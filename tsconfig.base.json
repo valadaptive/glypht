@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+		"target": "ES2021",
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"noEmit": true,
+		"allowJs": true,
+		"checkJs": true,
+		"strict": true,
+		"types": [],
+	}
+}

@@ -1,5 +1,5 @@
-import createWoff1, {MainModule as Woff1MainModule} from '../../c-libs-wrapper/woff1-wrapper';
-import createWoff2, {MainModule as Woff2MainModule} from '../../c-libs-wrapper/woff2-wrapper';
+import createWoff1, {MainModule as Woff1MainModule} from '../../../c-libs-wrapper/woff1-wrapper';
+import createWoff2, {MainModule as Woff2MainModule} from '../../../c-libs-wrapper/woff2-wrapper';
 import {MessageFromWorker, MessageToWorker, postMessageFromWorker} from './messages';
 
 let woff1Promise: Promise<Woff1MainModule> | null = null;

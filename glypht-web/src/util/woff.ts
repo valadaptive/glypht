@@ -1,5 +1,5 @@
-import woff1Url from '../../c-libs-wrapper/woff1.wasm?url';
-import woff2Url from '../../c-libs-wrapper/woff2.wasm?url';
+import woff1Url from '../../../c-libs-wrapper/woff1.wasm?url';
+import woff2Url from '../../../c-libs-wrapper/woff2.wasm?url';
 import {MessageToWorker, postCompressFont, postDecompressFont} from './messages';
 
 const init = (async() => {

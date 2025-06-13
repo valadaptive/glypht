@@ -36,5 +36,5 @@ jobs:
           NODE_ENV: production
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: ./glypht-web/dist
           cname: glypht.valadaptive.dev

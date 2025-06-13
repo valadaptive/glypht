@@ -6,7 +6,7 @@ import createHarfbuzz, {
     OtNameId,
     tagName,
     hbTag,
-} from '../../c-libs-wrapper/hb-wrapper';
+} from '../../../c-libs-wrapper/hb-wrapper';
 import {SUBSET_NAMES, SUBSET_RANGES, SubsetName} from '../generated/subset-ranges';
 import {SubsetSettings} from './font-settings';
 import bytesToHex from './bytes-to-hex';

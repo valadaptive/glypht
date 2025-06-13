@@ -9,9 +9,9 @@ export default tseslint.config(
         ignores: [
             '**/public/**/*.{cjs,mjs,js,ts,jsx,tsx}',
             '**/c-libs-wrapper/**/*',
-            'src/generated/**/*',
+            'glypht-web/src/generated/**/*',
             'woff2/**/*',
-            'dist/**/*',
+            'glypht-web/dist/**/*',
         ],
     },
     eslint.configs.recommended,
@@ -22,10 +22,8 @@ export default tseslint.config(
         },
         languageOptions: {
             parserOptions: {
-                project: 'tsconfig.json',
-            },
-            globals: {
-                ...globals.browser,
+                projectService: true,
+                tsconfigRootDir: import.meta.dirname,
             },
         },
         rules: {
@@ -132,6 +130,14 @@ export default tseslint.config(
             },
             globals: {
                 ...globals.node,
+            },
+        },
+    },
+    {
+        files: ['glypht-web/**/*'],
+        languageOptions: {
+            globals: {
+                ...globals.browser,
             },
         },
     },
