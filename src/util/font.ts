@@ -127,6 +127,8 @@ export class Font {
     private hbFace: number;
     private hbFont: number;
 
+    public readonly faceCount: number;
+    public readonly faceIndex: number;
     public readonly uid: string;
     public readonly familyName: string;
     public readonly subfamilyName: string;
@@ -153,7 +155,7 @@ export class Font {
         try {
             for (const {blob, faceCount} of bufs) {
                 for (let i = 0; i < faceCount; i++) {
-                    fonts.push(new Font(blob, i));
+                    fonts.push(new Font(blob, i, faceCount));
                 }
             }
         } catch (err) {
@@ -172,7 +174,7 @@ export class Font {
         return fonts;
     }
 
-    constructor(data: HbBlob, index: number) {
+    constructor(data: HbBlob, index: number, faceCount: number) {
         const face = hb._hb_face_create_or_fail(data.ptr(), index);
         if (face === 0) {
             throw new Error('Failed to create hb_face_t');
@@ -181,6 +183,8 @@ export class Font {
         this.hbFace = face;
         this.hbFont = hb._hb_font_create(face);
         this.fileSize = data.length();
+        this.faceIndex = index;
+        this.faceCount = faceCount;
 
         let uid = this.getOpentypeName(OtNameId.UNIQUE_ID);
         if (!uid || uid === '') {
@@ -590,6 +594,49 @@ export class Font {
      * so the result can be transferred.
      */
     getData() {
+        // This face is part of a .ttc file. Just fetching the blob directly would return the entire collection.
+        if (this.faceCount > 1) {
+            const builderFace = hb._hb_face_builder_create();
+            const referencedTables: number[] = [];
+
+            try {
+                // Create a new face with just the tables from this specific face
+                hb.withStack(() => {
+                    const tableCountPtr = hb.stackAlloc(4);
+                    const tableCount = hb._hb_face_get_table_tags(this.hbFace, 0, 0, 0);
+
+                    if (tableCount === 0) throw new Error('Could not get font table count');
+                    const tableTags = hb.malloc(tableCount * 4);
+                    hb.writeUint32(tableCountPtr, tableCount);
+                    hb._hb_face_get_table_tags(this.hbFace, 0, tableCountPtr, tableTags);
+                    const fetchedTableCount = hb.readUint32(tableCountPtr);
+
+                    for (let i = 0; i < fetchedTableCount; i++) {
+                        const tag = hb.readUint32(tableTags + (i * 4));
+                        const tableBlob = hb._hb_face_reference_table(this.hbFace, tag);
+                        referencedTables.push(tableBlob);
+                        if (!hb._hb_face_builder_add_table(builderFace, tag, tableBlob)) {
+                            throw new Error(`Could not add table ${tagName(tag)}`);
+                        }
+                    }
+                });
+
+                const faceBlob = hb._hb_face_reference_blob(builderFace);
+                const blob = new hb.HbBlob(faceBlob);
+                try {
+                    const data = blob.copyAsArray();
+                    return data;
+                } finally {
+                    blob.destroy();
+                }
+            } finally {
+                for (const blob of referencedTables) {
+                    hb._hb_blob_destroy(blob);
+                }
+                hb._hb_face_destroy(builderFace);
+            }
+        }
+
         const faceBlob = hb._hb_face_reference_blob(this.hbFace);
         const blob = new hb.HbBlob(faceBlob);
         try {

@@ -217,7 +217,9 @@ const ExportPanel = () => {
     const addErrorToast = useAddErrorToast();
 
     const exportFonts = useCallback(() => {
-        appState.exportFonts();
+        appState.exportFonts().catch(err => {
+            addErrorToast('Failed to export fonts', err);
+        });
     }, [appState]);
 
     const uploadMore = useCallback(() => {

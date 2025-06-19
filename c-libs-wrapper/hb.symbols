@@ -26,6 +26,10 @@ _hb_face_collect_unicodes
 _hb_face_destroy
 _hb_face_get_upem
 _hb_face_reference_blob
+_hb_face_reference_table
+_hb_face_builder_create
+_hb_face_builder_add_table
+_hb_face_get_table_tags
 _hb_font_create
 _hb_font_destroy
 _hb_font_glyph_to_string

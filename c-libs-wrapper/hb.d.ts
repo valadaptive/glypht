@@ -47,11 +47,15 @@ interface WasmModule {
   _hb_draw_funcs_set_cubic_to_func(_0: number, _1: number, _2: number, _3: number): void;
   _hb_draw_funcs_set_close_path_func(_0: number, _1: number, _2: number, _3: number): void;
   _hb_draw_funcs_create(): number;
+  _hb_face_builder_create(): number;
+  _hb_face_builder_add_table(_0: number, _1: number, _2: number): number;
   _hb_face_count(_0: number): number;
   _hb_face_create(_0: number, _1: number): number;
   _hb_face_create_or_fail(_0: number, _1: number): number;
   _hb_face_destroy(_0: number): void;
+  _hb_face_reference_table(_0: number, _1: number): number;
   _hb_face_reference_blob(_0: number): number;
+  _hb_face_get_table_tags(_0: number, _1: number, _2: number, _3: number): number;
   _hb_face_get_upem(_0: number): number;
   _hb_face_collect_unicodes(_0: number, _1: number): void;
   _hb_font_draw_glyph(_0: number, _1: number, _2: number, _3: number): void;

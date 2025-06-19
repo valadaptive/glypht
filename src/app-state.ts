@@ -286,7 +286,7 @@ export class AppState {
             };
         });
 
-        Promise.all(fontPromises).then(exportedFonts => {
+        return Promise.all(fontPromises).then(exportedFonts => {
             const filenames = fontFilenames(exportedFonts.map(ef => ef.font));
             for (const exportedFont of exportedFonts) {
                 const filename = filenames.get(exportedFont.font)!;
@@ -298,6 +298,7 @@ export class AppState {
             // eslint-disable-next-line no-console
             console.error(error);
             this._exportedFonts.value = {state: 'error', error};
+            throw error;
         });
     }
 
