@@ -25,7 +25,7 @@ The actual font subsetting/instancing is done via [the HarfBuzz library](https:/
   - "Auto-adjusts" vertical metrics by default.
   - May also do other processing steps that are geared towards the legacy web and are of dubious merit today.
   - Runs server-side, and is extremely slow (10 seconds just to upload small font files, around a minute to process them).
-  - Doesn't support variable fonts; just returns a .zip containing no font files at all.
+  - Doesn't support variable fonts; just returns a .zip containing no font files at all (after the requisite 1-minute wait).
 
 - [Everything Fonts' subsetter](https://everythingfonts.com/subsetter):
   - Performs character subsetting only; doesn't do any conversion.
@@ -80,3 +80,8 @@ If Inter's weight range is limited to 400-700, with the other settings remaining
 - Preview the glyphs in a font
 - Preview font features (see https://fontdrop.info/)
 - Make use of the data in https://github.com/google/fonts/ for font preview text, axis descriptions, etc.
+- Support the new [incremental font transfer](https://w3c.github.io/IFT/Overview.html) standard
+  - Probably should wait for it to be actually standardized though
+- Switch between .ttf and .otf (and `format("truetype")` / `format("opentype)`) in the output depending on whether the input has CFF or glyf outlines
+  - This can be [tricky](https://rawgit.com/unicode-org/text-rendering-tests/master/reports/FreeStack.html#SFNT-1). Does HarfBuzz have an API for this?
+- Use the feature tag info registry more (show explanations of font features)
