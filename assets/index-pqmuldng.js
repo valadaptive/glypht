@@ -3207,7 +3207,7 @@ Extras > Slashed Zero".
 }, q = (e) => Math.round(e * 1e3) / 1e3, Ss = (e, t, n) => {
   const { weight: a, width: i, italic: r, slant: s } = e.styleValues;
   let l = e.familyName.replace(ms, "").replaceAll(" ", "").replaceAll(" ", "");
-  if (e.namedInstance && e.namedInstance.subfamilyName) l += `-${e.namedInstance.subfamilyName}`;
+  if (e.namedInstance && e.namedInstance.subfamilyName) l += `-${e.namedInstance.subfamilyName.replaceAll(" ", "-")}`;
   else {
     if (i.type === "single") {
       const c = Math.round(i.value * 2) / 2;
