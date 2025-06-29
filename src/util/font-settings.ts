@@ -1,6 +1,6 @@
 import {signal, Signal} from '@preact/signals';
 import {SubsetName} from '../generated/subset-ranges';
-import {AxisInfo, FeatureInfo, StyleKey, StyleValue, SubsettedFont} from './font';
+import {AxisInfo, FeatureInfo, StyleKey, StyleValue, SubsetAxisInfo, SubsettedFont} from './font';
 import {FontRef} from './messages';
 import {parseRanges, parseUnicodeRanges} from './parse-ranges';
 import CSSEmitter from './css-emitter';
@@ -176,7 +176,6 @@ const STYLE_SUBFAMILIES = [
     'Extra(?:\\s|-)?Expanded',
     'Ultra(?:\\s|-)?Expanded',
 ];
-const STYLE_SUBFAMILY_REGEX = new RegExp(STYLE_SUBFAMILIES.join('|'), 'g');
 const STYLE_SUBFAMILY_END_REGEX = new RegExp(`(?:${STYLE_SUBFAMILIES.join('|')}\\s*)+$`, 'g');
 const WEIGHT_NAMES = new Map([
     [100, 'Thin'],
@@ -201,13 +200,6 @@ const WIDTH_NAMES = new Map([
     [150, 'ExtraExpanded'],
     [200, 'UltraExpanded'],
 ]);
-
-const uniqueFontSubFamily = (subFamily: string) => {
-    return subFamily
-        .replace(STYLE_SUBFAMILY_REGEX, '')
-        .replace(/\s\s+/, ' ')
-        .trim();
-};
 
 const styleValuesEqual = (a: StyleValue, b: StyleValue) => {
     if (a.type === 'single' && b.type === 'single') {
@@ -356,12 +348,22 @@ export const settingsFromFonts = (fonts: FontRef[]): FamilySettings[] => {
         const instanceValueSettings = new Map<string, string>();
         for (const [tag, values] of axisInstanceValues.entries()) {
             const valuesArr = Array.from(values);
-            valuesArr.sort((a, b) => a - b);
+            if (tag === 'slnt') {
+                // The comparator is backwards here--because a *negative* slant means italic, we want that to appear
+                // later
+                valuesArr.sort((a, b) => b - a);
+            } else {
+                valuesArr.sort((a, b) => a - b);
+            }
             instanceValueSettings.set(tag, valuesArr.join(', '));
         }
 
         const axisSettings: {tag: string; name: string; range: AxisSetting}[] = [];
         for (const axis of axes.values()) {
+            let instanceDefault = instanceValueSettings.get(axis.tag);
+            if (!instanceDefault) {
+                instanceDefault = `${axis.min}, ${axis.max}`;
+            }
             axisSettings.push({
                 tag: axis.tag,
                 name: axis.name ?? axis.tag,
@@ -372,7 +374,7 @@ export const settingsFromFonts = (fonts: FontRef[]): FamilySettings[] => {
                     curMin: signal(axis.min),
                     curMax: signal(axis.max),
                     curSingle: signal(axis.defaultValue),
-                    curMultiValue: signal(instanceValueSettings.get(axis.tag) ?? ''),
+                    curMultiValue: signal(instanceDefault),
                     mode: signal('range'),
                 },
             });
@@ -432,7 +434,8 @@ export const settingsFromFonts = (fonts: FontRef[]): FamilySettings[] => {
             if (italA !== italB) return italA - italB;
 
             const [slantA, slantB] = getStyleSetting('slant');
-            if (slantA !== slantB) return slantA - slantB;
+            // The comparator is backwards here--because a *negative* slant means italic, we want that to appear later
+            if (slantA !== slantB) return slantB - slantA;
 
             return a.font.subfamilyName.localeCompare(b.font.subfamilyName);
         });
@@ -460,23 +463,20 @@ export const settingsFromFonts = (fonts: FontRef[]): FamilySettings[] => {
     return familySettings;
 };
 
-type SubsetAxis = {
-    type: 'single';
-    tag: string;
-    value: number;
-} | {
-    type: 'variable';
-    tag: string;
-    value: {min: number; defaultValue: number; max: number};
-};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type DistributiveOmit<T, K extends keyof any> = T extends any
+    ? Omit<T, K>
+    : never;
 
-type MultiSubsetAxis = SubsetAxis | {
+type SubsetAxisSetting = DistributiveOmit<SubsetAxisInfo, 'name'>;
+
+type MultiSubsetAxis = SubsetAxisSetting | {
     type: 'multiple';
     tag: string;
     value: {ranges: (readonly [number, number] | number)[]; defaultValue: number};
 };
 export type SubsetSettings = {
-    axisValues: SubsetAxis[];
+    axisValues: SubsetAxisSetting[];
     features: Partial<Record<string, boolean>>;
     unicodeRanges: 'all' | {
         named: SubsetName[];
@@ -489,14 +489,14 @@ const axisRangeProduct = (axisRanges: MultiSubsetAxis[]) => {
         throw new Error('axisRangeProduct should be given at least one variable axis');
     }
     const iterIndices = [];
-    const results: SubsetAxis[][] = [];
+    const results: SubsetAxisSetting[][] = [];
     for (let i = 0; i < axisRanges.length; i++) {
         iterIndices.push(0);
     }
 
     outer:
     for (;;) {
-        const current: SubsetAxis[] = [];
+        const current: SubsetAxisSetting[] = [];
         for (let i = 0; i < axisRanges.length; i++) {
             const axisRange = axisRanges[i];
             switch (axisRange.type) {
@@ -549,7 +549,7 @@ const axisRangeProduct = (axisRanges: MultiSubsetAxis[]) => {
 export const makeSubsetSettings = (settings: FamilySettings[]): Map<number, (SubsetSettings | null)[]> => {
     const settingsByFont = new Map<number, (SubsetSettings | null)[]>();
 
-    const axisSettingToValue = (axisSetting: {tag: string; range: AxisSetting}) => {
+    const axisSettingToValue = (axisSetting: {tag: string; range: AxisSetting}): MultiSubsetAxis => {
         switch (axisSetting.range.mode.value) {
             case 'single': return {
                 type: 'single' as const,
@@ -680,13 +680,19 @@ export const makeSubsetSettings = (settings: FamilySettings[]): Map<number, (Sub
     return settingsByFont;
 };
 
+/**
+ * Find axes and style values that vary among fonts within the same family. These style values will become part of the
+ * fonts' filenames, keeping them unique.
+ * @param fonts The fonts to search within.
+ * @returns A map of family names -> axes and style values that vary within that family.
+ */
 const findVaryingAxes = (fonts: SubsettedFont[]) => {
     const varyingAxesByFamily = new Map<string, {
         varyingAxes: Set<string>;
-        italicsVary: {italic: boolean; slant: boolean};
+        varyingStyleValues: {weight: boolean; width: boolean; italic: boolean; slant: boolean};
     }>();
     const axesByFamily = new Map<string, {
-        axes: Map<string, AxisInfo>;
+        axes: Map<string, SubsetAxisInfo>;
         styleValues: Partial<Record<StyleKey, StyleValue>>;
     }>();
 
@@ -701,7 +707,7 @@ const findVaryingAxes = (fonts: SubsettedFont[]) => {
         if (!varyingInfo) {
             varyingInfo = {
                 varyingAxes: new Set(),
-                italicsVary: {italic: false, slant: false},
+                varyingStyleValues: {weight: false, width: false, italic: false, slant: false},
             };
             varyingAxesByFamily.set(font.familyName, varyingInfo);
         }
@@ -709,22 +715,30 @@ const findVaryingAxes = (fonts: SubsettedFont[]) => {
         for (const axis of font.axes) {
             const existingAxis = axes.get(axis.tag);
             if (existingAxis) {
-                if (existingAxis.min !== axis.min || existingAxis.max !== axis.max) {
+                if (!styleValuesEqual(existingAxis, axis)) {
                     varyingAxes.add(axis.tag);
                 }
             } else {
                 axes.set(axis.tag, axis);
             }
         }
-        for (const styleName of ['italic', 'slant'] as const) {
+        for (const styleName of ['italic', 'slant', 'weight', 'width'] as const) {
             const styleValue = font.styleValues[styleName];
-            if (styleValue.type === 'single' && styleValue.value === 0) continue;
+            // If one value is 0 for italic or slant, we want to name the other one "Oblique" or "Italic" regardless of
+            // its exact value, so don't count it as varying.
+            if (
+                (styleName === 'italic' || styleName === 'slant') &&
+                styleValue.type === 'single' &&
+                styleValue.value === 0
+            ) {
+                continue;
+            }
             if (!styleValues[styleName]) {
                 styleValues[styleName] = styleValue;
                 continue;
             }
             if (!styleValuesEqual(styleValues[styleName], styleValue)) {
-                varyingInfo.italicsVary[styleName] = true;
+                varyingInfo.varyingStyleValues[styleName] = true;
                 styleValues[styleName] = styleValue;
             }
         }
@@ -739,7 +753,7 @@ export const fontFilenames = (fonts: SubsettedFont[]) => {
     const filenames = new Map<SubsettedFont, string>();
     for (const font of fonts) {
         const varyingInfo = varyingAxesByFamily.get(font.familyName)!;
-        filenames.set(font, fontFilename(font, varyingInfo.varyingAxes, varyingInfo.italicsVary));
+        filenames.set(font, fontFilename(font, varyingInfo.varyingAxes, varyingInfo.varyingStyleValues));
     }
 
     return filenames;
@@ -750,67 +764,72 @@ const roundDecimal = (v: number) => Math.round(v * 1000) / 1000;
 const fontFilename = (
     font: SubsettedFont,
     varyingAxes: Set<string>,
-    italicsVary: {italic: boolean; slant: boolean},
+    styleValuesVary: {weight: boolean; width: boolean; italic: boolean; slant: boolean},
 ) => {
     const {weight, width, italic, slant} = font.styleValues;
 
-    let slantStyleName;
-    if (slant.type === 'variable') {
-        slantStyleName = `slnt${roundDecimal(slant.value.min)}_${roundDecimal(slant.value.max)}`;
-    } else if (italic.type === 'variable') {
-        slantStyleName = `ital${roundDecimal(italic.value.min)}_${roundDecimal(italic.value.max)}`;
-    } else if (italicsVary.italic || italicsVary.slant) {
-        // We instanced a font with a variable `slnt` or `ital` axis into multiple fonts with static `slnt` or `ital`
-        // values.
-        slantStyleName = '';
-        if (italicsVary.italic) {
-            slantStyleName += `ital${roundDecimal(italic.value)}`;
-        }
-        if (italicsVary.slant) {
-            slantStyleName += `slnt${roundDecimal(slant.value)}`;
-        }
+    // Don't include the subfamily name; the axis values should serve the same purpose
+    const familyName = font.familyName.replace(STYLE_SUBFAMILY_END_REGEX, '').replaceAll(' ', '');
+    let filename = familyName.replaceAll(' ', '');
+
+    if (font.namedInstance && font.namedInstance.subfamilyName) {
+        filename += `-${font.namedInstance.subfamilyName}`;
     } else {
-        // If the font style's italic property is variable, it should have been resolved to a variable `slnt` or
-        // `ital` axis above.
-        if (italic.value !== 0) {
-            slantStyleName = `Italic`;
-        } else if (slant.value !== 0) {
-            slantStyleName = `Oblique`;
+        if (width.type === 'single') {
+            const roundedWidth = Math.round(width.value * 2) / 2;
+            if (roundedWidth !== 100) {
+                filename += `-${WIDTH_NAMES.get(roundedWidth) ?? roundedWidth}`;
+            }
+        } else if (styleValuesVary.width) {
+            filename += `-wdth${roundDecimal(width.value.min)}_${roundDecimal(width.value.max)}`;
+        }
+
+        if (weight.type === 'single') {
+            filename += `-${WEIGHT_NAMES.get(roundDecimal(weight.value)) ?? roundDecimal(weight.value)}`;
+        } else if (styleValuesVary.weight) {
+            filename += `-wght${roundDecimal(weight.value.min)}_${roundDecimal(weight.value.max)}`;
+        }
+
+        for (const axis of font.axes) {
+            if (!varyingAxes.has(axis.tag)) continue;
+            if (axis.type === 'single') {
+                filename += `-${axis.tag}${roundDecimal(axis.value)}`;
+            } else {
+                filename += `-${axis.tag}${roundDecimal(axis.value.min)}_${roundDecimal(axis.value.max)}`;
+            }
+        }
+
+        let slantStyleName = '';
+        if (slant.type === 'variable') {
+            if (styleValuesVary.slant) slantStyleName = `slnt${roundDecimal(slant.value.min)}_${roundDecimal(slant.value.max)}`;
+        } else if (italic.type === 'variable') {
+            if (styleValuesVary.italic) slantStyleName = `ital${roundDecimal(italic.value.min)}_${roundDecimal(italic.value.max)}`;
+        } else if (styleValuesVary.italic || styleValuesVary.slant) {
+            // We instanced a font with a variable `slnt` or `ital` axis into multiple fonts with static `slnt` or
+            // `ital` values.
+            if (styleValuesVary.italic) {
+                slantStyleName += `ital${roundDecimal(italic.value)}`;
+            }
+            if (styleValuesVary.slant) {
+                slantStyleName += `slnt${roundDecimal(slant.value)}`;
+            }
         } else {
-            slantStyleName = '';
+            // If the font style's italic property is variable, it should have been resolved to a variable `slnt` or
+            // `ital` axis above.
+            if (italic.value !== 0) {
+                slantStyleName = `Italic`;
+            } else if (slant.value !== 0) {
+                slantStyleName = `Oblique`;
+            }
+        }
+
+        if (slantStyleName.length > 0) {
+            filename += `-${slantStyleName}`;
         }
     }
 
-    const familyName = font.familyName.replace(STYLE_SUBFAMILY_END_REGEX, '').replaceAll(' ', '');
-    const subFamilyName = uniqueFontSubFamily(font.subfamilyName).replaceAll(' ', '-');
-    let filename = `${familyName.replaceAll(' ', '')}${subFamilyName ? `-${subFamilyName}` : ''}`;
 
     filename = filename.replace(/[\x00-\x1f\x80-\x9f/\\?<>:*|"]/g, '_');
-
-    if (width.type === 'single') {
-        const roundedWidth = Math.round(width.value * 2) / 2;
-        if (roundedWidth !== 100) {
-            filename += `-${WIDTH_NAMES.get(roundedWidth) ?? roundedWidth}`;
-        }
-    } else {
-        filename += `-wdth${roundDecimal(width.value.min)}_${roundDecimal(width.value.max)}`;
-    }
-
-    if (weight.type === 'single') {
-        filename += `-${WEIGHT_NAMES.get(roundDecimal(weight.value)) ?? roundDecimal(weight.value)}`;
-    } else {
-        filename += `-wght${roundDecimal(weight.value.min)}_${roundDecimal(weight.value.max)}`;
-    }
-
-    for (const axis of font.axes) {
-        if (varyingAxes.has(axis.tag)) {
-            filename += `-${axis.tag}${roundDecimal(axis.min)}_${roundDecimal(axis.max)}`;
-        }
-    }
-
-    if (slantStyleName.length > 0) {
-        filename += `-${slantStyleName}`;
-    }
 
     return filename;
 };

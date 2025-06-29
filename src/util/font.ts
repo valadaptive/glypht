@@ -59,6 +59,14 @@ export type AxisInfo = {
     max: number;
 };
 
+/**
+ * Like {@link AxisInfo}, except if the axis was pinned to a value, it keeps that value.
+ */
+export type SubsetAxisInfo = StyleValue & {
+    tag: string;
+    name: string | null;
+};
+
 export type StyleValue = {
     type: 'single';
     value: number;
@@ -104,7 +112,8 @@ export type SubsettedFont = {
     subfamilyName: string;
     data: Uint8Array;
     styleValues: StyleValues;
-    axes: AxisInfo[];
+    axes: SubsetAxisInfo[];
+    namedInstance: NamedInstance | null;
 };
 
 export type SubsetInfo = {
@@ -198,10 +207,21 @@ export class Font {
         }
         this.uid = uid;
 
-        this.familyName = this.getOpentypeName(OtNameId.TYPOGRAPHIC_FAMILY) ||
+        // Use family names in this order:
+        // 1. WWS family name. "WWS" stands for "weight, width, slope", and the WWS family name excludes only those
+        //    attributes. This is what we want when exporting, since we will add those back to the filename ourselves.
+        // 2. Typographic family name. The "modern" version of the family name field. Unlike the WWS family name, it
+        //    excludes all qualifiers. The OT spec gives the example of "Minion Pro Caption" and "Minion Pro Display";
+        //    their WWS family names would *include* "Caption" and "Display", but their typographic family names would
+        //    both be "Minion Pro". We can expect this fallback to be present often, as most fonts won't include non-WWS
+        //    qualifiers in their names.
+        // 3. Family name. Legacy and only useful in families with 4 styles (regular, bold, italic, both) or fewer.
+        this.familyName = this.getOpentypeName(OtNameId.WWS_FAMILY) ||
+            this.getOpentypeName(OtNameId.TYPOGRAPHIC_FAMILY) ||
             this.getOpentypeName(OtNameId.FONT_FAMILY) ||
             '';
-        this.subfamilyName = this.getOpentypeName(OtNameId.TYPOGRAPHIC_SUBFAMILY) ||
+        this.subfamilyName = this.getOpentypeName(OtNameId.WWS_SUBFAMILY) ||
+            this.getOpentypeName(OtNameId.TYPOGRAPHIC_SUBFAMILY) ||
             this.getOpentypeName(OtNameId.FONT_SUBFAMILY) ||
             '';
 
@@ -559,20 +579,51 @@ export class Font {
                     this.styleValues.slant,
             };
 
-            const axes: AxisInfo[] = [];
+            const axes: SubsetAxisInfo[] = [];
             for (const axis of this.axes) {
                 const axisSetting = settings.axisValues.find(v => v.tag === axis.tag);
-                if (axisSetting && axisSetting.type === 'variable') {
+                if (!axisSetting) continue;
+                if (axisSetting.type === 'variable') {
                     axes.push({
                         tag: axis.tag,
                         name: axis.name,
-                        min: axisSetting.value.min,
-                        defaultValue: axisSetting.value.defaultValue,
-                        max: axisSetting.value.max,
+                        type: 'variable',
+                        value: axisSetting.value,
                     });
                 } else {
-                    // TODO: I'm too tired; does this make sense?
-                    axes.push(axis);
+                    axes.push({
+                        tag: axis.tag,
+                        name: axis.name,
+                        type: 'single',
+                        value: axisSetting.value,
+                    });
+                }
+            }
+
+            // Check if the pinned axis settings correspond to any named instance
+            let subsetNamedInstance = null;
+            if (this.namedInstances) {
+                // Convert axis settings (array) to variation coords (map of tag -> value)
+                const variationCoords: Partial<Record<string, number>> = {};
+                for (const axisSetting of settings.axisValues) {
+                    if (axisSetting.type === 'single') {
+                        variationCoords[axisSetting.tag] = axisSetting.value;
+                    }
+                }
+
+                outer:
+                for (const namedInstance of this.namedInstances) {
+                    for (const [tag, value] of Object.entries(namedInstance.coords)) {
+                        // If the subset settings do not pin the axis to a single value, it will be undefined and not
+                        // match
+                        if (variationCoords[tag] !== value) {
+                            continue outer;
+                        }
+                    }
+
+                    // All variation coords exist and match
+                    subsetNamedInstance = namedInstance;
+                    break;
                 }
             }
 
@@ -582,6 +633,7 @@ export class Font {
                 data,
                 styleValues,
                 axes,
+                namedInstance: subsetNamedInstance,
             };
         } finally {
             hb._hb_subset_input_destroy(subsetInput);
