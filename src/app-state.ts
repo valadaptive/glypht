@@ -240,7 +240,13 @@ export class AppState {
                     subfamilyName: font.subfamilyName,
                     data: fontData,
                     styleValues: font.styleValues,
-                    axes: font.axes,
+                    axes: font.axes.map(axis => ({
+                        type: 'variable',
+                        tag: axis.tag,
+                        name: axis.name,
+                        value: {min: axis.min, max: axis.max, defaultValue: axis.defaultValue},
+                    })),
+                    namedInstance: null,
                 };
             }
             if (cancelled) throw new Error('Aborted');
