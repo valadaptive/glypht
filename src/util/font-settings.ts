@@ -773,7 +773,7 @@ const fontFilename = (
     let filename = familyName.replaceAll(' ', '');
 
     if (font.namedInstance && font.namedInstance.subfamilyName) {
-        filename += `-${font.namedInstance.subfamilyName}`;
+        filename += `-${font.namedInstance.subfamilyName.replaceAll(' ', '-')}`;
     } else {
         if (width.type === 'single') {
             const roundedWidth = Math.round(width.value * 2) / 2;
