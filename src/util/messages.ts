@@ -1,4 +1,4 @@
-import type {AxisInfo, FeatureInfo, NamedInstance, StyleValues, SubsetInfo, SubsettedFont} from './font';
+import type {AxisInfo, FeatureInfo, NamedInstance, SfntVersion, StyleValues, SubsetInfo, SubsettedFont} from './font';
 import {SubsetSettings} from './font-settings';
 
 export type UpdateFonts = {
@@ -25,7 +25,7 @@ export type MessageToWorker =
 export type MessageFromWorker =
     | {type: 'updated-fonts'; message: UpdatedFonts; originId: number}
     | {type: 'subsetted-font'; message: SubsettedFont; originId: number}
-    | {type: 'got-font-data'; message: Uint8Array; originId: number}
+    | {type: 'got-font-data'; message: {data: Uint8Array; format: SfntVersion}; originId: number}
     | {type: 'progress'; message: number; originId: number}
     | {type: 'compressed-font'; message: Uint8Array; originId: number}
     | {type: 'decompressed-font'; message: Uint8Array; originId: number}
@@ -115,7 +115,7 @@ export const postSubsetFont = (
 export const postGetFontData = (
     worker: Worker,
     font: number,
-): Promise<Uint8Array> => {
+): Promise<{data: Uint8Array; format: 'truetype' | 'opentype'}> => {
     const id = sentMessageId++;
     worker.postMessage({
         type: 'get-font-data',

@@ -22,7 +22,7 @@ export type ExportedFont = {
     font: SubsettedFont;
     filename: string;
     data: {
-        ttf: Uint8Array | null;
+        opentype: Uint8Array | null;
         woff: Uint8Array | null;
         woff2: Uint8Array | null;
     };
@@ -234,11 +234,12 @@ export class AppState {
                 subsettedFont = await postSubsetFont(fontWorker, font.id, settings);
             } else {
                 // Subsetting was disabled for this family
-                const fontData = await postGetFontData(fontWorker, font.id);
+                const {data, format} = await postGetFontData(fontWorker, font.id);
                 subsettedFont = {
                     familyName: font.familyName,
                     subfamilyName: font.subfamilyName,
-                    data: fontData,
+                    data,
+                    format,
                     styleValues: font.styleValues,
                     axes: font.axes.map(axis => ({
                         type: 'variable',
@@ -251,7 +252,7 @@ export class AppState {
             }
             if (cancelled) throw new Error('Aborted');
             const dataInFormats: ExportedFont['data'] = {
-                ttf: formats.ttf ? subsettedFont.data : null,
+                opentype: formats.ttf ? subsettedFont.data : null,
                 woff: null,
                 woff2: null,
             };

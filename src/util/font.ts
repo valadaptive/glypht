@@ -107,15 +107,31 @@ export type StyleKey =
  */
 export type StyleValues = Record<StyleKey, StyleValue>;
 
+export type SfntVersion = 'truetype' | 'opentype';
+
+/**
+ * Output font after subsetting.
+ */
 export type SubsettedFont = {
+    /** The font's family name, used for the filename and CSS 'font-family'. */
     familyName: string;
+    /** The font's subfamily name. */
     subfamilyName: string;
+    /** Whether this font contains TrueType (glyf) outlines or OpenType (CFF or CFF2) outlines. */
+    format: SfntVersion;
+    /** The raw font file data. */
     data: Uint8Array;
+    /** The font's style values (weight, width, italic, slant), either variable or fixed. */
     styleValues: StyleValues;
+    /** Info about all the variable font axes from the input, which may be preserved, clamped, or pinned. */
     axes: SubsetAxisInfo[];
+    /** If all of this subset's pinned variation axes correspond to a named instance, this is that named instance. */
     namedInstance: NamedInstance | null;
 };
 
+/**
+ * Information about a Google Fonts-defined character subset with regards to a certain font.
+ */
 export type SubsetInfo = {
     /** Google Fonts' name for this character subset. */
     name: SubsetName;
@@ -627,9 +643,12 @@ export class Font {
                 }
             }
 
+            const tag = data[3] | (data[2] << 8) | (data[1] << 16) | (data[0] << 24);
+
             return {
                 familyName: this.familyName,
                 subfamilyName: this.subfamilyName,
+                format: tag === hbTag('OTTO') ? 'opentype' : 'truetype',
                 data,
                 styleValues,
                 axes,
@@ -697,5 +716,10 @@ export class Font {
         } finally {
             blob.destroy();
         }
+    }
+
+    static getSfntVersion(data: Uint8Array): SfntVersion {
+        const tag = data[3] | (data[2] << 8) | (data[1] << 16) | (data[0] << 24);
+        return tag === hbTag('OTTO') ? 'opentype' : 'truetype';
     }
 }

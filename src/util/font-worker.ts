@@ -36,9 +36,10 @@ addEventListener('message', async event => {
                     throw new Error(`No font with ID ${message.message}`);
                 }
                 const data = font.getData();
+                const format = Font.getSfntVersion(data);
                 postMessageFromWorker({
                     type: 'got-font-data',
-                    message: data,
+                    message: {data, format},
                     originId: message.id,
                 }, [data]);
                 break;

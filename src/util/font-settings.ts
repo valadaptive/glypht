@@ -837,7 +837,7 @@ const fontFilename = (
 export const settingsToCSS = (
     fonts: ExportedFont[],
     fontPathPrefix: string,
-    includeTTF: boolean,
+    includeUncompressed: boolean,
 ): CSSEmitter => {
     const emitter = new CSSEmitter();
 
@@ -902,15 +902,26 @@ export const settingsToCSS = (
         emitter.endDeclaration();
 
         emitter.declaration('src');
-        for (const format of ['ttf', 'woff', 'woff2'] as const) {
-            if (format === 'ttf' && !includeTTF) continue;
+        const numFormats =
+            Number(data.opentype !== null && includeUncompressed) +
+            Number(data.woff !== null) +
+            Number(data.woff2 !== null);
+        if (numFormats > 1) {
+            emitter.indentedList();
+        }
+        for (const format of ['opentype', 'woff', 'woff2'] as const) {
+            if (format === 'opentype' && !includeUncompressed) continue;
             if (data[format]) {
                 emitter.parenthesized('url');
-                emitter.string(fontPathPrefix + filename + '.' + format);
+                let extension: string = format;
+                if (format === 'opentype') {
+                    extension = font.format === 'opentype' ? 'otf' : 'ttf';
+                }
+                emitter.string(fontPathPrefix + filename + '.' + extension);
                 emitter.endParenthesized();
 
                 emitter.parenthesized('format');
-                emitter.string(format === 'ttf' ? 'opentype' : format);
+                emitter.string(format === 'opentype' ? font.format : format);
                 emitter.endParenthesized();
                 emitter.comma();
             }
@@ -918,6 +929,11 @@ export const settingsToCSS = (
         // Remove the last comma and following whitespace
         emitter.spans.pop();
         emitter.spans.pop();
+
+        if (numFormats > 1) {
+            emitter.endIndentedList();
+        }
+
         emitter.endDeclaration();
 
         emitter.endRule();

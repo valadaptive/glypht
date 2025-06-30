@@ -32,6 +32,7 @@ export const nodeTypeClassNames: Record<NodeType, string | null> = {
  */
 export default class CSSEmitter {
     private indent = 0;
+    private listIndent = 0;
     private indentString = '  ';
     private textLength = 0;
 
@@ -88,6 +89,18 @@ export default class CSSEmitter {
         this.pushSpace();
     }
 
+    indentedList() {
+        this.listIndent++;
+        this.indent++;
+        this.pushNewline();
+        this.pushIndent();
+    }
+
+    endIndentedList() {
+        this.listIndent--;
+        this.indent--;
+    }
+
     endDeclaration() {
         if (this.spans[this.spans.length - 1].type === NodeType.Whitespace) {
             this.spans.pop();
@@ -129,7 +142,12 @@ export default class CSSEmitter {
             this.spans.pop();
         }
         this.pushSpan(',', NodeType.Separator);
-        this.pushSpace();
+        if (this.listIndent > 0) {
+            this.pushNewline();
+            this.pushIndent();
+        } else {
+            this.pushSpace();
+        }
     }
 
     getString() {

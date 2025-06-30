@@ -1,7 +1,12 @@
 import {AsyncZipDeflate, Zip, ZipPassThrough} from 'fflate';
+import {SubsettedFont} from './font';
 
 export const packageFonts = (
-    fonts: {filename: string; data: {ttf: Uint8Array | null; woff: Uint8Array | null; woff2: Uint8Array | null}}[],
+    fonts: {
+        font: SubsettedFont;
+        filename: string;
+        data: {opentype: Uint8Array | null; woff: Uint8Array | null; woff2: Uint8Array | null};
+    }[],
     css: string,
 ) => {
     const chunks: Uint8Array[] = [];
@@ -31,12 +36,14 @@ export const packageFonts = (
     zip.add(cssFile);
     cssFile.push(new TextEncoder().encode(css), true);
 
-    for (const {filename, data} of fonts) {
-        if (data.ttf) {
-            const file = new AsyncZipDeflate(filename + '.ttf');
+    for (const {filename, data, font: {format}} of fonts) {
+        if (data.opentype) {
+
+            const extension = format === 'opentype' ? '.otf' : '.ttf';
+            const file = new AsyncZipDeflate(filename + extension);
             zip.add(file);
             // AsyncZipDeflate detaches the ArrayBuffer, so we need to clone it.
-            file.push(data.ttf.slice(), true);
+            file.push(data.opentype.slice(), true);
         }
 
         if (data.woff) {

@@ -71,7 +71,7 @@ const ExportedFonts = ({fonts, exportedFormats}: {
                     <thead>
                         <tr>
                             <th scope="col">Filename</th>
-                            {exportedFormats.ttf && <th scope="col">TTF</th>}
+                            {exportedFormats.ttf && <th scope="col">TTF/OTF</th>}
                             {exportedFormats.woff && <th scope="col">WOFF</th>}
                             {exportedFormats.woff2 && <th scope="col">WOFF2</th>}
                         </tr>
@@ -81,14 +81,14 @@ const ExportedFonts = ({fonts, exportedFormats}: {
                             <tr>
                                 <td className={style.fontName}>{filename}</td>
                                 {exportedFormats.ttf && <td className={style.fontFileSize}>{
-                                    data.ttf ? <>
-                                        <span>{formatFileSize(data.ttf.length)}{' '}</span>
+                                    data.opentype ? <>
+                                        <span>{formatFileSize(data.opentype.length)}{' '}</span>
                                         <IconButton
                                             type="download"
                                             title="Download"
                                             onClick={() => saveToFile(
                                                 filename + '.ttf',
-                                                new Blob([data.ttf!], {type: 'font/ttf'}),
+                                                new Blob([data.opentype!], {type: 'font/ttf'}),
                                             )}
                                         />
                                     </> : null
@@ -202,7 +202,7 @@ const MoreSettings = ({relativeTo, active}: {relativeTo: RefObject<HTMLElement>;
                 </div>
                 <div className={style.setting}>
                     <CheckboxToggle
-                        label="Include .ttf in CSS"
+                        label="Include .ttf/.otf in CSS"
                         checked={exportSettings.includeTTFinCSS}
                     />
                 </div>
@@ -321,7 +321,7 @@ const ExportPanel = () => {
                         className={style.growButton}
                     >Export</Button>
                     <div className={style.exportFormats}>
-                        <CheckboxToggle label="TTF" checked={exportSettings.formats.ttf} />
+                        <CheckboxToggle label="TTF/OTF" checked={exportSettings.formats.ttf} />
                         <CheckboxToggle label="WOFF" checked={exportSettings.formats.woff} />
                         <CheckboxToggle label="WOFF2" checked={exportSettings.formats.woff2} />
                         <ToggleIcon
