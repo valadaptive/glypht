@@ -1,17 +1,19 @@
-import createWoff1, {MainModule as Woff1MainModule} from '../../../c-libs-wrapper/woff1-wrapper';
-import createWoff2, {MainModule as Woff2MainModule} from '../../../c-libs-wrapper/woff2-wrapper';
+import createWoff1, {MainModule as Woff1MainModule} from '../../c-libs-wrapper/woff1-wrapper.js';
+import createWoff2, {MainModule as Woff2MainModule} from '../../c-libs-wrapper/woff2-wrapper.js';
 import {MessageFromWorker, MessageToWorker, postMessageFromWorker} from './messages';
 
 let woff1Promise: Promise<Woff1MainModule> | null = null;
 let woff2Promise: Promise<Woff2MainModule> | null = null;
-addEventListener('message', async event => {
+
+
+const listener = async(event: MessageEvent) => {
     const message = event.data as MessageToWorker;
 
     try {
         switch (message.type) {
             case 'init-woff-wasm': {
-                woff1Promise = createWoff1('woff1.wasm', message.message.woff1);
-                woff2Promise = createWoff2('woff2.wasm', message.message.woff2);
+                woff1Promise = createWoff1(message.message.woff1);
+                woff2Promise = createWoff2(message.message.woff2);
                 break;
             }
             case 'compress-font': {
@@ -46,11 +48,16 @@ addEventListener('message', async event => {
                 );
                 break;
             }
+            case 'close': {
+                removeEventListener('message', listener);
+            }
         }
     } catch (error) {
         postMessage({type: 'error', message: error, originId: message.id} satisfies MessageFromWorker);
     }
-});
+};
+
+addEventListener('message', listener);
 
 const woffErrors = [
     '', // OK

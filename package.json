@@ -2,6 +2,14 @@
     "name": "glypht",
     "private": true,
     "workspaces": [
+		"glypht-core",
         "glypht-web"
-    ]
+    ],
+    "scripts": {
+        "build": "cd glypht-core && npm run build && cd ../glypht-web && npm run build",
+		"lint": "eslint",
+		"gen-feature-tag-info": "vite-node scripts/gen-feature-tag-info.ts",
+		"gen-subset-ranges": "vite-node scripts/gen-subset-ranges.ts",
+		"build-wasm": "docker build -t glypht_c_libs ./c-libs-wrapper && docker run --rm -v ./c-libs-wrapper:/src -u $(id -u):$(id -g) -it glypht_c_libs /bin/bash -c 'cd /src && ./build.sh'"
+    }
 }

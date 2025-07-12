@@ -1,13 +1,21 @@
-import type {AxisInfo, FeatureInfo, NamedInstance, SfntVersion, StyleValues, SubsetInfo, SubsettedFont} from './font';
-import {SubsetSettings} from './font-settings';
+import type {
+    AxisInfo,
+    FeatureInfo,
+    NamedInstance,
+    SfntVersion,
+    StyleValues,
+    SubsetInfo,
+    SubsetSettings,
+    SubsettedFont,
+} from './font-types';
 
 export type UpdateFonts = {
     loadFonts: Uint8Array[];
-    unloadFonts: FontRef[];
+    unloadFonts: number[];
 };
 
 export type UpdatedFonts = {
-    fonts: FontRef[];
+    fonts: FontMessage[];
 };
 
 export type ExportedFonts = {
@@ -19,8 +27,10 @@ export type MessageToWorker =
     | {type: 'subset-font'; message: {font: number; settings: SubsetSettings}; id: number}
     | {type: 'get-font-data'; message: number; id: number}
     | {type: 'init-woff-wasm'; message: {woff1: string; woff2: string}; id: number}
+    | {type: 'init-hb-wasm'; message: string; id: number}
     | {type: 'compress-font'; message: {data: Uint8Array; algorithm: 'woff' | 'woff2'; quality: number}; id: number}
-    | {type: 'decompress-font'; message: {data: Uint8Array; algorithm: 'woff' | 'woff2'}; id: number};
+    | {type: 'decompress-font'; message: {data: Uint8Array; algorithm: 'woff' | 'woff2'}; id: number}
+    | {type: 'close'; message: null; id: number};
 
 export type MessageFromWorker =
     | {type: 'updated-fonts'; message: UpdatedFonts; originId: number}
@@ -33,20 +43,18 @@ export type MessageFromWorker =
 
 export type Message = MessageToWorker | MessageFromWorker;
 
-export type FontRef = {
+export type FontMessage = {
     id: number;
     uid: string;
+    faceCount: number;
+    faceIndex: number;
     familyName: string;
     subfamilyName: string;
     styleValues: StyleValues;
     fileSize: number;
-    /** Variable font axes. Does not include variable axes listed in {@link styleValues}. */
     axes: AxisInfo[];
     features: FeatureInfo[];
     namedInstances: NamedInstance[];
-    /**
-     * Names of Unicode subsets for which this font has *any* coverage (it does not need to cover the entire subset).
-     */
     subsetCoverage: SubsetInfo[];
 };
 
@@ -57,14 +65,15 @@ let sentMessageId = 0;
 export const postUpdateFonts = (
     worker: Worker,
     loadFonts: Uint8Array[],
-    unloadFonts: FontRef[],
-): Promise<FontRef[]> => {
+    unloadFonts: number[],
+    transfer: boolean,
+): Promise<FontMessage[]> => {
     const id = sentMessageId++;
     worker.postMessage({
         type: 'update-fonts',
         message: {loadFonts, unloadFonts},
         id,
-    } satisfies MessageToWorker, loadFonts.map(font => font.buffer));
+    } satisfies MessageToWorker, transfer ? loadFonts.map(font => font.buffer) : []);
 
     return new Promise((resolve, reject) => {
         const ac = new AbortController();
@@ -206,4 +215,9 @@ export const postMessageFromWorker = (message: MessageFromWorker, transfer: Tran
     } catch (error) {
         postMessage({type: 'error', message: error, originId: message.originId} satisfies MessageFromWorker);
     }
+};
+
+export const closeWorker = (worker: Worker) => {
+    const id = sentMessageId++;
+    worker.postMessage({type: 'close', id, message: null});
 };

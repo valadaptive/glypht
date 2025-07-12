@@ -6,142 +6,52 @@ import createHarfbuzz, {
     OtNameId,
     tagName,
     hbTag,
-} from '../../../c-libs-wrapper/hb-wrapper';
-import {SUBSET_NAMES, SUBSET_RANGES, SubsetName} from '../generated/subset-ranges';
-import {SubsetSettings} from './font-settings';
-import bytesToHex from './bytes-to-hex';
+} from '../../c-libs-wrapper/hb-wrapper.js';
+import {
+    AxisInfo,
+    FeatureInfo,
+    NamedInstance,
+    SfntVersion,
+    StyleValues,
+    SubsetAxisInfo,
+    SubsetInfo,
+    SubsetSettings,
+    SubsettedFont,
+} from './font-types';
+import {SUBSET_NAMES, SUBSET_RANGES, SubsetName} from './generated/subset-ranges';
+import bytesToHex from './util/bytes-to-hex';
 
 let hb!: MainModule;
-let initPromise: Promise<void> | null = null;
 
-export const init = async() => {
-    if (initPromise) {
-        await initPromise;
-        return;
+export const init = async(wasmUrl: string) => {
+    hb = await createHarfbuzz(wasmUrl);
+    for (const [name, ranges] of Object.entries(SUBSET_RANGES)) {
+        const set = new hb.HbSet();
+        for (const range of ranges) {
+            if (typeof range === 'number') {
+                set.add(range);
+            } else {
+                set.addRange(range[0], range[1]);
+            }
+        }
+        SUBSET_HB_SETS[name as SubsetName] = set;
     }
 
-    initPromise = (async() => {
-        hb = await createHarfbuzz();
-        for (const [name, ranges] of Object.entries(SUBSET_RANGES)) {
-            const set = new hb.HbSet();
-            for (const range of ranges) {
-                if (typeof range === 'number') {
-                    set.add(range);
-                } else {
-                    set.addRange(range[0], range[1]);
-                }
-            }
-            SUBSET_HB_SETS[name as SubsetName] = set;
-        }
+    const subsetInput = hb._hb_subset_input_create_or_fail();
+    if (subsetInput === 0) {
+        throw new Error('Failed to create subset input');
+    }
 
-        const subsetInput = hb._hb_subset_input_create_or_fail();
-        if (subsetInput === 0) {
-            throw new Error('Failed to create subset input');
-        }
-
-        const defaultLayoutFeatures = new hb.HbSet(
-            hb._hb_subset_input_set(subsetInput, SubsetSets.LAYOUT_FEATURE_TAG));
-        defaultLayoutFeatures.reference();
-        for (const featureTag of defaultLayoutFeatures) {
-            defaultLayoutFeatureTags.add(tagName(featureTag));
-        }
-        hb._hb_subset_input_destroy(subsetInput);
-    })();
+    const defaultLayoutFeatures = new hb.HbSet(
+        hb._hb_subset_input_set(subsetInput, SubsetSets.LAYOUT_FEATURE_TAG));
+    defaultLayoutFeatures.reference();
+    for (const featureTag of defaultLayoutFeatures) {
+        defaultLayoutFeatureTags.add(tagName(featureTag));
+    }
+    hb._hb_subset_input_destroy(subsetInput);
 };
 
 const decoder = new TextDecoder();
-
-export type AxisInfo = {
-    tag: string;
-    name: string | null;
-    min: number;
-    defaultValue: number;
-    max: number;
-};
-
-/**
- * Like {@link AxisInfo}, except if the axis was pinned to a value, it keeps that value.
- */
-export type SubsetAxisInfo = StyleValue & {
-    tag: string;
-    name: string | null;
-};
-
-export type StyleValue = {
-    type: 'single';
-    value: number;
-} | {
-    type: 'variable';
-    value: {
-        min: number;
-        defaultValue: number;
-        max: number;
-    };
-};
-
-export type FeatureInfo = {
-    tag: string;
-    label: string | null;
-    keepByDefault: boolean;
-};
-
-export type NamedInstance = {
-    subfamilyName: string | null;
-    postscriptName: string | null;
-    coords: Partial<Record<string, number>>;
-};
-
-export type StyleKey =
-    | 'weight'
-    | 'width'
-    | 'italic'
-    | 'slant';
-
-/**
- * Values of the properties of a font that can be specified in a CSS `@font-face` declaration. These may be variation
- * axes or static values; if they are the former, those variation axes will not appear under {@link Font.axes}.
- *
- * - Font weight (`wght` axis if variable; `font-weight` in CSS)
- * - Font width (`wdth` axis if variable; `font-stretch` in CSS, eventually will be renamed to `font-width`)
- * - Italics and slant (`ital` and `slnt` if variable; `font-style` in CSS)
- */
-export type StyleValues = Record<StyleKey, StyleValue>;
-
-export type SfntVersion = 'truetype' | 'opentype';
-
-/**
- * Output font after subsetting.
- */
-export type SubsettedFont = {
-    /** The font's family name, used for the filename and CSS 'font-family'. */
-    familyName: string;
-    /** The font's subfamily name. */
-    subfamilyName: string;
-    /** Whether this font contains TrueType (glyf) outlines or OpenType (CFF or CFF2) outlines. */
-    format: SfntVersion;
-    /** The raw font file data. */
-    data: Uint8Array;
-    /** The font's style values (weight, width, italic, slant), either variable or fixed. */
-    styleValues: StyleValues;
-    /** Info about all the variable font axes from the input, which may be preserved, clamped, or pinned. */
-    axes: SubsetAxisInfo[];
-    /** If all of this subset's pinned variation axes correspond to a named instance, this is that named instance. */
-    namedInstance: NamedInstance | null;
-};
-
-/**
- * Information about a Google Fonts-defined character subset with regards to a certain font.
- */
-export type SubsetInfo = {
-    /** Google Fonts' name for this character subset. */
-    name: SubsetName;
-    /** Percentage of code points in this subset included in this font. */
-    coverage: number;
-    /**
-     * Whether this subset counts as partially covered by this font. The threshold is different for different subsets.
-     */
-    covered: boolean;
-};
 
 /** Mapping of Google Fonts subset names to their sets of code point ranges. */
 const SUBSET_HB_SETS: Record<SubsetName, HbSet> = {} as Record<SubsetName, HbSet>;

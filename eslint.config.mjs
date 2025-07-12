@@ -9,9 +9,11 @@ export default tseslint.config(
         ignores: [
             '**/public/**/*.{cjs,mjs,js,ts,jsx,tsx}',
             '**/c-libs-wrapper/**/*',
+            'glypht-core/src/generated/**/*',
             'glypht-web/src/generated/**/*',
             'woff2/**/*',
             'glypht-web/dist/**/*',
+            'glypht-core/dist/**/*',
         ],
     },
     eslint.configs.recommended,

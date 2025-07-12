@@ -83,3 +83,5 @@ If Inter's weight range is limited to 400-700, with the other settings remaining
 - Support the new [incremental font transfer](https://w3c.github.io/IFT/Overview.html) standard
   - Probably should wait for it to be actually standardized though
 - Use the feature tag info registry more (show explanations of font features)
+- Allow users to choose fonts from Google Fonts' list (https://github.com/google/fonts has versions *without* the features removed!)
+  - We can probably hotlink to the GitHub CDN files and just have a static list of them

@@ -1,0 +1,11 @@
+{
+    "extends": "../tsconfig.base.json",
+    "compilerOptions": {
+		"moduleResolution": "bundler",
+        "declaration": true,
+        "emitDeclarationOnly": true,
+        "outDir": "dist",
+		"types": ["node"]
+	},
+	"include": ["src/index.ts"],
+}

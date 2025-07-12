@@ -1,0 +1,25 @@
+{
+  "name": "@glypht/core",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c rollup.config.js",
+    "watch": "rollup --watch -c rollup.config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@rollup/plugin-inject": "^5.0.5",
+    "@rollup/plugin-typescript": "^12.1.4",
+    "@types/node": "^24.0.13",
+    "rollup": "^4.44.2",
+    "typedoc": "^0.28.7"
+  },
+  "dependencies": {
+    "web-worker": "https://github.com/valadaptive/web-worker.git#updates"
+  }
+}

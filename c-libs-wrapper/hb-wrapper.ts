@@ -1,16 +1,15 @@
 import {wrapInitFunction, MainModuleExt} from './common';
 import createHarfbuzz, {MainModule as OrigMainModule} from './hb';
-import hbWasmUrl from './hb.wasm?url';
 
-const createHarfbuzzWrapped = async () => {
-    const hb = await wrapInitFunction(createHarfbuzz)('hb.wasm', hbWasmUrl);
+const createHarfbuzzWrapped = async (hbWasmUrl: string) => {
+    const hb = await wrapInitFunction(createHarfbuzz, 'hb.wasm')(hbWasmUrl);
 
     const freeBlob = hb.addFunction((dataPtr: number) => {
         hb._free(dataPtr);
     }, 'vp');
 
     class HbBlob {
-        private _ptr: number;
+        _ptr: number;
 
         constructor(ptr: number);
         constructor(data: Uint8Array);
@@ -64,7 +63,7 @@ const createHarfbuzzWrapped = async () => {
     }
 
     class HbSet {
-        private _ptr: number;
+        _ptr: number;
         constructor(ptr?: number) {
             if (ptr === 0) {
                 throw new Error('Tried to create an HbSet from a null pointer');
@@ -146,8 +145,8 @@ const createHarfbuzzWrapped = async () => {
     }
 
     class HbSetIterator {
-        private _ptr: number;
-        private _last: number;
+        _ptr: number;
+        _last: number;
         constructor(ptr: number) {
             this._ptr = ptr;
             this._last = -1 >>> 0;
@@ -180,7 +179,7 @@ const createHarfbuzzWrapped = async () => {
 }
 
 export default createHarfbuzzWrapped;
-export type MainModule = typeof createHarfbuzzWrapped extends () => Promise<infer T> ? T : never;
+export type MainModule = typeof createHarfbuzzWrapped extends (hbWasmUrl: string) => Promise<infer T> ? T : never;
 export type HbBlob = InstanceType<MainModule['HbBlob']>;
 export type HbSet = InstanceType<MainModule['HbSet']>;
 

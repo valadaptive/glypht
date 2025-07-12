@@ -19,8 +19,8 @@ export type MainModuleExt<T> = Omit<T, keyof MainModule> & MainModule & {
 
 const debugAddr = (addr: number) => `0x${addr.toString(16).padStart(8, '0')}`;
 
-export const wrapInitFunction = <T>(initFunction: (options?: unknown) => Promise<T>): (origUrl: string, wasmUrl: string) => Promise<MainModuleExt<T>> => {
-    const wrappedInit = async (origUrl: string, wasmUrl: string): Promise<MainModuleExt<T>> => {
+export const wrapInitFunction = <T>(initFunction: (options?: unknown) => Promise<T>, origUrl: string): (wasmUrl: string) => Promise<MainModuleExt<T>> => {
+    const wrappedInit = async (wasmUrl: string): Promise<MainModuleExt<T>> => {
         const module = await initFunction({
             locateFile: (url: string) => {
                 if (url === origUrl) {

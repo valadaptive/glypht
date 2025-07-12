@@ -1,6 +1,8 @@
 import {computed, signal, Signal} from '@preact/signals';
 import {createContext} from 'preact';
 import {useContext} from 'preact/hooks';
+import {FontRef, GlyphtContext, WoffCompressionContext, type SubsettedFont} from '@glypht/core';
+
 import {
     FamilySettings,
     fontFilenames,
@@ -10,7 +12,6 @@ import {
     settingsFromFonts,
     StaticFamilySettings,
 } from './util/font-settings';
-import {FontRef, postGetFontData, postSubsetFont, postUpdateFonts} from './util/messages';
 
 export type FontDataState =
     | {state: 'not_loaded'}
@@ -50,9 +51,8 @@ type AllSavedSettings = {
     type: 'AllSettingsV1';
 };
 
-import {compressFromTTF, decompressToTTF} from './util/woff';
-import {SubsettedFont} from './util/font';
-const fontWorker = new Worker(new URL('./util/font-worker.js', import.meta.url), {type: 'module'});
+const compressionContext = new WoffCompressionContext();
+const glyphtContext = new GlyphtContext();
 
 export class AppState {
     public fonts: Signal<FamilySettings[]> = signal([]);
@@ -78,15 +78,8 @@ export class AppState {
     constructor() {}
 
     async removeFontFamily(family: FamilySettings) {
-        const removeFonts: FontRef[] = [];
-        for (const font of family.fonts) {
-            removeFonts.push(font.font);
-        }
-
-        const result = postUpdateFonts(fontWorker, [], removeFonts);
         this.fonts.value = this.fonts.value.filter(f => f !== family);
-
-        await result;
+        await Promise.all(family.fonts.map(({font}) => font.destroy()));
     }
 
     async removeFont(font: FontRef) {
@@ -114,7 +107,7 @@ export class AppState {
 
         this.fonts.value = newFamilies;
 
-        return await postUpdateFonts(fontWorker, [], [font]);
+        return await font.destroy();
     }
 
     async addFonts(fonts: Blob[]) {
@@ -124,34 +117,19 @@ export class AppState {
 
             const decompressionPromises = [];
             for (let i = 0; i < fontData.length; i++) {
-                if (fontData[i].length < 4) {
-                    // HarfBuzz will determine that there are 0 faces in this file and skip over it
-                    continue;
-                }
-                const magic = (
-                    fontData[i][3] |
-                    (fontData[i][2] << 8) |
-                    (fontData[i][1] << 16) |
-                    (fontData[i][0] << 24)
-                );
-                // WOFF1
-                if (magic === 0x774F4646) {
-                    decompressionPromises.push(decompressToTTF(fontData[i], 'woff').then(decompressed => {
-                        fontData[i] = decompressed;
-                    }));
-                }
-                // WOFF2
-                else if (magic === 0x774F4632) {
-                    decompressionPromises.push(decompressToTTF(fontData[i], 'woff2').then(decompressed => {
-                        fontData[i] = decompressed;
-                    }));
+                const compressionType = WoffCompressionContext.compressionType(fontData[i]);
+                if (compressionType !== null) {
+                    decompressionPromises.push(
+                        compressionContext.decompressToTTF(fontData[i]).then(decompressed => {
+                            fontData[i] = decompressed;
+                        }));
                 }
             }
 
             // TODO: rework font loading progress so decompression counts towards it
             if (decompressionPromises.length > 0) await Promise.all(decompressionPromises);
 
-            const addedFonts = await postUpdateFonts(fontWorker, fontData, []);
+            const addedFonts = await glyphtContext.loadFonts(fontData);
 
             const existingFonts = this.fonts.peek().flatMap(family => family.fonts.map(f => f.font));
             const existingFontIds = new Set(existingFonts.map(f => f.uid));
@@ -179,7 +157,7 @@ export class AppState {
             this.fonts.value = newSettings;
 
             if (duplicateFonts.length > 0) {
-                await postUpdateFonts(fontWorker, [], duplicateFonts);
+                await Promise.all(duplicateFonts.map(font => font.destroy()));
             }
         } finally {
             this.fontsBeingLoaded.value -= fonts.length;
@@ -229,27 +207,7 @@ export class AppState {
         let cancelled = false;
 
         const fontPromises = fontList.map(async({font, settings}) => {
-            let subsettedFont: SubsettedFont;
-            if (settings) {
-                subsettedFont = await postSubsetFont(fontWorker, font.id, settings);
-            } else {
-                // Subsetting was disabled for this family
-                const {data, format} = await postGetFontData(fontWorker, font.id);
-                subsettedFont = {
-                    familyName: font.familyName,
-                    subfamilyName: font.subfamilyName,
-                    data,
-                    format,
-                    styleValues: font.styleValues,
-                    axes: font.axes.map(axis => ({
-                        type: 'variable',
-                        tag: axis.tag,
-                        name: axis.name,
-                        value: {min: axis.min, max: axis.max, defaultValue: axis.defaultValue},
-                    })),
-                    namedInstance: null,
-                };
-            }
+            const subsettedFont = await font.subset(settings);
             if (cancelled) throw new Error('Aborted');
             const dataInFormats: ExportedFont['data'] = {
                 opentype: formats.ttf ? subsettedFont.data : null,
@@ -261,7 +219,7 @@ export class AppState {
             this._exportedFonts.value = {state: 'loading', progress: progress / totalProgressProportion};
             const compressionPromises = [];
             if (formats.woff) {
-                compressionPromises.push(compressFromTTF(
+                compressionPromises.push(compressionContext.compressFromTTF(
                     subsettedFont.data,
                     'woff',
                     this.exportSettings.woffCompression.value,
@@ -273,7 +231,7 @@ export class AppState {
                 }));
             }
             if (formats.woff2) {
-                compressionPromises.push(compressFromTTF(
+                compressionPromises.push(compressionContext.compressFromTTF(
                     subsettedFont.data,
                     'woff2',
                     this.exportSettings.woff2Compression.value,

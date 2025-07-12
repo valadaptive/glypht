@@ -5,14 +5,11 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",
-		"preview": "vite preview",
-		"lint": "eslint",
-		"gen-feature-tag-info": "vite-node scripts/gen-feature-tag-info.ts",
-		"gen-subset-ranges": "vite-node scripts/gen-subset-ranges.ts",
-		"build-wasm": "docker build -t glypht_c_libs ./c-libs-wrapper && docker run --rm -v ./c-libs-wrapper:/src -u $(id -u):$(id -g) -it glypht_c_libs /bin/bash -c 'cd /src && ./build.sh'"
+		"preview": "vite preview"
 	},
 	"dependencies": {
 		"@floating-ui/dom": "^1.6.13",
+		"@glypht/core": "*",
 		"@preact/signals": "^2.0.3",
 		"clsx": "^2.1.1",
 		"fflate": "^0.8.2",

@@ -1,4 +1,4 @@
-export const SUBSET_RANGES = {
+export const SUBSET_RANGES: Record<SubsetName, (number | [number, number])[]> = {
     'adlam': [
         13,
         [32, 47],
@@ -19262,6 +19262,12 @@ export const SUBSET_RANGES = {
     ],
 };
 
+/**
+ * The names of every named character set from Google Fonts.
+ */
 export const SUBSET_NAMES = ["adlam","ahom","anatolian-hieroglyphs","arabic","armenian","avestan","balinese","bamum","bassa-vah","batak","bengali","bhaiksuki","brahmi","braille","buginese","buhid","canadian-aboriginal","carian","caucasian-albanian","chakma","cham","cherokee","chinese-hongkong","chinese-simplified","chinese-traditional","chorasmian","coptic","cuneiform","cypriot","cypro-minoan","cyrillic-ext","cyrillic","deseret","devanagari","dives-akuru","dogra","duployan","egyptian-hieroglyphs","elbasan","elymaic","ethiopic","garay","georgian","glagolitic","gothic","grantha","greek-ext","greek","gujarati","gunjala-gondi","gurmukhi","gurung-khema","hanifi-rohingya","hanunoo","hatran","hebrew","imperial-aramaic","indic-siyaq-numbers","inscriptional-pahlavi","inscriptional-parthian","japanese","javanese","kaithi","kana-extended","kannada","kawi","kayah-li","kharoshthi","khitan-small-script","khmer","khojki","khudawadi","kirat-rai","korean","lao","latin-ext","latin","lepcha","limbu","linear-a","linear-b","lisu","lycian","lydian","mahajani","makasar","malayalam","mandaic","manichaean","marchen","masaram-gondi","math","mayan-numerals","medefaidrin","meetei-mayek","mende-kikakui","meroitic-cursive","meroitic-hieroglyphs","meroitic","miao","modi","mongolian","mro","multani","music","myanmar","nabataean","nag-mundari","nandinagari","new-tai-lue","newa","nko","nushu","nyiakeng-puachue-hmong","ogham","ol-chiki","ol-onal","old-hungarian","old-italic","old-north-arabian","old-permic","old-persian","old-sogdian","old-south-arabian","old-turkic","old-uyghur","oriya","osage","osmanya","ottoman-siyaq-numbers","pahawh-hmong","palmyrene","pau-cin-hau","phags-pa","phoenician","psalter-pahlavi","rejang","runic","samaritan","saurashtra","sharada","shavian","siddham","signwriting","sinhala","sogdian","sora-sompeng","soyombo","sundanese","sunuwar","syloti-nagri","symbols2","symbols","syriac","tagalog","tagbanwa","tai-le","tai-tham","tai-viet","takri","tamil-supplement","tamil","tangsa","tangut","telugu","thaana","thai","tibetan","tifinagh","tirhuta","todhri","toto","tulu-tigalari","ugaritic","vai","vietnamese","vithkuqi","wancho","warang-citi","yezidi","yi","zanabazar-square","znamenny"] as const;
 
-export type SubsetName = keyof typeof SUBSET_RANGES;
+/**
+ * The name of a Google Fonts-defined character set.
+ */
+export type SubsetName = typeof SUBSET_NAMES[number];

@@ -62,12 +62,18 @@ for (const [name, ranges] of Object.entries(subsetRanges)) {
 }
 subsetRangesLiteral += '}';
 
-const fileContents = `export const SUBSET_RANGES = ${subsetRangesLiteral};
+const fileContents = `export const SUBSET_RANGES: Record<SubsetName, (number | [number, number])[]> = ${subsetRangesLiteral};
 
+/**
+ * The names of every named character set from Google Fonts.
+ */
 export const SUBSET_NAMES = ${JSON.stringify(Object.keys(subsetRanges))} as const;
 
-export type SubsetName = keyof typeof SUBSET_RANGES;
+/**
+ * The name of a Google Fonts-defined character set.
+ */
+export type SubsetName = typeof SUBSET_NAMES[number];
 `;
 
-const outFilePath = join(dirname, '../src/generated/subset-ranges.ts');
+const outFilePath = join(dirname, '../glypht-core/src/generated/subset-ranges.ts');
 await writeFile(outFilePath, fileContents, {encoding: 'utf-8'});

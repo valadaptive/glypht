@@ -1,7 +1,14 @@
 import {signal, Signal} from '@preact/signals';
-import {SubsetName} from '../generated/subset-ranges';
-import {AxisInfo, FeatureInfo, StyleKey, StyleValue, SubsetAxisInfo, SubsettedFont} from './font';
-import {FontRef} from './messages';
+import type {
+    AxisInfo,
+    FeatureInfo,
+    FontRef,
+    StyleKey,
+    StyleValue,
+    SubsetAxisInfo,
+    SubsetName,
+    SubsettedFont,
+} from '@glypht/core';
 import {parseRanges, parseUnicodeRanges} from './parse-ranges';
 import CSSEmitter from './css-emitter';
 import {ExportedFont} from '../app-state';

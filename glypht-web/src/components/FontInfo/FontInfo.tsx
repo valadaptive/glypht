@@ -3,6 +3,7 @@ import style from './style.module.scss';
 import {useCallback, useId, useMemo} from 'preact/hooks';
 import {batch, Signal, useComputed, useSignal} from '@preact/signals';
 import classNames from 'clsx';
+import type {FeatureInfo, FontRef} from '@glypht/core';
 
 import {useAppState} from '../../app-state';
 import {CheckboxToggle, SelectableIcon, SpinBox, TextBox} from '../Widgets/Widgets';
@@ -24,7 +25,6 @@ import {
     StyleSetting,
     StyleSettings,
 } from '../../util/font-settings';
-import {FontRef} from '../../util/messages';
 import {useThrottledSignal} from '../../util/throttle';
 import {parseRanges, parseUnicodeRanges} from '../../util/parse-ranges';
 import Icon, {IconButton} from '../Icon/Icon';
@@ -33,7 +33,6 @@ import {useAddErrorToast} from '../Toast/Toast';
 import {Motif} from '../../util/motif';
 import Loader from '../Loader/Loader';
 import {showFontPicker} from '../../util/file-picker';
-import {FeatureInfo} from '../../util/font';
 import formatFileSize from '../../util/format-file-size';
 import {ComponentChildren} from 'preact';
 import {useLiveSignal} from '../../util/signal-utils';

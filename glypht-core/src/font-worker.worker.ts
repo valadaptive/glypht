@@ -1,14 +1,17 @@
 import {
+    FontMessage,
     postMessageFromWorker,
-    type FontRef,
     type MessageFromWorker,
     type MessageToWorker,
     type UpdatedFonts,
 } from './messages';
-import {Font, init, SubsettedFont} from './font';
-import {SubsetSettings} from './font-settings';
+import {Font, init} from './font';
+import {SubsetSettings, SubsettedFont} from './font-types';
 
-addEventListener('message', async event => {
+const initPromise = init(new URL('./hb.wasm', import.meta.url).href);
+
+
+const listener = async(event: MessageEvent) => {
     const message = event.data as MessageToWorker;
 
     try {
@@ -44,26 +47,39 @@ addEventListener('message', async event => {
                 }, [data]);
                 break;
             }
+            case 'close': {
+                removeEventListener('message', listener);
+            }
         }
     } catch (error) {
         postMessage({type: 'error', message: error, originId: message.id} satisfies MessageFromWorker);
     }
-});
+};
+
+addEventListener('message', listener);
 
 let fontRefId = 0;
 const fonts = new Map<number, Font>();
 
 const updateFonts = async(
     loadFonts: Uint8Array[],
-    unloadFonts: FontRef[],
+    unloadFonts: number[],
 ): Promise<UpdatedFonts> => {
-    await init();
+    await initPromise;
+    for (const oldFont of unloadFonts) {
+        const font = fonts.get(oldFont);
+        if (!font) continue;
+        font.destroy();
+        fonts.delete(oldFont);
+    }
     const newFonts = Font.manyFromData(loadFonts);
     const newFontRefs = [];
     for (const newFont of newFonts) {
-        const newFontRef: FontRef = {
+        const newFontRef: FontMessage = {
             id: fontRefId++,
             uid: newFont.uid,
+            faceCount: newFont.faceCount,
+            faceIndex: newFont.faceIndex,
             familyName: newFont.familyName,
             subfamilyName: newFont.subfamilyName,
             styleValues: newFont.styleValues,
@@ -75,12 +91,6 @@ const updateFonts = async(
         };
         newFontRefs.push(newFontRef);
         fonts.set(newFontRef.id, newFont);
-    }
-    for (const oldFont of unloadFonts) {
-        const font = fonts.get(oldFont.id);
-        if (!font) continue;
-        font.destroy();
-        fonts.delete(oldFont.id);
     }
     return {fonts: newFontRefs};
 };
@@ -96,6 +106,3 @@ const subsetFont = (fontId: number, settings: SubsetSettings): {
     const subsettedFont = font.subset(settings);
     return {subsettedFont, transfer: [subsettedFont.data.buffer]};
 };
-
-// Start preloading the HarfBuzz WASM module as soon as we load
-void init();
