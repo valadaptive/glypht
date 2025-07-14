@@ -1,6 +1,8 @@
+import style from './style.module.scss';
+
 import {useCallback, useEffect, useMemo, useRef, useState} from 'preact/hooks';
 import {ExportedFont, useAppState} from '../../app-state';
-import style from './style.module.scss';
+
 import {settingsToCSS} from '../../util/font-settings';
 import {NodeType} from '../../util/css-emitter';
 import {Button, CheckboxToggle, SpinBox, TextBox, ToggleIcon} from '../Widgets/Widgets';

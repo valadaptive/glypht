@@ -17,6 +17,7 @@ export type IconType =
     | 'github'
     | 'paste'
     | 'pin'
+    | 'plus'
     | 'range'
     | 'reset'
     | 'stack'
@@ -73,7 +74,7 @@ export const IconButton = ({
     type: IconType;
     title: string;
     size?: string | number;
-    onClick?: () => unknown;
+    onClick?: (event: MouseEvent) => unknown;
     disabled?: boolean;
     motif?: Motif;
     className?: string;

@@ -1,0 +1,59 @@
+@use '../../css/theme.scss' as theme;
+
+.fonts-modal {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+    max-width: 12in;
+    height: 100%;
+}
+
+.search-bar-wrapper {
+    background-color: theme.$base-color-secondary-dark;
+    padding: 0.5rem 0.75rem;
+    flex: 0 0 auto;
+}
+
+.panes {
+    display: flex;
+    overflow: auto;
+    flex: 1 1 0;
+}
+
+.fonts-list {
+    overflow: auto;
+    flex: 1 1 0;
+    min-width: 3in;
+}
+
+.font-item {
+    display: flex;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &:hover {
+        background-color: theme.$toggle-hover;
+    }
+
+    &:active, &.selected {
+        background-color: theme.$toggle-active;
+    }
+
+    @include theme.bg-fade();
+}
+
+.font-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.add-font {
+    margin-left: auto;
+}
+
+.font-preview {
+    flex: 3 1 0;
+}
