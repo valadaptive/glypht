@@ -34,6 +34,7 @@ body {
 body, button, input, select {
     font-family: $font;
     font-feature-settings: 'ss07', 'ss08', 'cv10';
+    line-height: 1.4;
 }
 
 @mixin tabular-nums {

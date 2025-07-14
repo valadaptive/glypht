@@ -225,19 +225,6 @@ export const Slider = ({value, min, max, step = 1, className}: {
     );
 };
 
-export const IconButton = ({type, title, onClick}: {type: IconType; title: string; onClick: () => unknown}) => {
-    return (
-        <button
-            className={style.iconButton}
-            onClick={onClick}
-            title={title}
-            tabindex={0}
-        >
-            <Icon type={type} title={title} />
-        </button>
-    );
-};
-
 export const ToggleIcon = ({type, title, toggled, innerRef}: {
     type: IconType;
     title: string;
