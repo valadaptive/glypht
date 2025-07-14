@@ -1,8 +1,33 @@
 import {initWasm} from './wrap-wasm';
 import type {MainModule as OrigMainModule} from '../../c-libs-wrapper/hb';
 
-const createHarfbuzzWrapped = async(hbWasmUrl: string) => {
-    const hb = await initWasm<OrigMainModule>(hbWasmUrl);
+type MainModuleKey =
+    | '_free'
+    | '_hb_blob_create_or_fail'
+    | '_hb_blob_destroy'
+    | '_hb_blob_get_data'
+    | '_hb_blob_get_length'
+    | '_hb_set_copy'
+    | '_hb_set_create'
+    | '_hb_set_destroy'
+    | '_hb_set_get_population'
+    | '_hb_set_next'
+    | '_hb_set_next_range'
+    | '_hb_set_add'
+    | '_hb_set_add_range'
+    | '_hb_set_clear'
+    | '_hb_set_del'
+    | '_hb_set_del_range'
+    | '_hb_set_intersect'
+    | '_hb_set_invert'
+    | '_hb_set_reference'
+    | '_hb_set_set'
+    | '_hb_set_subtract'
+    | '_hb_set_union';
+type MinMainModule = Pick<OrigMainModule, MainModuleKey>;
+
+const createHarfbuzzWrapped = async<T extends MinMainModule = MinMainModule>(hbWasmUrl: string) => {
+    const hb = await initWasm<T>(hbWasmUrl);
 
     const freeBlob = hb.addIndirectFunction(hb._free);
 

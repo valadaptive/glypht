@@ -11,6 +11,7 @@
 		"@floating-ui/dom": "^1.6.13",
 		"@glypht/bundler": "*",
 		"@glypht/core": "*",
+		"@leeoniya/ufuzzy": "^1.0.18",
 		"@preact/signals": "^2.0.3",
 		"clsx": "^2.1.1",
 		"fflate": "^0.8.2",
@@ -24,6 +25,8 @@
 		"vite": "^6.2.5",
 		"vite-bundle-analyzer": "^0.18.1",
 		"vite-node": "^3.1.1",
-		"yaml": "^2.7.1"
+		"yaml": "^2.7.1",
+		"pbtxtjs": "https://github.com/valadaptive/pbtxtjs.git",
+		"protobufjs": "^7.5.3"
 	}
 }

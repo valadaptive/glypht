@@ -6,7 +6,7 @@ import classNames from 'clsx';
 import type {FeatureInfo, FontRef} from '@glypht/core/subsetting.js';
 
 import {useAppState} from '../../app-state';
-import {CheckboxToggle, SelectableIcon, SpinBox, TextBox} from '../Widgets/Widgets';
+import {Button, CheckboxToggle, SelectableIcon, SpinBox, TextBox} from '../Widgets/Widgets';
 import {
     AxisSettingState,
     CharacterSetSettingsState,
@@ -636,6 +636,10 @@ const FontInfo = () => {
                 addErrorToast('Failed to upload fonts', err);
             });
     }, [appState]);
+    const openGoogleFontsModal = useCallback((event: Event) => {
+        appState.googleFontsModalState.open.value = true;
+        event.stopPropagation();
+    }, [appState]);
 
     if (fonts.value.length === 0) {
         if (fontsBeingLoaded.value > 0) {
@@ -655,6 +659,7 @@ const FontInfo = () => {
             <Icon type="upload" title="" className={style.uploadIcon} size='8rem' />
             <span className={style.uploadHeader}>Click to upload fonts</span>
             <span className={style.uploadSub}>or drag and drop</span>
+            <Button onClick={openGoogleFontsModal}>Browse Google Fonts</Button>
         </div>;
     }
 

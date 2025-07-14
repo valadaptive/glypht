@@ -22,6 +22,7 @@ import {
     StaticFamilySettings,
     StyleSettingsState,
 } from './util/font-settings';
+import {FamilyProto, LanguageProto} from './generated/google-fonts-types';
 
 export type FontDataState =
     | {state: 'not_loaded'}
@@ -74,6 +75,47 @@ export class AppState {
     };
 
     public cssPathPrefix = signal('');
+
+    public googleFontsModalState: {
+        open: Signal<boolean>;
+        state: Signal<
+            | {state: 'not_loaded'}
+            | {state: 'loading'}
+            | {
+                state: 'loaded';
+                fontsList: FamilyProto[];
+                langList: LanguageProto[];
+            }
+            | {state: 'error'; error: unknown}
+        >;
+        searchValue: Signal<string>;
+        searchFilters: {
+            monospace: Signal<boolean>;
+            proportional: Signal<boolean>;
+            sansSerif: Signal<boolean>;
+            serif: Signal<boolean>;
+            noClassification: Signal<boolean>;
+            display: Signal<boolean>;
+            handwriting: Signal<boolean>;
+            symbols: Signal<boolean>;
+        };
+        previewedFamily: Signal<FamilyProto | null>;
+    } = {
+            open: signal(false),
+            state: signal({state: 'not_loaded'}),
+            searchValue: signal(''),
+            previewedFamily: signal(null),
+            searchFilters: {
+                monospace: signal(true),
+                proportional: signal(true),
+                sansSerif: signal(true),
+                serif: signal(true),
+                noClassification: signal(true),
+                display: signal(true),
+                handwriting: signal(true),
+                symbols: signal(true),
+            },
+        };
 
     constructor() {}
 

@@ -161,3 +161,28 @@ em++ \
     blake3.o \
     blake3_dispatch.o \
     blake3_portable.o \
+
+# harfbuzz for shaping (used when generating Google Fonts metadata)
+
+em++ \
+    -s MODULARIZE \
+    -s EXPORT_ES6 \
+    -s EXPORT_NAME=createHarfBuzz \
+    -s EXPORTED_FUNCTIONS=@hb-shape.symbols \
+    -s EXPORTED_RUNTIME_METHODS='["addFunction", "wasmMemory", "wasmExports", "stackAlloc", "stackRestore", "stackSave", "HEAPU8", "HEAPU32", "HEAPF32"]' \
+    -s INITIAL_MEMORY=65MB \
+    -s ALLOW_TABLE_GROWTH \
+    -s ALLOW_MEMORY_GROWTH \
+    -s MAIN_MODULE=0 \
+    -s TEXTDECODER=2 \
+    -s DYNAMIC_EXECUTION=0 \
+    -s ASSERTIONS=0 \
+    -s STANDALONE_WASM=1 \
+    -s FILESYSTEM=0 \
+    -s ENVIRONMENT=node \
+    -o hb-shape.js \
+    --emit-tsd hb-shape.d.ts \
+    -Oz \
+    -flto \
+    --no-entry \
+    harfbuzz-subset.o
