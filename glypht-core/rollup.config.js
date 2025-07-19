@@ -7,14 +7,21 @@ export default [
     {
         input: [
             'src/index.ts',
+            'src/compression.ts',
+            'src/subsetting.ts',
         ],
         output: {
             dir: 'dist',
             format: 'esm',
-            sourcemap: true,
             entryFileNames: '[name].js',
         },
         plugins: [
+            {
+                name: 'clean-dist',
+                async buildStart() {
+                    await fs.rm(path.resolve(import.meta.dirname, 'dist'), {recursive: true});
+                },
+            },
             typescript({tsconfig: './tsconfig.main.json', filterRoot: false}),
             // Vite will only treat a worker as a JS entrypoint if it matches the pattern `new Worker(new URL(...,
             // import.meta.url))`. If we `import Worker from 'web-worker';` ponyfill-style, Rollup will rename it to
@@ -33,7 +40,6 @@ export default [
         output: {
             dir: 'dist',
             format: 'esm',
-            sourcemap: true,
             entryFileNames: '[name].js',
         },
         plugins: [

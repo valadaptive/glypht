@@ -1,7 +1,8 @@
 import {computed, signal, Signal} from '@preact/signals';
 import {createContext} from 'preact';
 import {useContext} from 'preact/hooks';
-import {FontRef, GlyphtContext, WoffCompressionContext, type SubsettedFont} from '@glypht/core';
+import {FontRef, GlyphtContext, type SubsettedFont} from '@glypht/core/subsetting.js';
+import {WoffCompressionContext} from '@glypht/core/compression.js';
 
 import {
     FamilySettings,

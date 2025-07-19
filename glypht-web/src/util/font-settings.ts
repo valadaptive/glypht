@@ -8,7 +8,7 @@ import type {
     SubsetAxisInfo,
     SubsetName,
     SubsettedFont,
-} from '@glypht/core';
+} from '@glypht/core/subsetting.js';
 import {parseRanges, parseUnicodeRanges} from './parse-ranges';
 import CSSEmitter from './css-emitter';
 import {ExportedFont} from '../app-state';

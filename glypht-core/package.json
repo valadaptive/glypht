@@ -4,12 +4,39 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./compression.js": {
+      "import": {
+        "types": "./dist/compression.d.ts",
+        "default": "./dist/compression.js"
+      }
+    },
+    "./subsetting.js": {
+      "import": {
+        "types": "./dist/subsetting.d.ts",
+        "default": "./dist/subsetting.js"
+      }
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c rollup.config.js",
+    "prepack": "rollup -c rollup.config.js",
     "watch": "rollup --watch -c rollup.config.js"
   },
-  "author": "",
+  "files": ["dist/**/*"],
+  "author": "valadaptive",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valadaptive/glypht.git",
+    "directory": "glypht-core"
+  },
   "license": "ISC",
   "description": "",
   "devDependencies": {

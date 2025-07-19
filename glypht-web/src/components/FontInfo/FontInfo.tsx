@@ -3,7 +3,7 @@ import style from './style.module.scss';
 import {useCallback, useId, useMemo} from 'preact/hooks';
 import {batch, Signal, useComputed, useSignal} from '@preact/signals';
 import classNames from 'clsx';
-import type {FeatureInfo, FontRef} from '@glypht/core';
+import type {FeatureInfo, FontRef} from '@glypht/core/subsetting.js';
 
 import {useAppState} from '../../app-state';
 import {CheckboxToggle, SelectableIcon, SpinBox, TextBox} from '../Widgets/Widgets';
