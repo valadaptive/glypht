@@ -1,6 +1,5 @@
 {
     "name": "glypht",
-    "private": true,
     "workspaces": [
 		"glypht-core",
         "glypht-web"
