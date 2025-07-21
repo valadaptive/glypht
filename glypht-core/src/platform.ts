@@ -10,6 +10,14 @@ export const workerSupportsBlobUrls = async(): Promise<boolean> => {
     if (workerBlobSupport !== null) {
         return workerBlobSupport;
     }
+    const emscriptenThinksEnvironmentIsNode = typeof process === 'object' &&
+        process.versions?.node &&
+        (process as {type?: string}).type !== 'renderer';
+    // If Emscripten thinks we're in Node, it will never try to `fetch` a WASM URL and hence it can't be a blob.
+    if (emscriptenThinksEnvironmentIsNode) {
+        workerBlobSupport = false;
+        return workerBlobSupport;
+    }
     const testUrl = URL.createObjectURL(new Blob([]));
     // We can't just use a data: URI for the worker source since those are considered opaque origins and all blob
     // requests from it will fail:
