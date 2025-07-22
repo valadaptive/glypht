@@ -1,13 +1,13 @@
 import createWoff1, {MainModule as Woff1MainModule} from '../../c-libs-wrapper/woff1-wrapper.js';
 import createWoff2, {MainModule as Woff2MainModule} from '../../c-libs-wrapper/woff2-wrapper.js';
-import {MessageFromWorker, MessageToWorker, postMessageFromWorker} from './messages';
+import {CompressionWorkerSchema, MessageFromWorker, MessageToWorker, postMessageFromWorker} from './worker-rpc.js';
 
 let woff1Promise: Promise<Woff1MainModule> | null = null;
 let woff2Promise: Promise<Woff2MainModule> | null = null;
 
 
 const listener = async(event: MessageEvent) => {
-    const message = event.data as MessageToWorker;
+    const message = event.data as MessageToWorker<CompressionWorkerSchema>;
 
     try {
         switch (message.type) {
@@ -53,7 +53,11 @@ const listener = async(event: MessageEvent) => {
             }
         }
     } catch (error) {
-        postMessage({type: 'error', message: error, originId: message.id} satisfies MessageFromWorker);
+        postMessage({
+            type: 'error',
+            message: error,
+            originId: message.id,
+        } satisfies MessageFromWorker<CompressionWorkerSchema>);
     }
 };
 

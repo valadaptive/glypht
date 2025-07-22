@@ -1,5 +1,5 @@
-import {closeWorker, FontMessage, postGetFontData, postSubsetFont, postUpdateFonts} from './messages';
 import {FontRef, SubsetSettings} from './font-types';
+import RpcDispatcher, {FontMessage, FontWorkerSchema} from './worker-rpc';
 
 /**
  * Context object for all font processing. This is what you use to load fonts.
@@ -9,15 +9,22 @@ import {FontRef, SubsetSettings} from './font-types';
  * the worker thread and allow the program to exit.
  */
 export class GlyphtContext {
-    private fontWorker: Worker;
+    private fontWorker: RpcDispatcher<FontWorkerSchema>;
     private fontFinalizationRegistry: FinalizationRegistry<number>;
     private state = {destroyed: false};
 
     constructor() {
-        this.fontWorker = new Worker(new URL('./font-worker.worker.js', import.meta.url), {type: 'module'});
+        this.fontWorker = new RpcDispatcher(
+            new Worker(new URL('./font-worker.worker.js', import.meta.url), {type: 'module'}),
+            {
+                'update-fonts': 'updated-fonts',
+                'subset-font': 'subsetted-font',
+                'get-font-data': 'got-font-data',
+            },
+        );
         // Automatically garbage-collect fonts
         this.fontFinalizationRegistry = new FinalizationRegistry(fontId => {
-            void postUpdateFonts(this.fontWorker, [], [fontId], true);
+            this.fontWorker.sendAndForget('update-fonts', {loadFonts: [], unloadFonts: [fontId]});
         });
     }
 
@@ -36,12 +43,11 @@ export class GlyphtContext {
         if (this.state.destroyed) {
             throw new DOMException('This GlyphtContext has been destroyed', 'InvalidStateError');
         }
-        return (await postUpdateFonts(
-            this.fontWorker,
-            fontFiles,
-            [],
-            transfer,
-        )).map(fontMsg => this.hydrateFont(fontMsg));
+        return (await this.fontWorker.send(
+            'update-fonts',
+            {loadFonts: fontFiles, unloadFonts: []},
+            transfer ? fontFiles.map(f => f.buffer) : undefined,
+        )).fonts.map(fontMsg => this.hydrateFont(fontMsg));
     }
 
     private hydrateFont(fontMessage: FontMessage): FontRef {
@@ -51,7 +57,7 @@ export class GlyphtContext {
         const fontId = fontMessage.id;
         (fontMessage as FontRef).destroy = async() => {
             if (ctxState.destroyed) return;
-            const res = postUpdateFonts(fontWorker, [], [fontId], true);
+            const res = fontWorker.send('update-fonts', {loadFonts: [], unloadFonts: [fontId]});
             registry.unregister(fontMessage);
             await res;
         };
@@ -61,7 +67,7 @@ export class GlyphtContext {
                 throw new DOMException('This font\'s GlyphtContext has been destroyed', 'InvalidStateError');
             }
             if (settings === null) {
-                const {data: fontData, format} = await postGetFontData(fontWorker, fontId);
+                const {data: fontData, format} = await fontWorker.send('get-font-data', fontId);
                 return {
                     familyName: fontMessage.familyName,
                     subfamilyName: fontMessage.subfamilyName,
@@ -77,7 +83,7 @@ export class GlyphtContext {
                     namedInstance: null,
                 };
             }
-            return await postSubsetFont(fontWorker, fontId, settings);
+            return await fontWorker.send('subset-font', {font: fontId, settings});
         };
         return fontMessage as FontRef;
     }
@@ -90,7 +96,7 @@ export class GlyphtContext {
      * processing work is finished.
      */
     public destroy() {
-        closeWorker(this.fontWorker);
+        this.fontWorker.close();
         this.state.destroyed = true;
     }
 };

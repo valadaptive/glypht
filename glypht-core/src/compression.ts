@@ -1,17 +1,17 @@
-import {closeWorker, MessageToWorker, postCompressFont, postDecompressFont} from './messages';
 import {workerSupportsBlobUrls, getParallelism} from './platform';
+import RpcDispatcher, {CompressionWorkerSchema, MessageSchema} from './worker-rpc';
 
-class WorkerPool {
-    private workers: Worker[];
-    private allWorkers: Worker[];
+class WorkerPool<S extends MessageSchema> {
+    private workers: RpcDispatcher<S>[];
+    private allWorkers: RpcDispatcher<S>[];
     private queuedOperations: {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         resolve: (value: any) => void;
         reject: (err: unknown) => void;
-        fn: (worker: Worker) => Promise<unknown>;
+        fn: (worker: RpcDispatcher<S>) => Promise<unknown>;
     }[] = [];
 
-    constructor(workers: Worker[]) {
+    constructor(workers: RpcDispatcher<S>[]) {
         this.workers = workers;
         this.allWorkers = workers.slice(0);
     }
@@ -40,7 +40,7 @@ class WorkerPool {
         }
     }
 
-    enqueue<T>(operation: (worker: Worker) => Promise<T>) {
+    enqueue<T>(operation: (worker: RpcDispatcher<S>) => Promise<T>) {
         let resolve!: (value: T) => void, reject!: (error: unknown) => void;
         const promise = new Promise((_resolve: (value: T) => void, _reject) => {
             resolve = _resolve;
@@ -59,7 +59,7 @@ class WorkerPool {
 
     destroy() {
         for (const worker of this.allWorkers) {
-            closeWorker(worker);
+            worker.close();
         }
         this.allWorkers.length = 0;
     }
@@ -71,7 +71,7 @@ class WorkerPool {
  * {@link WoffCompressionContext#destroy} to close the worker threads and allow the program to exit.
  */
 export class WoffCompressionContext {
-    private pool: Promise<WorkerPool>;
+    private pool: Promise<WorkerPool<CompressionWorkerSchema>>;
     private destroyed = false;
 
     /**
@@ -103,12 +103,12 @@ export class WoffCompressionContext {
             if (!parallelism) parallelism = await getParallelism();
             for (let i = 0; i < parallelism; i++) {
                 const worker = new Worker(new URL('./compression-worker.worker.js', import.meta.url), {type: 'module'});
-                worker.postMessage({
-                    type: 'init-woff-wasm',
-                    message: {woff1: woff1BlobUrl, woff2: woff2BlobUrl},
-                    id: -1,
-                } satisfies MessageToWorker);
-                workers.push(worker);
+                const dispatcher = new RpcDispatcher<CompressionWorkerSchema>(worker, {
+                    'compress-font': 'compressed-font',
+                    'decompress-font': 'decompressed-font',
+                });
+                dispatcher.sendAndForget('init-woff-wasm', {woff1: woff1BlobUrl, woff2: woff2BlobUrl});
+                workers.push(dispatcher);
             }
             return new WorkerPool(workers);
         })();
@@ -136,7 +136,7 @@ export class WoffCompressionContext {
         this.checkDestroyed();
         const pool = await this.pool;
         return await pool.enqueue((async worker => {
-            const compressed = await postCompressFont(worker, ttf, algorithm, quality);
+            const compressed = await worker.send('compress-font', {data: ttf, algorithm, quality});
             return compressed;
         }));
     }
@@ -154,7 +154,7 @@ export class WoffCompressionContext {
         }
         const pool = await this.pool;
         return await pool.enqueue((async worker => {
-            const decompressed = await postDecompressFont(worker, compressed, algorithm);
+            const decompressed = await worker.send('decompress-font', {data: compressed, algorithm});
             return decompressed;
         }));
     }

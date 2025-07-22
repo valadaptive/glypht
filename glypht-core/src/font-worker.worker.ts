@@ -1,18 +1,11 @@
-import {
-    FontMessage,
-    postMessageFromWorker,
-    type MessageFromWorker,
-    type MessageToWorker,
-    type UpdatedFonts,
-} from './messages';
 import {Font, init} from './font';
 import {SubsetSettings, SubsettedFont} from './font-types';
+import {FontMessage, FontWorkerSchema, MessageFromWorker, MessageToWorker, postMessageFromWorker} from './worker-rpc';
 
 const initPromise = init(new URL('./hb.wasm', import.meta.url).href);
 
-
 const listener = async(event: MessageEvent) => {
-    const message = event.data as MessageToWorker;
+    const message = event.data as MessageToWorker<FontWorkerSchema>;
 
     try {
         switch (message.type) {
@@ -52,7 +45,11 @@ const listener = async(event: MessageEvent) => {
             }
         }
     } catch (error) {
-        postMessage({type: 'error', message: error, originId: message.id} satisfies MessageFromWorker);
+        postMessage({
+            type: 'error',
+            message: error,
+            originId: message.id,
+        } satisfies MessageFromWorker<FontWorkerSchema>);
     }
 };
 
@@ -64,7 +61,9 @@ const fonts = new Map<number, Font>();
 const updateFonts = async(
     loadFonts: Uint8Array[],
     unloadFonts: number[],
-): Promise<UpdatedFonts> => {
+): Promise<{
+    fonts: FontMessage[];
+}> => {
     await initPromise;
     for (const oldFont of unloadFonts) {
         const font = fonts.get(oldFont);
