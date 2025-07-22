@@ -19,7 +19,7 @@ export default [
             {
                 name: 'clean-dist',
                 async buildStart() {
-                    await fs.rm(path.resolve(import.meta.dirname, 'dist'), {recursive: true});
+                    await fs.rm(path.resolve(import.meta.dirname, 'dist'), {recursive: true, force: true});
                 },
             },
             typescript({tsconfig: './tsconfig.main.json', filterRoot: false}),
