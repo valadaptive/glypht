@@ -1,7 +1,7 @@
 {
   "name": "@glypht/core",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -33,7 +33,9 @@
     "prepack": "rollup -c rollup.config.js",
     "watch": "rollup --watch -c rollup.config.js"
   },
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "author": "valadaptive",
   "repository": {
     "type": "git",
