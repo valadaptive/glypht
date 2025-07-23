@@ -1292,7 +1292,7 @@ This usually happens when you export a JSX literal and not the component.
     constructor() {
       this.state = {
         destroyed: false
-      }, this.fontWorker = new wi(new Bn(new URL("/assets/font-worker.worker-BR1UHBp4.js", import.meta.url), {
+      }, this.fontWorker = new wi(new Bn(new URL("/assets/font-worker.worker-BMgi_W_1.js", import.meta.url), {
         type: "module"
       }), {
         "update-fonts": "updated-fonts",
@@ -1468,16 +1468,16 @@ This usually happens when you export a JSX literal and not the component.
       this.destroyed = false, this.pool = (async () => {
         let n;
         await fs() ? n = await Promise.all([
-          new URL("/assets/woff1-Bmf9hfAA.wasm", import.meta.url),
-          new URL("/assets/woff2-CeAijNkY.wasm", import.meta.url)
+          new URL("/assets/woff1-q3hLfN9t.wasm", import.meta.url),
+          new URL("/assets/woff2-BFLkFc7e.wasm", import.meta.url)
         ].map((s) => fetch(s).then((o) => o.blob()).then((o) => URL.createObjectURL(o)))) : n = [
-          new URL("/assets/woff1-Bmf9hfAA.wasm", import.meta.url).href,
-          new URL("/assets/woff2-CeAijNkY.wasm", import.meta.url).href
+          new URL("/assets/woff1-q3hLfN9t.wasm", import.meta.url).href,
+          new URL("/assets/woff2-BFLkFc7e.wasm", import.meta.url).href
         ];
         const [a, i] = n, r = [];
         t || (t = await ds());
         for (let s = 0; s < t; s++) {
-          const o = new Bn(new URL("/assets/compression-worker.worker-BdrPYuaf.js", import.meta.url), {
+          const o = new Bn(new URL("/assets/compression-worker.worker-HusA-BJS.js", import.meta.url), {
             type: "module"
           }), u = new wi(o, {
             "compress-font": "compressed-font",
