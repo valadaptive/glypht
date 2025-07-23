@@ -1,7 +1,7 @@
 {
   "name": "@glypht/core",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -52,6 +52,6 @@
     "typedoc": "^0.28.7"
   },
   "dependencies": {
-    "web-worker": "https://github.com/valadaptive/web-worker.git#updates"
+    "@glypht/web-worker": "^1.6.0"
   }
 }

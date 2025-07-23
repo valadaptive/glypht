@@ -1,5 +1,3 @@
-import Worker from 'web-worker';
-
 let workerBlobSupport: boolean | null = null;
 
 /**

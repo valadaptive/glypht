@@ -27,10 +27,10 @@ export default [
             // import.meta.url))`. If we `import Worker from 'web-worker';` ponyfill-style, Rollup will rename it to
             // `Worker$1` and Vite won't recognize it. Instead, we need to use the inject plugin to name it `Worker`.
             inject({
-                Worker: 'web-worker',
+                Worker: '@glypht/web-worker',
             }),
         ],
-        external: ['web-worker', 'os'],
+        external: ['@glypht/web-worker', 'os'],
     },
     {
         input: [
