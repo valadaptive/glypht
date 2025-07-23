@@ -3,16 +3,15 @@ set -e
 
 # brotli + woff2
 
-mkdir -p brotli-build
-cd brotli-build
-emcmake cmake -DCMAKE_POLICY_DEFAULT_CMP0069=NEW -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=TRUE -DBUILD_SHARED_LIBS=OFF -DBROTLI_BUNDLED_MODE=OFF -DCMAKE_BUILD_TYPE=Release ../woff2/brotli
-emmake make -j16 brotlicommon brotlienc brotlidec
-
-cd ..
-
 mkdir -p woff2-build
 cd woff2-build
-emcmake cmake -DCMAKE_POLICY_DEFAULT_CMP0069=NEW -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=TRUE -DNOISY_LOGGING=OFF -DBUILD_SHARED_LIBS=OFF -DBROTLIENC_INCLUDE_DIRS=../woff2/brotli/c/include  -DBROTLIDEC_INCLUDE_DIRS=../woff2/brotli/c/include -DBROTLIENC_LIBRARIES="../brotli-build/libbrotlienc-static.a;../brotli-build/libbrotlicommon-static.a" -DBROTLIDEC_LIBRARIES="../brotli-build/libbrotlidec-static.a;../brotli-build/libbrotlicommon-static.a" -DCMAKE_BUILD_TYPE=Release ../woff2
+emcmake cmake \
+    -DCMAKE_POLICY_DEFAULT_CMP0069=NEW \
+    -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=TRUE \
+    -DNOISY_LOGGING=OFF \
+    -DBUILD_SHARED_LIBS=OFF \
+    -DCMAKE_BUILD_TYPE=MinSizeRel \
+    ../woff2
 emmake make -j16 woff2enc woff2dec
 
 cd ..
@@ -52,19 +51,28 @@ em++ \
     woff2-build/libwoff2common.a \
     woff2-build/libwoff2dec.a \
     woff2-build/libwoff2enc.a \
-    brotli-build/libbrotlicommon.a \
-    brotli-build/libbrotlidec.a \
-    brotli-build/libbrotlienc.a
+    woff2-build/brotli/libbrotlicommon.a \
+    woff2-build/brotli/libbrotlidec.a \
+    woff2-build/brotli/libbrotlienc.a
 
 # zlib(-ng) + zopfli + woff1
 
 mkdir -p zlib-build
 cd zlib-build
-emcmake cmake -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=MinSizeRel -DZLIB_COMPAT=ON -DZLIB_ENABLE_TESTS=OFF -DWITH_GZFILEOP=OFF -DWITH_RUNTIME_CPU_DETECTION=OFF -DWITH_GTEST=OFF ../zlib-ng
-emmake make -j16 zlib CFLAGS="-Oz -fPIC"
+emcmake cmake \
+    -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
+    -DBUILD_SHARED_LIBS=OFF \
+    -DCMAKE_BUILD_TYPE=MinSizeRel \
+    -DZLIB_COMPAT=ON \
+    -DZLIB_ENABLE_TESTS=OFF \
+    -DWITH_GZFILEOP=OFF \
+    -DWITH_RUNTIME_CPU_DETECTION=OFF \
+    -DWITH_GTEST=OFF \
+    ../zlib-ng
+emmake make -j16 zlib CFLAGS="-Oz"
 
 cd ../sfnt2woff-zopfli
-emmake make -j16 ZLIB_LIBS=-lz ZLIB_CFLAGS=-I../zlib-build CFLAGS="-L../zlib-build -Oz -fPIC" woff
+emmake make -j16 ZLIB_CFLAGS=-I../zlib-build CFLAGS="-Oz" woff
 
 cd ..
 
