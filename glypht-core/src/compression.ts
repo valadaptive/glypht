@@ -1,4 +1,4 @@
-import {workerSupportsBlobUrls, getParallelism} from './platform';
+import {fetchFile, getParallelism} from './platform';
 import RpcDispatcher, {CompressionWorkerSchema, MessageSchema} from './worker-rpc';
 
 class WorkerPool<S extends MessageSchema> {
@@ -81,23 +81,11 @@ export class WoffCompressionContext {
      */
     public constructor(parallelism?: number) {
         this.pool = (async() => {
-            let woffWasmUrls;
-            // Preload the WASM as blobs if supported by the runtime environment
-            if (await workerSupportsBlobUrls()) {
-                woffWasmUrls = await Promise.all(([
-                    new URL('./woff1.wasm', import.meta.url),
-                    new URL('./woff2.wasm', import.meta.url),
-                ] as const)
-                    .map(url => fetch(url)
-                        .then(resp => resp.blob())
-                        .then(blob => URL.createObjectURL(blob))));
-            } else {
-                woffWasmUrls = [
-                    new URL('./woff1.wasm', import.meta.url).href,
-                    new URL('./woff2.wasm', import.meta.url).href,
-                ] as const;
-            }
-            const [woff1BlobUrl, woff2BlobUrl] = woffWasmUrls;
+            const woffWasmUrls = [
+                new URL('./woff1.wasm', import.meta.url),
+                new URL('./woff2.wasm', import.meta.url),
+            ];
+            const [woff1, woff2] = await Promise.all(woffWasmUrls.map(url => fetchFile(url)));
 
             const workers = [];
             if (!parallelism) parallelism = await getParallelism();
@@ -107,7 +95,7 @@ export class WoffCompressionContext {
                     'compress-font': 'compressed-font',
                     'decompress-font': 'decompressed-font',
                 });
-                dispatcher.sendAndForget('init-woff-wasm', {woff1: woff1BlobUrl, woff2: woff2BlobUrl});
+                dispatcher.sendAndForget('init-woff-wasm', {woff1, woff2});
                 workers.push(dispatcher);
             }
             return new WorkerPool(workers);

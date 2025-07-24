@@ -41,6 +41,8 @@ em++ \
     -s TEXTDECODER=2 \
     -s DYNAMIC_EXECUTION=0 \
     -s ASSERTIONS=0 \
+    -s STANDALONE_WASM=1 \
+    -s FILESYSTEM=0 \
     -s ENVIRONMENT=web,webview,worker,node \
     -o woff2.js \
     --emit-tsd woff2.d.ts \
@@ -89,6 +91,8 @@ emcc \
     -s TEXTDECODER=2 \
     -s DYNAMIC_EXECUTION=0 \
     -s ASSERTIONS=0 \
+    -s STANDALONE_WASM=1 \
+    -s FILESYSTEM=0 \
     -s ENVIRONMENT=web,webview,worker,node \
     -o woff1.js \
     --emit-tsd woff1.d.ts \
@@ -144,6 +148,8 @@ em++ \
     -s TEXTDECODER=2 \
     -s DYNAMIC_EXECUTION=0 \
     -s ASSERTIONS=0 \
+    -s STANDALONE_WASM=1 \
+    -s FILESYSTEM=0 \
     -s ENVIRONMENT=web,webview,worker,node \
     -o hb.js \
     --emit-tsd hb.d.ts \

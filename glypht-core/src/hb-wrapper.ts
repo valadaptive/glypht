@@ -1,12 +1,10 @@
-import {wrapInitFunction, MainModuleExt} from './common';
-import createHarfbuzz, {MainModule as OrigMainModule} from './hb';
+import {initWasm} from './wrap-wasm';
+import type {MainModule as OrigMainModule} from '../../c-libs-wrapper/hb';
 
-const createHarfbuzzWrapped = async (hbWasmUrl: string) => {
-    const hb = await wrapInitFunction(createHarfbuzz, 'hb.wasm')(hbWasmUrl);
+const createHarfbuzzWrapped = async(hbWasmUrl: string) => {
+    const hb = await initWasm<OrigMainModule>(hbWasmUrl);
 
-    const freeBlob = hb.addFunction((dataPtr: number) => {
-        hb._free(dataPtr);
-    }, 'vp');
+    const freeBlob = hb.addIndirectFunction(hb._free);
 
     class HbBlob {
         _ptr: number;
@@ -19,10 +17,7 @@ const createHarfbuzzWrapped = async (hbWasmUrl: string) => {
                 return;
             }
 
-            const dataPtr = hb._malloc(ptrOrData.byteLength);
-            if (dataPtr === 0) {
-                throw new Error('Failed to allocate blob');
-            }
+            const dataPtr = hb.malloc(ptrOrData.byteLength);
             hb.HEAPU8.set(ptrOrData, dataPtr);
             const blobPtr = hb._hb_blob_create_or_fail(dataPtr, ptrOrData.byteLength, 2, dataPtr, freeBlob);
             if (blobPtr === 0) {
@@ -167,7 +162,7 @@ const createHarfbuzzWrapped = async (hbWasmUrl: string) => {
         }
     }
 
-    type NewMain = MainModuleExt<OrigMainModule> & {
+    type NewMain = typeof hb & {
         HbBlob: typeof HbBlob;
         HbSet: typeof HbSet;
     };
@@ -176,7 +171,7 @@ const createHarfbuzzWrapped = async (hbWasmUrl: string) => {
     wrappedMain.HbSet = HbSet;
 
     return wrappedMain;
-}
+};
 
 export default createHarfbuzzWrapped;
 export type MainModule = typeof createHarfbuzzWrapped extends (hbWasmUrl: string) => Promise<infer T> ? T : never;

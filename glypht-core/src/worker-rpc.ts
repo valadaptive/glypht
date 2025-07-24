@@ -72,7 +72,7 @@ export type CompressionWorkerSchema =
     | {
         request: {
             name: 'init-woff-wasm';
-            message: {woff1: string; woff2: string};
+            message: {woff1: ArrayBuffer | string; woff2: ArrayBuffer | string};
         };
         response: never;
     }

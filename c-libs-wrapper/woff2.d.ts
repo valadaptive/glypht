@@ -18,6 +18,7 @@ interface WasmModule {
   _convert_woff2_to_ttf(_0: number, _1: number, _2: number, _3: number): number;
   _malloc(_0: number): number;
   _free(_0: number): void;
+  __initialize(): void;
 }
 
 export type MainModule = WasmModule & typeof RuntimeExports;

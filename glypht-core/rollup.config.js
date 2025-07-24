@@ -30,7 +30,7 @@ export default [
                 Worker: '@glypht/web-worker',
             }),
         ],
-        external: ['@glypht/web-worker', 'os'],
+        external: ['@glypht/web-worker', 'os', 'node:url', 'node:fs/promises'],
     },
     {
         input: [
@@ -58,6 +58,6 @@ export default [
                 },
             },
         ],
-        external: ['module'],
+        external: ['module', 'os', 'node:url', 'node:fs/promises'],
     },
 ];

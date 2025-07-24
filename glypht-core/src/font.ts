@@ -6,7 +6,7 @@ import createHarfbuzz, {
     OtNameId,
     tagName,
     hbTag,
-} from '../../c-libs-wrapper/hb-wrapper.js';
+} from './hb-wrapper.js';
 import {
     AxisInfo,
     FeatureInfo,

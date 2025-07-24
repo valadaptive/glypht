@@ -16,6 +16,7 @@ interface WasmModule {
   _free(_0: number): void;
   _woffEncode(_0: number, _1: number, _2: number, _3: number, _4: number, _5: number, _6: number): number;
   _woffDecode(_0: number, _1: number, _2: number, _3: number): number;
+  __initialize(): void;
 }
 
 export type MainModule = WasmModule & typeof RuntimeExports;

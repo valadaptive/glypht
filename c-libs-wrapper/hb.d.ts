@@ -79,6 +79,7 @@ interface WasmModule {
   _hb_subset_preprocess(_0: number): number;
   _hb_subset_or_fail(_0: number, _1: number): number;
   _blake3_hash_data(_0: number, _1: number, _2: number, _3: number): void;
+  __initialize(): void;
 }
 
 export type MainModule = WasmModule & typeof RuntimeExports;

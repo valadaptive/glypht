@@ -1,9 +1,10 @@
-import createWoff1, {MainModule as Woff1MainModule} from '../../c-libs-wrapper/woff1-wrapper.js';
-import createWoff2, {MainModule as Woff2MainModule} from '../../c-libs-wrapper/woff2-wrapper.js';
+import type {MainModule as Woff1MainModule} from '../../c-libs-wrapper/woff1.js';
+import type {MainModule as Woff2MainModule} from '../../c-libs-wrapper/woff2.js';
+import {initWasm, type AugmentedModule} from './wrap-wasm.js';
 import {CompressionWorkerSchema, MessageFromWorker, MessageToWorker, postMessageFromWorker} from './worker-rpc.js';
 
-let woff1Promise: Promise<Woff1MainModule> | null = null;
-let woff2Promise: Promise<Woff2MainModule> | null = null;
+let woff1Promise: Promise<AugmentedModule<Woff1MainModule>> | null = null;
+let woff2Promise: Promise<AugmentedModule<Woff2MainModule>> | null = null;
 
 
 const listener = async(event: MessageEvent) => {
@@ -12,8 +13,8 @@ const listener = async(event: MessageEvent) => {
     try {
         switch (message.type) {
             case 'init-woff-wasm': {
-                woff1Promise = createWoff1(message.message.woff1);
-                woff2Promise = createWoff2(message.message.woff2);
+                woff1Promise = initWasm(message.message.woff1);
+                woff2Promise = initWasm(message.message.woff2);
                 break;
             }
             case 'compress-font': {
@@ -81,7 +82,7 @@ const compressWoff1 = async(ttf: Uint8Array, numIterations: number) => {
 
     const woff1 = await woff1Promise;
 
-    const dataPtr = woff1._malloc(ttf.byteLength);
+    const dataPtr = woff1.malloc(ttf.byteLength);
     woff1.HEAPU8.set(ttf, dataPtr);
     try {
         return woff1.withStack(() => {
@@ -112,7 +113,7 @@ const decompressWoff1 = async(woff: Uint8Array) => {
 
     const woff1 = await woff1Promise;
 
-    const dataPtr = woff1._malloc(woff.byteLength);
+    const dataPtr = woff1.malloc(woff.byteLength);
     woff1.HEAPU8.set(woff, dataPtr);
     try {
         return woff1.withStack(() => {
@@ -142,11 +143,11 @@ const compressWoff2 = async(ttf: Uint8Array, quality: number) => {
 
     const woff2 = await woff2Promise;
 
-    const dataPtr = woff2._malloc(ttf.byteLength);
+    const dataPtr = woff2.malloc(ttf.byteLength);
     woff2.HEAPU8.set(ttf, dataPtr);
     try {
         const maxCompressedSize = woff2._max_woff2_compressed_size(dataPtr, ttf.byteLength);
-        const outPtr = woff2._malloc(maxCompressedSize);
+        const outPtr = woff2.malloc(maxCompressedSize);
         try {
             return woff2.withStack(() => {
                 const resultLengthPtr = woff2.stackAlloc(4);

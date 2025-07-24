@@ -1,54 +1,3 @@
-let workerBlobSupport: boolean | null = null;
-
-/**
- * Tests whether this environment's web worker implementation supports fetching blob URLs.
- * @returns whether fetching blob URLs from workers is supported.
- */
-export const workerSupportsBlobUrls = async(): Promise<boolean> => {
-    if (workerBlobSupport !== null) {
-        return workerBlobSupport;
-    }
-    const emscriptenThinksEnvironmentIsNode = typeof process === 'object' &&
-        process.versions?.node &&
-        (process as {type?: string}).type !== 'renderer';
-    // If Emscripten thinks we're in Node, it will never try to `fetch` a WASM URL and hence it can't be a blob.
-    if (emscriptenThinksEnvironmentIsNode) {
-        workerBlobSupport = false;
-        return workerBlobSupport;
-    }
-    const testUrl = URL.createObjectURL(new Blob([]));
-    // We can't just use a data: URI for the worker source since those are considered opaque origins and all blob
-    // requests from it will fail:
-    // https://stackoverflow.com/questions/72091273/fetch-from-web-worker-does-not-send-same-origin
-    // This means that Node (at the time of writing) will error immediately. That's OK because it doesn't support
-    // fetching blobs from workers anyway.
-    const workerUrl = URL.createObjectURL(new Blob([`
-        try {await fetch(${JSON.stringify(testUrl)}); postMessage(true)} catch (err) {postMessage(err)}`], {type: 'text/javascript'}));
-
-    try {
-        workerBlobSupport = await new Promise((resolve, reject) => {
-            const ac = new AbortController();
-            const testWorker = new Worker(workerUrl, {type: 'module'});
-            testWorker.addEventListener('message', event => {
-                testWorker.terminate();
-                resolve(event.data as boolean);
-                ac.abort();
-            }, {signal: ac.signal});
-            testWorker.addEventListener('error', event => {
-                testWorker.terminate();
-                reject(event.error as Error);
-                ac.abort();
-            });
-        });
-    } catch {
-        workerBlobSupport = false;
-    } finally {
-        URL.revokeObjectURL(testUrl);
-        URL.revokeObjectURL(workerUrl);
-    }
-    return workerBlobSupport!;
-};
-
 let parallelismResult: number | null = null;
 
 /**
@@ -79,4 +28,52 @@ export const getParallelism = async(): Promise<number> => {
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     return parallelismResult!;
+};
+
+/**
+ * Load a file from a specific path, across browsers and JS runtimes.
+ * @param path The path string or URL to load from.
+ * @returns The file contents.
+ */
+export const fetchFile = async(path: string | URL): Promise<Uint8Array> => {
+    let pathUrl: URL | undefined, filePath: string | undefined;
+    if (typeof path === 'string') {
+        try {
+            pathUrl = new URL(path);
+        } catch {
+            // The module path isn't a URL
+            filePath = path;
+        }
+    } else {
+        pathUrl = path;
+    }
+    if (pathUrl) {
+        try {
+            // Node, at least, does not support `fetch`ing a file: URI. If we get one of those, always try to load it
+            // using Node's filesystem APIs.
+            if (pathUrl.protocol === 'file:') {
+                filePath = (await import('node:url')).fileURLToPath(pathUrl);
+            }
+        } catch {
+            // We're running in an environment which doesn't support node:url or fileURLToPath. Maybe it'll at least
+            // support `fetch`ing a file: URI.
+        }
+    }
+
+    if (filePath) {
+        try {
+            const buf = await (await import('node:fs/promises')).readFile(filePath);
+            // We return a Uint8Array instead of an ArrayBuffer just in case Node pools buffers for file loads. I don't
+            // think it does, but you never know...
+            return new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength);
+        } catch {
+            // *sigh* We're running in a CloudFlare worker, which does not have documented support for Node's fs API.
+            // You know, this entire song and dance (*three* try/catch blocks' worth!) could be avoided if Node would
+            // just implement support for fetching $&#! file URIs...
+        }
+    }
+    if (!pathUrl) {
+        throw new Error(`Your runtime does not support any loading strategy for ${path}.`);
+    }
+    return new Uint8Array(await (await fetch(pathUrl)).arrayBuffer());
 };
