@@ -1,6 +1,6 @@
-_max_woff2_compressed_size
-_convert_ttf_to_woff2
-_compute_woff2_final_size
-_convert_woff2_to_ttf
-_malloc
-_free
+max_woff2_compressed_size
+convert_ttf_to_woff2
+compute_woff2_final_size
+convert_woff2_to_ttf
+malloc
+free
