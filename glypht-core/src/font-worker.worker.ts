@@ -87,6 +87,7 @@ const updateFonts = async(
             features: newFont.features,
             namedInstances: newFont.namedInstances,
             subsetCoverage: newFont.subsetCoverage,
+            unicodeRanges: Array.from(newFont.codePoints.iterRanges()),
         };
         newFontRefs.push(newFontRef);
         fonts.set(newFontRef.id, newFont);

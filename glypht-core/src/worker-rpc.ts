@@ -35,6 +35,7 @@ export type FontMessage = {
     features: FeatureInfo[];
     namedInstances: NamedInstance[];
     subsetCoverage: SubsetInfo[];
+    unicodeRanges: (number | readonly [number, number])[];
 };
 
 export type FontWorkerSchema =

@@ -17,6 +17,7 @@ export type IconType =
     | 'github'
     | 'paste'
     | 'pin'
+    | 'plus'
     | 'range'
     | 'reset'
     | 'stack'

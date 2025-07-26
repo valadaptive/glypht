@@ -114,6 +114,10 @@ export type SubsettedFont = {
      * that named instance.
      */
     namedInstance: NamedInstance | null;
+    /**
+     * All the Unicode code points contained in the subsetted font.
+     */
+    unicodeRanges: (number | readonly [number, number])[];
 };
 
 /**
@@ -206,6 +210,10 @@ export type FontRef = {
      * portion.
      */
     subsetCoverage: SubsetInfo[];
+    /**
+     * All the Unicode code points contained in the font.
+     */
+    unicodeRanges: (number | readonly [number, number])[];
     /**
      * Unload this font, freeing any memory used for it.
      *

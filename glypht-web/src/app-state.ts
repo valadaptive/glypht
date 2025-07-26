@@ -5,6 +5,7 @@ import {FontRef, GlyphtContext, type SubsettedFont} from '@glypht/core/subsettin
 import {WoffCompressionContext} from '@glypht/core/compression.js';
 
 import {
+    CharacterSetSettings,
     FamilySettings,
     fontFilenames,
     loadSettings,
@@ -28,6 +29,7 @@ export type ExportedFont = {
         woff: Uint8Array | null;
         woff2: Uint8Array | null;
     };
+    charsetNameOrIndex: string | number | null;
 };
 
 export type FontExportState =
@@ -165,6 +167,22 @@ export class AppState {
         }
     }
 
+    addCharacterSet(familySettings: FamilySettings) {
+        const {characterSets} = familySettings.settings.includeCharacters;
+        const templateSet = characterSets.value[0];
+        const newSet: CharacterSetSettings = {
+            includeNamedSubsets: templateSet.includeNamedSubsets.map(({name}) => ({name, include: signal(false)})),
+            includeUnicodeRanges: signal(''),
+            name: signal(''),
+        };
+        characterSets.value = [...characterSets.value, newSet];
+    }
+
+    removeCharacterSet(familySettings: FamilySettings, characterSet: CharacterSetSettings) {
+        const {characterSets} = familySettings.settings.includeCharacters;
+        characterSets.value = characterSets.value.filter(s => s !== characterSet);
+    }
+
     exportFonts() {
         const formats = {
             ttf: this.exportSettings.formats.ttf.peek(),
@@ -249,11 +267,12 @@ export class AppState {
                 font: subsettedFont,
                 filename: '', // This will be filled in later. It's just to get TypeScript to shut up.
                 data: dataInFormats,
+                charsetNameOrIndex: settings ? settings.charsetNameOrIndex : null,
             };
         });
 
         return Promise.all(fontPromises).then(exportedFonts => {
-            const filenames = fontFilenames(exportedFonts.map(ef => ef.font));
+            const filenames = fontFilenames(exportedFonts);
             for (const exportedFont of exportedFonts) {
                 const filename = filenames.get(exportedFont.font)!;
                 exportedFont.filename = filename;

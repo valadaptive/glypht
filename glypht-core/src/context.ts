@@ -81,6 +81,7 @@ export class GlyphtContext {
                         value: {min: axis.min, max: axis.max, defaultValue: axis.defaultValue},
                     })),
                     namedInstance: null,
+                    unicodeRanges: fontMessage.unicodeRanges,
                 };
             }
             return await fontWorker.send('subset-font', {font: fontId, settings});

@@ -32,7 +32,7 @@ _hb_set_create
 _hb_set_destroy
 _hb_set_get_population
 _hb_set_next
-_hb_set_next_many
+_hb_set_next_range
 _hb_set_add
 _hb_set_add_range
 _hb_set_clear

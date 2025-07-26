@@ -134,12 +134,29 @@ const createHarfbuzzWrapped = async(hbWasmUrl: string) => {
             hb._hb_set_set(this._ptr, other._ptr);
         }
 
-        [Symbol.iterator]() {
-            return new HbSetIterator(this._ptr);
+        [Symbol.iterator](): Iterator<number, void, void> {
+            // We can save on JS->WASM calls by using a range iterator on the HB side.
+            const ptr = this._ptr;
+            return function*() {
+                const iter = new HbSetRangeIterator(ptr);
+                for (const range of iter) {
+                    if (typeof range === 'number') {
+                        yield range;
+                    } else {
+                        for (let i = range[0], end = range[1]; i <= end; i++) {
+                            yield i;
+                        }
+                    }
+                }
+            }();
+        }
+
+        iterRanges(): IterableIterator<number | readonly [number, number], void, void> {
+            return new HbSetRangeIterator(this._ptr);
         }
     }
 
-    class HbSetIterator {
+    class HbSetRangeIterator {
         _ptr: number;
         _last: number;
         constructor(ptr: number) {
@@ -147,18 +164,25 @@ const createHarfbuzzWrapped = async(hbWasmUrl: string) => {
             this._last = -1 >>> 0;
         }
 
-        next(): IteratorResult<number, void> {
+        next(): IteratorResult<number | readonly [number, number], void> {
             return hb.withStack(() => {
-                const nextPtr = hb.stackAlloc(4);
-                hb.writeUint32(nextPtr, this._last);
-                const didIterate = !!hb._hb_set_next(this._ptr, nextPtr);
+                const firstPtr = hb.stackAlloc(4);
+                const lastPtr = hb.stackAlloc(4);
+                hb.writeUint32(lastPtr, this._last);
+                const didIterate = !!hb._hb_set_next_range(this._ptr, firstPtr, lastPtr);
 
+                const first = hb.readUint32(firstPtr);
+                const last = hb.readUint32(lastPtr);
                 if (didIterate) {
-                    this._last = hb.readUint32(nextPtr);
-                    return {done: false as const, value: this._last};
+                    this._last = last;
+                    return {done: false as const, value: first === last ? first : [first, last] as const};
                 }
                 return {done: true as const, value: undefined};
             });
+        }
+
+        [Symbol.iterator]() {
+            return this;
         }
     }
 

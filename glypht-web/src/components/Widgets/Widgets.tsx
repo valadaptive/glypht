@@ -312,13 +312,24 @@ export const CheckboxToggle = ({label, title, checked, disabled, indeterminate}:
     );
 };
 
-export const TextBox = ({value, ...props}: {value: Signal<string>} & InputHTMLAttributes) => {
+export const TextBox = ({
+    value,
+    small,
+    className,
+    ...props
+}: {value: Signal<string>; small?: boolean} & InputHTMLAttributes) => {
     const updateTextbox = useCallback((event: TargetedEvent<HTMLInputElement>) => {
         value.value = event.currentTarget.value;
     }, [value]);
 
     return (
-        <input type="text" {...props} value={value} onInput={updateTextbox} />
+        <input
+            type="text"
+            className={classNames(className, small && style.small)}
+            {...props}
+            value={value}
+            onInput={updateTextbox}
+        />
     );
 };
 

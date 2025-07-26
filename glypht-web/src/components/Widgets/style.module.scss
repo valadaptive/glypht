@@ -170,3 +170,8 @@ input[type=number].spinbox-field {
         @include buttons.button-color(theme.$red, theme.$red-hover, theme.$red-active, theme.$red-muted, white);
     }
 }
+
+input[type=text].small {
+    font-size: 0.825rem;
+    padding: 0.325rem 0.4rem;
+}

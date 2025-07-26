@@ -9,7 +9,7 @@ import type {
     SubsetName,
     SubsettedFont,
 } from '@glypht/core/subsetting.js';
-import {parseRanges, parseUnicodeRanges} from './parse-ranges';
+import {formatUnicodeRanges, parseRanges, parseUnicodeRanges} from './unicode-ranges';
 import CSSEmitter from './css-emitter';
 import {ExportedFont} from '../app-state';
 import {FEATURES} from '../generated/ot-features';
@@ -67,13 +67,19 @@ export type StyleSettings = Record<StyleKey, StyleSetting>;
 type FeatureSetKey = 'features' | 'stylisticSets' | 'characterVariants';
 type FeatureSettings = Record<FeatureSetKey, {feature: FeatureInfo; include: Signal<boolean>}[]>;
 
-type IncludeCharactersSettings = {
+export type IncludeCharactersSettings = {
+    /** Ignore the other settings and include all characters found in the input. */
+    includeAllCharacters: Signal<boolean>;
+    characterSets: Signal<CharacterSetSettings[]>;
+};
+
+export type CharacterSetSettings = {
     /** Toggles for the named Google Fonts character sets. */
     includeNamedSubsets: {name: SubsetName; include: Signal<boolean>}[];
     /** Custom Unicode ranges. */
     includeUnicodeRanges: Signal<string>;
-    /** Ignore the other settings and include all characters found in the input. */
-    includeAllCharacters: Signal<boolean>;
+    /** The custom name of this character set, used in font filenames and CSS comments. */
+    name: Signal<string>;
 };
 
 export type SubsetSettingsSignal = {
@@ -125,6 +131,13 @@ export type StaticSubsetSettings = {
         includeNamedSubsets: {name: SubsetName; include: boolean}[];
         includeUnicodeRanges: string;
         includeAllCharacters: boolean;
+    } | {
+        includeAllCharacters: boolean;
+        characterSets: {
+            includeNamedSubsets: {name: SubsetName; include: boolean}[];
+            includeUnicodeRanges: string;
+            name: string;
+        }[];
     };
 };
 
@@ -150,8 +163,17 @@ export type CopiedSettings =
             includeAllCharacters: boolean;
         };
         type: 'includeCharactersSettingsV1';
+    } | {
+        settings: {
+            includeAllCharacters: boolean;
+            characterSets: {
+                includeNamedSubsets: {name: SubsetName; include: boolean}[];
+                includeUnicodeRanges: string;
+                name: string;
+            }[];
+        };
+        type: 'includeCharactersSettingsV2';
     };
-
 
 const STYLE_SUBFAMILIES = [
     'Thin',
@@ -459,9 +481,12 @@ export const settingsFromFonts = (fonts: FontRef[]): FamilySettings[] => {
                     characterVariants: charVariantToggles,
                 },
                 includeCharacters: {
-                    includeNamedSubsets: subsetToggles,
-                    includeUnicodeRanges: signal(''),
                     includeAllCharacters: signal(subsetToggles.length === 0),
+                    characterSets: signal([{
+                        includeNamedSubsets: subsetToggles,
+                        includeUnicodeRanges: signal(''),
+                        name: signal(''),
+                    }]),
                 },
             },
             enableSubsetting: signal(true),
@@ -489,6 +514,11 @@ export type SubsetSettings = {
         named: SubsetName[];
         custom: (readonly [number, number] | number)[];
     };
+    /**
+     * Used in naming the font files. When instancing a font into multiple character sets, each one is named or
+     * numbered.
+     */
+    charsetNameOrIndex: string | number | null;
 };
 
 const axisRangeProduct = (axisRanges: MultiSubsetAxis[]) => {
@@ -653,32 +683,65 @@ export const makeSubsetSettings = (settings: FamilySettings[]): Map<number, (Sub
                 }
             }
 
-            let unicodeRanges;
+            let unicodeRangeSets = [];
             const charSettings = family.settings.includeCharacters;
             if (charSettings.includeAllCharacters.value) {
-                unicodeRanges = 'all' as const;
+                unicodeRangeSets = ['all'] as const;
             } else {
-                const named: SubsetName[] = [];
-                for (const namedSubset of charSettings.includeNamedSubsets) {
-                    if (namedSubset.include.value) {
-                        named.push(namedSubset.name);
+                for (const charsetSettings of charSettings.characterSets.value) {
+                    const named: SubsetName[] = [];
+                    for (const namedSubset of charsetSettings.includeNamedSubsets) {
+                        if (namedSubset.include.value) {
+                            named.push(namedSubset.name);
+                        }
                     }
+                    let charsetName: string | null = charsetSettings.name.value;
+                    if (charsetName === '') {
+                        // If the character set consists exclusively of pre-named Google Fonts character subsets, we can
+                        // fall back to the names of those
+                        if (charsetSettings.includeUnicodeRanges.value === '') {
+                            charsetName = named.join('-');
+                        } else {
+                            charsetName = null;
+                        }
+                    }
+                    unicodeRangeSets.push({
+                        named,
+                        custom: parseUnicodeRanges(charsetSettings.includeUnicodeRanges.value) ?? [],
+                        charsetName,
+                    });
                 }
-                unicodeRanges = {
-                    named,
-                    custom: parseUnicodeRanges(charSettings.includeUnicodeRanges.value) ?? [],
-                };
+
             }
 
-            const flattenedSettings = axisValues.length > 0 ? axisRangeProduct(axisValues).map(axisValues => ({
+            // Instantiate for the cartesian product of all instanced variation axes...
+            const flattenedAxisSettings = axisValues.length > 0 ? axisRangeProduct(axisValues).map(axisValues => ({
                 axisValues,
                 features,
-                unicodeRanges,
             })) : [{
                 axisValues: [],
                 features,
-                unicodeRanges,
             }];
+
+            // Then once for each character set
+            const flattenedSettings = [];
+            for (const {axisValues, features} of flattenedAxisSettings) {
+                for (let i = 0; i < unicodeRangeSets.length; i++) {
+                    const unicodeRanges = unicodeRangeSets[i];
+                    flattenedSettings.push({
+                        axisValues,
+                        features,
+                        unicodeRanges,
+                        // We only need to name/number fonts by character set if we're exporting more than one character
+                        // set
+                        charsetNameOrIndex: unicodeRangeSets.length === 1 ?
+                            null :
+                            typeof unicodeRanges !== 'string' && unicodeRanges.charsetName !== null ?
+                                unicodeRanges.charsetName :
+                                i,
+                    });
+                }
+            }
 
             settingsByFont.set(font.font.id, flattenedSettings);
         }
@@ -754,13 +817,18 @@ const findVaryingAxes = (fonts: SubsettedFont[]) => {
     return varyingAxesByFamily;
 };
 
-export const fontFilenames = (fonts: SubsettedFont[]) => {
-    const varyingAxesByFamily = findVaryingAxes(fonts);
+export const fontFilenames = (fonts: ExportedFont[]) => {
+    const varyingAxesByFamily = findVaryingAxes(fonts.map(font => font.font));
 
     const filenames = new Map<SubsettedFont, string>();
-    for (const font of fonts) {
+    for (const {font, charsetNameOrIndex} of fonts) {
         const varyingInfo = varyingAxesByFamily.get(font.familyName)!;
-        filenames.set(font, fontFilename(font, varyingInfo.varyingAxes, varyingInfo.varyingStyleValues));
+        filenames.set(font, fontFilename(
+            font,
+            varyingInfo.varyingAxes,
+            varyingInfo.varyingStyleValues,
+            charsetNameOrIndex,
+        ));
     }
 
     return filenames;
@@ -772,6 +840,7 @@ const fontFilename = (
     font: SubsettedFont,
     varyingAxes: Set<string>,
     styleValuesVary: {weight: boolean; width: boolean; italic: boolean; slant: boolean},
+    charsetNameOrIndex: number | string | null,
 ) => {
     const {weight, width, italic, slant} = font.styleValues;
 
@@ -835,6 +904,12 @@ const fontFilename = (
         }
     }
 
+    if (typeof charsetNameOrIndex === 'string') {
+        filename += `-${charsetNameOrIndex}`;
+    } else if (typeof charsetNameOrIndex === 'number') {
+        filename += `-charset${charsetNameOrIndex}`;
+    }
+
 
     filename = filename.replace(/[\x00-\x1f\x80-\x9f/\\?<>:*|"]/g, '_');
 
@@ -852,7 +927,7 @@ export const settingsToCSS = (
         fontPathPrefix += '/';
     }
 
-    for (const {font, data, filename} of fonts) {
+    for (const {font, data, filename, charsetNameOrIndex} of fonts) {
         emitter.atRule('@font-face');
 
         emitter.declaration('font-family');
@@ -943,6 +1018,17 @@ export const settingsToCSS = (
 
         emitter.endDeclaration();
 
+        // If exporting multiple character sets, we need to specify the Unicode ranges of each
+        if (charsetNameOrIndex !== null) {
+            emitter.declaration('unicode-range');
+            const ranges = formatUnicodeRanges(font.unicodeRanges);
+            for (let i = 0; i < ranges.length; i++) {
+                emitter.number(ranges[i]);
+                if (i !== ranges.length - 1) emitter.comma();
+            }
+            emitter.endDeclaration();
+        }
+
         emitter.endRule();
     }
 
@@ -992,10 +1078,16 @@ export const saveSubsetSettings = (settings: SubsetSettingsSignal): StaticSubset
             characterVariants: saveIncludeFeatures(settings.includeFeatures.characterVariants),
         },
         includeCharacters: {
-            includeNamedSubsets: settings.includeCharacters.includeNamedSubsets
-                .map(({name, include}) => ({name, include: include.value})),
-            includeUnicodeRanges: settings.includeCharacters.includeUnicodeRanges.value,
             includeAllCharacters: settings.includeCharacters.includeAllCharacters.value,
+            characterSets: settings.includeCharacters.characterSets.value.map(({
+                includeNamedSubsets,
+                includeUnicodeRanges,
+                name,
+            }) => ({
+                includeNamedSubsets: includeNamedSubsets.map(({name, include}) => ({name, include: include.value})),
+                includeUnicodeRanges: includeUnicodeRanges.value,
+                name: name.value,
+            })),
         },
     };
 };
@@ -1069,18 +1161,30 @@ const loadNamedSubsets = (
         destSubset.include.value = include;
     }
 };
-const loadIncludeCharacters = (dest: {
-    includeNamedSubsets: {name: SubsetName; include: Signal<boolean>}[];
-    includeUnicodeRanges: Signal<string>;
-    includeAllCharacters: Signal<boolean>;
-}, settings: {
+const loadCharacterSetSettings = (settings: {
     includeNamedSubsets: {name: SubsetName; include: boolean}[];
     includeUnicodeRanges: string;
-    includeAllCharacters: boolean;
-}) => {
-    loadNamedSubsets(dest.includeNamedSubsets, settings.includeNamedSubsets);
-    dest.includeUnicodeRanges.value = settings.includeUnicodeRanges;
+    name?: string;
+}): CharacterSetSettings => {
+    const destCharacterSet: CharacterSetSettings = {
+        includeNamedSubsets: [],
+        includeUnicodeRanges: signal(settings.includeUnicodeRanges),
+        name: signal(settings.name ?? ''),
+    };
+
+    loadNamedSubsets(destCharacterSet.includeNamedSubsets, settings.includeNamedSubsets);
+    return destCharacterSet;
+};
+const loadIncludeCharacters = (
+    dest: IncludeCharactersSettings,
+    settings: StaticSubsetSettings['includeCharacters'],
+) => {
     dest.includeAllCharacters.value = settings.includeAllCharacters;
+    if ('characterSets' in settings) {
+        settings.characterSets.map(charSet => loadCharacterSetSettings(charSet));
+    } else {
+        dest.characterSets.value = [loadCharacterSetSettings(settings)];
+    }
 };
 export const loadSubsetSettings = (dest: SubsetSettingsSignal, settings: StaticSubsetSettings) => {
     loadStyleSettings(dest.styleSettings, settings.styleSettings);
@@ -1153,14 +1257,14 @@ export const copyFeatureSettings = (settings: FeatureSettings): CopiedSettings =
 export const copyIncludeCharactersSettings = (settings: IncludeCharactersSettings): CopiedSettings => {
     return {
         settings: {
-            includeNamedSubsets: settings.includeNamedSubsets.map(({name, include}) => ({
-                name,
-                include: include.value,
-            })),
-            includeUnicodeRanges: settings.includeUnicodeRanges.value,
             includeAllCharacters: settings.includeAllCharacters.value,
+            characterSets: settings.characterSets.value.map(({includeNamedSubsets, includeUnicodeRanges, name}) => ({
+                includeNamedSubsets: includeNamedSubsets.map(({name, include}) => ({name, include: include.value})),
+                includeUnicodeRanges: includeUnicodeRanges.value,
+                name: name.value,
+            })),
         },
-        type: 'includeCharactersSettingsV1',
+        type: 'includeCharactersSettingsV2',
     };
 };
 
@@ -1249,7 +1353,8 @@ export const pasteIncludeCharactersSettings = (
             loadIncludeCharacters(dest, settings.settings.includeCharacters);
             break;
         }
-        case 'includeCharactersSettingsV1': {
+        case 'includeCharactersSettingsV1':
+        case 'includeCharactersSettingsV2': {
             loadIncludeCharacters(dest, settings.settings);
             break;
         }

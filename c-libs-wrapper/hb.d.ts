@@ -59,7 +59,7 @@ interface WasmModule {
   _hb_set_invert(_0: number): void;
   _hb_set_get_population(_0: number): number;
   _hb_set_next(_0: number, _1: number): number;
-  _hb_set_next_many(_0: number, _1: number, _2: number, _3: number): number;
+  _hb_set_next_range(_0: number, _1: number, _2: number): number;
   _hb_style_get_value(_0: number, _1: number): number;
   _hb_subset_input_create_or_fail(): number;
   _hb_subset_input_destroy(_0: number): void;

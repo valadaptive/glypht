@@ -172,7 +172,7 @@
 }
 
 .settings-sub-section {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 
     &:last-child {
         margin-bottom: 0;
@@ -245,6 +245,43 @@
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
+}
+
+.character-sets-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.header-divider {
+    width: 1px;
+    background-color: theme.$divider;
+    align-self: stretch;
+    margin-right: 0.25rem;
+}
+
+.character-set {
+    padding: 1rem 0;
+    border-top: 1px solid theme.$divider;
+
+    &:last-child {
+        padding-bottom: 0;
+    }
+}
+
+.character-set-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.character-set-body {
+    padding-left: 1rem;
+}
+
+.character-set-name {
+    flex: 1 1 0;
 }
 
 .unicode-range-textbox {

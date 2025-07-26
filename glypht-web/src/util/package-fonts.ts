@@ -1,5 +1,5 @@
+import type {SubsettedFont} from '@glypht/core';
 import {AsyncZipDeflate, Zip, ZipPassThrough} from 'fflate';
-import {SubsettedFont} from './font';
 
 export const packageFonts = (
     fonts: {

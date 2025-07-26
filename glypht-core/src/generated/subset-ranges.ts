@@ -199,7 +199,7 @@ const readVarint: (buffer: string, ctx: {offset: number}) => number = (buffer, c
   };
   throw new Error(`Varint at offset ${ctx.offset} exceeds maximum encodable length of 4`);
 };
-const decodeRanges: (rangesBase64: string) => Generator<number | [number, number], void, void> = function* (rangesBase64) {
+const decodeRanges: (rangesBase64: string) => Generator<number | readonly [number, number], void, void> = function* (rangesBase64) {
   let prev = 0;
   const ranges = atob(rangesBase64);
   const ctx = { offset: 0 };
@@ -217,7 +217,7 @@ const decodeRanges: (rangesBase64: string) => Generator<number | [number, number
   }
 };
 
-export const subsetRanges = (subsetName: SubsetName): Generator<number | [number, number], void, void> => decodeRanges(SUBSET_RANGES[subsetName]);
+export const subsetRanges = (subsetName: SubsetName): Generator<number | readonly [number, number], void, void> => decodeRanges(SUBSET_RANGES[subsetName]);
 
 /**
  * The names of every named character set from Google Fonts.

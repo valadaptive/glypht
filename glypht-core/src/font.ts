@@ -77,6 +77,10 @@ export class Font {
      * Names of Unicode subsets for which this font has *any* coverage (it does not need to cover the entire subset).
      */
     public readonly subsetCoverage: SubsetInfo[];
+    /**
+     * All the Unicode code points contained in the font.
+     */
+    public readonly codePoints: HbSet;
 
     static manyFromData(data: Uint8Array[]) {
         const bufs = [];
@@ -251,10 +255,10 @@ export class Font {
         }
 
         this.subsetCoverage = subsetCoverage;
+        this.codePoints = faceCodepoints;
 
         // TODO: this shouldn't introduce any weird crashes but just make sure
         coverageSet.destroy();
-        faceCodepoints.destroy();
     }
 
     private getAxisAndStyleInfo() {
@@ -420,6 +424,7 @@ export class Font {
         hb._hb_font_destroy(this.hbFont);
         // This also unreferences the blob
         hb._hb_face_destroy(this.hbFace);
+        this.codePoints.destroy();
     }
 
     subset(settings: SubsetSettings): SubsettedFont {
@@ -553,6 +558,12 @@ export class Font {
                 }
             }
 
+            const subsetCodepoints = new hb.HbSet();
+            subsetCodepoints.setTo(this.codePoints);
+            subsetCodepoints.intersect(unicodeSet);
+            const unicodeRanges = Array.from(subsetCodepoints.iterRanges());
+            subsetCodepoints.destroy();
+
             const tag = data[3] | (data[2] << 8) | (data[1] << 16) | (data[0] << 24);
 
             return {
@@ -563,6 +574,7 @@ export class Font {
                 styleValues,
                 axes,
                 namedInstance: subsetNamedInstance,
+                unicodeRanges,
             };
         } finally {
             hb._hb_subset_input_destroy(subsetInput);

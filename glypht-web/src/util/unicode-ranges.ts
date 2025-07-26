@@ -50,3 +50,16 @@ export const parseRanges = (ranges: string): (readonly [number, number] | number
 
     return parsed;
 };
+
+export const formatUnicodeRanges = (ranges: (number | readonly [number, number])[]): string[] => {
+    const result = [];
+    for (let i = 0; i < ranges.length; i++) {
+        const range = ranges[i];
+        if (typeof range === 'number') {
+            result.push(`U+${range.toString(16)}`);
+        } else {
+            result.push(`U+${range[0].toString(16)}-${range[1].toString(16)}`);
+        }
+    }
+    return result;
+};

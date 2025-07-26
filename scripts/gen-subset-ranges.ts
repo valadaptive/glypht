@@ -148,9 +148,9 @@ subsetRangesLiteral += '}';
 const fileContents = `const SUBSET_RANGES: Record<SubsetName, string> = ${subsetRangesLiteral};
 
 const readVarint: (buffer: string, ctx: {offset: number}) => number = ${readVarint.toString()};
-const decodeRanges: (rangesBase64: string) => Generator<number | [number, number], void, void> = ${decodeRanges.toString()};
+const decodeRanges: (rangesBase64: string) => Generator<number | readonly [number, number], void, void> = ${decodeRanges.toString()};
 
-export const subsetRanges = (subsetName: SubsetName): Generator<number | [number, number], void, void> => decodeRanges(SUBSET_RANGES[subsetName]);
+export const subsetRanges = (subsetName: SubsetName): Generator<number | readonly [number, number], void, void> => decodeRanges(SUBSET_RANGES[subsetName]);
 
 /**
  * The names of every named character set from Google Fonts.

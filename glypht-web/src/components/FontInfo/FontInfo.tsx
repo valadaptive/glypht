@@ -9,6 +9,7 @@ import {useAppState} from '../../app-state';
 import {CheckboxToggle, SelectableIcon, SpinBox, TextBox} from '../Widgets/Widgets';
 import {
     AxisSetting,
+    CharacterSetSettings,
     CopiedSettings,
     copyAxisSettings,
     copyFeatureSettings,
@@ -26,7 +27,7 @@ import {
     StyleSettings,
 } from '../../util/font-settings';
 import {useThrottledSignal} from '../../util/throttle';
-import {parseRanges, parseUnicodeRanges} from '../../util/parse-ranges';
+import {parseRanges, parseUnicodeRanges} from '../../util/unicode-ranges';
 import Icon, {IconButton} from '../Icon/Icon';
 import {copyText, pasteText} from '../../util/clipboard';
 import {useAddErrorToast} from '../Toast/Toast';
@@ -344,6 +345,60 @@ const SettingsSection = <T, >({title, children, copyPasteFns, startCollapsed = f
     );
 };
 
+const CharacterSet = ({settings, disabled, isMultiple, onRemove}: {
+    settings: CharacterSetSettings;
+    disabled?: boolean;
+    isMultiple?: boolean;
+    onRemove?: (settings: CharacterSetSettings) => unknown;
+}) => {
+    const handleRemove = useCallback(() => {
+        onRemove?.(settings);
+    }, [onRemove, settings]);
+
+    const placeholderText = useComputed(() => {
+        if (settings.includeUnicodeRanges.value !== '') return '';
+        let text = '';
+        for (const named of settings.includeNamedSubsets) {
+            if (named.include.value) {
+                text += `${named.name}-`;
+            }
+        }
+        return text.slice(0, -1);
+    });
+
+    return (
+        <div className={style.characterSet}>
+            {isMultiple ?
+                <div className={style.characterSetHeader}>
+                    <TextBox
+                        value={settings.name}
+                        small
+                        placeholder={placeholderText.value || 'Name this character set (optional)'}
+                        className={style.characterSetName}
+                    />
+                    <IconButton type="close" title="Remove this character set" onClick={handleRemove} />
+                </div> :
+                null}
+            <div className={style.characterSetBody}>
+                {settings.includeNamedSubsets.length > 0 ?
+                    <CheckboxSection
+                        name='Named subsets'
+                        settings={settings.includeNamedSubsets}
+                        mapping={mapNamedSubsets}
+                        disabled={disabled}
+                    /> :
+                    null}
+                <div className={style.settingsSubSection}>
+                    <UnicodeRangeTextbox
+                        ranges={settings.includeUnicodeRanges}
+                        disabled={disabled}
+                    />
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const FontFamilySettings = ({familySettings}: {familySettings: FamilySettings}) => {
     const appState = useAppState();
     const {name, fonts, settings} = familySettings;
@@ -355,6 +410,14 @@ const FontFamilySettings = ({familySettings}: {familySettings: FamilySettings}) 
             addErrorToast('Failed to remove font family', err);
         });
     }, [familySettings]);
+
+    const addCharacterSet = useCallback(() => {
+        appState.addCharacterSet(familySettings);
+    }, [appState, familySettings]);
+
+    const removeCharacterSet = useCallback((characterSet: CharacterSetSettings) => {
+        appState.removeCharacterSet(familySettings, characterSet);
+    }, [appState, familySettings]);
 
     return (
         <div className={style.familySettings} aria-label={`Settings for ${name} font family`}>
@@ -439,25 +502,24 @@ const FontFamilySettings = ({familySettings}: {familySettings: FamilySettings}) 
                             copy: copyIncludeCharactersSettings,
                             paste: pasteIncludeCharactersSettings,
                         }}>
-                        <div className={style.settingsSubSection}>
+                        <div className={style.characterSetsHeader}>
+                            <IconButton type="plus" title="Add character set" onClick={addCharacterSet} />
+                            <div className={style.headerDivider} />
                             <CheckboxToggle
-                                label="All characters"
+                                label="Include all characters"
                                 checked={settings.includeCharacters.includeAllCharacters}
                             />
                         </div>
-                        {settings.includeCharacters.includeNamedSubsets.length > 0 ?
-                            <CheckboxSection
-                                name='Named subsets'
-                                settings={settings.includeCharacters.includeNamedSubsets}
-                                mapping={mapNamedSubsets}
-                                disabled={settings.includeCharacters.includeAllCharacters.value}
-                            /> :
-                            null}
-                        <div className={style.settingsSubSection}>
-                            <UnicodeRangeTextbox
-                                ranges={settings.includeCharacters.includeUnicodeRanges}
-                                disabled={settings.includeCharacters.includeAllCharacters.value}
-                            />
+                        <div className={style.characterSets}>
+                            {settings.includeCharacters.characterSets.value.map(charSet =>
+                                <CharacterSet
+                                    settings={charSet}
+                                    disabled={settings.includeCharacters.includeAllCharacters.value}
+                                    isMultiple={settings.includeCharacters.characterSets.value.length > 1}
+                                    onRemove={removeCharacterSet}
+                                    key={charSet}
+                                />,
+                            )}
                         </div>
                     </SettingsSection>
 
