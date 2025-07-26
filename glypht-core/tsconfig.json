@@ -4,5 +4,5 @@
 		"moduleResolution": "bundler",
 		"types": ["node"]
 	},
-	"include": ["../node_modules/vite/client.d.ts", "src/**/*.ts", "../c-libs-wrapper/*.ts", "vite.config.ts"],
+	"include": ["src/**/*.ts", "../c-libs-wrapper/*.ts"],
 }
