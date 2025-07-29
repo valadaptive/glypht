@@ -1,8 +1,8 @@
 {
-  "name": "@glypht/core",
-  "type": "module",
+  "name": "@glypht/bundler",
   "version": "0.0.6",
-  "description": "Library for subsetting and (de)compressing font files",
+  "description": "Higher-level functionality for bundling, splitting, and transforming font files",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -12,45 +12,36 @@
         "default": "./dist/index.js"
       }
     },
-    "./compression.js": {
+    "./unicode-ranges.js": {
       "import": {
-        "types": "./dist/compression.d.ts",
-        "default": "./dist/compression.js"
+        "types": "./dist/unicode-ranges.d.ts",
+        "default": "./dist/unicode-ranges.js"
       }
     },
-    "./subsetting.js": {
+    "./feature-metadata.js": {
       "import": {
-        "types": "./dist/subsetting.d.ts",
-        "default": "./dist/subsetting.js"
+        "types": "./dist/feature-metadata.d.ts",
+        "default": "./dist/feature-metadata.js"
       }
     }
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "scripts": {
     "build": "rollup -c rollup.config.js",
     "prepack": "rollup -c rollup.config.js",
     "watch": "rollup --watch -c rollup.config.js"
   },
-  "files": [
-    "dist/**/*"
-  ],
   "author": "valadaptive",
   "license": "(MIT OR ISC OR Apache-2.0)",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/valadaptive/glypht.git",
-    "directory": "glypht-core"
-  },
-  "devDependencies": {
-    "@rollup/plugin-inject": "^5.0.5",
-    "@rollup/plugin-typescript": "^12.1.4",
-    "@types/node": "^24.0.13",
-    "rollup": "^4.44.2",
-    "typedoc": "^0.28.7"
+    "directory": "glypht-bundler"
   },
   "dependencies": {
-    "@glypht/web-worker": "^1.6.0"
+    "@glypht/core": "^0.0.6"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^12.1.4",
+    "rollup": "^4.44.2"
   }
 }

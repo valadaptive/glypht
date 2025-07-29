@@ -147,7 +147,7 @@ export type SubsetAxisSetting = {
     tag: string;
     value: {
         min: number;
-        defaultValue: number;
+        defaultValue?: number;
         max: number;
     };
 };

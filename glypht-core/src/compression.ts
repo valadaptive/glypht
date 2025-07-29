@@ -73,6 +73,7 @@ class WorkerPool<S extends MessageSchema> {
 export class WoffCompressionContext {
     private pool: Promise<WorkerPool<CompressionWorkerSchema>>;
     private destroyed = false;
+    private parallelism: number | Promise<number>;
 
     /**
      * Create a new compression/decompression context.
@@ -80,6 +81,9 @@ export class WoffCompressionContext {
      * on the system or `navigator.hardwareConcurrency`.
      */
     public constructor(parallelism?: number) {
+        const resolvedParallelism = parallelism ?? getParallelism();
+        this.parallelism = resolvedParallelism;
+
         this.pool = (async() => {
             const woffWasmUrls = [
                 new URL('./woff1.wasm', import.meta.url),
@@ -88,8 +92,7 @@ export class WoffCompressionContext {
             const [woff1, woff2] = await Promise.all(woffWasmUrls.map(url => fetchFile(url)));
 
             const workers = [];
-            if (!parallelism) parallelism = await getParallelism();
-            for (let i = 0; i < parallelism; i++) {
+            for (let i = 0, parallelism = await resolvedParallelism; i < parallelism; i++) {
                 const worker = new Worker(new URL('./compression-worker.worker.js', import.meta.url), {type: 'module'});
                 const dispatcher = new RpcDispatcher<CompressionWorkerSchema>(worker, {
                     'compress-font': 'compressed-font',
@@ -100,6 +103,13 @@ export class WoffCompressionContext {
             }
             return new WorkerPool(workers);
         })();
+    }
+
+    /**
+     * @returns The resolved number of worker threads, e.g. for ETA or progress estimation.
+     */
+    public async getParallelism() {
+        return await this.parallelism;
     }
 
     private checkDestroyed() {

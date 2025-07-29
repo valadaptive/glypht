@@ -8,26 +8,24 @@ import type {FeatureInfo, FontRef} from '@glypht/core/subsetting.js';
 import {useAppState} from '../../app-state';
 import {CheckboxToggle, SelectableIcon, SpinBox, TextBox} from '../Widgets/Widgets';
 import {
-    AxisSetting,
-    CharacterSetSettings,
+    AxisSettingState,
+    CharacterSetSettingsState,
     CopiedSettings,
     copyAxisSettings,
     copyFeatureSettings,
     copyIncludeCharactersSettings,
     copyStyleSettings,
     copySubsetSettings,
-    FamilySettings,
-    featureMetadata,
+    FamilySettingsState,
     pasteAxisSettings,
     pasteFeatureSettings,
     pasteIncludeCharactersSettings,
     pasteStyleSettings,
     pasteSubsetSettings,
-    StyleSetting,
-    StyleSettings,
+    StyleSettingState,
+    StyleSettingsState,
 } from '../../util/font-settings';
 import {useThrottledSignal} from '../../util/throttle';
-import {parseRanges, parseUnicodeRanges} from '../../util/unicode-ranges';
 import Icon, {IconButton} from '../Icon/Icon';
 import {copyText, pasteText} from '../../util/clipboard';
 import {useAddErrorToast} from '../Toast/Toast';
@@ -37,8 +35,10 @@ import {showFontPicker} from '../../util/file-picker';
 import formatFileSize from '../../util/format-file-size';
 import {ComponentChildren} from 'preact';
 import {useLiveSignal} from '../../util/signal-utils';
+import {featureMetadata} from '../../../../glypht-bundler/src/feature-metadata';
+import {parseRanges, parseUnicodeRanges} from '@glypht/bundler';
 
-const AxisSettingComponent = ({axis}: {axis: AxisSetting}) => {
+const AxisSettingComponent = ({axis}: {axis: AxisSettingState}) => {
     const step = axis.max >= 100 ? 1 : 0.25;
     const smartAim = axis.max >= 200 ?
         25 :
@@ -92,7 +92,11 @@ const AxisSettingComponent = ({axis}: {axis: AxisSetting}) => {
     );
 };
 
-const StyleSettingComponent = ({styleSetting, name, tag}: {styleSetting: StyleSetting; name: string; tag?: string}) => {
+const StyleSettingComponent = ({styleSetting, name, tag}: {
+    styleSetting: StyleSettingState;
+    name: string;
+    tag?: string;
+}) => {
     return (
         <div className={style.styleSetting}>
             <div className={style.styleSettingName} title={tag}>{name}</div>
@@ -109,7 +113,7 @@ const StyleSettingComponent = ({styleSetting, name, tag}: {styleSetting: StyleSe
 
 const SingleFontSettings = ({font, styleSettings, enableSubsetting}: {
     font: FontRef;
-    styleSettings: Partial<StyleSettings>;
+    styleSettings: Partial<StyleSettingsState>;
     enableSubsetting: boolean;
 }) => {
     const appState = useAppState();
@@ -346,10 +350,10 @@ const SettingsSection = <T, >({title, children, copyPasteFns, startCollapsed = f
 };
 
 const CharacterSet = ({settings, disabled, isMultiple, onRemove}: {
-    settings: CharacterSetSettings;
+    settings: CharacterSetSettingsState;
     disabled?: boolean;
     isMultiple?: boolean;
-    onRemove?: (settings: CharacterSetSettings) => unknown;
+    onRemove?: (settings: CharacterSetSettingsState) => unknown;
 }) => {
     const handleRemove = useCallback(() => {
         onRemove?.(settings);
@@ -399,7 +403,7 @@ const CharacterSet = ({settings, disabled, isMultiple, onRemove}: {
     );
 };
 
-const FontFamilySettings = ({familySettings}: {familySettings: FamilySettings}) => {
+const FontFamilySettings = ({familySettings}: {familySettings: FamilySettingsState}) => {
     const appState = useAppState();
     const {name, fonts, settings} = familySettings;
 
@@ -415,7 +419,7 @@ const FontFamilySettings = ({familySettings}: {familySettings: FamilySettings}) 
         appState.addCharacterSet(familySettings);
     }, [appState, familySettings]);
 
-    const removeCharacterSet = useCallback((characterSet: CharacterSetSettings) => {
+    const removeCharacterSet = useCallback((characterSet: CharacterSetSettingsState) => {
         appState.removeCharacterSet(familySettings, characterSet);
     }, [appState, familySettings]);
 

@@ -7,10 +7,10 @@ export const useResizablePanel = (
     maxSize: number,
     direction: 'horizontal' | 'vertical',
 ):  {
-        resizerRef: (element: HTMLElement | null) => void;
-        panelRef: (element: HTMLElement | null) => void;
-        panelSize: Signal<number>;
-    } => {
+    resizerRef: (element: HTMLElement | null) => void;
+    panelRef: (element: HTMLElement | null) => void;
+    panelSize: Signal<number>;
+} => {
     const panelSize = useSignal(initialSize);
     const ac = useRef<AbortController>(null);
     const panel = useRef<HTMLElement | null>(null);

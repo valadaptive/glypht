@@ -1,4 +1,4 @@
-export const enum NodeType {
+export enum NodeType {
     Whitespace,
     DefinitionKeyword,
     OperatorKeyword,
@@ -12,18 +12,14 @@ export const enum NodeType {
     Separator,
 }
 
-export const nodeTypeClassNames: Record<NodeType, string | null> = {
-    [NodeType.Whitespace]: null,
-    [NodeType.DefinitionKeyword]: 'dk',
-    [NodeType.OperatorKeyword]: 'ok',
-    [NodeType.Keyword]: 'kw',
-    [NodeType.PropertyName]: 'pn',
-    [NodeType.Paren]: 'p',
-    [NodeType.Brace]: 'b',
-    [NodeType.Punctuation]: 'pu',
-    [NodeType.String]: 's',
-    [NodeType.Number]: 'n',
-    [NodeType.Separator]: 'se',
+export type CSSSpan = {text: string; type: NodeType};
+
+// Supertype for CSSEmitter that only deals with the output and doesn't allow adding more CSS.
+export type CSSOutput = {
+    /** All CSS tokens, containing text and a type that can be used for syntax highlighting. */
+    spans: CSSSpan[];
+    /** Get the full contents of the CSS as a string. */
+    getString(): string;
 };
 
 /**
@@ -33,12 +29,14 @@ export const nodeTypeClassNames: Record<NodeType, string | null> = {
 export default class CSSEmitter {
     private indent = 0;
     private listIndent = 0;
-    private indentString = '  ';
+    private indentString: string;
     private textLength = 0;
 
     public spans: {text: string; type: NodeType}[] = [];
 
-    constructor() {}
+    constructor(indentString = '  ') {
+        this.indentString = indentString;
+    }
 
     private pushSpan(text: string, type: NodeType) {
         if (this.spans.length > 0 && this.spans[this.spans.length - 1].type === type) {
@@ -156,19 +154,5 @@ export default class CSSEmitter {
             finalString += span.text;
         }
         return finalString;
-    }
-
-    getNodes() {
-        const fragment = new DocumentFragment();
-
-        for (const span of this.spans) {
-            const elem = document.createElement('span');
-            const className = nodeTypeClassNames[span.type];
-            if (className !== null) elem.setAttribute('class', `hl-${className}`);
-            elem.append(span.text);
-            fragment.appendChild(elem);
-        }
-
-        return fragment;
     }
 }

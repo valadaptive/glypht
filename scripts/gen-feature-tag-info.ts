@@ -44,5 +44,5 @@ const fileContents = `export type FeatureMetadata = ${featureInfoType};
 export const FEATURES = ${JSON.stringify(features, null, 4)} as const;
 `;
 
-const outFilePath = join(dirname, '../glypht-web/src/generated/ot-features.ts');
+const outFilePath = join(dirname, '../glypht-bundler/src/generated/ot-features.ts');
 await writeFile(outFilePath, fileContents, {encoding: 'utf-8'});

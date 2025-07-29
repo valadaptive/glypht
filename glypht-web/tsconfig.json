@@ -12,5 +12,5 @@
 			"react-dom": ["./node_modules/preact/compat/"]
 		}
 	},
-	"include": ["../node_modules/vite/client.d.ts", "src/**/*", "vite.config.ts"]
+	"include": ["../node_modules/vite/client.d.ts", "src/**/*", "vite.config.ts", "../glypht-bundler/src/feature-metadata.ts"]
 }

@@ -1,34 +1,50 @@
-import {useCallback, useEffect, useMemo, useRef, useState} from 'preact/hooks';
-import {ExportedFont, useAppState} from '../../app-state';
 import style from './style.module.scss';
-import {settingsToCSS} from '../../util/font-settings';
-import {NodeType} from '../../util/css-emitter';
+
+import type {RefObject} from 'preact';
+import {useCallback, useEffect, useMemo, useRef, useState} from 'preact/hooks';
+import type {TargetedEvent} from 'preact/compat';
+import {Signal, useSignal} from '@preact/signals';
+import classNames from 'clsx';
+import {flip, offset, shift, size} from '@floating-ui/dom';
+import {ExportedFont, exportedFontsToCSS, NodeType} from '@glypht/bundler';
+
+import {useAddErrorToast} from '../Toast/Toast';
 import {Button, CheckboxToggle, SpinBox, TextBox, ToggleIcon} from '../Widgets/Widgets';
+import Loader from '../Loader/Loader';
+import Icon, {IconButton} from '../Icon/Icon';
+import {Overlay} from '../Overlay/Overlay';
+import {useAppState} from '../../app-state';
+
 import {useThrottledSignal} from '../../util/throttle';
 import formatFileSize from '../../util/format-file-size';
-import classNames from 'clsx';
 import {packageFonts} from '../../util/package-fonts';
-import {Signal, useSignal} from '@preact/signals';
-import Loader from '../Loader/Loader';
 import saveToFile from '../../util/save-to-file';
-import Icon, {IconButton} from '../Icon/Icon';
 import showOpenFilePicker, {showFontPicker} from '../../util/file-picker';
-import {useAddErrorToast} from '../Toast/Toast';
-import {RefObject} from 'preact';
 import useFloating from '../../util/floating';
-import {flip, offset, shift, size} from '@floating-ui/dom';
-import {Overlay} from '../Overlay/Overlay';
-import type {TargetedEvent} from 'preact/compat';
 import useResizablePanel from '../../util/resizable-panel';
 import {copyText} from '../../util/clipboard';
 
 import blobCat from '../../assets/blobcat.svg';
 
+const nodeTypeClassNames: Record<NodeType, string | null> = {
+    [NodeType.Whitespace]: null,
+    [NodeType.DefinitionKeyword]: 'dk',
+    [NodeType.OperatorKeyword]: 'ok',
+    [NodeType.Keyword]: 'kw',
+    [NodeType.PropertyName]: 'pn',
+    [NodeType.Paren]: 'p',
+    [NodeType.Brace]: 'b',
+    [NodeType.Punctuation]: 'pu',
+    [NodeType.String]: 's',
+    [NodeType.Number]: 'n',
+    [NodeType.Separator]: 'se',
+};
+
 const CssPreview = ({fonts}: {fonts: ExportedFont[]}) => {
     const {cssPathPrefix, exportSettings} = useAppState();
     const throttledPathPrefix = useThrottledSignal(cssPathPrefix, 500, true);
     const css = useMemo(() => {
-        const css = settingsToCSS(fonts, throttledPathPrefix.value, exportSettings.includeTTFinCSS.value);
+        const css = exportedFontsToCSS(fonts, throttledPathPrefix.value, exportSettings.includeTTFinCSS.value);
         // Remove the trailing newline since it adds space at the bottom
         if (css.spans.length > 0 && css.spans[css.spans.length - 1].type === NodeType.Whitespace) {
             css.spans.pop();
@@ -42,7 +58,17 @@ const CssPreview = ({fonts}: {fonts: ExportedFont[]}) => {
 
     const appendCss = (element: HTMLElement | null) => {
         if (!element) return;
-        element.replaceChildren(css.getNodes());
+        const fragment = new DocumentFragment();
+
+        for (const span of css.spans) {
+            const elem = document.createElement('span');
+            const className = nodeTypeClassNames[span.type];
+            if (className !== null) elem.setAttribute('class', `hl-${className}`);
+            elem.append(span.text);
+            fragment.appendChild(elem);
+        }
+
+        element.replaceChildren(fragment);
     };
 
     return useMemo(() => (
@@ -58,7 +84,7 @@ const ExportedFonts = ({fonts, exportedFormats}: {
     const downloading = useSignal(false);
     const downloadZip = useCallback(async() => {
         downloading.value = true;
-        const zip = await packageFonts(fonts, settingsToCSS(
+        const zip = await packageFonts(fonts, exportedFontsToCSS(
             fonts, cssPathPrefix.value, exportSettings.includeTTFinCSS.value).getString());
         saveToFile('fonts.zip', zip);
         downloading.value = false;
@@ -137,7 +163,7 @@ const ExportedCss = ({fonts}: {fonts: ExportedFont[]}) => {
     const {cssPathPrefix, exportSettings} = useAppState();
 
     const copyCSS = useCallback(() => {
-        void copyText(settingsToCSS(fonts, cssPathPrefix.value, exportSettings.includeTTFinCSS.value).getString());
+        void copyText(exportedFontsToCSS(fonts, cssPathPrefix.value, exportSettings.includeTTFinCSS.value).getString());
     }, [fonts, cssPathPrefix, exportSettings.includeTTFinCSS]);
 
     return (

@@ -1,36 +1,33 @@
 import {computed, signal, Signal} from '@preact/signals';
 import {createContext} from 'preact';
 import {useContext} from 'preact/hooks';
-import {FontRef, GlyphtContext, type SubsettedFont} from '@glypht/core/subsetting.js';
+import {FontRef, GlyphtContext, StyleKey, SubsetName} from '@glypht/core/subsetting.js';
+import {
+    ExportedFont,
+    exportFonts,
+    FamilySettings,
+    parseRanges,
+    parseUnicodeRanges,
+    SubsetAxisSetting,
+} from '@glypht/bundler';
 import {WoffCompressionContext} from '@glypht/core/compression.js';
 
 import {
-    CharacterSetSettings,
-    FamilySettings,
-    fontFilenames,
+    AxisSettingState,
+    CharacterSetSettingsState,
+    FamilySettingsState,
     loadSettings,
-    makeSubsetSettings,
     saveSettings,
     settingsFromFonts,
     StaticFamilySettings,
+    StyleSettingsState,
 } from './util/font-settings';
 
 export type FontDataState =
     | {state: 'not_loaded'}
     | {state: 'loading'; progress: number}
-    | {state: 'loaded'; families: FamilySettings[]}
+    | {state: 'loaded'; families: FamilySettingsState[]}
     | {state: 'error'; error: unknown};
-
-export type ExportedFont = {
-    font: SubsettedFont;
-    filename: string;
-    data: {
-        opentype: Uint8Array | null;
-        woff: Uint8Array | null;
-        woff2: Uint8Array | null;
-    };
-    charsetNameOrIndex: string | number | null;
-};
 
 export type FontExportState =
     | {state: 'not_loaded'}
@@ -58,7 +55,7 @@ const compressionContext = new WoffCompressionContext();
 const glyphtContext = new GlyphtContext();
 
 export class AppState {
-    public fonts: Signal<FamilySettings[]> = signal([]);
+    public fonts: Signal<FamilySettingsState[]> = signal([]);
     public fontsBeingLoaded = signal(0);
 
     private _exportedFonts: Signal<FontExportState> = signal({state: 'not_loaded'});
@@ -80,7 +77,7 @@ export class AppState {
 
     constructor() {}
 
-    async removeFontFamily(family: FamilySettings) {
+    async removeFontFamily(family: FamilySettingsState) {
         this.fonts.value = this.fonts.value.filter(f => f !== family);
         await Promise.all(family.fonts.map(({font}) => font.destroy()));
     }
@@ -167,10 +164,10 @@ export class AppState {
         }
     }
 
-    addCharacterSet(familySettings: FamilySettings) {
+    addCharacterSet(familySettings: FamilySettingsState) {
         const {characterSets} = familySettings.settings.includeCharacters;
         const templateSet = characterSets.value[0];
-        const newSet: CharacterSetSettings = {
+        const newSet: CharacterSetSettingsState = {
             includeNamedSubsets: templateSet.includeNamedSubsets.map(({name}) => ({name, include: signal(false)})),
             includeUnicodeRanges: signal(''),
             name: signal(''),
@@ -178,113 +175,120 @@ export class AppState {
         characterSets.value = [...characterSets.value, newSet];
     }
 
-    removeCharacterSet(familySettings: FamilySettings, characterSet: CharacterSetSettings) {
+    removeCharacterSet(familySettings: FamilySettingsState, characterSet: CharacterSetSettingsState) {
         const {characterSets} = familySettings.settings.includeCharacters;
         characterSets.value = characterSets.value.filter(s => s !== characterSet);
     }
 
     exportFonts() {
+        const axisSettingStateToSetting = (state: AxisSettingState): SubsetAxisSetting => {
+            switch (state.mode.value) {
+                case 'single': return {
+                    type: 'single',
+                    value: state.curSingle.value,
+                };
+                case 'range': return {
+                    type: 'variable',
+                    value: {
+                        min: state.curMin.value,
+                        max: state.curMax.value,
+                        defaultValue: state.defaultValue,
+                    },
+                };
+                case 'multiple': {
+                    const parsedRanges = parseRanges(state.curMultiValue.value);
+                    if (!parsedRanges) return {
+                        type: 'single' as const,
+                        value: state.defaultValue,
+                    };
+                    return {
+                        type: 'multiple' as const,
+                        value: {ranges: parsedRanges, defaultValue: state.defaultValue},
+                    };
+                }
+            }
+        };
+        const styleSettingsStateToSettings = (state: Partial<StyleSettingsState>):
+        Partial<Record<StyleKey, SubsetAxisSetting>> => {
+            const styleSettings: Partial<Record<StyleKey, SubsetAxisSetting>> = {};
+            for (const [styleKey, styleValue] of Object.entries(state)) {
+                styleSettings[styleKey as StyleKey] = styleValue.type === 'single' ?
+                    styleValue :
+                    axisSettingStateToSetting(styleValue.value);
+            }
+            return styleSettings;
+        };
+
+        const exportSettings: FamilySettings[] = this.fonts.peek().map(family => {
+            const fonts = family.fonts.map(({font, styleSettings}) => {
+                return {
+                    font,
+                    styleValues: styleSettingsStateToSettings(styleSettings),
+                };
+            });
+            if (!family.enableSubsetting.value) {
+                return {fonts, enableSubsetting: false} satisfies FamilySettings;
+            }
+            const axes: Partial<Record<string, SubsetAxisSetting>> = {};
+            for (const axisSettingState of family.settings.axisSettings) {
+                axes[axisSettingState.tag] = axisSettingStateToSetting(axisSettingState.range);
+            }
+            const features: Partial<Record<string, boolean>> = {};
+            for (const featureList of [
+                family.settings.includeFeatures.characterVariants,
+                family.settings.includeFeatures.stylisticSets,
+                family.settings.includeFeatures.features,
+            ]) {
+                for (const featureSettingState of featureList) {
+                    features[featureSettingState.feature.tag] = featureSettingState.include.value;
+                }
+            }
+            const includeCharacters = family.settings.includeCharacters.includeAllCharacters ?
+                'all' :
+                family.settings.includeCharacters.characterSets.value.map(characterSet => {
+                    const includeNamedSubsets: SubsetName[] = [];
+                    for (const namedSubsetState of characterSet.includeNamedSubsets) {
+                        if (namedSubsetState.include.value) includeNamedSubsets.push(namedSubsetState.name);
+                    }
+                    return {
+                        includeNamedSubsets,
+                        // Swallow parsing errors for the web version
+                        includeUnicodeRanges: parseUnicodeRanges(characterSet.includeUnicodeRanges.value) ?? [],
+                        name: characterSet.name.value || undefined,
+                    };
+                });
+
+            return {
+                fonts,
+                enableSubsetting: true,
+                styleValues: styleSettingsStateToSettings(family.settings.styleSettings),
+                axes,
+                features,
+                includeCharacters,
+            } satisfies FamilySettings;
+        });
+
         const formats = {
             ttf: this.exportSettings.formats.ttf.peek(),
             woff: this.exportSettings.formats.woff.peek(),
             woff2: this.exportSettings.formats.woff2.peek(),
         };
-        const families = this.fonts.peek();
 
-        const fontList = [];
-        const subsetSettingsByFont = makeSubsetSettings(families);
-        for (const family of families) {
-            for (const font of family.fonts) {
-                const settings = subsetSettingsByFont.get(font.font.id)!;
-                for (const flattenedSettings of settings) {
-                    fontList.push({font: font.font, settings: flattenedSettings});
-                }
-            }
-        }
-
-        const subsetProgressProportion = 1;
-        // TODO: Probably not an accurate estimate since cores can't work on both WOFF1 and WOFF2 at the same time
-        const woff1ProgressProportion = (2 * this.exportSettings.woffCompression.value) /
-            Math.min(navigator.hardwareConcurrency, fontList.length);
-        // TODO: the speed varies by compression level
-        const woff2ProgressProportion = 32 / Math.min(navigator.hardwareConcurrency, fontList.length);
-        let totalProgressProportion = 0;
-        for (const font of fontList) {
-            if (font.settings) {
-                totalProgressProportion += subsetProgressProportion;
-            }
-        }
-        if (formats.woff) {
-            totalProgressProportion += woff1ProgressProportion * fontList.length;
-        }
-        if (formats.woff2) {
-            totalProgressProportion += woff2ProgressProportion * fontList.length;
-        }
-        let progress = 0;
-        this._exportedFonts.value = {state: 'loading', progress: 0};
-
-        let cancelled = false;
-
-        const fontPromises = fontList.map(async({font, settings}) => {
-            const subsettedFont = await font.subset(settings);
-            if (cancelled) throw new Error('Aborted');
-            const dataInFormats: ExportedFont['data'] = {
-                opentype: formats.ttf ? subsettedFont.data : null,
-                woff: null,
-                woff2: null,
-            };
-
-            progress += subsetProgressProportion;
-            this._exportedFonts.value = {state: 'loading', progress: progress / totalProgressProportion};
-            const compressionPromises = [];
-            if (formats.woff) {
-                compressionPromises.push(compressionContext.compressFromTTF(
-                    subsettedFont.data,
-                    'woff',
-                    this.exportSettings.woffCompression.value,
-                ).then(compressed => {
-                    if (cancelled) throw new Error('Aborted');
-                    progress += woff1ProgressProportion;
-                    this._exportedFonts.value = {state: 'loading', progress: progress / totalProgressProportion};
-                    dataInFormats.woff = compressed;
-                }));
-            }
-            if (formats.woff2) {
-                compressionPromises.push(compressionContext.compressFromTTF(
-                    subsettedFont.data,
-                    'woff2',
-                    this.exportSettings.woff2Compression.value,
-                ).then(compressed => {
-                    if (cancelled) throw new Error('Aborted');
-                    progress += woff2ProgressProportion;
-                    this._exportedFonts.value = {state: 'loading', progress: progress / totalProgressProportion};
-                    dataInFormats.woff2 = compressed;
-                }));
-            }
-            if (compressionPromises.length > 0) await Promise.all(compressionPromises);
-
-            return {
-                font: subsettedFont,
-                filename: '', // This will be filled in later. It's just to get TypeScript to shut up.
-                data: dataInFormats,
-                charsetNameOrIndex: settings ? settings.charsetNameOrIndex : null,
-            };
-        });
-
-        return Promise.all(fontPromises).then(exportedFonts => {
-            const filenames = fontFilenames(exportedFonts);
-            for (const exportedFont of exportedFonts) {
-                const filename = filenames.get(exportedFont.font)!;
-                exportedFont.filename = filename;
-            }
-            this._exportedFonts.value = {state: 'loaded', exportedFonts, exportedFormats: formats};
-        }, error => {
-            cancelled = true;
-            // eslint-disable-next-line no-console
-            console.error(error);
-            this._exportedFonts.value = {state: 'error', error};
-            throw error;
-        });
+        return exportFonts(compressionContext, exportSettings, {
+            formats,
+            woffCompression: this.exportSettings.woffCompression.value,
+            woff2Compression: this.exportSettings.woff2Compression.value,
+            onProgress: progress => {
+                this._exportedFonts.value = {state: 'loading', progress};
+            },
+        }).then(
+            exportedFonts => {
+                this._exportedFonts.value = {state: 'loaded', exportedFonts, exportedFormats: formats};
+            },
+            error => {
+                this._exportedFonts.value = {state: 'error', error};
+            },
+        );
     }
 
     saveAllSettings(): AllSavedSettings {

@@ -9,11 +9,8 @@ export default tseslint.config(
         ignores: [
             '**/public/**/*.{cjs,mjs,js,ts,jsx,tsx}',
             '**/c-libs-wrapper/**/*',
-            'glypht-core/src/generated/**/*',
-            'glypht-web/src/generated/**/*',
-            'woff2/**/*',
-            'glypht-web/dist/**/*',
-            'glypht-core/dist/**/*',
+            'glypht-*/src/generated/**/*',
+            'glypht-*/dist/**/*',
         ],
     },
     eslint.configs.recommended,
@@ -51,7 +48,7 @@ export default tseslint.config(
             '@stylistic/comma-style': ['error'],
             '@stylistic/eol-last': ['error', 'always'],
             eqeqeq: ['warn'],
-            '@stylistic/func-call-spacing': ['error', 'never'],
+            '@stylistic/function-call-spacing': ['error', 'never'],
 
             '@stylistic/indent': ['error', 4, {
                 SwitchCase: 1,
@@ -96,20 +93,29 @@ export default tseslint.config(
             '@stylistic/object-curly-spacing': ['error'],
 
             '@stylistic/object-property-newline': ['error', {
-                allowMultiplePropertiesPerLine: true,
+                allowAllPropertiesOnSameLine: true,
             }],
 
-            '@stylistic/operator-linebreak': ['error', 'after'],
+            '@stylistic/operator-linebreak': ['error', 'after', {
+                overrides: {
+                    '|': 'ignore',
+                },
+            }],
             'prefer-const': ['error'],
 
             '@stylistic/quotes': ['error', 'single', {
-                allowTemplateLiterals: true,
+                allowTemplateLiterals: 'always',
                 avoidEscape: true,
             }],
 
             '@stylistic/semi': ['error', 'always'],
             '@stylistic/semi-spacing': ['error'],
-            '@stylistic/space-before-function-paren': ['error', 'never'],
+            '@stylistic/space-before-function-paren': ['error', {
+                anonymous: 'never',
+                named: 'never',
+                asyncArrow: 'never',
+                catch: 'always',
+            }],
             '@stylistic/space-in-parens': ['error'],
             '@stylistic/space-infix-ops': ['error'],
             '@stylistic/space-unary-ops': ['error'],

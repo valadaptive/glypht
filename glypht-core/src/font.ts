@@ -12,6 +12,7 @@ import {
     FeatureInfo,
     NamedInstance,
     SfntVersion,
+    StyleValue,
     StyleValues,
     SubsetAxisInfo,
     SubsetInfo,
@@ -482,7 +483,7 @@ export class Font {
                             hbTag(axisSetting.tag),
                             axisSetting.value.min,
                             axisSetting.value.max,
-                            axisSetting.value.defaultValue,
+                            axisSetting.value.defaultValue ?? NaN,
                         );
                     }
                 }
@@ -509,6 +510,21 @@ export class Font {
                 slant: settings.axisValues.find(v => v.tag === 'slnt') ??
                     this.styleValues.slant,
             };
+            for (const styleKey of ['weight', 'width', 'italic', 'slant'] as const) {
+                const styleValue = styleValues[styleKey];
+                if (styleValue.type === 'variable' && !styleValue.value.defaultValue) {
+                    styleValues[styleKey] = {
+                        type: 'variable',
+                        value: {
+                            min: styleValue.value.min,
+                            max: styleValue.value.max,
+                            defaultValue: (
+                                this.styleValues[styleKey] as Extract<StyleValue, {type: 'variable'}>)
+                                .value.defaultValue,
+                        },
+                    };
+                }
+            }
 
             const axes: SubsetAxisInfo[] = [];
             for (const axis of this.axes) {
@@ -519,7 +535,11 @@ export class Font {
                         tag: axis.tag,
                         name: axis.name,
                         type: 'variable',
-                        value: axisSetting.value,
+                        value: {
+                            min: axisSetting.value.min,
+                            max: axisSetting.value.max,
+                            defaultValue: axisSetting.value.defaultValue ?? axis.defaultValue,
+                        },
                     });
                 } else {
                     axes.push({
@@ -571,7 +591,7 @@ export class Font {
                 subfamilyName: this.subfamilyName,
                 format: tag === hbTag('OTTO') ? 'opentype' : 'truetype',
                 data,
-                styleValues,
+                styleValues: styleValues as StyleValues,
                 axes,
                 namedInstance: subsetNamedInstance,
                 unicodeRanges,
