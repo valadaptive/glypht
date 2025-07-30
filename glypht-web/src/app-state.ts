@@ -243,7 +243,7 @@ export class AppState {
                     features[featureSettingState.feature.tag] = featureSettingState.include.value;
                 }
             }
-            const includeCharacters = family.settings.includeCharacters.includeAllCharacters ?
+            const includeCharacters = family.settings.includeCharacters.includeAllCharacters.value ?
                 'all' :
                 family.settings.includeCharacters.characterSets.value.map(characterSet => {
                     const includeNamedSubsets: SubsetName[] = [];
