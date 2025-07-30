@@ -1,8 +1,7 @@
 import {signal, Signal} from '@preact/signals';
 import type {FeatureInfo, FontRef, StyleKey, StyleValues, SubsetName} from '@glypht/core/subsetting.js';
 import {FamilyInfo, sortFontsIntoFamilies} from '@glypht/bundler';
-
-import {featureMetadata} from '../../../glypht-bundler/src/feature-metadata';
+import {featureMetadata} from '@glypht/bundler/feature-metadata.js';
 
 /**
  * Type of a variation axis setting mode.

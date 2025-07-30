@@ -28,15 +28,15 @@ const progressBar = (progress: number, width: number = 25) => {
 };
 
 const logUpdate = () => {
-    let prevText = '';
+    let prevLen = 0;
     return {
         log(this: void, text: string) {
-            const spaces = ' '.repeat(Math.max(prevText.length - text.length, 0));
-            prevText = text;
+            const spaces = ' '.repeat(Math.max(prevLen - text.length, 0));
+            prevLen = text.length;
             process.stdout.write(`\r${text}${spaces}`);
         },
         done(this: void) {
-            const spaces = ' '.repeat(prevText.length);
+            const spaces = ' '.repeat(prevLen);
             process.stdout.write(`\r${spaces}\r`);
         },
     };

@@ -35,7 +35,7 @@ import {showFontPicker} from '../../util/file-picker';
 import formatFileSize from '../../util/format-file-size';
 import {ComponentChildren} from 'preact';
 import {useLiveSignal} from '../../util/signal-utils';
-import {featureMetadata} from '../../../../glypht-bundler/src/feature-metadata';
+import {featureMetadata} from '@glypht/bundler/feature-metadata.js';
 import {parseRanges, parseUnicodeRanges} from '@glypht/bundler';
 
 const AxisSettingComponent = ({axis}: {axis: AxisSettingState}) => {
