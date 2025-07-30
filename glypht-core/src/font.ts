@@ -62,6 +62,7 @@ const defaultLayoutFeatureTags = new Set<string>();
 export class Font {
     private hbFace: number;
     private hbFont: number;
+    private preprocessedFace: number = 0;
 
     public readonly faceCount: number;
     public readonly faceIndex: number;
@@ -422,6 +423,7 @@ export class Font {
     }
 
     destroy() {
+        if (this.preprocessedFace !== 0) hb._hb_face_destroy(this.preprocessedFace);
         hb._hb_font_destroy(this.hbFont);
         // This also unreferences the blob
         hb._hb_face_destroy(this.hbFace);
@@ -432,6 +434,16 @@ export class Font {
         const subsetInput = hb._hb_subset_input_create_or_fail();
         if (subsetInput === 0) {
             throw new Error('Failed to create subset input');
+        }
+
+        let inputFace: number;
+        if (settings.preprocess) {
+            if (this.preprocessedFace === 0) {
+                this.preprocessedFace = hb._hb_subset_preprocess(this.hbFace);
+            }
+            inputFace = this.preprocessedFace;
+        } else {
+            inputFace = this.hbFace;
         }
 
         try {
@@ -470,7 +482,7 @@ export class Font {
                     case 'single': {
                         hb._hb_subset_input_pin_axis_location(
                             subsetInput,
-                            this.hbFace,
+                            inputFace,
                             hbTag(axisSetting.tag),
                             axisSetting.value,
                         );
@@ -479,7 +491,7 @@ export class Font {
                     case 'variable' : {
                         hb._hb_subset_input_set_axis_range(
                             subsetInput,
-                            this.hbFace,
+                            inputFace,
                             hbTag(axisSetting.tag),
                             axisSetting.value.min,
                             axisSetting.value.max,
@@ -489,7 +501,7 @@ export class Font {
                 }
             }
 
-            const subsetFace = hb._hb_subset_or_fail(this.hbFace, subsetInput);
+            const subsetFace = hb._hb_subset_or_fail(inputFace, subsetInput);
             if (subsetFace === 0) {
                 throw new Error(`Failed to subset ${this.familyName} ${this.subfamilyName}`);
             }

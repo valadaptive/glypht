@@ -174,6 +174,7 @@ export type SubsetSettings = {
         named: SubsetName[];
         custom: (readonly [number, number] | number)[];
     };
+    preprocess: boolean;
 };
 
 /**

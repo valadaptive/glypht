@@ -274,6 +274,11 @@ type InstanceSubsetSettings = {
      * numbered.
      */
     charsetNameOrIndex: string | number | null;
+    /**
+     * True if we should preprocess this font before subsetting it. This speeds up the subsetting operation if it's done
+     * multiple times, e.g. when instancing fonts.
+     */
+    preprocess: boolean;
 };
 
 /**
@@ -573,6 +578,7 @@ const instanceSubsetSettings = (settings: FamilySettings[]): Map<number, (Instan
                             typeof unicodeRanges !== 'string' && unicodeRanges.charsetName !== null ?
                                 unicodeRanges.charsetName :
                                 i,
+                        preprocess: flattenedAxisSettings.length * unicodeRangeSets.length > 1,
                     });
                 }
             }
