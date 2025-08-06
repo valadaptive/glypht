@@ -1,6 +1,6 @@
 # Experimental makefile for building using wasi-sdk instead of emscripten.
 
-WASI_SDK_PATH ?= ~/Downloads/wasi-sdk-25.0-x86_64-linux
+WASI_SDK_PATH ?= ~/Downloads/wasi-sdk-27.1gd05b57d2a212+m-x86_64-linux
 CC := $(WASI_SDK_PATH)/bin/clang
 CXX := $(WASI_SDK_PATH)/bin/clang++
 LD := $(WASI_SDK_PATH)/bin/wasm-ld
@@ -121,3 +121,6 @@ woff1-bundle: zlib sfnt2woff-zopfli
 		$(addprefix -Xlinker --export=,$(WOFF1_SYMBOLS)) \
 		sfnt2woff-zopfli/*.o \
 		zlib-build/libz.a
+
+clean:
+	rm -rf ./woff2-build ./zlib-build
