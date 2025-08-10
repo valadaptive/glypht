@@ -22,7 +22,8 @@ import {
     StaticFamilySettings,
     StyleSettingsState,
 } from './util/font-settings';
-import {FamilyProto, LanguageProto} from './generated/google-fonts-types';
+import type GoogleFontsModalInner from './components/GoogleFontsModal/GoogleFontsModalInner';
+import type {GoogleFontsFamily} from './components/GoogleFontsModal/GoogleFontsModalInner';
 
 export type FontDataState =
     | {state: 'not_loaded'}
@@ -55,6 +56,13 @@ type AllSavedSettings = {
 const compressionContext = new WoffCompressionContext();
 const glyphtContext = new GlyphtContext();
 
+export type LoadedGoogleFontsModalState = {
+    state: 'loaded';
+    selectedLanguages: Record<string, Signal<boolean>>;
+    selectedAxes: Record<string, Signal<boolean>>;
+    ModalComponent: typeof GoogleFontsModalInner;
+};
+
 export class AppState {
     public fonts: Signal<FamilySettingsState[]> = signal([]);
     public fontsBeingLoaded = signal(0);
@@ -81,11 +89,7 @@ export class AppState {
         state: Signal<
             | {state: 'not_loaded'}
             | {state: 'loading'}
-            | {
-                state: 'loaded';
-                fontsList: FamilyProto[];
-                langList: LanguageProto[];
-            }
+            | LoadedGoogleFontsModalState
             | {state: 'error'; error: unknown}
         >;
         searchValue: Signal<string>;
@@ -99,23 +103,25 @@ export class AppState {
             handwriting: Signal<boolean>;
             symbols: Signal<boolean>;
         };
-        previewedFamily: Signal<FamilyProto | null>;
+        previewedFamily: Signal<GoogleFontsFamily | null>;
+        customPreviewText: Signal<string>;
     } = {
-            open: signal(false),
-            state: signal({state: 'not_loaded'}),
-            searchValue: signal(''),
-            previewedFamily: signal(null),
-            searchFilters: {
-                monospace: signal(true),
-                proportional: signal(true),
-                sansSerif: signal(true),
-                serif: signal(true),
-                noClassification: signal(true),
-                display: signal(true),
-                handwriting: signal(true),
-                symbols: signal(true),
-            },
-        };
+        open: signal(false),
+        state: signal({state: 'not_loaded'}),
+        searchValue: signal(''),
+        previewedFamily: signal(null),
+        customPreviewText: signal(''),
+        searchFilters: {
+            monospace: signal(true),
+            proportional: signal(true),
+            sansSerif: signal(true),
+            serif: signal(true),
+            noClassification: signal(true),
+            display: signal(true),
+            handwriting: signal(true),
+            symbols: signal(true),
+        },
+    };
 
     constructor() {}
 

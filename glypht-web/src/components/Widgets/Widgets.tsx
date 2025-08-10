@@ -7,6 +7,7 @@ import {useSignal, type Signal} from '@preact/signals';
 import classNames from 'clsx';
 import Icon, {IconType} from '../Icon/Icon';
 import type {ButtonHTMLAttributes, InputHTMLAttributes, TargetedEvent} from 'preact/compat';
+import {Motif} from '../../util/motif';
 
 export const Dropdown = <T extends string | number>({value, options, className}: {
     value: Signal<T>;
@@ -277,12 +278,13 @@ export const SelectableIcon = <const T, >({type, title, currentValue, value}: {
     );
 };
 
-export const CheckboxToggle = ({label, title, checked, disabled, indeterminate}: {
+export const CheckboxToggle = ({label, title, checked, disabled, indeterminate, className}: {
     label: string;
     title?: string | null;
     checked: Signal<boolean>;
     disabled?: boolean;
     indeterminate?: boolean;
+    className?: string;
 }) => {
     const handleInput = useCallback((event: TargetedEvent<HTMLInputElement>) => {
         event.preventDefault();
@@ -296,7 +298,7 @@ export const CheckboxToggle = ({label, title, checked, disabled, indeterminate}:
 
     return (
         <label
-            className={classNames(style.checkboxToggle, {[style.disabled]: disabled})}
+            className={classNames(style.checkboxToggle, disabled && style.disabled, className)}
             title={title ?? undefined}
             aria-disabled={disabled}
         >
@@ -340,5 +342,34 @@ export const Button = ({children, className, ...props}: {children: ComponentChil
                 {children}
             </span>
         </button>
+    );
+};
+
+export const CollapsibleHeader = ({collapsed, bodyId, children, auxiliaryItems, className}: {
+    collapsed: Signal<boolean>;
+    bodyId: string;
+    children: ComponentChildren;
+    auxiliaryItems?: ComponentChildren;
+    className?: string;
+}) => {
+    const toggleCollapsed = useCallback(() => {
+        collapsed.value = !collapsed.value;
+    }, [collapsed]);
+
+    return (
+        <header className={className}>
+            <button
+                className={style.collapsibleHeaderTitle}
+                aria-expanded={collapsed.value ? 'false' : 'true'}
+                aria-controls={bodyId}
+                onClick={toggleCollapsed}
+            >
+                <Icon type={collapsed.value ? 'arrow-right' : 'arrow-down'} title={null} motif={Motif.MONOCHROME} />
+                <span className={style.collapsibleHeaderTitleText}>
+                    {children}
+                </span>
+            </button>
+            {auxiliaryItems}
+        </header>
     );
 };

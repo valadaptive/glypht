@@ -6,7 +6,7 @@ import classNames from 'clsx';
 import type {FeatureInfo, FontRef} from '@glypht/core/subsetting.js';
 
 import {useAppState} from '../../app-state';
-import {Button, CheckboxToggle, SelectableIcon, SpinBox, TextBox} from '../Widgets/Widgets';
+import {Button, CheckboxToggle, CollapsibleHeader, SelectableIcon, SpinBox, TextBox} from '../Widgets/Widgets';
 import {
     AxisSettingState,
     CharacterSetSettingsState,
@@ -29,7 +29,6 @@ import {useThrottledSignal} from '../../util/throttle';
 import Icon, {IconButton} from '../Icon/Icon';
 import {copyText, pasteText} from '../../util/clipboard';
 import {useAddErrorToast} from '../Toast/Toast';
-import {Motif} from '../../util/motif';
 import Loader from '../Loader/Loader';
 import {showFontPicker} from '../../util/file-picker';
 import formatFileSize from '../../util/format-file-size';
@@ -37,14 +36,10 @@ import {ComponentChildren} from 'preact';
 import {useLiveSignal} from '../../util/signal-utils';
 import {featureMetadata} from '@glypht/bundler/feature-metadata.js';
 import {parseRanges, parseUnicodeRanges} from '@glypht/bundler';
+import axisSpinboxParams from '../../util/axis-spinbox-params';
 
 const AxisSettingComponent = ({axis}: {axis: AxisSettingState}) => {
-    const step = axis.max >= 100 ? 1 : 0.25;
-    const smartAim = axis.max >= 200 ?
-        25 :
-        axis.max >= 50 ?
-            12.5 :
-            0;
+    const {step, smartAim} = axisSpinboxParams(axis.max);
     const resetValue = useCallback(() => {
         axis.curSingle.value = axis.defaultValue;
     }, [axis.curSingle, axis.defaultValue]);
@@ -317,31 +312,17 @@ const SettingsSection = <T, >({title, children, copyPasteFns, startCollapsed = f
     const collapsed = useSignal(startCollapsed);
     const bodyId = useId();
 
-    const toggleCollapsed = useCallback(() => {
-        collapsed.value = !collapsed.value;
-    }, [collapsed]);
-
     return (
         <section className={style.settingsSection}>
-            <header>
-                <button
-                    className={style.settingsSectionTitle}
-                    aria-expanded={collapsed.value ? 'false' : 'true'}
-                    aria-controls={bodyId}
-                    onClick={toggleCollapsed}
-                >
-                    <Icon type={collapsed.value ? 'arrow-right' : 'arrow-down'} title={null} motif={Motif.MONOCHROME} />
-                    <span className={style.settingsSectionTitleText}>
-                        {title}
-                    </span>
-                </button>
-
-                {copyPasteFns && <CopyPasteButtons
+            <CollapsibleHeader
+                bodyId={bodyId}
+                auxiliaryItems={copyPasteFns && <CopyPasteButtons
                     settings={copyPasteFns.settings}
                     copyFunction={copyPasteFns.copy}
                     pasteFunction={copyPasteFns.paste}
                 />}
-            </header>
+                collapsed={collapsed}
+            >{title}</CollapsibleHeader>
             <div className={style.settingsSectionBody} id={bodyId} hidden={collapsed.value}>
                 {children}
             </div>

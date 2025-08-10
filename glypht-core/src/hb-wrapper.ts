@@ -26,7 +26,7 @@ type MainModuleKey =
     | '_hb_set_union';
 type MinMainModule = Pick<OrigMainModule, MainModuleKey>;
 
-const createHarfbuzzWrapped = async<T extends MinMainModule = MinMainModule>(hbWasmUrl: string) => {
+const createHarfbuzzWrapped = async<T extends MinMainModule = OrigMainModule>(hbWasmUrl: string) => {
     const hb = await initWasm<T>(hbWasmUrl);
 
     const freeBlob = hb.addIndirectFunction(hb._free);
@@ -223,7 +223,9 @@ const createHarfbuzzWrapped = async<T extends MinMainModule = MinMainModule>(hbW
 };
 
 export default createHarfbuzzWrapped;
-export type MainModule = typeof createHarfbuzzWrapped extends (hbWasmUrl: string) => Promise<infer T> ? T : never;
+export type MainModule = typeof createHarfbuzzWrapped<OrigMainModule> extends (hbWasmUrl: string) => Promise<infer T> ?
+    T :
+    never;
 export type HbBlob = InstanceType<MainModule['HbBlob']>;
 export type HbSet = InstanceType<MainModule['HbSet']>;
 

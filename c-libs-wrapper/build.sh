@@ -182,7 +182,7 @@ em++ \
     -s ENVIRONMENT=node \
     -o hb-shape.js \
     --emit-tsd hb-shape.d.ts \
-    -Oz \
+    -O3 \
     -flto \
     --no-entry \
     harfbuzz-subset.o

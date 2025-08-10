@@ -175,3 +175,15 @@ input[type=text].small {
     font-size: 0.825rem;
     padding: 0.325rem 0.4rem;
 }
+
+.collapsible-header-title {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.collapsible-header-title-text {
+    margin-left: 0.25rem;
+}

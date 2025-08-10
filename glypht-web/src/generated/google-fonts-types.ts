@@ -56,11 +56,6 @@ export type SampleTextProto = {
     posterSm?: string;
     posterMd?: string;
     posterLg?: string;
-    specimen_48?: string;
-    specimen_36?: string;
-    specimen_32?: string;
-    specimen_21?: string;
-    specimen_16?: string;
     note?: string;
 };
 
@@ -72,7 +67,7 @@ export type GlyphGroupProto = {
 export type FamilyProto = {
     name: string;
     designer: string;
-    license: string;
+    license: License;
     category: Category[];
     dateAdded: string;
     fonts: FontProto[];
@@ -81,9 +76,8 @@ export type FamilyProto = {
     ttfAutohintArgs?: string;
     axes?: AxisSegmentProto[];
     registryDefaultOverrides?: Record<string, number>;
-    source?: SourceProto;
     isNoto?: boolean;
-    languages?: number[];
+    languages?: string;
     fallbacks?: FamilyFallbackProto[];
     sampleGlyphs?: Record<string, string>;
     sampleText?: SampleTextProto;
@@ -96,6 +90,7 @@ export type FamilyProto = {
     classifications?: Classification[];
     path: string;
     proportion: Proportion;
+    descriptionRange?: [number, number];
 };
 
 export type ExemplarCharsProto = {
@@ -109,7 +104,7 @@ export type ExemplarCharsProto = {
 };
 
 export type LanguageProto = {
-    id?: string;
+    id: string;
     language?: string;
     script?: string;
     name?: string;
@@ -117,11 +112,9 @@ export type LanguageProto = {
     autonym?: string;
     population?: number;
     region?: string[];
-    exemplarChars?: ExemplarCharsProto;
     sampleText?: SampleTextProto;
     historical?: boolean;
     source?: string[];
-    note?: string;
 };
 
 export type FallbackProto = {
@@ -131,7 +124,7 @@ export type FallbackProto = {
 };
 
 export type AxisProto = {
-    tag?: string;
+    tag: string;
     displayName?: string;
     minValue?: number;
     defaultValue?: number;
@@ -141,6 +134,16 @@ export type AxisProto = {
     description?: string;
     fallbackOnly?: boolean;
     illustrationUrl?: string;
+    popularity: number;
+};
+
+export type ScriptProto = {
+    id?: string;
+    name?: string;
+    historical?: boolean;
+    fictional?: boolean;
+    family?: string;
+    exemplarLang?: string;
 };
 
 export type Category = "MONOSPACE" | "SANS_SERIF" | "SERIF" | "HANDWRITING" | "DISPLAY";
@@ -148,5 +151,7 @@ export type Category = "MONOSPACE" | "SANS_SERIF" | "SERIF" | "HANDWRITING" | "D
 export type Classification = "MONOSPACE" | "DISPLAY" | "HANDWRITING" | "SYMBOLS";
 
 export type Stroke = "SANS_SERIF" | "SLAB_SERIF" | "SERIF";
+
+export type License = "UFL" | "OFL" | "APACHE2";
 
 export type Proportion = "MONOSPACE" | "PROPORTIONAL" | "BOTH";

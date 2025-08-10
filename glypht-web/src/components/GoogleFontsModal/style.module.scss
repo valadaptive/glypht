@@ -5,8 +5,15 @@
     display: flex;
     flex-direction: column;
     flex: 1 1 0;
-    max-width: 12in;
+    max-width: 16in;
     height: 100%;
+}
+
+.loader-positioner {
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .search-bar-wrapper {
@@ -52,8 +59,179 @@
 
 .add-font {
     margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.add-font-loader {
+    display: flex;
+    width: 24px;
+    height: 24px;
+    align-items: center;
+    justify-content: center;
+}
+
+.family-name {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .font-preview {
     flex: 3 1 0;
+    padding: 1rem;
+    gap: 1rem;
+    overflow: auto;
+}
+
+.filters-pane {
+    flex: 0 0 200px;
+    border-right: 1px solid theme.$divider;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.filter-group {
+    margin-bottom: 1.5rem;
+}
+
+.filter-group-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: theme.$text-detail;
+}
+
+.filter-toggle {
+    display: flex;
+}
+
+.preview-controls {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.preview-text-input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid theme.$divider;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.preview-content {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.preview-samples {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.font-sample {
+    border: 1px solid theme.$divider;
+    border-radius: 4px;
+    background: theme.$base-color-primary;
+    padding: 0.75rem;
+}
+
+.font-style-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: theme.$text-detail;
+    margin-bottom: 0.5rem;
+    text-transform: capitalize;
+}
+
+.font-style-preview {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    // unset the font-feature-settings we use for Inter
+    font-feature-settings: normal;
+}
+
+.section-header {
+    font-weight: bold;
+    margin: 0.5rem 0;
+}
+
+.supported-languages {
+    display: flex;
+    flex-direction: column;
+}
+
+.script-langs {
+    column-count: 4;
+    padding: 0.5rem 1rem;
+}
+
+@media (orientation: portrait) {
+    .script-langs {
+        column-count: 1;
+    }
+}
+
+.supported-lang {
+    flex: 1 0 auto;
+}
+
+.script-title {
+    padding: 0.5rem 0;
+}
+
+.axis-controls {
+    flex: 1;
+    max-width: 300px;
+    padding: 1rem;
+    border: 1px solid theme.$divider;
+    border-radius: 4px;
+    background: theme.$base-color-secondary;
+}
+
+.axis-controls-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: theme.$text;
+}
+
+.axis-control {
+    margin-bottom: 1rem;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.axis-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: theme.$text-detail;
+}
+
+.axis-inputs {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.axis-slider {
+    flex: 1;
+}
+
+.axis-spin-box {
+    width: 80px;
+    flex: 0 0 auto;
+}
+
+
+.hide {
+    display: none;
 }
