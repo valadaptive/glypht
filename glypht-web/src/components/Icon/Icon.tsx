@@ -8,6 +8,8 @@ import {Motif} from '../../util/motif';
 export type IconType =
     | 'arrow-down'
     | 'arrow-right'
+    | 'arrow-up'
+    | 'arrow-left'
     | 'check'
     | 'close'
     | 'copy'

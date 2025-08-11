@@ -109,11 +109,19 @@
 }
 
 .arrow-right {
-    mask-image: url('../../assets/icons/arrow-down.svg');
     transform: rotate(-90deg);
 }
 
-.arrow-right, .arrow-down {
+.arrow-up {
+    transform: rotate(180deg);
+}
+
+.arrow-left {
+    transform: rotate(90deg);
+}
+
+.arrow-right, .arrow-down, .arrow-up, .arrow-left {
+    mask-image: url('../../assets/icons/arrow-down.svg');
     @include theme.fade(transform);
 }
 

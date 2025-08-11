@@ -1,7 +1,14 @@
 import style from './style.module.scss';
 
 import {LoadedGoogleFontsModalState, useAppState} from '../../app-state';
-import {CheckboxToggle, TextBox, Slider, SpinBox, Button, CollapsibleHeader} from '../Widgets/Widgets';
+import {
+    CheckboxToggle,
+    TextBox,
+    Slider,
+    SpinBox,
+    CollapsibleHeader,
+    SearchableCheckboxDropdown,
+} from '../Widgets/Widgets';
 import {FamilyProto, FontProto, LanguageProto, AxisProto, ScriptProto} from '../../generated/google-fonts-types';
 import {IconButton} from '../Icon/Icon';
 import {useCallback, useId, useMemo} from 'preact/hooks';
@@ -52,7 +59,6 @@ export {fontsList, langList, axesList};
 // TODO: Handjet doesn't display; Roboto Flex looks weird
 // TODO: Intel One Mono has variable and static versions side-by-side; not sure how to tell which is which
 
-// TODO: implement a searchable checkbox dropdown for the languages and axes
 // TODO: add a reset button for the filters
 // TODO: "download for CLI" button?
 
@@ -414,16 +420,6 @@ const FiltersPane = ({modalState}: {modalState: LoadedGoogleFontsModalState}) =>
             .sort((a, b) => (b.population ?? 0) - (a.population ?? 0));
     }, [langList]);
 
-    const showAllLanguages = useSignal(false);
-    const toggleShowAllLanguages = useCallback(() => {
-        showAllLanguages.value = !showAllLanguages.value;
-    }, [showAllLanguages]);
-
-    const showAllAxes = useSignal(false);
-    const toggleShowAllAxes = useCallback(() => {
-        showAllAxes.value = !showAllAxes.value;
-    }, [showAllAxes]);
-
     return <div className={style.filtersPane}>
         <div className={style.filterGroup}>
             <div className={style.filterGroupTitle}>Proportion</div>
@@ -444,37 +440,29 @@ const FiltersPane = ({modalState}: {modalState: LoadedGoogleFontsModalState}) =>
         </div>
         <div className={style.filterGroup}>
             <div className={style.filterGroupTitle}>Languages</div>
-            {popularLanguages.map(lang => {
-                const signal = selectedLanguages[lang.id];
-
-                return <CheckboxToggle
-                    key={lang.id}
-                    label={lang.name ?? lang.id}
-                    checked={signal}
-                    className={classnames(
-                        style.filterToggle,
-                        ((lang.population ?? 0) < 100000000) && !showAllLanguages.value && style.hide,
-                    )}
-                />;
-            })}
-            <Button onClick={toggleShowAllLanguages}>{showAllLanguages.value ? 'Less' : 'More'}</Button>
+            <SearchableCheckboxDropdown
+                options={popularLanguages.map(lang => ({
+                    id: lang.id,
+                    name: lang.name ?? lang.id,
+                    searchable: lang.name ?? lang.id,
+                }))}
+                selectedOptions={selectedLanguages}
+                placeholder="Search languages..."
+                className={style.filterToggle}
+            />
         </div>
         <div className={style.filterGroup}>
             <div className={style.filterGroupTitle}>Variable Axes</div>
-            {axesList.map(axis => {
-                const signal = selectedAxes[axis.tag];
-
-                return <CheckboxToggle
-                    key={axis}
-                    label={axis.displayName ?? axis.tag}
-                    checked={signal}
-                    className={classnames(
-                        style.filterToggle,
-                        (axis.popularity < 10) && !showAllAxes.value && style.hide,
-                    )}
-                />;
-            })}
-            <Button onClick={toggleShowAllAxes}>{showAllAxes.value ? 'Less' : 'More'}</Button>
+            <SearchableCheckboxDropdown
+                options={axesList.map(axis => ({
+                    id: axis.tag,
+                    name: axis.displayName ?? axis.tag,
+                    searchable: `${axis.displayName ?? axis.tag} ${axis.tag}`,
+                }))}
+                selectedOptions={selectedAxes}
+                placeholder="Search axes..."
+                className={style.filterToggle}
+            />
         </div>
     </div>;
 };

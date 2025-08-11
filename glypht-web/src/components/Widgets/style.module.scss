@@ -187,3 +187,103 @@ input[type=text].small {
 .collapsible-header-title-text {
     margin-left: 0.25rem;
 }
+
+// Searchable Checkbox Dropdown
+.searchable-dropdown-wrapper {
+    position: relative;
+}
+
+.searchable-dropdown-button {
+    @include global.textbox();
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: global.$textbox-padding-y global.$textbox-padding-x;
+    cursor: pointer;
+    text-align: left;
+    box-sizing: border-box;
+
+    &.open {
+        border-color: theme.$primary;
+    }
+}
+
+.searchable-dropdown-button-text {
+    flex: 1;
+    color: theme.$text;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: 0.5rem;
+}
+
+.searchable-dropdown-arrow {
+    flex-shrink: 0;
+}
+
+.searchable-dropdown-panel {
+    background: theme.$base-color-secondary;
+    border: 1px solid theme.$divider;
+    border-radius: theme.$radius;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.searchable-dropdown-search {
+    padding: 0.5rem;
+    border-bottom: 1px solid theme.$divider;
+    box-sizing: border-box;
+    flex: 0 0 auto;
+}
+
+.searchable-dropdown-search-input {
+    @include global.textbox();
+    width: 100%;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    box-sizing: border-box;
+}
+
+.searchable-dropdown-options {
+    overflow-y: auto;
+}
+
+.searchable-dropdown-option {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    cursor: pointer;
+    border: none;
+    background: none;
+    width: 100%;
+    box-sizing: border-box;
+
+    &:hover {
+        background: theme.$toggle-hover;
+    }
+}
+
+.searchable-dropdown-checkbox {
+    margin-right: 0.5rem;
+    cursor: pointer;
+    flex: 0 0 auto;
+}
+
+.searchable-dropdown-option-text {
+    flex: 1;
+    color: theme.$text;
+    font-size: 0.875rem;
+    text-align: left;
+}
+
+.searchable-dropdown-no-results {
+    padding: 0.75rem;
+    text-align: center;
+    color: theme.$text-detail;
+    font-size: 0.875rem;
+    font-style: italic;
+}
