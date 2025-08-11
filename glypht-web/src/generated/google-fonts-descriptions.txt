@@ -1582,7 +1582,22 @@ To contribute, see <a href="https://github.com/appajid/tenaliramakrishna ">githu
 
 <p>In 2023, Marc Foley converted the family to a variable font.</p>
 
-<p>To contribute, see <a href="https://github.com/googlefonts/teko">github.com/googlefonts/teko</a>.</p><p>
+<p>To contribute, see <a href="https://github.com/googlefonts/teko">github.com/googlefonts/teko</a>.</p><p>The Teachers font is an educational font family created for use by publishers, teachers, students, and parents of children in grades K through 6.</p>
+
+<p>It is a clean geometric sans serif font intended to represent the letterforms of the alphabet as American children are taught to draw them in grade school. The font family was thoughtfully brought to life by a team of educators, designers and editors in 2023 for use in magazines and books, but is also well suited for class worksheets, newsletters, websites and other instructional and educational purposes.</p>
+
+<p>The Teachers font comes in 8 styles: Regular, SemiBold, Bold, and ExtraBold, with Italics. It is also available in variable font format with an adjustable weight axis, allowing designers more control over the font's display.</p>
+
+<p>The Teachers fonts and refined character sets were assembled by font designer Chank Diesel, making edits and updates to the previously existing opensource fonts Glacial Indifference (Regular and Bold) by Alfredo Marco Pradil of Hanken Design Co.</p>
+
+<p>To contribute, see <a href="https://github.com/chankfonts/Teachers-fonts">github.com/chankfonts/Teachers-fonts</a>.</p>
+
+<hr>
+<img src="1.png">
+<img src="2.png">
+<img src="3.png">
+<img src="4.png">
+<p>
 Taviraj is a serif Latin and looped Thai typeface that has a wide structure that ensures readability and legibility. 
 It is well-suited for formal usage. 
 Thai letters have thick and thin strokes, similar to the Latin, together with rounded and airy looped terminals. 
@@ -1681,7 +1696,25 @@ To contribute, see <a href="https://github.com/googlefonts/tajawal">github.com/g
     casual Antiqua suggests Tagesschrift to be used in a broad range of packaging and advertising applications.</p>
 <p>
     To contribute, please see <a href="https://github.com/yanone/tagesschrift">github.com/yanone/tagesschrift</a>.
-</p><p>The Syne family was originally designed in 2017 for the Art Center "Synesthésie", based in Saint-Denis — a suburb of Paris. The Art Center aims to gather diverse artistic personalities in order to create new and enriching situations. Based on that idea, Syne is an exploration of atypical associations of weights and styles.</p>
+</p><p>
+Tac One is the initial release of a single style, bold weight, sans serif typeface project that is inspired by the wordmark of one of the most significant festivals in Africa's post-colonial history, Festac '77. 
+As a inspired revival, it expands upon the six lowercase letters, single quotes and numeral 7 in the festival's wordmark, and the result is a contemporary font with comprehensive language support for all African languages that are commonly written with the Latin writing system.
+Tac is the second project from Afrotype.
+</p>
+<p>
+To contribute, see <a href="https://github.com/Afrotype/tac">github.com/Afrotype/tac</a>
+</p>
+<hr>
+<video autoplay muted src="1.mp4" type="video/mp4"></video>
+<img src="2.1.jpg">
+<video autoplay muted src="2.2.mp4" type="video/mp4"></video>
+<video autoplay muted src="2.3.mp4" type="video/mp4"></video>
+<video autoplay muted src="3.1.mp4" type="video/mp4"></video>
+<img src="2.4.jpg">
+<img src="3.2.jpg">
+<img src="3.3.jpg">
+<img src="3.4.jpg">
+<p>The Syne family was originally designed in 2017 for the Art Center "Synesthésie", based in Saint-Denis — a suburb of Paris. The Art Center aims to gather diverse artistic personalities in order to create new and enriching situations. Based on that idea, Syne is an exploration of atypical associations of weights and styles.</p>
 
 <p>Syne Tactile shares its x-height and optical weight with Syne Regular. The unusual exercice of trackpad-calligraphy, in association with handwriting models from the Renaissance, gives the font a rough yet flourished look.</p>
 
@@ -3555,6 +3588,35 @@ This project is led by Dunwich Type Founders, a type foundry based in Denver, Co
 To contribute, see <a href="https://github.com/DunwichType/RhodiumLibre">github.com/DunwichType/RhodiumLibre</a>
 </p>
 <p>Revalia is a display sans-serif typeface design, loosely based on the packaging labels of 20th century canned goods. The design has a high x-height, wide letter shapes and the design flirts with medieval letterforms.</p> <p>To contribute to the project contact <a href="mailto:johankallas@gmail.com">Johan Kallas</a> and <a href="mailto:mihkelvirkus@gmail.com">Mihkel Virkus</a>.</p><p>
+Rethink is one of the largest global independent creative agencies.
+Founded in Vancouver in 1999, it now has offices in New York, Toronto, Vancouver, and Montréal.
+Rethink Sans was created in 2023 by Rethink's ECD of Design Hans Thiessen.
+It was developed specifically to help everyone design with greater confidence and craft in Google Workspace.
+</p>
+<p>
+Rethink Sans is a fork of <a href="https://fonts.google.com/specimen/DM+Sans">DM Sans</a> by Colophon Foundry, which in turn is a fork of <a href="https://fonts.google.com/specimen/Poppins">Poppins</a> by Indian Type Foundry.
+Deceptively simple, Rethink Sans is filled with thoughtfully turbocharged features, including:
+weight-specific tracking, two styles of circled numbers a simple keystroke away, and tabular lining figures right out-of-the-box.
+</p>
+<p>
+To contribute, see <a href="https://github.com/hans-thiessen/Rethink-Sans">github.com/hans-thiessen/Rethink-Sans</a>
+</p>
+    
+<hr>
+<img src="RethinkSans-01.png">
+<img src="RethinkSans-02.png">
+<img src="RethinkSans-03.png">
+<img src="RethinkSans-04.png">
+<img src="RethinkSans-05.png">
+<img src="RethinkSans-06.png">
+<img src="RethinkSans-07.png">
+<img src="RethinkSans-08.png">
+<img src="RethinkSans-09.png">
+<img src="RethinkSans-10.png">
+<img src="RethinkSans-11.png">
+<img src="RethinkSans-12.png">
+<img src="RethinkSans-13.png">
+<p>
 The REM font family is a sans serif font ready for corporate and display uses. It features a heavy low contrast combined with outstrokes that get slightly thinner, which is the opposite of the conventional approach. All together gives it a contemporary feeling suitable for modern branding. With more than 960 glyphs the font is ready for complex type setting with four sets of figures, Small Caps and some alternate glyphs. The name REM is an acronym for "Rapid Eye Movement," which refers to a stage of sleep characterized by quick, random eye movements. I dreamt of it and began drawing it from my dream. 
 </p>
 <p>
@@ -17878,6 +17940,19 @@ All letters in Play derive from the 'O' – square and circular at the same time
 Play is designed with large, open counters, ample lowercase x-heights and a corporate, yet friendly appearance. 
 The combination of these qualities give Play both a high legibility and readability.
 </p>
+<p>Drawing inspiration from the unusual blend of characteristics observed in the Australian platypus, Platypi combines sharp, heavy wedge serifs usually seen in display faces with more conventional curves and proportions to achieve a practical text typeface with a unique and distinctive visual rhythm. The heavier weights push this tension further with increased stroke tapering and overall contrast. Platypi features six weights with matching italic styles. It supports Indigenous Australian and Vietnamese languages, and includes the full Google Fonts Latin Plus Character Set.</p>
+
+<p>The word Platypi is commonly used as the plural of platypus; however, it is a form of pseudo-Latin. The correct plural is platypuses.</p>
+
+<p>To contribute, see <a href="https://github.com/d-sargent/platypi">github.com/d-sargent/platypi</a>.</p>
+
+<hr>
+<img src="1.png">
+<img src="2.png">
+<img src="3.png">
+<img src="4.png">
+<img src="5.png">
+<img src="6.png">
 <p><strong>Foundry: <a href="http://www.sorkintype.com">Sorkin Type Co</a></strong></p>
 
 <p>Plaster is a very low contrast extremely geometric design done in the tradition of the work of Joseph Albers. However many of the solutions to the glyph design vary from Alber's choices. Plaster is suitable for use in medium to large sizes including headlines. This font deviates from most similar fonts because the space between letters is larger. The gaps in the stencil style letters makes letter identification more difficult. A wider letter space helps make the letters easy to read again.</p>
@@ -18357,6 +18432,16 @@ It comes with Latin Character sets including Western, Central, and Vietnamese la
 <p>
 To contribute, see <a href="https://github.com/googlefonts/oooh-baby" target="_blank">github.com/googlefonts/oooh-baby</a>.
 </p>
+<p>From thin to extra bold, Onest is designed as a hybrid of geometric and humanistic grotesques. Onest is suitable for reading long texts from the screens of any device and is recommended for apps and sites. Letters are easily distinguished even in small sizes, so they can be used in interface elements or navigation. Several character sets have been developed for a range of closed and semi-closed apertures, allowing the combination of characters depending on the goal.</p>
+    
+<p>Onest is a modern typeface, so it has a lot of useful conveniences. The subtleties of correct speech transmission are Onest's strong points. It knows like no other the importance and value of using the right diacritics and the difference between cedilla, ogonek and and the way things should be. For all its versatility, Onest allows text to keep its individuality. All thanks to alternative symbols that set the tone and even the character of the message.</p>
+
+<p>To contribute, please see <a href="https://github.com/simpals/onest">github.com/simpals/onest</a>.</p>
+<hr>
+<img src="image1.jpg">
+<img src="image2.jpg">
+<img src="image3.jpg">
+<img src="image4.jpg">
 <p>Oleo is a flowy yet legible non-connected script typeface. 
 It is perfect for situations where a quaint and casual lettering 
 effect is desired. Suitable for various typography contexts 
@@ -18412,6 +18497,18 @@ To contribute, see <a href="https://github.com/googlefonts/ole" target="_blank">
 <p>Source files are available from <a
 href="http://code.google.com/p/googlefontdirectory/">Google Code</a>.
 To contribute to the project contact <a href="mailto:sorkineben@gmail.com">Eben Sorkin</a>.<p>
+<p>Ojuju is a reverse contrast Weight axis variable font inspired by African Masquerades. Ojuju draws inspiration from a variety of African traditional dance costumes to inform the design decisions. The masks worn by the Dogon dancers from Mali inspired the aperture shaping, and counterform placement within many of the letterforms. Additionally African movie poster lettering from the 1970's was referenced to round out the design space. Ojuju covers all of the Google's SSA(sub-saharan-african) latin glyphs.</p>
+    
+<p>This Afro-grotesque style created by Chisaokwu Joboson, is distinct with varying apertures as it moves from extra-light to bold.</p>
+
+<p>To contribute, see <a href="https://github.com/jobosonchisa/ojuju">github.com/jobosonchisa/ojuju</a>.</p>
+
+<hr>
+<img src="image1.png">
+<img src="image2.png">
+<img src="image3.gif">
+<img src="image4.png">
+<img src="image5.gif">
 <p>Oi is an ultra-fat display typeface that has its roots in grotesque slab serifs, most specifically the style that sprung with the release of Caslon’s Ionic in 1844 and Clarendon by Fann Street Foundry in 1845. The typeface is a free spirited twisted interpetation of the clarendonesques. With an unapologetic tendency for public shouting, it is a whimsical loudmouth attention seeker!</p>
     
 <p>"Oi" is an interjection used in various languages. Its meaning varies, depending on the tone and abruptness of its use, from a simple “hi” or a call of attention to as far as a challenge to a fight.</p>
@@ -22368,6 +22465,21 @@ To contribute, see <a href="https://github.com/PaoloBiagini/Joan">github.com/Pao
 <p>In this collection, the number following the typeface's name indicates the height of the capital letters for that typeface.</p>
     
 <p>To contribute, please see <a href="https://github.com/scfried/soft-type-jersey">github.com/scfried/soft-type-jersey</a>.</p>
+<p>Jaro, a global display typeface crafted by Agyei Archer, draws its inspiration from the artistic legacy of Jaroslav Benda. With a nod to Benda's renowned work, this font stands as a testament to his influence on modern design.</p>
+
+<p>Distinctive in its versatility, Jaro boasts a variable style, offering a spectrum of possibilities for creative expression. Its optical size axis ensures legibility across a range of scales, from grand displays to fine print.</p>
+    
+<p>In the realm of typography, Jaro emerges as a bridge between tradition and innovation, embodying the timeless elegance of Benda's craftsmanship while embracing the technological advancements of today. With each stroke, Jaro invites users to explore the intersection of artistry and functionality, making it a cherished asset for designers worldwide.</p>
+
+<p>
+To contribute, please see <a href="https://github.com/agyeiarcher/Jaro">github.com/agyeiarcher/Jaro</a>.
+</p>
+
+<hr>
+<img src="Jaro-02.png">
+<img src="Jaro-01.png">
+<img src="Jaro-03.png">
+<img src="Jaro-04.png">
 <p>
 Jaldi is the Hindi word for soon, and the typeface family is a contemporary sans-serif Devanagari with subtle rounded corners. 
 Designed by Nicolas Silva and Pablo Cosgaya, Jaldi is developed to match with the Latin design of the <a href="http://www.google.com/fonts/specimen/Asap">Asap family</a>, named after the acronym "As Soon As Possible."
@@ -23935,6 +24047,23 @@ It was updated in 2023 with additional Latin language support and a bigger glyph
 <p>
 To contribute, see <a href="https://github.com/etunni/Gabriela">github.com/etunni/Gabriela</a>
 </p>
+<p>Gabarito is a light-hearted geometric sans typeface with 6 weights ranging from Regular to Black originally designed for an online learning platform in Brazil.</p>
+
+<p>Named after the Brazilian Portuguese work for an answer sheet, Gabarito was made to help young people learn and overcome the university entry exams known as "vestibular", and it did that by packing lots of high-school level symbols and figures into a very friendly voice that was equal parts functional and engaging.</p>
+    
+<p>Beyond the Google Fonts Latin Core Character set which supports over several latin alphabet languages, Gabarito also includes things like Logic and Set Theory symbols, scientific inferiors and superiors, extensive math operators, roman numerals and anything else a high-schooler may need for their homework.</p>
+    
+<p>The initial design was comissioned in 2017, started by Leandro Assis and Álvaro Franca, it then got developed and improved further in 2020 by Álvaro Franca and Felipe Casaprima, and finally in 2023 it got a little bit of a makeover in order for it's debut in the commons, that last part with a lot of help from Henrique Beier of Harbor Type.</p>
+
+<p>To contribute, please see <a href="https://github.com/naipefoundry/gabarito">github.com/naipefoundry/gabarito</a>.</p>
+
+<hr>
+<img src="Image1.jpg">
+<img src="Image2.jpg">
+<img src="Image3.jpg">
+<img src="Image4.jpg">
+<img src="Image5.jpg">
+<img src="Image6.jpg">
 <p>
 Fuzzy Bubbles is a cute juvenile style. Playful and loose, its innocence is perfect for children's parties.
 </p>
@@ -25122,7 +25251,21 @@ Dangrek is a Khmer font for headlines, titles and subtitles, and even banner des
 </p>
 <p>
 To contribute, see <a href="https://github.com/danhhong/Dangrek">github.com/danhhong/Dangrek</a>.
-</p><p>Dancing Script is a lively casual script where the letters bounce and change size slightly. Caps are big, and goes below the baseline.</p> <p>Dancing Script references popular scripts typefaces from the 50's.</p> <p>It relates to Murray Hill (Emil Klumpp. 1956) in his weight distribution, and to Mistral (Roger Excoffon. 1953) in his lively bouncing effect.</p> <p>Use it when you want a friendly, informal and spontaneous look.</p> <p>Updated May 18th 2011 with bold!</p>
+</p><p>Danfo, a variable-axis font, is the result of a collaboration between Afrotype and Abu, a lettering artist from Ojota Bus Stop. It is inspired by the cut-out shapes of vinyl sticker lettering on public transportation buses in Lagos, Nigeria. This font, the first project from Afrotype, is an improved version of the 2018 design, now featuring a richer character set that supports all of Sub-Saharan African Latin. Danfo is the base set of a family of Danfo fonts Afrotype plans to release.</p>
+
+<p>To contribute, please see <a href="https://github.com/Afrotype/danfo">github.com/Afrotype/danfo</a>.</p>
+
+<hr>
+<video autoplay muted src="01.mp4" type="video/mp4"></video>
+<img src="2.1.jpg">
+<video autoplay muted src="2.2.mp4" type="video/mp4"></video>
+<video autoplay muted src="2.3.mp4" type="video/mp4"></video>
+<img src="2.4.jpg">
+<img src="3.1.jpg">
+<video autoplay muted src="3.2.mp4" type="video/mp4"></video>
+<img src="3.3.jpg">
+<img src="3.4.jpg">
+<p>Dancing Script is a lively casual script where the letters bounce and change size slightly. Caps are big, and goes below the baseline.</p> <p>Dancing Script references popular scripts typefaces from the 50's.</p> <p>It relates to Murray Hill (Emil Klumpp. 1956) in his weight distribution, and to Mistral (Roger Excoffon. 1953) in his lively bouncing effect.</p> <p>Use it when you want a friendly, informal and spontaneous look.</p> <p>Updated May 18th 2011 with bold!</p>
 
 <p>In November 2019, it was updated with a Variable Font "Weight" axis.</p>
 
@@ -31799,6 +31942,16 @@ typeface.</p><p>Akaya is a single weight experimental display typeface in Kannad
 <img src="afacad_flux_02_artwork.png">
 <img src="afacad_flux_03_artwork.png">
 <img src="afacad_flux_04_artwork.png">
+<p>The ’Afacad typeface project’ commenced in 2017 as a personalised lettering endeavour for Slagskeppet, a Swedish housing tenant, who sought fresh house address numbering for their entrances. The letters and numerals were meticulously crafted to harmonise with the architectural proportions and materials employed by Architect Sture Elmén during the 1940s.</p>
+    
+<p>Furthermore, the inclusion of supplementary weights and expanded language support contributes to a versatile typeface collection that is well-suited for both industrial and commercial applications. The alphabet, numerals and symbols were designed by Kristian Möller and are part of the Dicotype Library.</p>
+
+<p>To contribute, please see <a href="https://github.com/Dicotype/Afacad">github.com/Dicotype/Afacad</a>.</p>
+<hr>
+<img src="afacad_01_artwork.jpg">
+<img src="afacad_02_artwork.jpg">
+<img src="afacad_03_artwork.jpg">
+<img src="afacad_04_artwork.jpg">
 <p>
     Advent Pro is a modern font designed for web and print.
     Advent Pro utilizes some of the universal characteristics of the sans-serif genre with modern characteristics to

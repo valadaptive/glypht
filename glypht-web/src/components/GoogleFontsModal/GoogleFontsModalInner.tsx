@@ -50,6 +50,11 @@ for (const font of fontsListJson as FamilyProto[]) {
 export {fontsList, langList, axesList};
 
 // TODO: Handjet doesn't display; Roboto Flex looks weird
+// TODO: Intel One Mono has variable and static versions side-by-side; not sure how to tell which is which
+
+// TODO: implement a searchable checkbox dropdown for the languages and axes
+// TODO: add a reset button for the filters
+// TODO: "download for CLI" button?
 
 const searcher = new uFuzzy({});
 
@@ -211,49 +216,51 @@ const FontPreview = ({family}: {
     // Variation axes controls
     const axisControls = family.axes ? <div className={style.axisControls}>
         <div className={style.axisControlsTitle}>Variable Axes</div>
-        {family.axes.map(axisSegment => {
-            if (!axisSegment.tag) return null;
-            const {step, smartAim} = axisSpinboxParams(axisSegment.maxValue ?? 1000);
+        <div className={style.axisControlsBody}>
+            {family.axes.map(axisSegment => {
+                if (!axisSegment.tag) return null;
+                const {step, smartAim} = axisSpinboxParams(axisSegment.maxValue ?? 1000);
 
-            // Find the full axis metadata from axesList
-            const fullAxis = axesList.find(ax => ax.tag === axisSegment.tag);
+                // Find the full axis metadata from axesList
+                const fullAxis = axesList.find(ax => ax.tag === axisSegment.tag);
 
-            // Use values from AxisSegmentProto (family-specific) with fallbacks from AxisProto (global metadata)
-            const minValue = axisSegment.minValue ?? fullAxis?.minValue ?? 0;
-            const maxValue = axisSegment.maxValue ?? fullAxis?.maxValue ?? 1000;
-            const displayName = fullAxis?.displayName ?? axisSegment.tag?.toUpperCase();
+                // Use values from AxisSegmentProto (family-specific) with fallbacks from AxisProto (global metadata)
+                const minValue = axisSegment.minValue ?? fullAxis?.minValue ?? 0;
+                const maxValue = axisSegment.maxValue ?? fullAxis?.maxValue ?? 1000;
+                const displayName = fullAxis?.displayName ?? axisSegment.tag?.toUpperCase();
 
-            const axisValue = variationValues[axisSegment.tag];
-            return <div key={axisSegment.tag} className={style.axisControl}>
-                <label className={style.axisLabel}>
-                    {displayName}
-                </label>
-                <div className={style.axisInputs}>
-                    <Slider
-                        value={axisValue}
-                        min={minValue}
-                        max={maxValue}
-                        step={step}
-                        className={style.axisSlider}
-                    />
-                    <SpinBox
-                        value={axisValue}
-                        min={minValue}
-                        max={maxValue}
-                        step={step}
-                        smartAim={smartAim}
-                        className={style.axisSpinBox}
-                    />
-                    <IconButton
-                        type='reset'
-                        title='Reset axis to default value'
-                        disabled={typeof fullAxis?.defaultValue !== 'number' ||
-                            fullAxis?.defaultValue === axisValue.value}
-                        onClick={() => axisValue.value = fullAxis?.defaultValue ?? 0}
-                    />
-                </div>
-            </div>;
-        })}
+                const axisValue = variationValues[axisSegment.tag];
+                return <div key={axisSegment.tag} className={style.axisControl}>
+                    <label className={style.axisLabel}>
+                        {displayName}
+                    </label>
+                    <div className={style.axisInputs}>
+                        <Slider
+                            value={axisValue}
+                            min={minValue}
+                            max={maxValue}
+                            step={step}
+                            className={style.axisSlider}
+                        />
+                        <SpinBox
+                            value={axisValue}
+                            min={minValue}
+                            max={maxValue}
+                            step={step}
+                            smartAim={smartAim}
+                            className={style.axisSpinBox}
+                        />
+                        <IconButton
+                            type='reset'
+                            title='Reset axis to default value'
+                            disabled={typeof fullAxis?.defaultValue !== 'number' ||
+                                fullAxis?.defaultValue === axisValue.value}
+                            onClick={() => axisValue.value = fullAxis?.defaultValue ?? 0}
+                        />
+                    </div>
+                </div>;
+            })}
+        </div>
     </div> : null;
 
     const supportedLanguages = useMemo(() => {
@@ -306,10 +313,38 @@ const FontPreview = ({family}: {
             break;
     }
 
+    // Generate GitHub repository link
+    const githubLink = `https://github.com/google/fonts/tree/main/${family.path}`;
+
+    // Format license display name
+    const formatLicense = (license: string) => {
+        switch (license) {
+            case 'OFL':
+                return 'Open Font License';
+            case 'APACHE2':
+                return 'Apache License 2.0';
+            case 'UFL':
+                return 'Ubuntu Font License';
+            default:
+                return license;
+        }
+    };
+
     return (
         <div className={style.fontPreview}>
             <style>{fontCss}</style>
             <header className={style.familyName}>{family.name}</header>
+            <div className={style.fontMeta}>
+                <div className={style.fontLicense}>
+                    License: {formatLicense(family.license)}
+                </div>
+                <div className={style.fontGithubLink}>
+                    <a href={githubLink} target="_blank" rel="noopener noreferrer">
+                        View on GitHub
+                    </a>
+                </div>
+            </div>
+            {axisControls}
             <div className={style.previewControls}>
                 <TextBox
                     value={customPreviewText}
@@ -321,7 +356,6 @@ const FontPreview = ({family}: {
                 <div className={style.previewSamples}>
                     {previews}
                 </div>
-                {axisControls}
             </div>
             <div>
                 <header className={style.sectionHeader}>Supported languages</header>

@@ -40,13 +40,13 @@ $thumb-c: theme.$base-color-tertiary;
 }
 
 .slider[type='range'] {
-
     --range: calc(var(--max) - var(--min));
     --ratio: calc((var(--val) - var(--min))/var(--range));
     --sx: calc(.5*#{$thumb-d} + var(--ratio)*(100% - #{$thumb-d}));
     margin: 0;
     padding: 0;
     width: $track-w; height: $thumb-d;
+    min-width: 0;
     background: transparent;
     font: 1em/1 arial, sans-serif;
 

@@ -85,6 +85,14 @@ const localMetadata = [];
 let descOffset = 0;
 const descriptions: Uint8Array[] = [];
 
+const readFileIfExists = async(path: string): Promise<Buffer | null> => {
+    try {
+        return await fs.readFile(path);
+    } catch {
+        return null;
+    }
+};
+
 logProgress('Reading and parsing all METADATA.pb files...');
 const fontsFiles = await fs.readdir(fontsDir, {recursive: true});
 for (const file of fontsFiles) {
@@ -102,17 +110,13 @@ for (const file of fontsFiles) {
     // Some fonts don't have a description but *do* have an article. I believe the article is longer?
     const descriptionPath = path.join(path.dirname(metaPath), 'DESCRIPTION.en_us.html');
     const articlePath = path.join(path.dirname(metaPath), 'article', 'ARTICLE.en_us.html');
-    let description;
-    try {
-        description = await fs.readFile(descriptionPath);
-    } catch {
-        try {
-            description = await fs.readFile(articlePath);
-        } catch {
-            // Neither the description nor article HTML exist
-        }
+    let description = await readFileIfExists(descriptionPath);
+    // The Teachers font has an empty description. Trying to read it via a range request seems to result in a server
+    // error.
+    if (!description || description.length === 0) {
+        description = await readFileIfExists(articlePath);
     }
-    if (description) {
+    if (description && description.length > 0) {
         descriptions.push(new Uint8Array(description.buffer, description.byteOffset, description.byteLength));
         obj.descriptionRange = [descOffset, descOffset + description.byteLength];
         descOffset += description.byteLength;
