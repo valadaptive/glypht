@@ -302,7 +302,7 @@ const FontPreview = ({family}: {
     let descriptionElem;
     switch (description.value.state) {
         case 'loading':
-            descriptionElem = 'Loading';
+            descriptionElem = <p><Loader size={48} /></p>;
             break;
         case 'loaded':
             if (description.value.description) {
@@ -311,7 +311,7 @@ const FontPreview = ({family}: {
                 });
                 descriptionElem = <div dangerouslySetInnerHTML={{__html: sanitized}} />;
             } else {
-                descriptionElem = description.value.description ?? 'No description';
+                descriptionElem = description.value.description ?? <p>No description</p>;
             }
             break;
         case 'error':
