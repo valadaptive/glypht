@@ -637,10 +637,15 @@ const FontInfo = () => {
             onDragLeave={onDragLeave}
             onClick={uploadFonts}
         >
-            <Icon type="upload" title="" className={style.uploadIcon} size='8rem' />
-            <span className={style.uploadHeader}>Click to upload fonts</span>
-            <span className={style.uploadSub}>or drag and drop</span>
-            <Button onClick={openGoogleFontsModal}>Browse Google Fonts</Button>
+            <div className={style.uploadFonts}>
+                <Icon type="upload" title="" className={style.uploadIcon} size='8rem' />
+                <div className={style.uploadHeader}>Click to upload fonts</div>
+                <div className={style.uploadSub}>or drag and drop</div>
+            </div>
+            <Button onClick={openGoogleFontsModal}>
+                <Icon type="globe" title="" />
+                Browse Google Fonts
+            </Button>
         </div>;
     }
 

@@ -17,6 +17,7 @@ export type IconType =
     | 'error'
     | 'gear'
     | 'github'
+    | 'globe'
     | 'paste'
     | 'pin'
     | 'plus'

@@ -488,6 +488,11 @@ const GoogleFontsModalInner = ({fontsListState}: {fontsListState: LoadedGoogleFo
         }
         return Promise.all(all).then(() => {});
     }, [addErrorToast, appState]);
+
+    const closeModal = useCallback(() => {
+        appState.googleFontsModalState.open.value = false;
+    }, [appState.googleFontsModalState.open]);
+
     const onSelectFont = useCallback((family: GoogleFontsFamily) => {
         googleFontsModalState.previewedFamily.value = family;
     }, [googleFontsModalState.previewedFamily]);
@@ -634,11 +639,13 @@ const GoogleFontsModalInner = ({fontsListState}: {fontsListState: LoadedGoogleFo
     }, [fontsListState]);
 
     return <>
-        <div className={style.searchBarWrapper}>
+        <div className={style.topBar}>
             <TextBox
                 value={googleFontsModalState.searchValue}
+                className={style.searchBox}
                 placeholder='Search...'
             />
+            <IconButton type="close" title="Close Google Fonts browser" onClick={closeModal} />
         </div>
         <div className={style.panes}>
             {filtersPane}

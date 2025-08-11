@@ -259,6 +259,10 @@ const ExportPanel = () => {
             });
     }, [appState, addErrorToast]);
 
+    const browseGoogleFonts = useCallback(() => {
+        appState.googleFontsModalState.open.value = true;
+    }, [appState.googleFontsModalState.open]);
+
     const saveSettingsToFile = useCallback(() => {
         const savedSettings = appState.saveAllSettings();
         const settingsFile = new Blob(
@@ -350,19 +354,19 @@ const ExportPanel = () => {
                         <CheckboxToggle label="TTF/OTF" checked={exportSettings.formats.ttf} />
                         <CheckboxToggle label="WOFF" checked={exportSettings.formats.woff} />
                         <CheckboxToggle label="WOFF2" checked={exportSettings.formats.woff2} />
-                        <ToggleIcon
-                            type="gear"
-                            title="More settings"
-                            toggled={settingsOpen}
-                            innerRef={moreSettingsButtonRef}
-                        />
                     </div>
+                    <ToggleIcon
+                        type="gear"
+                        title="More settings"
+                        toggled={settingsOpen}
+                        innerRef={moreSettingsButtonRef}
+                    />
                 </div>
                 <MoreSettings
                     relativeTo={moreSettingsButtonRef}
                     active={settingsOpen}
                 />
-                <div className={style.saveLoadSettings}>
+                <div className={style.buttonRow}>
                     <Button onClick={saveSettingsToFile}>
                         <Icon type="download" title="" />
                         Save settings
@@ -372,13 +376,14 @@ const ExportPanel = () => {
                         Load settings
                     </Button>
                 </div>
-                <div className={style.uploadMore}>
-                    <Button
-                        onClick={uploadMore}
-                        className={style.growButton}
-                    >
-                        {fontsBeingLoaded.value > 0 ? <Loader size={24} /> : <Icon type="upload" title="" />}
+                <div className={style.buttonRow}>
+                    <Button onClick={uploadMore}>
+                        {fontsBeingLoaded.value > 0 ? <Loader size={24} /> : <Icon type="plus" title="" />}
                         Upload more fonts
+                    </Button>
+                    <Button onClick={browseGoogleFonts}>
+                        <Icon type="globe" title="" />
+                        Browse Google Fonts
                     </Button>
                 </div>
             </div>

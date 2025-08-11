@@ -16,10 +16,17 @@
     justify-content: center;
 }
 
-.search-bar-wrapper {
+.top-bar {
     background-color: theme.$base-color-secondary-dark;
     padding: 0.5rem 0.75rem;
     flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.search-box {
+    flex: 1 1 0;
 }
 
 .panes {
