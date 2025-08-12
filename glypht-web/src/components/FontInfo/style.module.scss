@@ -240,7 +240,7 @@
 }
 
 .label {
-    @include global.detail-label();
+    @include global.label();
 }
 
 .checkboxes {

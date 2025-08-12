@@ -1,4 +1,5 @@
-@use '../../css/theme.scss' as theme;
+@use '../../css/theme.scss';
+@use '../../css/global.scss';
 
 .fonts-modal {
     overflow: auto;
@@ -139,10 +140,8 @@
 }
 
 .filter-group-title {
-    font-size: 0.875rem;
-    font-weight: 600;
+    @include global.detail-label();
     margin-bottom: 0.5rem;
-    color: theme.$text-detail;
 }
 
 .filter-toggle {
@@ -162,6 +161,18 @@
     border: 1px solid theme.$divider;
     border-radius: 4px;
     font-size: 1rem;
+}
+
+.preview-font-size {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    @include global.detail-label();
+    margin-bottom: 1rem;
+}
+
+.preview-font-size-slider {
+    flex: 1 1 0;
 }
 
 .preview-content {
@@ -185,15 +196,12 @@
 }
 
 .font-style-name {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: theme.$text-detail;
+    @include global.detail-label();
     margin-bottom: 0.5rem;
     text-transform: capitalize;
 }
 
 .font-style-preview {
-    font-size: 1.25rem;
     line-height: 1.4;
     // unset the font-feature-settings we use for Inter
     font-feature-settings: normal;
@@ -251,9 +259,7 @@
 
 .axis-label {
     display: block;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: theme.$text-detail;
+    @include global.detail-label();
 }
 
 .axis-inputs {
@@ -275,7 +281,6 @@
 .hide {
     display: none;
 }
-
 
 
 // Mobile responsive layout

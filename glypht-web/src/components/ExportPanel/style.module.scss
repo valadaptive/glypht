@@ -99,7 +99,7 @@
 }
 
 .css-path-prefix-bar > label {
-    @include global.detail-label();
+    @include global.label();
 }
 
 .css-path-prefix {
@@ -258,7 +258,7 @@
     gap: 0.5rem;
 
     & > label {
-        @include global.detail-label();
+        @include global.label();
     }
 }
 

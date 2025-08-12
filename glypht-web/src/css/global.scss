@@ -77,9 +77,15 @@ $textbox-padding-y: 0.5rem;
     }
 }
 
-@mixin detail-label {
+@mixin label {
     font-weight: 500;
     font-size: 0.875rem;
+}
+
+@mixin detail-label {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: theme.$text-detail;
 }
 
 input[type=text], input[type=password], textarea, select {

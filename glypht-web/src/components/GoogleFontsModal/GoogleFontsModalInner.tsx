@@ -126,7 +126,7 @@ const FontPreview = ({family}: {
     }, [family]);
 
     const description = useMemo(() => {
-        const description = useSignal<
+        const description = signal<
             | {state: 'loading'}
             | {state: 'loaded'; description: string | null}
             | {state: 'error'; error: Error}
@@ -144,6 +144,12 @@ const FontPreview = ({family}: {
         }
         return description;
     }, [family]);
+
+    const defaultFontSize = 24;
+    const fontSize = useSignal(defaultFontSize);
+    const resetFontSize = useCallback(() => {
+        fontSize.value = defaultFontSize;
+    }, [fontSize]);
 
     if (!family) {
         return <div className={style.fontPreview} />;
@@ -213,6 +219,7 @@ const FontPreview = ({family}: {
                     fontStyle: font.style,
                     fontWeight: font.weight,
                     fontVariationSettings,
+                    fontSize: `${fontSize.value}px`,
                 }}
             >
                 {previewText}
@@ -366,6 +373,17 @@ const FontPreview = ({family}: {
                     placeholder="Type custom preview text..."
                     className={style.previewTextInput}
                 />
+            </div>
+            <div className={style.previewFontSize}>
+                <Slider value={fontSize} min={9} max={144} step={1} className={style.previewFontSizeSlider} />
+                <SpinBox value={fontSize} min={9} max={144} step={1} />
+                <IconButton
+                    type='reset'
+                    title='Reset to default value'
+                    disabled={fontSize.value === defaultFontSize}
+                    onClick={resetFontSize}
+                />
+                Font size
             </div>
             <div className={style.previewContent}>
                 <div className={style.previewSamples}>
