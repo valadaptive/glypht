@@ -13,8 +13,22 @@ const Loader = ({progress, size = 100, className}: {progress?: number; size?: nu
         dashOffset = 0;
     }
 
+    const spinnerStyle = typeof progress !== 'number' ? {
+        animation: 'spin 1.5s linear infinite',
+    } : undefined;
+
     return (
         <svg xmlns="http://www.w3.org/2000/svg" className={className} width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+            <style>{`
+                @keyframes spin {
+                    from {
+                        stroke-dashoffset: ${circumference};
+                    }
+                    to {
+                        stroke-dashoffset: 0;
+                    }
+                }
+            `}</style>
             {typeof progress === 'number' && size >= 64 &&
                 <text
                     x="50%"
@@ -40,17 +54,8 @@ const Loader = ({progress, size = 100, className}: {progress?: number; size?: nu
                 fill="none"
                 stroke-dasharray={dashArray}
                 stroke-dashoffset={dashOffset}
-            >
-                {typeof progress !== 'number' && <>
-                    <animate
-                        attributeName="stroke-dashoffset"
-                        from={circumference}
-                        to="0"
-                        dur="1.5s"
-                        repeatCount="indefinite"
-                    />
-                </>}
-            </circle>
+                style={spinnerStyle}
+            />
         </svg>
     );
 };
