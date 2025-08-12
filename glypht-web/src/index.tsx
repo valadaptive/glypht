@@ -1,5 +1,5 @@
 import {render} from 'preact';
-import 'preact/debug';
+//import 'preact/debug';
 
 import './css/fonts.css';
 import './css/global.scss';

@@ -91,6 +91,9 @@ export type FamilyProto = {
     path: string;
     proportion: Proportion;
     descriptionRange?: [number, number];
+    defaultSort: number;
+    trending: number;
+    popularity: number;
 };
 
 export type ExemplarCharsProto = {

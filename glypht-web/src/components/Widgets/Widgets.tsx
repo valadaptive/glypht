@@ -13,13 +13,14 @@ import {flip, offset, shift, size} from '@floating-ui/dom';
 import uFuzzy from '@leeoniya/ufuzzy';
 import {Overlay} from '../Overlay/Overlay';
 
-export const Dropdown = <T extends string | number>({value, options, className}: {
+export const Dropdown = <T extends string | number>({value, options, className, disabled}: {
     value: Signal<T>;
-    options: {
+    options: readonly {
         id: T;
         name: string;
     }[];
     className?: string;
+    disabled?: boolean;
 }): JSX.Element => {
     const handleChange = useCallback((event: Event) => {
         const select = event.target as HTMLSelectElement;
@@ -30,7 +31,7 @@ export const Dropdown = <T extends string | number>({value, options, className}:
 
     return (
         <div className={classNames(style.selectWrapper, className)}>
-            <select className={style.select} onChange={handleChange}>
+            <select className={style.select} onChange={handleChange} disabled={disabled}>
                 {options.map(({id, name}) => (
                     <option value={id} key={id} selected={id === value.value}>{name}</option>
                 ))}

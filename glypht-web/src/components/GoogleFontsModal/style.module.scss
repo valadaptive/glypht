@@ -51,6 +51,20 @@
     flex: 0 0 3in;
     max-width: 25%;
     border-right: 1px solid theme.$divider;
+    display: flex;
+    flex-direction: column;
+}
+
+.fonts-list-sort {
+    padding: 0.5rem;
+    border-bottom: 1px solid theme.$divider;
+    box-sizing: border-box;
+    flex: 0 0 auto;
+}
+
+.fonts-list-fonts {
+    overflow: auto;
+    flex: 1 1 0;
 }
 
 .font-item {

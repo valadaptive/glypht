@@ -165,12 +165,16 @@ for (const f of localMetadata) {
 
 const sortedLocalMetadata = [];
 for (const f of liveMetadata.familyMetadataList) {
-    if (!localFamilies.has(f.family)) {
+    const localFamily = localFamilies.get(f.family);
+    if (!localFamily) {
         // eslint-disable-next-line no-console
         console.warn(`${f.family} is not in the local repo`);
         continue;
     }
-    sortedLocalMetadata.push(localFamilies.get(f.family));
+    localFamily.defaultSort = f.defaultSort;
+    localFamily.popularity = f.popularity;
+    localFamily.trending = f.trending;
+    sortedLocalMetadata.push(localFamily);
 }
 
 logProgress('Reading and parsing all language metadata...');
@@ -200,7 +204,7 @@ for (const langFile of await fs.readdir(languagesDir)) {
     languagesData.push(langFileData);
 }
 // Sorting by population is useful in the frontend, and also helps with compression--we store languages as a bitset, and
-// putting more popular languages towards the front means the "tail" of the bitest will contain long strings of zeroes.
+// putting more popular languages towards the front means the "tail" of the bitset will contain long strings of zeroes.
 // Population is not a perfect proxy for number of fonts supporting the language, but it helps.
 languagesData.sort((a, b) => (b.population ?? 0) - (a.population ?? 0));
 for (let i = 0; i < languagesData.length; i++) {
@@ -501,6 +505,9 @@ FamilyProto.fields
 FamilyProto.fields.push({name: 'path', type: 'string', optional: false});
 FamilyProto.fields.push({name: 'proportion', type: 'Proportion', optional: false});
 FamilyProto.fields.push({name: 'descriptionRange', type: '[number, number]', optional: true});
+FamilyProto.fields.push({name: 'defaultSort', type: 'number', optional: false});
+FamilyProto.fields.push({name: 'trending', type: 'number', optional: false});
+FamilyProto.fields.push({name: 'popularity', type: 'number', optional: false});
 FamilyProto.fields = FamilyProto.fields.filter(f => f.name !== 'source');
 
 // Store languages as a base64'd bitset to save space (340kB -> 250kB gzipped)

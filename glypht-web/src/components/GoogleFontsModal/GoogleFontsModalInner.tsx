@@ -9,6 +9,7 @@ import {
     CollapsibleHeader,
     SearchableCheckboxDropdown,
     ToggleIcon,
+    Dropdown,
 } from '../Widgets/Widgets';
 import {FamilyProto, FontProto, LanguageProto, AxisProto, ScriptProto} from '../../generated/google-fonts-types';
 import {IconButton} from '../Icon/Icon';
@@ -550,6 +551,35 @@ const GoogleFontsModalInner = ({fontsListState}: {fontsListState: LoadedGoogleFo
         event.stopPropagation();
     }, []);
 
+    const sortOrder = useSignal<'trending' | 'popular' | 'newest' | 'name'>('trending');
+    const sortOptions = useMemo(() => [
+        {name: 'Trending', id: 'trending'},
+        {name: 'Popular', id: 'popular'},
+        {name: 'Newest', id: 'newest'},
+        {name: 'Name', id: 'name'},
+    ], []);
+
+    const sortedFonts = useComputed(() => {
+        switch (sortOrder.value) {
+            case 'trending': return fontsList;
+            case 'popular': {
+                const sorted = fontsList.slice(0);
+                sorted.sort((a, b) => a.popularity - b.popularity);
+                return sorted;
+            }
+            case 'newest': {
+                const sorted = fontsList.slice(0);
+                sorted.sort((a, b) => Date.parse(b.dateAdded) - Date.parse(a.dateAdded));
+                return sorted;
+            }
+            case 'name': {
+                const sorted = fontsList.slice(0);
+                sorted.sort((a, b) => (a.displayName ?? a.name).localeCompare(b.displayName ?? b.name));
+                return sorted;
+            }
+        }
+    });
+
     const throttledSearchValue = useThrottledSignal(googleFontsModalState.searchValue, 100, true);
     const filteredFonts = useComputed(() => {
         const monospace = googleFontsModalState.searchFilters.monospace.value;
@@ -583,10 +613,10 @@ const GoogleFontsModalInner = ({fontsListState}: {fontsListState: LoadedGoogleFo
             selectedLanguagesList.length === 0 &&
             selectedAxesList.length === 0
         ) {
-            return fontsList;
+            return sortedFonts.value;
         }
 
-        return fontsList.filter(family => {
+        return sortedFonts.value.filter(family => {
             // Proportion filtering
             let proportionMatch = false;
             if (monospace && family.proportion === 'MONOSPACE') proportionMatch = true;
@@ -676,13 +706,22 @@ const GoogleFontsModalInner = ({fontsListState}: {fontsListState: LoadedGoogleFo
         return searchResults;
     }, [throttledSearchValue.value, filteredFonts.value]);
 
-    const fontsListElem = useMemo(() => <div className={style.fontsList}>{searchedFonts.map(
-        font => <FontItem
-            key={font.name}
-            family={font}
-            onClick={onSelectFont}
-            selected={font === googleFontsModalState.previewedFamily.value}
-        />)}</div>, [searchedFonts, googleFontsModalState.previewedFamily.value]);
+    const fontsListElem = useMemo(() => (
+        <div className={style.fontsList}>
+            <div className={style.fontsListSort}>
+                <Dropdown value={sortOrder} options={sortOptions} disabled={searchedFonts !== filteredFonts.value} />
+            </div>
+            <div className={style.fontsListFonts}>
+                {searchedFonts.map(
+                    font => <FontItem
+                        key={font.name}
+                        family={font}
+                        onClick={onSelectFont}
+                        selected={font === googleFontsModalState.previewedFamily.value}
+                    />)}
+            </div>
+        </div>
+    ), [searchedFonts, googleFontsModalState.previewedFamily.value]);
     const fontPreview = useMemo(() =>
         <FontPreview family={googleFontsModalState.previewedFamily.value} />,
     [googleFontsModalState.previewedFamily.value]);
