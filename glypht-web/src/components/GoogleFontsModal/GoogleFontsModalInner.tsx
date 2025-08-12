@@ -8,6 +8,7 @@ import {
     SpinBox,
     CollapsibleHeader,
     SearchableCheckboxDropdown,
+    ToggleIcon,
 } from '../Widgets/Widgets';
 import {FamilyProto, FontProto, LanguageProto, AxisProto, ScriptProto} from '../../generated/google-fonts-types';
 import {IconButton} from '../Icon/Icon';
@@ -339,15 +340,23 @@ const FontPreview = ({family}: {
     return (
         <div className={style.fontPreview}>
             <style>{fontCss}</style>
-            <header className={style.familyName}>{family.name}</header>
+            <header className={style.fontPreviewHeader}>
+                <div>{family.name}</div>
+                <AddFontButton family={family} />
+            </header>
             <div className={style.fontMeta}>
-                <div className={style.fontLicense}>
-                    License: {formatLicense(family.license)}
+                <div className={style.fontMetaLine}>
+                    By {family.designer}
                 </div>
-                <div className={style.fontGithubLink}>
-                    <a href={githubLink} target="_blank" rel="noopener noreferrer">
-                        View on GitHub
-                    </a>
+                <div className={style.fontMetaLine}>
+                    <div>
+                        License: {formatLicense(family.license)}
+                    </div>
+                    <div>
+                        <a href={githubLink} target="_blank" rel="noopener noreferrer">
+                            View on GitHub
+                        </a>
+                    </div>
                 </div>
             </div>
             {axisControls}
@@ -375,12 +384,9 @@ const FontPreview = ({family}: {
     );
 };
 
-const FontItem = ({family, onAdd, onClick, selected}: {
-    family: GoogleFontsFamily;
-    onAdd: (family: GoogleFontsFamily) => Promise<void>;
-    onClick: (family: GoogleFontsFamily) => void;
-    selected: boolean;
-}) => {
+const AddFontButton = ({family}: {family: GoogleFontsFamily}) => {
+    const appState = useAppState();
+    const addErrorToast = useAddErrorToast();
     const isAdding = useSignal(false);
     const handleAdd = useCallback((event: Event) => {
         event.stopPropagation();
@@ -388,8 +394,39 @@ const FontItem = ({family, onAdd, onClick, selected}: {
         const doneAdding = () => {
             isAdding.value = false;
         };
-        onAdd(family).then(doneAdding, doneAdding);
-    }, [onAdd, family, isAdding]);
+
+        const all = [];
+        for (const font of family.fonts) {
+            const fontUrl = rawFontLink(family, font);
+            all.push(fetch(fontUrl)
+                .then(resp => resp.blob())
+                .then(fontData => appState.addFonts([fontData]))
+                .then(
+                    null,
+                    error => {
+                        addErrorToast('Failed to add font from Google Fonts', error);
+                    },
+                ));
+        }
+        Promise.all(all).then(doneAdding, doneAdding);
+    }, [appState, family, isAdding]);
+
+    return (
+        <div className={style.addFontButton}>
+            {isAdding.value ?
+                <div class={style.addFontLoader}><Loader size={18} /></div> :
+                appState.loadedFamilies.value.has(family.name) ?
+                    <IconButton size={24} type='check' title='Font added' disabled={true} className={style.addFont} /> :
+                    <IconButton size={24} type='plus' title='Add font' onClick={handleAdd} className={style.addFont} />}
+        </div>
+    );
+};
+
+const FontItem = ({family, onClick, selected}: {
+    family: GoogleFontsFamily;
+    onClick: (family: GoogleFontsFamily) => void;
+    selected: boolean;
+}) => {
     const handleClick = useCallback((event: Event) => {
         event.stopPropagation();
         onClick(family);
@@ -398,11 +435,7 @@ const FontItem = ({family, onAdd, onClick, selected}: {
     return (
         <div className={classnames(style.fontItem, selected && style.selected)} role="listitem" onClick={handleClick}>
             <span class={style.fontName}>{family.displayName ?? family.name}</span>
-            <div className={style.addFont}>
-                {isAdding.value ?
-                    <div class={style.addFontLoader}><Loader size={18} /></div> :
-                    <IconButton size={24} type='plus' title='Add font' onClick={handleAdd} className={style.addFont} />}
-            </div>
+            <AddFontButton family={family} />
         </div>
     );
 };
@@ -420,7 +453,7 @@ const FiltersPane = ({modalState}: {modalState: LoadedGoogleFontsModalState}) =>
             .sort((a, b) => (b.population ?? 0) - (a.population ?? 0));
     }, [langList]);
 
-    return <div className={style.filtersPane}>
+    return <>
         <div className={style.filterGroup}>
             <div className={style.filterGroupTitle}>Proportion</div>
             <CheckboxToggle label="Proportional" checked={searchFilters.proportional} className={style.filterToggle} />
@@ -464,30 +497,16 @@ const FiltersPane = ({modalState}: {modalState: LoadedGoogleFontsModalState}) =>
                 className={style.filterToggle}
             />
         </div>
-    </div>;
+    </>;
 };
 
 const GoogleFontsModalInner = ({fontsListState}: {fontsListState: LoadedGoogleFontsModalState}) => {
     const appState = useAppState();
     const {googleFontsModalState} = appState;
-    const addErrorToast = useAddErrorToast();
 
-    const onAddFont = useCallback((family: GoogleFontsFamily) => {
-        const all = [];
-        for (const font of family.fonts) {
-            const fontUrl = rawFontLink(family, font);
-            all.push(fetch(fontUrl)
-                .then(resp => resp.blob())
-                .then(fontData => appState.addFonts([fontData]))
-                .then(
-                    null,
-                    error => {
-                        addErrorToast('Failed to add font from Google Fonts', error);
-                    },
-                ));
-        }
-        return Promise.all(all).then(() => {});
-    }, [addErrorToast, appState]);
+    // Mobile view state management
+    const mobileView = useSignal<'list' | 'preview'>('list');
+    const filtersExpanded = useSignal(false);
 
     const closeModal = useCallback(() => {
         appState.googleFontsModalState.open.value = false;
@@ -495,7 +514,23 @@ const GoogleFontsModalInner = ({fontsListState}: {fontsListState: LoadedGoogleFo
 
     const onSelectFont = useCallback((family: GoogleFontsFamily) => {
         googleFontsModalState.previewedFamily.value = family;
-    }, [googleFontsModalState.previewedFamily]);
+        // Switch to preview view on mobile when font is selected
+        mobileView.value = 'preview';
+    }, [googleFontsModalState.previewedFamily, mobileView]);
+
+    const goBackToList = useCallback(() => {
+        mobileView.value = 'list';
+    }, [mobileView]);
+
+    // Close filters when clicking outside
+    const closeFilters = useCallback(() => {
+        filtersExpanded.value = false;
+    }, [filtersExpanded]);
+
+    const handleFiltersClick = useCallback((event: Event) => {
+        // Prevent the filters panel from closing when clicking inside it
+        event.stopPropagation();
+    }, []);
 
     const throttledSearchValue = useThrottledSignal(googleFontsModalState.searchValue, 100, true);
     const filteredFonts = useComputed(() => {
@@ -627,30 +662,45 @@ const GoogleFontsModalInner = ({fontsListState}: {fontsListState: LoadedGoogleFo
         font => <FontItem
             key={font.name}
             family={font}
-            onAdd={onAddFont}
             onClick={onSelectFont}
             selected={font === googleFontsModalState.previewedFamily.value}
         />)}</div>, [searchedFonts, googleFontsModalState.previewedFamily.value]);
     const fontPreview = useMemo(() =>
         <FontPreview family={googleFontsModalState.previewedFamily.value} />,
     [googleFontsModalState.previewedFamily.value]);
-    const filtersPane = useMemo(() => {
-        return <FiltersPane modalState={fontsListState} />;
-    }, [fontsListState]);
 
     return <>
-        <div className={style.topBar}>
+        <div className={classnames(style.topBar, style[`mobile-${mobileView.value}`])}>
+            <IconButton
+                type="arrow-left"
+                title="Back to fonts list"
+                onClick={goBackToList}
+                className={style.mobileBackButton}
+            />
             <TextBox
                 value={googleFontsModalState.searchValue}
                 className={style.searchBox}
                 placeholder='Search...'
             />
+            <ToggleIcon
+                type="funnel"
+                title="Show filters"
+                toggled={filtersExpanded}
+                className={style.mobileFiltersButton}
+            />
             <IconButton type="close" title="Close Google Fonts browser" onClick={closeModal} />
         </div>
-        <div className={style.panes}>
-            {filtersPane}
-            {fontsListElem}
-            {fontPreview}
+        <div className={classnames(style.panes, style[`mobile-${mobileView.value}`])} onClick={closeFilters}>
+            <div
+                className={classnames(style.filtersPane, filtersExpanded.value && style.filtersExpanded)}
+                onClick={handleFiltersClick}
+            >
+                <FiltersPane modalState={fontsListState} />
+            </div>
+            <div className={style.listAndPreview}>
+                {fontsListElem}
+                {fontPreview}
+            </div>
         </div>
     </>;
 };

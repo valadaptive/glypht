@@ -35,10 +35,21 @@
     flex: 1 1 0;
 }
 
+// Mobile navigation buttons
+.mobile-back-button,
+.mobile-filters-button {
+    display: none;
+}
+
+// Container for the list and preview on mobile
+.list-and-preview {
+    display: contents;
+}
 .fonts-list {
     overflow: auto;
-    flex: 1 1 0;
-    min-width: 3in;
+    flex: 0 0 3in;
+    max-width: 25%;
+    border-right: 1px solid theme.$divider;
 }
 
 .font-item {
@@ -56,6 +67,10 @@
         background-color: theme.$toggle-active;
     }
 
+    & .add-font-button {
+        margin-left: auto;
+    }
+
     @include theme.bg-fade();
 }
 
@@ -64,8 +79,7 @@
     text-overflow: ellipsis;
 }
 
-.add-font {
-    margin-left: auto;
+.add-font-button {
     display: flex;
     align-items: center;
 }
@@ -78,18 +92,28 @@
     justify-content: center;
 }
 
-.family-name {
+.font-preview-header {
     font-weight: bold;
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+
+    & .add-font-button {
+        margin-left: auto;
+    }
 }
 
 .font-meta {
-    display: flex;
-    gap: 1rem;
     margin-bottom: 1rem;
     font-size: 0.875rem;
     color: theme.$text-detail;
+}
+
+.font-meta-line {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
 }
 
 .font-preview {
@@ -108,6 +132,10 @@
 
 .filter-group {
     margin-bottom: 1.5rem;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 }
 
 .filter-group-title {
@@ -128,6 +156,7 @@
 }
 
 .preview-text-input {
+    min-width: 0;
     flex: 1;
     padding: 0.5rem;
     border: 1px solid theme.$divider;
@@ -187,12 +216,12 @@
 
 @media (orientation: portrait) {
     .script-langs {
-        column-count: 1;
+        column-count: 3;
     }
 }
 
 .supported-lang {
-    flex: 1 0 auto;
+    padding: 0.175rem 0;
 }
 
 .script-title {
@@ -245,4 +274,80 @@
 
 .hide {
     display: none;
+}
+
+
+
+// Mobile responsive layout
+@media (max-width: 768px) {
+    .panes {
+        flex-direction: column;
+        position: relative;
+    }
+
+    .mobile-back-button,
+    .mobile-filters-button {
+        display: flex;
+    }
+
+    .mobile-back-button {
+        // Only show back button when in preview mode
+        display: none;
+    }
+
+    .top-bar.mobile-preview .mobile-back-button {
+        display: flex;
+    }
+
+    .filters-pane {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        background-color: theme.$base-color-primary;
+        border: 1px solid theme.$divider;
+        border-radius: 0 0 4px 4px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transform: translateY(-100%);
+        transition: transform 0.2s ease;
+        flex: none;
+        max-height: 100%;
+        box-sizing: border-box;
+        overflow-y: auto;
+
+        &.filters-expanded {
+            transform: translateY(0);
+        }
+    }
+
+    .list-and-preview {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 0;
+        overflow: hidden;
+    }
+
+    // Default mobile view shows the list
+    .fonts-list {
+        flex: 1 1 0;
+        overflow: auto;
+        max-width: unset;
+        border: none;
+    }
+
+    .font-preview {
+        display: none;
+        flex: 1 1 0;
+        overflow: auto;
+    }
+
+    // When in preview mode, show preview and hide list
+    .mobile-preview .fonts-list {
+        display: none;
+    }
+
+    .mobile-preview .font-preview {
+        display: block;
+    }
 }

@@ -11,6 +11,7 @@ import {Motif} from '../../util/motif';
 import useFloating from '../../util/floating';
 import {flip, offset, shift, size} from '@floating-ui/dom';
 import uFuzzy from '@leeoniya/ufuzzy';
+import {Overlay} from '../Overlay/Overlay';
 
 export const Dropdown = <T extends string | number>({value, options, className}: {
     value: Signal<T>;
@@ -126,7 +127,7 @@ export const SpinBox = ({value, min, max, step = 1, smartAim = 0, className}: {
 
         window.addEventListener('pointermove', onMove);
         window.addEventListener('pointerup', onUp);
-    }, []);
+    }, [min, max, value]);
 
     const handleFocus = useCallback(() => {
         isEditing.value = true;
@@ -229,18 +230,19 @@ export const Slider = ({value, min, max, step = 1, className}: {
     );
 };
 
-export const ToggleIcon = ({type, title, toggled, innerRef}: {
+export const ToggleIcon = ({type, title, toggled, innerRef, className}: {
     type: IconType;
     title: string;
     toggled: Signal<boolean>;
     innerRef?: Ref<HTMLButtonElement>;
+    className?: string;
 }) => {
     const handleClick = useCallback(() => {
         toggled.value = !toggled.value;
     }, [toggled]);
     return (
         <button
-            className={classNames(style.iconButton, style.toggleIcon, {[style.toggledOn]: toggled.value})}
+            className={classNames(style.iconButton, style.toggleIcon, toggled.value && style.toggledOn, className)}
             onClick={handleClick}
             role="checkbox"
             aria-checked={toggled.value}
@@ -401,8 +403,6 @@ export const SearchableCheckboxDropdown = <T extends string | number>({
     const isOpen = useSignal(false);
     const searchValue = useSignal('');
     const buttonRef = useRef<HTMLButtonElement>(null);
-    const dropdownRef = useRef<HTMLDivElement>(null);
-    const searchInputRef = useRef<HTMLInputElement>(null);
 
     const {reference, floating} = useFloating(() => ({
         placement: 'bottom-start',
@@ -410,30 +410,20 @@ export const SearchableCheckboxDropdown = <T extends string | number>({
             offset(4),
             shift({padding: 8}),
             size({
-                apply({availableWidth, availableHeight, elements}) {
-                    const {floating} = elements;
-                    floating.style.maxWidth = `${availableWidth}px`;
-                    // Allow the dropdown to extend almost to the bottom of the viewport
-                    floating.style.maxHeight = `${Math.min(availableHeight - 8, window.innerHeight - 100)}px`;
+                apply({availableHeight, elements}) {
+                    const {floating, reference} = elements;
+                    floating.style.width = `${reference.getBoundingClientRect().width}px`;
+                    floating.style.maxHeight = `${Math.max(availableHeight - 8, 320)}px`;
                 },
                 padding: 8,
             }),
             flip(),
         ],
     }));
-
-    // Set up floating UI references
-    useLayoutEffect(() => {
-        reference(buttonRef.current);
-    }, [reference]);
-
-    useLayoutEffect(() => {
-        floating(dropdownRef.current);
-        // Focus the search input when dropdown opens
-        if (isOpen.value && searchInputRef.current) {
-            searchInputRef.current.focus();
-        }
-    }, [floating, isOpen.value]);
+    const setButtonRef = useCallback((button: HTMLButtonElement | null) => {
+        reference(button);
+        buttonRef.current = button;
+    }, []);
 
     const optionNames = useMemo(() => options.map(option => option.searchable ?? option.name), [options]);
 
@@ -460,6 +450,10 @@ export const SearchableCheckboxDropdown = <T extends string | number>({
             return optionsText.length === 0 ? null : optionsText.join(', ');
         });
     }, [options, selectedOptions]);
+
+    const focusSearchInput = useCallback((searchInput: HTMLInputElement | null) => {
+        if (searchInput) searchInput.focus();
+    }, []);
 
     const handleToggleDropdown = useCallback(() => {
         isOpen.value = !isOpen.value;
@@ -511,7 +505,7 @@ export const SearchableCheckboxDropdown = <T extends string | number>({
     return (
         <div className={classNames(style.searchableDropdownWrapper, className)} id={id}>
             <button
-                ref={buttonRef}
+                ref={setButtonRef}
                 className={classNames(style.searchableDropdownButton, isOpen.value && style.open)}
                 onClick={handleToggleDropdown}
                 type="button"
@@ -529,51 +523,52 @@ export const SearchableCheckboxDropdown = <T extends string | number>({
             </button>
 
             {isOpen.value && (
-                <div
-                    ref={dropdownRef}
-                    className={style.searchableDropdownPanel}
-                    style={{position: 'absolute', zIndex: 1000}}
-                    onFocusOut={handleFocusOut}
-                    tabIndex={0}
-                    role="menu"
-                >
-                    <div className={style.searchableDropdownSearch}>
-                        <input
-                            ref={searchInputRef}
-                            type="text"
-                            placeholder="Search..."
-                            role="searchbox"
-                            value={searchValue.value}
-                            onInput={handleSearchChange}
-                            className={style.searchableDropdownSearchInput}
-                        />
+                <Overlay>
+                    <div
+                        ref={floating}
+                        className={style.searchableDropdownPanel}
+                        onFocusOut={handleFocusOut}
+                        tabIndex={0}
+                        role="menu"
+                    >
+                        <div className={style.searchableDropdownSearch}>
+                            <input
+                                ref={focusSearchInput}
+                                type="text"
+                                placeholder="Search..."
+                                role="searchbox"
+                                value={searchValue.value}
+                                onInput={handleSearchChange}
+                                className={style.searchableDropdownSearchInput}
+                            />
+                        </div>
+                        <div className={style.searchableDropdownOptions}>
+                            {filteredOptions.map((option: {id: T; name: string; searchable?: string}) => (
+                                <label
+                                    key={option.id}
+                                    className={style.searchableDropdownOption}
+                                    onClick={(e) => e.stopPropagation()}
+                                    role="menuitem"
+                                >
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedOptions[option.id]?.value || false}
+                                        onChange={() => handleOptionToggle(option.id)}
+                                        className={style.searchableDropdownCheckbox}
+                                    />
+                                    <span className={style.searchableDropdownOptionText}>
+                                        {renderOption ? renderOption(option) : option.name}
+                                    </span>
+                                </label>
+                            ))}
+                            {filteredOptions.length === 0 && (
+                                <div className={style.searchableDropdownNoResults}>
+                                    No results found
+                                </div>
+                            )}
+                        </div>
                     </div>
-                    <div className={style.searchableDropdownOptions}>
-                        {filteredOptions.map((option: {id: T; name: string; searchable?: string}) => (
-                            <label
-                                key={option.id}
-                                className={style.searchableDropdownOption}
-                                onClick={(e) => e.stopPropagation()}
-                                role="menuitem"
-                            >
-                                <input
-                                    type="checkbox"
-                                    checked={selectedOptions[option.id]?.value || false}
-                                    onChange={() => handleOptionToggle(option.id)}
-                                    className={style.searchableDropdownCheckbox}
-                                />
-                                <span className={style.searchableDropdownOptionText}>
-                                    {renderOption ? renderOption(option) : option.name}
-                                </span>
-                            </label>
-                        ))}
-                        {filteredOptions.length === 0 && (
-                            <div className={style.searchableDropdownNoResults}>
-                                No results found
-                            </div>
-                        )}
-                    </div>
-                </div>
+                </Overlay>
             )}
         </div>
     );

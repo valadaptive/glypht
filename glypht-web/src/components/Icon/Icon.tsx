@@ -15,6 +15,7 @@ export type IconType =
     | 'copy'
     | 'download'
     | 'error'
+    | 'funnel'
     | 'gear'
     | 'github'
     | 'globe'

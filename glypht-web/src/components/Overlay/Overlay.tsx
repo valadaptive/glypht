@@ -1,3 +1,5 @@
+import style from './style.module.scss';
+
 import {Signal, signal} from '@preact/signals';
 import {ComponentChildren, createContext} from 'preact';
 import {MutableRef, useContext, useLayoutEffect, useRef} from 'preact/hooks';
@@ -51,7 +53,10 @@ const OverlayContainerInner = () => {
     if (!context) return null;
     // Trigger a re-render
     void context.generation.value;
-    return <>{context.children.map(ref => ref.current)}</>;
+    if (context.children.length === 0) {
+        return null;
+    }
+    return <div className={style.overlays}>{context.children.map(ref => ref.current)}</div>;
 };
 
 export const OverlayProvider = ({children}: {children?: ComponentChildren}) => {

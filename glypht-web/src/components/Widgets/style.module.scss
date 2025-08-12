@@ -223,12 +223,12 @@ input[type=text].small {
 }
 
 .searchable-dropdown-panel {
+    position: absolute;
     background: theme.$base-color-secondary;
     border: 1px solid theme.$divider;
     border-radius: theme.$radius;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     overflow: hidden;
-    min-width: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -250,6 +250,7 @@ input[type=text].small {
 
 .searchable-dropdown-options {
     overflow-y: auto;
+    font-size: 0.875rem;
 }
 
 .searchable-dropdown-option {
@@ -257,8 +258,6 @@ input[type=text].small {
     align-items: center;
     padding: 0.5rem;
     cursor: pointer;
-    border: none;
-    background: none;
     width: 100%;
     box-sizing: border-box;
 
@@ -276,14 +275,11 @@ input[type=text].small {
 .searchable-dropdown-option-text {
     flex: 1;
     color: theme.$text;
-    font-size: 0.875rem;
-    text-align: left;
 }
 
 .searchable-dropdown-no-results {
     padding: 0.75rem;
     text-align: center;
     color: theme.$text-detail;
-    font-size: 0.875rem;
     font-style: italic;
 }

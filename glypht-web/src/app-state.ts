@@ -1,4 +1,4 @@
-import {computed, signal, Signal} from '@preact/signals';
+import {computed, ReadonlySignal, signal, Signal} from '@preact/signals';
 import {createContext} from 'preact';
 import {useContext} from 'preact/hooks';
 import {FontRef, GlyphtContext, StyleKey, SubsetName} from '@glypht/core/subsetting.js';
@@ -65,6 +65,8 @@ export type LoadedGoogleFontsModalState = {
 
 export class AppState {
     public fonts: Signal<FamilySettingsState[]> = signal([]);
+    public loadedFamilies: ReadonlySignal<Set<string>> =
+        computed(() => new Set(this.fonts.value.map(font => font.name)));
     public fontsBeingLoaded = signal(0);
 
     private _exportedFonts: Signal<FontExportState> = signal({state: 'not_loaded'});
