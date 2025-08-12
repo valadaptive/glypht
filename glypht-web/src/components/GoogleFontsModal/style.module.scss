@@ -67,12 +67,18 @@
     flex: 1 1 0;
 }
 
+.fonts-list-fonts-inner {
+    position: relative;
+}
+
 .font-item {
     display: flex;
     align-items: center;
     padding: 0.25rem 0.5rem;
     cursor: pointer;
     white-space: nowrap;
+    width: 100%;
+    box-sizing: border-box;
 
     &:hover {
         background-color: theme.$toggle-hover;

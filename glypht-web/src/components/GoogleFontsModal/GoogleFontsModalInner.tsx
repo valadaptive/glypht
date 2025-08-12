@@ -20,6 +20,7 @@ import classnames from 'clsx';
 import uFuzzy from '@leeoniya/ufuzzy';
 import {signal, Signal, useComputed, useSignal} from '@preact/signals';
 import DOMPurify from 'dompurify';
+import type {JSX} from 'preact';
 
 import axisSpinboxParams from '../../util/axis-spinbox-params';
 import {useThrottledSignal} from '../../util/throttle';
@@ -28,6 +29,7 @@ import fontsListJson from '../../generated/google-fonts.json';
 import langListJson from '../../generated/languages.json';
 import axesListJson from '../../generated/axes.json';
 import Loader from '../Loader/Loader';
+import useVirtualList from '../../util/virtual-list';
 
 const descriptionsUrl = new URL('../../generated/google-fonts-descriptions.txt', import.meta.url);
 
@@ -441,10 +443,11 @@ const AddFontButton = ({family}: {family: GoogleFontsFamily}) => {
     );
 };
 
-const FontItem = ({family, onClick, selected}: {
+const FontItem = ({family, onClick, selected, style: cssStyle}: {
     family: GoogleFontsFamily;
     onClick: (family: GoogleFontsFamily) => void;
     selected: boolean;
+    style?: JSX.CSSProperties;
 }) => {
     const handleClick = useCallback((event: Event) => {
         event.stopPropagation();
@@ -452,7 +455,12 @@ const FontItem = ({family, onClick, selected}: {
     }, [onClick, family]);
 
     return (
-        <div className={classnames(style.fontItem, selected && style.selected)} role="listitem" onClick={handleClick}>
+        <div
+            className={classnames(style.fontItem, selected && style.selected)}
+            role="listitem"
+            onClick={handleClick}
+            style={cssStyle}
+        >
             <span class={style.fontName}>{family.displayName ?? family.name}</span>
             <AddFontButton family={family} />
         </div>
@@ -706,22 +714,33 @@ const GoogleFontsModalInner = ({fontsListState}: {fontsListState: LoadedGoogleFo
         return searchResults;
     }, [throttledSearchValue.value, filteredFonts.value]);
 
+    const fontItemHeight = 32;
+    const {parentRef, items} = useVirtualList({items: searchedFonts, itemHeight: fontItemHeight, extraItems: 10});
+
     const fontsListElem = useMemo(() => (
         <div className={style.fontsList}>
             <div className={style.fontsListSort}>
                 <Dropdown value={sortOrder} options={sortOptions} disabled={searchedFonts !== filteredFonts.value} />
             </div>
-            <div className={style.fontsListFonts}>
-                {searchedFonts.map(
-                    font => <FontItem
-                        key={font.name}
-                        family={font}
-                        onClick={onSelectFont}
-                        selected={font === googleFontsModalState.previewedFamily.value}
-                    />)}
+            <div className={style.fontsListFonts} ref={parentRef}>
+                <div className={style.fontsListFontsInner} style={{height: `${searchedFonts.length * fontItemHeight}px`}}>
+                    {items.value.map(({item: font, index}) => {
+                        return <FontItem
+                            key={font.name}
+                            family={font}
+                            onClick={onSelectFont}
+                            selected={font === googleFontsModalState.previewedFamily.value}
+                            style={{
+                                position: 'absolute',
+                                top: `${index * fontItemHeight}px`,
+                                height: `${fontItemHeight}px`,
+                            }}
+                        />;
+                    })}
+                </div>
             </div>
         </div>
-    ), [searchedFonts, googleFontsModalState.previewedFamily.value]);
+    ), [searchedFonts, googleFontsModalState.previewedFamily.value, parentRef, items.value]);
     const fontPreview = useMemo(() =>
         <FontPreview family={googleFontsModalState.previewedFamily.value} />,
     [googleFontsModalState.previewedFamily.value]);
