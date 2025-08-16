@@ -77,7 +77,7 @@ const fetchDescription = async(family: GoogleFontsFamily) => {
         return DECODER.decode(fullContent.subarray(...family.descriptionRange));
     }
 
-    const resp = await fetch(descriptionsUrl, {headers: {range: `bytes=${family.descriptionRange[0]}-${family.descriptionRange[1] - 1}`, 'Accept-Encoding': 'identity'}});
+    const resp = await fetch(descriptionsUrl, {headers: {range: `bytes=${family.descriptionRange[0]}-${family.descriptionRange[1] - 1}`}});
     if (!resp.ok) {
         throw new Error(resp.statusText);
     }
