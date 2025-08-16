@@ -25,4 +25,7 @@ export default defineConfig({
             localsConvention: 'camelCase',
         },
     },
+    worker: {
+        format: 'es',
+    },
 });
