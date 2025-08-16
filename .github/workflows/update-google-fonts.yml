@@ -1,9 +1,6 @@
 name: Update Google Fonts Data
 
 on:
-  #schedule:
-    # Run daily at 2:00 AM UTC
-    #- cron: '0 2 * * *'
   workflow_dispatch: # Allow manual triggering
 
 jobs:
