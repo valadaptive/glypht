@@ -1,0 +1,74 @@
+name: Update Google Fonts Data
+
+on:
+  #schedule:
+    # Run daily at 2:00 AM UTC
+    #- cron: '0 2 * * *'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  update-google-fonts:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    if: github.ref == 'refs/heads/google-fonts-test'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Clone Google Fonts repository
+        run: |
+          git clone https://github.com/google/fonts.git google-fonts-repo
+          echo "Google Fonts repo cloned to: $(pwd)/google-fonts-repo"
+          echo "Contents: $(ls -la google-fonts-repo | head -10)"
+
+      - name: Generate Google Fonts list
+        run: |
+          echo "Running gen-google-fonts-list script..."
+          npm run gen-google-fonts-list google-fonts-repo
+        env:
+          NODE_ENV: production
+
+      - name: Check for changes
+        id: check-changes
+        run: |
+          git add glypht-web/src/generated/
+          if git diff --staged --quiet; then
+            echo "No changes detected in generated files"
+            echo "changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "Changes detected in generated files"
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "Changed files:"
+            git diff --staged --name-only
+          fi
+
+      - name: Commit and push changes
+        if: steps.check-changes.outputs.changes == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "chore: update Google Fonts data
+
+          Auto-generated from google/fonts repository
+          Triggered by scheduled workflow on $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+          git push
+
+      - name: Clean up
+        if: always()
+        run: |
+          rm -rf google-fonts-repo
