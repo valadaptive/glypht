@@ -70,6 +70,7 @@ const searcher = new uFuzzy({});
 
 let fullContent: Uint8Array | null = null;
 const DECODER = new TextDecoder();
+const isFirefox = navigator.userAgent.includes('Firefox');
 const fetchDescription = async(family: GoogleFontsFamily) => {
     if (!family.descriptionRange) return null;
 
@@ -77,7 +78,10 @@ const fetchDescription = async(family: GoogleFontsFamily) => {
         return DECODER.decode(fullContent.subarray(...family.descriptionRange));
     }
 
-    const resp = await fetch(descriptionsUrl, {headers: {range: `bytes=${family.descriptionRange[0]}-${family.descriptionRange[1] - 1}`}});
+    // Whoever originally implemented this in Firefox just changed the WPT tests instead of implementing it correctly...
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1983387
+    const headers = isFirefox ? undefined : {range: `bytes=${family.descriptionRange[0]}-${family.descriptionRange[1] - 1}`};
+    const resp = await fetch(descriptionsUrl, {headers});
     if (!resp.ok) {
         throw new Error(resp.statusText);
     }
