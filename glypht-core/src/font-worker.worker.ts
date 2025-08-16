@@ -1,6 +1,12 @@
-import {Font, init} from './font';
-import {SubsetSettings, SubsettedFont} from './font-types';
-import {FontMessage, FontWorkerSchema, MessageFromWorker, MessageToWorker, postMessageFromWorker} from './worker-rpc';
+import {Font, init} from './font.js';
+import {SubsetSettings, SubsettedFont} from './font-types.js';
+import {
+    FontMessage,
+    FontWorkerSchema,
+    MessageFromWorker,
+    MessageToWorker,
+    postMessageFromWorker,
+} from './worker-rpc.js';
 
 const initPromise = init(new URL('./hb.wasm', import.meta.url).href);
 

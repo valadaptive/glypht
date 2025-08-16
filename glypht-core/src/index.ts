@@ -1,2 +1,2 @@
-export * from './compression';
-export * from './subsetting';
+export * from './compression.js';
+export * from './subsetting.js';

@@ -1,5 +1,5 @@
-import {FontRef, SubsetSettings} from './font-types';
-import RpcDispatcher, {FontMessage, FontWorkerSchema} from './worker-rpc';
+import {FontRef, SubsetSettings} from './font-types.js';
+import RpcDispatcher, {FontMessage, FontWorkerSchema} from './worker-rpc.js';
 
 /**
  * Context object for all font processing. This is what you use to load fonts.

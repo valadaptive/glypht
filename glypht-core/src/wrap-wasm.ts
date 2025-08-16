@@ -1,4 +1,4 @@
-import {fetchFile} from './platform';
+import {fetchFile} from './platform.js';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type EmscriptenDefinedExports = {

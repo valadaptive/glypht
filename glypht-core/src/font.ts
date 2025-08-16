@@ -18,9 +18,9 @@ import {
     SubsetInfo,
     SubsetSettings,
     SubsettedFont,
-} from './font-types';
-import {SUBSET_NAMES, subsetRanges, SubsetName} from './generated/subset-ranges';
-import bytesToHex from './util/bytes-to-hex';
+} from './font-types.js';
+import {SUBSET_NAMES, subsetRanges, SubsetName} from './generated/subset-ranges.js';
+import bytesToHex from './util/bytes-to-hex.js';
 
 let hb!: MainModule;
 

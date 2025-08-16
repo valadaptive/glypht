@@ -11,6 +11,7 @@ export default tseslint.config(
             '**/c-libs-wrapper/**/*',
             'glypht-*/src/generated/**/*',
             'glypht-*/dist/**/*',
+            'scripts/dist/**/*',
         ],
     },
     eslint.configs.recommended,

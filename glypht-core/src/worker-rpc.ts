@@ -7,7 +7,7 @@ import {
     SubsetInfo,
     SubsetSettings,
     SubsettedFont,
-} from './font-types';
+} from './font-types.js';
 
 export type MessageSchema = {
     readonly request: {

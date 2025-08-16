@@ -6,19 +6,24 @@
         "glypht-bundler",
         "glypht-cli"
     ],
+    "type": "module",
     "scripts": {
         "build": "cd glypht-core && npm run build && cd ../glypht-bundler && npm run build && cd ../glypht-web && npm run build",
         "lint": "eslint",
         "gen-feature-tag-info": "jiti scripts/gen-feature-tag-info.ts",
         "gen-subset-ranges": "jiti scripts/gen-subset-ranges.ts",
+        "gen-google-fonts-list": "rollup -c scripts/rollup.config.js && node scripts/dist/gen-google-fonts-list.js",
         "build-wasm": "docker build -t glypht_c_libs ./c-libs-wrapper && docker run --rm -v ./c-libs-wrapper:/src -u $(id -u):$(id -g) -it glypht_c_libs /bin/bash -c 'cd /src && ./build.sh'"
     },
     "devDependencies": {
         "@eslint/js": "^9.32.0",
+        "@glypht/web-worker": "^1.7.0",
+        "@rollup/plugin-typescript": "^12.1.4",
         "@stylistic/eslint-plugin": "^5.2.2",
         "eslint": "^9.32.0",
         "globals": "^16.3.0",
         "jiti": "^2.5.1",
+        "rollup": "^4.46.2",
         "typescript": "^5.8.3",
         "typescript-eslint": "^8.38.0"
     }

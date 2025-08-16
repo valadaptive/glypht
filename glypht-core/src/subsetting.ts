@@ -1,2 +1,2 @@
-export * from './context';
-export * from './font-types';
+export * from './context.js';
+export * from './font-types.js';

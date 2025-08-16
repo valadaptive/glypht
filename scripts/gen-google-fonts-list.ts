@@ -5,26 +5,36 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import {load} from 'protobufjs';
+import protobufjs from 'protobufjs';
+const {load} = protobufjs;
 import {parse} from 'pbtxtjs';
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
-import {Schema, schemaToTypescript, typeToSchema} from './protobuf-tools';
+import Worker from '@glypht/web-worker';
 
-import createHarfbuzz, {hbTag} from '../glypht-core/src/hb-wrapper';
-import type {MainModule as HbShapeModule} from '../c-libs-wrapper/hb-shape';
+import {Schema, schemaToTypescript, typeToSchema} from './protobuf-tools.js';
 
-if (process.argv.length < 2) {
+import WorkerPool from '../glypht-core/src/worker-pool.js';
+import RpcDispatcher from '../glypht-core/src/worker-rpc.js';
+import {MetadataWorkerSchema} from './google-fonts-meta-worker.js';
+
+if (!(global as {isBundled?: boolean}).isBundled) {
+    // eslint-disable-next-line @stylistic/max-len
+    throw new Error('Because this script uses workers, you need to build it with Rollup in order to run it. See `npm run gen-google-fonts-list`.');
+}
+
+const SCRIPTS_DIR = path.resolve(import.meta.dirname, '../');
+
+if (process.argv.length < 3) {
     throw new Error('Provide the path to a local copy of the https://github.com/google/fonts repo as an argument.');
 }
 const fontsDir = process.argv[2];
 
 // This schema exists in the Google Fonts repo, but we load our own version because some fonts' metadata contains a
 // field not present in the official schema.
-const fontMetadataNamespace = await load('./fonts_public.proto');
+const fontMetadataNamespace = await load(path.join(SCRIPTS_DIR, './fonts_public.proto'));
 const fontMetadataType = fontMetadataNamespace.lookupType('FamilyProto');
 
 // Wrapper for console.log statements that we want to keep
@@ -79,9 +89,9 @@ liveMetadata.familyMetadataList.sort((a, b) => a.defaultSort - b.defaultSort);
 // Array of metadata for all fonts.
 const localMetadata = [];
 
-// Array of UTF-8 font descriptions (and byte offset to write the next one to). The frontend uses HTTP range requests to
-// fetch one description at a time from a big text file of all concatenated descriptions, so we need UTF-8 byte offsets.
-// The source files are already UTF-8, so we won't waste any time decoding and re-encoding them.
+// Array of UTF-8 font descriptions (and byte offset to write the next one to). The frontend uses HTTP range
+// requests to fetch one description at a time from a big text file of all concatenated descriptions, so we need
+// UTF-8 byte offsets. The source files are already UTF-8, so we won't waste any time decoding and re-encoding them.
 let descOffset = 0;
 const descriptions: Uint8Array[] = [];
 
@@ -163,7 +173,7 @@ for (const f of localMetadata) {
     }
 }
 
-const sortedLocalMetadata = [];
+const sortedLocalMetadata: any[] = [];
 for (const f of liveMetadata.familyMetadataList) {
     const localFamily = localFamilies.get(f.family);
     if (!localFamily) {
@@ -203,9 +213,9 @@ for (const langFile of await fs.readdir(languagesDir)) {
     }
     languagesData.push(langFileData);
 }
-// Sorting by population is useful in the frontend, and also helps with compression--we store languages as a bitset, and
-// putting more popular languages towards the front means the "tail" of the bitset will contain long strings of zeroes.
-// Population is not a perfect proxy for number of fonts supporting the language, but it helps.
+// Sorting by population is useful in the frontend, and also helps with compression--we store languages as a bitset,
+// and putting more popular languages towards the front means the "tail" of the bitset will contain long strings of
+// zeroes. Population is not a perfect proxy for number of fonts supporting the language, but it helps.
 languagesData.sort((a, b) => (b.population ?? 0) - (a.population ?? 0));
 for (let i = 0; i < languagesData.length; i++) {
     langIndices.set(languagesData[i].id, i);
@@ -225,174 +235,48 @@ for (const scriptFile of await fs.readdir(scriptsDir)) {
 }
 
 logProgress('Using HarfBuzz to compute language coverage and PANOSE data for all fonts...');
-const hb = await createHarfbuzz<HbShapeModule>(new URL('../c-libs-wrapper/hb-shape.wasm', import.meta.url).href);
+
+const workers: RpcDispatcher<MetadataWorkerSchema>[] = [];
+const numThreads = process.env.NUM_THREADS && Number.isFinite(Number(process.env.NUM_THREADS)) ?
+    Number(process.env.NUM_THREADS) :
+    navigator.hardwareConcurrency;
+for (let i = 0; i < numThreads; i++) {
+    const moduleUrl = new URL('./google-fonts-meta-worker.js', import.meta.url);
+    const w = new Worker(moduleUrl, {type: 'module'});
+    const r = new RpcDispatcher<MetadataWorkerSchema>(w, {'calcMetadata': 'calcedMetadata'});
+    r.sendAndForget('init', {
+        langIndices,
+        languagesData,
+        fontsDir,
+    });
+    workers.push(r);
+}
+const pool = new WorkerPool(workers);
 
 const {log, done} = logUpdate();
 
 const startTime = performance.now();
 
-const ENCODER = new TextEncoder();
+let resolve: (v: void) => void;
+let numCompleted = 0;
+const allCompleted = new Promise(_resolve => {
+    resolve = _resolve;
+});
 const shapingTimes = new Map<string, number>();
 for (let i = 0; i < sortedLocalMetadata.length; i++) {
-    const f = sortedLocalMetadata[i];
-    if (!f.category || f.category.length === 0) {
-        throw new Error(`${f.name} has no category`);
-    }
-    if (!f.fonts || f.category.length === 0) {
-        throw new Error(`${f.name} has no fonts`);
-    }
-
-    // If the font doesn't explicitly enumerate its supported languages, we initialize this set to contain every
-    // language with exemplar characters, and then remove all those which fail to shape.
-    const supportedLanguages: Set<number> = f.languages ?
-        new Set(f.languages.map((lang: string) => langIndices.get(lang))) :
-        new Set();
-    // Some fonts have language lists that contain languages not in the Google Fonts data??
-    (supportedLanguages as Set<number | undefined>).delete(undefined);
-    if (!f.languages) {
-        for (let i = 0; i < languagesData.length; i++) {
-            if (languagesData[i].exemplarChars) supportedLanguages.add(i);
+    void pool.enqueue(async(worker) => {
+        const res = await worker.send('calcMetadata', sortedLocalMetadata[i]);
+        sortedLocalMetadata[i] = res;
+        numCompleted++;
+        log(`\x1b[;100m${progressBar(numCompleted / sortedLocalMetadata.length)}\x1b[;0m ${numCompleted} / ${sortedLocalMetadata.length}`);
+        if (numCompleted === sortedLocalMetadata.length) {
+            resolve();
         }
-    }
+    });
 
-    let hasMonospace = false;
-    let hasProportional = false;
-    for (const font of f.fonts) {
-        const fontFilePath = path.join(fontsDir, f.path, font.filename);
-        const fontData = await fs.readFile(fontFilePath);
-        const blob = new hb.HbBlob(fontData);
-        const face = hb._hb_face_create_or_fail(blob.ptr(), 0);
-        if (!face) {
-            throw new Error(`Could not load font from ${fontFilePath}`);
-        }
-        const hbFont = hb._hb_font_create(face);
-
-        // TODO: I think Google gives us this already...
-        const os2Table = new hb.HbBlob(hb._hb_face_reference_table(face, hbTag('OS/2')));
-        const panose = os2Table.asArray().subarray(32, 42);
-        hasMonospace ||= panose[3] === 9;
-        hasProportional ||= panose[3] !== 9;
-        os2Table.destroy();
-
-        // Shape every language and mark as unsupported any language where the shaping result contains a missing glyph
-        if (!f.languages) {
-            const buf = hb._hb_buffer_create();
-            for (let j = 0; j < languagesData.length; j++) {
-                // We already tried and failed to shape using this language using a previous font in this family
-                if (!supportedLanguages.has(j)) continue;
-
-                const lang = languagesData[j];
-                if (!lang.exemplarChars) continue;
-
-                const startTime = performance.now();
-
-                // Explicitly set the buffer's language
-                let hbLang = null;
-                if (lang.language) {
-                    const langTagUtf8 = ENCODER.encode(lang.language);
-                    const hbLangDest = hb.malloc(langTagUtf8.length);
-                    hb.HEAPU8.set(langTagUtf8, hbLangDest);
-                    hbLang = hb._hb_language_from_string(hbLangDest, langTagUtf8.length);
-                    hb._free(hbLangDest);
-                }
-                let supportsLang = true;
-                // Testing any set of exemplar characters other than the base set is unreliable
-                // https://github.com/googlefonts/shaperglot/issues/167
-                const baseExemplar = lang.exemplarChars.base;
-                const exemplarSnippets = [];
-                if (baseExemplar) {
-                    // Exemplars can be really big. Better to start with a small chunk and then shape the rest
-                    // separately for an early out if we find any missing characters. This especially speeds up CJK,
-                    // which contains really long exemplar text but which most fonts don't support.
-                    let subExemplar = baseExemplar.slice(0, baseExemplar.indexOf(' ', 10));
-                    const lastCharCode = subExemplar.charCodeAt(subExemplar.length - 1);
-                    if (lastCharCode >= 0xDC00 && lastCharCode <= 0xDCFF) {
-                        subExemplar = subExemplar.slice(0, -1);
-                    }
-                    exemplarSnippets.push(subExemplar);
-                    exemplarSnippets.push(baseExemplar.slice(subExemplar.length));
-                }
-                for (const exemplar of exemplarSnippets) {
-                    const utf8Chars = ENCODER.encode(exemplar);
-                    if (utf8Chars.length === 0) continue;
-                    const utf8Dest = hb.malloc(utf8Chars.length);
-                    hb.HEAPU8.set(utf8Chars, utf8Dest);
-                    hb._hb_buffer_reset(buf);
-                    hb._hb_buffer_add_utf8(buf, utf8Dest, utf8Chars.length, 0, utf8Chars.length);
-
-                    // Set segment properties from the language metadata and then from guessing as a fallback
-                    if (lang.script) hb._hb_buffer_set_script(buf, hb._hb_script_from_iso15924_tag(hbTag(lang.script)));
-                    if (hbLang !== null) hb._hb_buffer_set_language(buf, hbLang);
-                    hb._hb_buffer_guess_segment_properties(buf);
-
-                    hb._hb_shape(hbFont, buf, 0, 0);
-
-                    const shouldBreak = hb.withStack(() => {
-                        const glyphInfosLenPtr = hb.stackAlloc(4);
-                        const glyphInfosPtr = hb._hb_buffer_get_glyph_infos(buf, glyphInfosLenPtr);
-                        const GLYPH_INFO_SIZE = 20;
-                        const glyphInfosLen = hb.readUint32(glyphInfosLenPtr);
-                        for (let i = 0; i < glyphInfosLen; i++) {
-                            const glyphId = hb.readUint32(glyphInfosPtr + (i * GLYPH_INFO_SIZE));
-                            if (glyphId === 0) {
-                                /*const clusterId = hb.readUint32(glyphInfosPtr + (i * GLYPH_INFO_SIZE) + 8);
-                                const clusterChar = String.fromCodePoint(new TextDecoder()
-                                    .decode(utf8Chars.subarray(clusterId))
-                                    .codePointAt(0)!);
-                                /console.log(`${f.name} failed at ${clusterChar} on lang ${lang.id}`);*/
-                                supportsLang = false;
-                                return true;
-                            }
-                        }
-                        return false;
-                    });
-                    hb._free(utf8Dest);
-                    if (shouldBreak) break;
-                }
-
-                if (!supportsLang) {
-                    supportedLanguages.delete(j);
-                }
-
-                // Record performance metrics
-                const endTime = performance.now();
-                const prevShapeTime = shapingTimes.get(lang.id) ?? 0;
-                shapingTimes.set(lang.id, prevShapeTime + (endTime - startTime));
-            }
-            hb._hb_buffer_destroy(buf);
-        }
-
-        hb._hb_font_destroy(hbFont);
-        hb._hb_face_destroy(face);
-        blob.destroy();
-    }
-
-    if (f.axes?.some((axis: any) => axis.tag === 'MONO')) {
-        hasMonospace = true;
-        hasProportional = true;
-    }
-
-    // Store language data as a base64-encoded dense bitset
-    const langsBitset = new Uint8Array((languagesData.length + 7) >> 3);
-    const setBitAt = (idx: number) => {
-        const bucket = idx >> 3;
-        const bitIdx = idx & 7;
-        langsBitset[bucket] |= 1 << bitIdx;
-    };
-
-    for (const lang of supportedLanguages) {
-        setBitAt(lang);
-    }
-
-    const encoded = Buffer.from(langsBitset).toString('base64');
-
-    f.languages = encoded;
-    f.primaryLanguage = langIndices.get(f.primaryLanguage);
-    f.proportion = hasMonospace && hasProportional ? 'BOTH' : hasMonospace ? 'MONOSPACE' : 'PROPORTIONAL';
-
-    const completed = i + 1;
-    log(`\x1b[;100m${progressBar(completed / sortedLocalMetadata.length)}\x1b[;0m ${completed} / ${sortedLocalMetadata.length}`);
+    await pool.backpressure(4);
 }
+await allCompleted;
 done();
 
 for (const [lang, time] of shapingTimes) {
@@ -553,7 +437,7 @@ const typescriptTypes = Object.entries(tsRegistry)
 logProgress('Writing generated metadata and type definitions...');
 
 await fs.writeFile(
-    path.join(import.meta.dirname, '../glypht-web/src/generated/google-fonts.json'),
+    path.join(SCRIPTS_DIR, '../glypht-web/src/generated/google-fonts.json'),
     JSON.stringify(sortedLocalMetadata),
 );
 
@@ -564,20 +448,23 @@ for (const desc of descriptions) {
     writeOffset += desc.byteLength;
 }
 await fs.writeFile(
-    path.join(import.meta.dirname, '../glypht-web/src/generated/google-fonts-descriptions.txt'),
+    path.join(SCRIPTS_DIR, '../glypht-web/src/generated/google-fonts-descriptions.txt'),
     allDescriptions,
 );
 await fs.writeFile(
-    path.join(import.meta.dirname, '../glypht-web/src/generated/languages.json'),
-    JSON.stringify({languages: languagesData, scripts: scriptsData}, (k, v) => k === 'exemplarChars' ? undefined : v),
+    path.join(SCRIPTS_DIR, '../glypht-web/src/generated/languages.json'),
+    JSON.stringify(
+        {languages: languagesData, scripts: scriptsData},
+        (k, v) => k === 'exemplarChars' ? undefined : v,
+    ),
 );
 
 await fs.writeFile(
-    path.join(import.meta.dirname, '../glypht-web/src/generated/axes.json'),
+    path.join(SCRIPTS_DIR, '../glypht-web/src/generated/axes.json'),
     JSON.stringify(axesData),
 );
 
 await fs.writeFile(
-    path.join(import.meta.dirname, '../glypht-web/src/generated/google-fonts-types.ts'),
+    path.join(SCRIPTS_DIR, '../glypht-web/src/generated/google-fonts-types.ts'),
     typescriptTypes,
 );

@@ -1,5 +1,5 @@
-import {initWasm} from './wrap-wasm';
-import type {MainModule as OrigMainModule} from '../../c-libs-wrapper/hb';
+import {initWasm} from './wrap-wasm.js';
+import type {MainModule as OrigMainModule} from '../../c-libs-wrapper/hb.js';
 
 type MainModuleKey =
     | '_free'

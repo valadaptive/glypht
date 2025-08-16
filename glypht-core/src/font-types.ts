@@ -1,5 +1,5 @@
-import {SubsetName} from './generated/subset-ranges';
-export {SUBSET_NAMES, SubsetName} from './generated/subset-ranges';
+import {SubsetName} from './generated/subset-ranges.js';
+export {SUBSET_NAMES, SubsetName} from './generated/subset-ranges.js';
 
 /**
  * Information about a font's variation axis.
