@@ -30,11 +30,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Clone Google Fonts repository
-        run: |
-          git clone https://github.com/google/fonts.git google-fonts-repo
-          echo "Google Fonts repo cloned to: $(pwd)/google-fonts-repo"
-          echo "Contents: $(ls -la google-fonts-repo | head -10)"
+      - name: Checkout Google Fonts repository
+        uses: actions/checkout@v4
+        with:
+          repository: google/fonts
+          path: google-fonts-repo
 
       - name: Generate Google Fonts list
         run: |
@@ -67,8 +67,3 @@ jobs:
           Auto-generated from google/fonts repository
           Triggered by scheduled workflow on $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
           git push
-
-      - name: Clean up
-        if: always()
-        run: |
-          rm -rf google-fonts-repo
