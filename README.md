@@ -1,11 +1,11 @@
 # Glypht: a Webfont Converter / Subsetter / Instancer
 
-This is a webapp for working with web fonts, and contains useful functionality for deploying them to production:
+This is a webapp for working with web fonts and deploying them to production. It's intended to provide the full pipeline: you put your source fonts in, and get web-ready fonts out. There are many existing tools for various steps in this pipeline, but putting them all together is a tedious manual process. Glypht provides a pipeline that can output Google Fonts-quality web-ready fonts, but fully self-hostable:
 
-- **Subsetting:** Reduce the character set of the fonts to only languages used on your website, and remove unnecessary OpenType features, saving space
-- **Instancing:** Convert variable fonts to sets of static fonts.
-- **Converting:** Convert TTF/OTF fonts to WOFF2 (and optionally WOFF, if you need to support older browsers). You can also use this app as a WOFF(2) -> TTF converter if you so desire.
-- **Packaging:** Do all of the above and generate a CSS file containing `@font-face` declarations for all the fonts. You can then download all the fonts and use them for your site.
+1. **Subsetting:** Reduce the character set of the fonts to only languages used on your website, and remove unnecessary OpenType features, saving space.
+2. **Instancing:** Convert variable fonts to sets of static fonts, or separate out different character sets into different font files to be downloaded as needed. The latter also entails generating [the CSS `unicode-range` property](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/unicode-range) for each output font, which Glypht will do for you.
+3. **Converting:** Convert TTF/OTF fonts to WOFF2 (and optionally WOFF, if you need to support older browsers). Glypht does this in parallel, using all available CPU threads. As a bonus, Glypht also accepts WOFF and WOFF2 as input, so you can also use it as a WOFF(2) -> TTF converter in a pinch.
+4. **Packaging:** Do all of the above and generate a CSS file containing `@font-face` declarations for all the fonts. You can then download all the fonts and use them for your site.
 
 Unlike all similar web-based tools that I'm aware of, this runs **entirely client-side** via WebAssembly. Despite the performance penalty of running in WebAssembly compared to native code, this is actually significantly *faster* than other web-based tools I've tested, and probably all the Python ones too.
 
