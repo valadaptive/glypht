@@ -163,7 +163,8 @@ export class AppState {
     async addFonts(fonts: Blob[]) {
         this.fontsBeingLoaded.value += fonts.length;
         try {
-            const fontData = await Promise.all(fonts.map(font => font.arrayBuffer().then(ab => new Uint8Array(ab))));
+            const fontData: Uint8Array[] =
+                await Promise.all(fonts.map(font => font.arrayBuffer().then(ab => new Uint8Array(ab))));
 
             const decompressionPromises = [];
             for (let i = 0; i < fontData.length; i++) {
