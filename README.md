@@ -72,16 +72,12 @@ If Inter's weight range is limited to 400-700, with the other settings remaining
 
 ## Future ideas
 
-- Instance different character sets into different font files, using the `@font-face` rule's `unicode-range` property
 - Allow for "freezing" OpenType features (see https://twardoch.github.io/fonttools-opentype-feature-freezer/)
 - Autohinting
   - This is tricky because we may need different autohinters for CFF/CFF2 and TrueType outlines
-- Move the core functionality into a library and expose a CLI for it as well
 - Preview the glyphs in a font
 - Preview font features (see https://fontdrop.info/)
 - Make use of the data in https://github.com/google/fonts/ for font preview text, axis descriptions, etc.
 - Support the new [incremental font transfer](https://w3c.github.io/IFT/Overview.html) standard
   - Probably should wait for it to be actually standardized though
 - Use the feature tag info registry more (show explanations of font features)
-- Allow users to choose fonts from Google Fonts' list (https://github.com/google/fonts has versions *without* the features removed!)
-  - We can probably hotlink to the GitHub CDN files and just have a static list of them
