@@ -35,7 +35,7 @@ export const getParallelism = async(): Promise<number> => {
  * @param path The path string or URL to load from.
  * @returns The file contents.
  */
-export const fetchFile = async(path: string | URL): Promise<Uint8Array> => {
+export const fetchFile = async(path: string | URL): Promise<Uint8Array<ArrayBuffer>> => {
     let pathUrl: URL | undefined, filePath: string | undefined;
     if (typeof path === 'string') {
         try {
@@ -70,7 +70,9 @@ export const fetchFile = async(path: string | URL): Promise<Uint8Array> => {
             // just implement support for fetching $&#! file URIs...
         }
         if (fsp) {
-            const buf = await fsp.readFile(filePath);
+            // TypeScript changed the array buffer view types to be parameterized over the buffer type, but *didn't*
+            // update the type definitions for Node APIs!
+            const buf = await fsp.readFile(filePath) as Buffer<ArrayBuffer>;
             // We return a Uint8Array instead of an ArrayBuffer just in case Node pools buffers for file loads. I don't
             // think it does, but you never know...
             return new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength);
