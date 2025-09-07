@@ -39,7 +39,7 @@ export class GlyphtContext {
      * no longer usable on this thread.
      * @returns A list of loaded fonts.
      */
-    async loadFonts(fontFiles: Uint8Array[], transfer = true): Promise<FontRef[]> {
+    async loadFonts(fontFiles: Uint8Array[], transfer = false): Promise<FontRef[]> {
         if (this.state.destroyed) {
             throw new DOMException('This GlyphtContext has been destroyed', 'InvalidStateError');
         }

@@ -61,17 +61,24 @@ export class WoffCompressionContext {
      * @param algorithm The compression algorithm to use, either `woff` or `woff2`.
      * @param quality The compression quality. For WOFF2, this can range from 1 to 11. For WOFF, this means the number
      * of Zopfli iterations and can theoretically go up to any value, although 15 is a good default.
+     * @param transfer If true, the passed font file's buffer will be transferred to a worker thread and no longer
+     * usable on this thread.
      * @returns Compressed font data.
      */
     public async compressFromTTF(
         ttf: Uint8Array,
         algorithm: 'woff' | 'woff2',
         quality: number,
+        transfer = false,
     ): Promise<Uint8Array> {
         this.checkDestroyed();
         const pool = await this.pool;
         return await pool.enqueue((async worker => {
-            const compressed = await worker.send('compress-font', {data: ttf, algorithm, quality});
+            const compressed = await worker.send(
+                'compress-font',
+                {data: ttf, algorithm, quality},
+                transfer ? [ttf.buffer] : undefined,
+            );
             return compressed;
         }));
     }
@@ -79,9 +86,11 @@ export class WoffCompressionContext {
     /**
      * Decompress a WOFF or WOFF2-compressed font file. Throws an error if the input font is not compressed.
      * @param compressed The compressed font file data.
+     * @param transfer If true, the passed font file's buffer will be transferred to a worker thread and no longer
+     * usable on this thread.
      * @returns Decompressed font file data.
      */
-    public async decompressToTTF(compressed: Uint8Array): Promise<Uint8Array> {
+    public async decompressToTTF(compressed: Uint8Array, transfer = false): Promise<Uint8Array> {
         this.checkDestroyed();
         const algorithm = WoffCompressionContext.compressionType(compressed);
         if (algorithm === null) {
@@ -89,7 +98,11 @@ export class WoffCompressionContext {
         }
         const pool = await this.pool;
         return await pool.enqueue((async worker => {
-            const decompressed = await worker.send('decompress-font', {data: compressed, algorithm});
+            const decompressed = await worker.send(
+                'decompress-font',
+                {data: compressed, algorithm},
+                transfer ? [compressed.buffer] : undefined,
+            );
             return decompressed;
         }));
     }
