@@ -466,14 +466,23 @@ export class Font {
                 }
             }
 
-            const featuresSet = new hb.HbSet(
-                hb._hb_subset_input_set(subsetInput, SubsetSets.LAYOUT_FEATURE_TAG),
-            );
-            for (const [featureTag, enable] of Object.entries(settings.features)) {
-                if (enable) {
-                    featuresSet.add(hbTag(featureTag));
-                } else {
-                    featuresSet.del(hbTag(featureTag));
+            if (settings.features) {
+                const featuresSet = new hb.HbSet(
+                    hb._hb_subset_input_set(subsetInput, SubsetSets.LAYOUT_FEATURE_TAG),
+                );
+                for (const [featureTag, enable] of Object.entries(settings.features)) {
+                    if (enable) {
+                        featuresSet.add(hbTag(featureTag));
+                    } else {
+                        featuresSet.del(hbTag(featureTag));
+                    }
+                }
+            }
+
+            if (settings.dropTables) {
+                const dropTablesSet = new hb.HbSet(hb._hb_subset_input_set(subsetInput, SubsetSets.DROP_TABLE_TAG));
+                for (const tableTag of settings.dropTables) {
+                    dropTablesSet.add(hbTag(tableTag));
                 }
             }
 

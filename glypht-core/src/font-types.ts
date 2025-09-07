@@ -165,7 +165,11 @@ export type SubsetSettings = {
      * Map of feature tags to whether they should be included or not. Any features not accounted here will be included
      * or omitted depending on their {@link FeatureInfo#keepByDefault} values.
      */
-    features: Partial<Record<string, boolean>>;
+    features?: Partial<Record<string, boolean>>;
+    /**
+     * Instead of subsetting tables with these tags, drop them completely.
+     */
+    dropTables?: string[];
     /**
      * Unicode character ranges to include in the subsetted font. You can choose to include all characters in the
      * original font, or select specific named character sets and custom ranges.
@@ -174,7 +178,11 @@ export type SubsetSettings = {
         named: SubsetName[];
         custom: (readonly [number, number] | number)[];
     };
-    preprocess: boolean;
+    /**
+     * Whether to preprocess the font being subsetted. This provides a speedup if subsetting a font multiple times (e.g.
+     * to instance it into multiple files).
+     */
+    preprocess?: boolean;
 };
 
 /**
