@@ -59,7 +59,7 @@ export class WoffCompressionContext {
      * Compress an OpenType font file to WOFF or WOFF2.
      * @param ttf The font file to compress. This must be a single font, not a collection.
      * @param algorithm The compression algorithm to use, either `woff` or `woff2`.
-     * @param quality The compression quality. For WOFF2, this can range from 1 to 11. For WOFF, this means the number
+     * @param quality The compression quality. For WOFF2, this can range from 0 to 11. For WOFF, this means the number
      * of Zopfli iterations and can theoretically go up to any value, although 15 is a good default.
      * @param transfer If true, the passed font file's buffer will be transferred to a worker thread and no longer
      * usable on this thread.
@@ -70,7 +70,7 @@ export class WoffCompressionContext {
         algorithm: 'woff' | 'woff2',
         quality: number,
         transfer = false,
-    ): Promise<Uint8Array> {
+    ): Promise<Uint8Array<ArrayBuffer>> {
         this.checkDestroyed();
         const pool = await this.pool;
         return await pool.enqueue((async worker => {
@@ -90,7 +90,7 @@ export class WoffCompressionContext {
      * usable on this thread.
      * @returns Decompressed font file data.
      */
-    public async decompressToTTF(compressed: Uint8Array, transfer = false): Promise<Uint8Array> {
+    public async decompressToTTF(compressed: Uint8Array, transfer = false): Promise<Uint8Array<ArrayBuffer>> {
         this.checkDestroyed();
         const algorithm = WoffCompressionContext.compressionType(compressed);
         if (algorithm === null) {

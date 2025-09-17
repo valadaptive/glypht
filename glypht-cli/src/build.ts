@@ -42,6 +42,17 @@ const logUpdate = () => {
     };
 };
 
+/**
+ * Takes a configuration and generates fonts and CSS, writing them to the location(s) specified in the config.
+ *
+ * If you want to consume your Glypht config programatically from JS, instead of as a command, use this function. It's
+ * what `glypht build` calls under the hood.
+ *
+ * @param config The Glypht configuration.
+ * @param baseDir The directory that paths in the config are resolved relative to. For passing a config file to the CLI,
+ * this would be the directory that the config file is in. For programmatic use (e.g. calling this function from a JS
+ * build script), `import.meta.dirname` is a good choice.
+ */
 export const build = async(config: GlyphtConfig, baseDir: string) => {
     const inputs = await glob(config.input, {cwd: baseDir});
 

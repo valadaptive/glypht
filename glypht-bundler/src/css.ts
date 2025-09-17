@@ -1,3 +1,16 @@
+/**
+ * @groupDescription CSS
+ *
+ * CSS-related functionality.
+ *
+ * @showGroups
+ */
+
+/**
+ * The type of a single CSS token. Can be used for syntax highlighting.
+ *
+ * @group CSS
+ */
 export enum NodeType {
     Whitespace,
     DefinitionKeyword,
@@ -12,9 +25,16 @@ export enum NodeType {
     Separator,
 }
 
+/**
+ * @group CSS
+ */
 export type CSSSpan = {text: string; type: NodeType};
 
 // Supertype for CSSEmitter that only deals with the output and doesn't allow adding more CSS.
+
+/**
+ * @group CSS
+ */
 export type CSSOutput = {
     /** All CSS tokens, containing text and a type that can be used for syntax highlighting. */
     spans: CSSSpan[];
@@ -25,6 +45,8 @@ export type CSSOutput = {
 /**
  * A class to emit indented CSS code with syntax highlighting. Avoids the need for a separate syntax highlighting
  * library.
+ *
+ * @group CSS
  */
 export default class CSSEmitter {
     private indent = 0;

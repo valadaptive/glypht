@@ -233,6 +233,8 @@ export const sortFontsIntoFamilies = (fonts: FontRef[]): FamilyInfo[] => {
 /**
  * Setting for an axis or style value, which can be pinned to a single value, clamped, or instanced into multiple font
  * files.
+ *
+ * @group Settings
  */
 export type SubsetAxisSetting = {
     /** Pin this axis to a single value. */
@@ -258,6 +260,8 @@ type InstancedSubsetAxisSetting = Exclude<MultiSubsetAxis, {type: 'multiple'}>;
 
 /**
  * Subset settings for one instance of a font (axis settings with `{type: 'multiple}` have been resolved).
+ *
+ * @group Settings
  */
 type InstanceSubsetSettings = {
     /** All instanced axis values, including weight, width, italic, and slant. */
@@ -363,9 +367,9 @@ export type ExportedFont = {
     /** The font file data, in all the formats requested to export to. */
     data: {
         /** This aliases to `font.data`, but is only present if the `'ttf'` format was enabled during export. */
-        opentype: Uint8Array | null;
-        woff: Uint8Array | null;
-        woff2: Uint8Array | null;
+        opentype: Uint8Array<ArrayBuffer> | null;
+        woff: Uint8Array<ArrayBuffer> | null;
+        woff2: Uint8Array<ArrayBuffer> | null;
     };
     /**
      * If this font's source file was instanced into multiple character sets, this tells you which one this exported
@@ -435,7 +439,11 @@ const WIDTH_NAMES = new Map([
     [150, 'ExtraExpanded'],
     [200, 'UltraExpanded'],
 ]);
-
+/**
+ * Settings for the characters to include in a single output font face.
+ *
+ * @group Settings
+ */
 export type CharacterSetSettings = {
     /** Include these named Google Fonts character sets. */
     includeNamedSubsets: SubsetName[];
@@ -448,15 +456,19 @@ export type CharacterSetSettings = {
     name?: string;
 };
 
+/**
+ * Settings for subsetting (or not subsetting) a font family.
+ *
+ * @group Settings
+ */
 export type FamilySubsetSettings = {
     enableSubsetting: true;
     /**
-     * Style values shared among all fonts in the family.
+     * Settings for style values: weight, width, and italic/slant.
      */
     styleValues: Partial<Record<StyleKey, SubsetAxisSetting>>;
     /**
-     * Variation axes for all fonts in the family. Also contains, for each axis, coordinate values of this axis across
-     * all named instances of the font, if present.
+     * Settings for variation axes, keyed by tag.
      */
     axes: Partial<Record<string, SubsetAxisSetting>>;
     /**
@@ -480,6 +492,8 @@ export type FamilySubsetSettings = {
 
 /**
  * Settings for exporting a font family.
+ *
+ * @group Settings
  */
 export type FamilySettings = {
     /** All fonts within the family. */
@@ -766,6 +780,8 @@ const fontFilename = (
  * `src` property of each font. A trailing slash may be present or absent; both are handled correctly.
  * @param includeUncompressed Whether to include the uncompressed .ttf files in the CSS.
  * @returns CSS output, that can be used as a list of typed tokens (for syntax highlighting) or as a string.
+ *
+ * @group CSS
  */
 export const exportedFontsToCSS = (
     fonts: ExportedFont[],
@@ -901,7 +917,7 @@ export type ExportFontsSettings = {
     };
     /** Zopfli iteration count for WOFF1 (default 15). */
     woffCompression?: number;
-    /** Brotli compression level for WOFF2, from 1 to 11 (default 11). */
+    /** Brotli compression level for WOFF2, from 0 to 11 (default 11). */
     woff2Compression?: number;
     /**
      * Callback for subsetting/compression progress.
@@ -916,7 +932,7 @@ export type ExportFontsSettings = {
  * enabled in the output, but will throw an error if it isn't provided and there *are* compressed formats enabled.
  * @param families Font families to export, and their subsetting settings.
  * @param {ExportFontsSettings} settings Export-wide settings.
- * @returns A promise that resolves to all the exported fonts These can then be written to disk, used to generate CSS,
+ * @returns A promise that resolves to all the exported fonts. These can then be written to disk, used to generate CSS,
  * etc.
  */
 export const exportFonts = async(
@@ -929,7 +945,6 @@ export const exportFonts = async(
         onProgress,
     }: ExportFontsSettings,
 ): Promise<ExportedFont[]> => {
-
     const fontList = [];
     const subsetSettingsByFont = instanceSubsetSettings(families);
     for (const family of families) {

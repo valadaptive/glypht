@@ -66,7 +66,7 @@ export type FontWorkerSchema =
     }
     | {
         request: {name: 'get-font-data'; message: number};
-        response: {name: 'got-font-data'; message: {data: Uint8Array; format: SfntVersion}};
+        response: {name: 'got-font-data'; message: {data: Uint8Array<ArrayBuffer>; format: SfntVersion}};
     };
 
 export type CompressionWorkerSchema =
@@ -84,7 +84,7 @@ export type CompressionWorkerSchema =
         };
         response: {
             name: 'compressed-font';
-            message: Uint8Array;
+            message: Uint8Array<ArrayBuffer>;
         };
     }
     | {
@@ -94,7 +94,7 @@ export type CompressionWorkerSchema =
         };
         response: {
             name: 'decompressed-font';
-            message: Uint8Array;
+            message: Uint8Array<ArrayBuffer>;
         };
     };
 

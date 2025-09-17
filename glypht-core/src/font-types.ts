@@ -81,7 +81,7 @@ export type StyleKey =
  * - Font width (`wdth` axis if variable; `font-stretch` in CSS, eventually will be renamed to `font-width`)
  * - Italics and slant (`ital` and `slnt` if variable; `font-style` in CSS)
  *
- * @todo HarfBuzz can actually read the full STAT table. We can unify style values and axis values.
+ * TODO: HarfBuzz can actually read the full STAT table. We can unify style values and axis values.
  */
 export type StyleValues = Record<StyleKey, StyleValue>;
 
@@ -101,7 +101,7 @@ export type SubsettedFont = {
     /** Whether this font contains TrueType (glyf) outlines or OpenType (CFF or CFF2) outlines. */
     format: SfntVersion;
     /** The actual subsetted font file data. */
-    data: Uint8Array;
+    data: Uint8Array<ArrayBuffer>;
     /** The font's style values (weight, width, italic, slant), either variable or fixed. */
     styleValues: StyleValues;
     /**

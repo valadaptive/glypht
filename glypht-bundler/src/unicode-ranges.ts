@@ -5,7 +5,7 @@ const MAX_SUBSTRING_LENGTH = 'u+000000-u+000000'.length;
  *
  * Parsing is rather lenient. The parser accepts single code points (e.g. U+0041), ranges (e.g. U+0041-5A), and
  * wildcards (e.g. U+09??). They can be separated by spaces, commas, or both. The leading 'U+' can be present or absent,
- * and it's all case-insensitive/
+ * and it's all case-insensitive.
  * @param ranges The string of Unicode ranges to parse.
  * @returns An array of numbers, or tuples of numbers for ranges. If the input string contains invalid syntax, returns
  * null.
