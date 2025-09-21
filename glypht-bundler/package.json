@@ -30,6 +30,10 @@
     "prepack": "rollup -c rollup.config.js",
     "watch": "rollup --watch -c rollup.config.js"
   },
+  "files": [
+    "dist/**/*.{js,ts,wasm}",
+    "README.md"
+  ],
   "author": "valadaptive",
   "license": "(MIT OR ISC OR Apache-2.0)",
   "repository": {

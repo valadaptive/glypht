@@ -34,7 +34,8 @@
     "watch": "rollup --watch -c rollup.config.js"
   },
   "files": [
-    "dist/**/*.{js,ts,wasm}"
+    "dist/**/*.{js,ts,wasm}",
+    "README.md"
   ],
   "author": "valadaptive",
   "license": "(MIT OR ISC OR Apache-2.0)",
