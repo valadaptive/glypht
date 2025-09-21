@@ -122,6 +122,14 @@ body.loading {
     justify-content: center;
 }
 
+mark {
+    color: var(--text-color);
+    background-color: var(--highlight);
+    border-radius: 0.25rem;
+    padding: 0.075rem 0.125rem;
+    margin: -0.075rem -0.125rem;
+}
+
 #loader {
     width: 4rem;
     height: 4rem;

@@ -20,7 +20,7 @@ import classnames from 'clsx';
 import uFuzzy from '@leeoniya/ufuzzy';
 import {signal, Signal, useComputed, useSignal} from '@preact/signals';
 import DOMPurify from 'dompurify';
-import type {JSX} from 'preact';
+import type {ComponentChildren, JSX} from 'preact';
 
 import axisSpinboxParams from '../../util/axis-spinbox-params';
 import {useThrottledSignal} from '../../util/throttle';
@@ -447,16 +447,32 @@ const AddFontButton = ({family}: {family: GoogleFontsFamily}) => {
     );
 };
 
-const FontItem = ({family, onClick, selected, style: cssStyle}: {
+const FontItem = ({family, onClick, selected, style: cssStyle, highlightRanges}: {
     family: GoogleFontsFamily;
     onClick: (family: GoogleFontsFamily) => void;
     selected: boolean;
     style?: JSX.CSSProperties;
+    highlightRanges?: number[];
 }) => {
     const handleClick = useCallback((event: Event) => {
         event.stopPropagation();
         onClick(family);
     }, [onClick, family]);
+
+    const fontName = family.displayName ?? family.name;
+    let fontNameElems: ComponentChildren;
+    if (highlightRanges && highlightRanges.length >= 2) {
+        fontNameElems = uFuzzy.highlight(
+            fontName,
+            highlightRanges,
+
+            (part, matched) => matched ? <mark>{part}</mark> : part,
+            [] as ComponentChildren[],
+            (accum, part) => {accum.push(part); return accum;},
+        );
+    } else {
+        fontNameElems = fontName;
+    }
 
     return (
         <div
@@ -465,7 +481,7 @@ const FontItem = ({family, onClick, selected, style: cssStyle}: {
             onClick={handleClick}
             style={cssStyle}
         >
-            <span class={style.fontName}>{family.displayName ?? family.name}</span>
+            <span class={style.fontName}>{fontNameElems}</span>
             <AddFontButton family={family} />
         </div>
     );
@@ -707,30 +723,37 @@ const GoogleFontsModalInner = ({fontsListState}: {fontsListState: LoadedGoogleFo
     }, [filteredFonts.value]);
     const searchedFonts = useMemo(() => {
         if (throttledSearchValue.value.length === 0) {
-            return filteredFonts.value;
+            return {fonts: filteredFonts.value, info: null, order: null};
         }
         const searchedText = throttledSearchValue.value;
         const [idxs, info, order] = searcher.search(fontNames, searchedText) as
             uFuzzy.RankedResult | uFuzzy.AbortedResult;
-        if (!info) return filteredFonts.value;
+        if (!info) return {fonts: filteredFonts.value, info: null, order: null};
         const filteredFontsList = filteredFonts.value;
         const searchResults = order.map(i => filteredFontsList[idxs[i]]);
-        return searchResults;
+        return {fonts: searchResults, info, order};
     }, [throttledSearchValue.value, filteredFonts.value]);
 
     const fontItemHeight = 32;
-    const {parentRef, items} = useVirtualList({items: searchedFonts, itemHeight: fontItemHeight, extraItems: 10});
+    const {parentRef, items} = useVirtualList({items: searchedFonts.fonts, itemHeight: fontItemHeight, extraItems: 10});
 
     const fontsListElem = useMemo(() => (
         <div className={style.fontsList}>
             <div className={style.fontsListSort}>
-                <Dropdown value={sortOrder} options={sortOptions} disabled={searchedFonts !== filteredFonts.value} />
+                <Dropdown
+                    value={sortOrder}
+                    options={sortOptions}
+                    disabled={searchedFonts.fonts !== filteredFonts.value}
+                />
             </div>
             <div className={style.fontsListFonts} ref={parentRef}>
-                <div className={style.fontsListFontsInner} style={{height: `${searchedFonts.length * fontItemHeight}px`}}>
+                <div className={style.fontsListFontsInner} style={{height: `${searchedFonts.fonts.length * fontItemHeight}px`}}>
                     {items.value.map(({item: font, index}) => {
                         return <FontItem
                             key={font.name}
+                            highlightRanges={searchedFonts.info ?
+                                searchedFonts.info.ranges[searchedFonts.order[index]] :
+                                undefined}
                             family={font}
                             onClick={onSelectFont}
                             selected={font === googleFontsModalState.previewedFamily.value}
