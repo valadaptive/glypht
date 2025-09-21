@@ -22,7 +22,6 @@ const main = defineCommand({
                     type: 'boolean',
                 },
                 quotes: {
-                    alias: ['q'],
                     description: 'Quotation mark style to use in the output (valid options are "single" or "double").',
                     type: 'string',
                     default: 'single',
@@ -31,6 +30,11 @@ const main = defineCommand({
                     description: 'Input font files.',
                     type: 'positional',
                     required: true,
+                },
+                'instance-character-sets': {
+                    // eslint-disable-next-line @stylistic/max-len
+                    description: 'Generate a configuration that splits each font into multiple output fonts by Google Fonts-defined character set (e.g. "latin", "latin-ext", "cyrillic", etc)',
+                    type: 'boolean',
                 },
             },
             async run({args}) {
@@ -44,6 +48,7 @@ const main = defineCommand({
                     output: args.output as string | undefined,
                     force: !!args.force,
                     quotes,
+                    instanceCharacterSets: !!args['instance-character-sets'],
                 });
             },
         }),

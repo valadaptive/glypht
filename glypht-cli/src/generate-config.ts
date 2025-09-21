@@ -19,11 +19,12 @@ const maybeQuoteIdentifier = (s: string, quotes: Quotes) => {
 };
 
 
-const generateConfig = async({inputFiles, output, force, quotes}: {
+const generateConfig = async({inputFiles, output, force, quotes, instanceCharacterSets}: {
     inputFiles: string[];
     output?: string;
     force: boolean;
     quotes: Quotes;
+    instanceCharacterSets: boolean;
 }) => {
     const ctx = new GlyphtContext();
     try {
@@ -117,12 +118,21 @@ export default {
 
             result += '            },\n';
 
-            // eslint-disable-next-line @stylistic/max-len
-            result += '            // You can specify this as an array, in which case Glypht will split up the font by character set.\n';
-            result += '            includeCharacters: {\n';
-            result += `                includeNamedSubsets: [${family.namedSubsets.map(s => stringlequote(s, quotes)).join(', ')}],\n`;
-            result += `                // includeUnicodeRanges: ${stringlequote('U+0041, U+0050-U+0060, ...', quotes)},\n`;
-            result += '            },\n';
+            if (instanceCharacterSets) {
+                result += '            includeCharacters: [\n';
+                for (const subsetName of family.namedSubsets) {
+                    result += `                    {includeNamedSubsets: [${stringlequote(subsetName, quotes)}]},\n`;
+                }
+                result += '            ],\n';
+            } else {
+                // eslint-disable-next-line @stylistic/max-len
+                result += '            // You can specify this as an array, in which case Glypht will split up the font by character set.\n';
+                result += '            includeCharacters: {\n';
+                result += `                includeNamedSubsets: [${family.namedSubsets.map(s => stringlequote(s, quotes)).join(', ')}],\n`;
+                result += `                // includeUnicodeRanges: ${stringlequote('U+0041, U+0050-U+0060, ...', quotes)},\n`;
+                result += '            },\n';
+            }
+
 
             result += '            // Change the name this font is given in the output CSS.\n';
             if (family.name.endsWith('Variable')) {

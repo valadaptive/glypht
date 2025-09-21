@@ -30,7 +30,7 @@ npm install -g @glypht/cli
 
 ## Usage
 
-There are two main commands: `gen-config` and `build`.
+There are two main commands: `gen-config` and `build`. For a full list of options, use `glypht [subcommand] --help` (e.g. `glypht gen-config --help`).
 
 ### `gen-config`
 
