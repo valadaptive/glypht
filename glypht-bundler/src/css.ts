@@ -33,6 +33,8 @@ export type CSSSpan = {text: string; type: NodeType};
 // Supertype for CSSEmitter that only deals with the output and doesn't allow adding more CSS.
 
 /**
+ * Output CSS from `exportedFontsToCSS`. It can be used as a list of styled spans or converted to a string.
+ *
  * @group CSS
  */
 export type CSSOutput = {

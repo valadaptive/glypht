@@ -3,6 +3,9 @@ const MAX_SUBSTRING_LENGTH = 'u+000000-u+000000'.length;
 /**
  * Parse a series of Unicode code point ranges.
  *
+ * Functions that take a character range as input will parse them for you, but you may find this useful if you want to
+ * do other things with character ranges and parse them the same way as this package does.
+ *
  * Parsing is rather lenient. The parser accepts single code points (e.g. U+0041), ranges (e.g. U+0041-5A), and
  * wildcards (e.g. U+09??). They can be separated by spaces, commas, or both. The leading 'U+' can be present or absent,
  * and it's all case-insensitive.
@@ -49,7 +52,8 @@ export const parseUnicodeRanges = (ranges: string): (readonly [number, number] |
 };
 
 /**
- * Parse a series non-Unicode ranges or values. You can use this for parsing values to use for instanced variation axes.
+ * Parse a series of non-Unicode ranges or values. You can use this for parsing values to use for instanced variation
+ * axes.
  *
  * Parsing works similarly to {@link parseUnicodeRanges}--you can parse single values or ranges, separated by commas or
  * just spaces. Unlike {@link parseUnicodeRanges}, all numbers are decimal. Decimal points are accepted, but "e" syntax

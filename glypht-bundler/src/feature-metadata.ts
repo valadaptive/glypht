@@ -1,8 +1,12 @@
 import {FEATURES} from './generated/ot-features';
 
+/** Metadata about an OpenType feature, looked up by tag. */
 export type FeatureMetadata = {
+    /** The feature's human-friendly name, if present. */
     name: string | null;
+    /** A description of what the feature does. */
     description: string | null;
+    /** Whether the feature is required, and cannot be turned off. You might choose to hide these in your UI. */
     required: boolean;
 };
 
@@ -17,8 +21,21 @@ const featureMetadataMemo = new Map<string, FeatureMetadata>();
 export const featureMetadata = (tag: string): FeatureMetadata => {
     const cached = featureMetadataMemo.get(tag);
     if (cached) return cached;
-    const metadata = Object.prototype.hasOwnProperty.call(FEATURES, tag) ?
-        FEATURES[tag as keyof typeof FEATURES] :
+    // There's a catch-all entry for character variants in the database under "cv01"; likewise for stylistic sets
+    let lookupTag;
+    switch (tag.slice(0, 2)) {
+        case 'ss':
+            lookupTag = 'ss01';
+            break;
+        case 'cv':
+            lookupTag = 'cv01';
+            break;
+        default:
+            lookupTag = tag;
+            break;
+    }
+    const metadata = Object.prototype.hasOwnProperty.call(FEATURES, lookupTag) ?
+        FEATURES[lookupTag as keyof typeof FEATURES] :
         null;
 
     let featureName: string | null;
