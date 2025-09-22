@@ -59,10 +59,19 @@ const SUBSET_HB_SETS: Record<SubsetName, HbSet> = {} as Record<SubsetName, HbSet
 
 const defaultLayoutFeatureTags = new Set<string>();
 
+const hashBlob = (data: HbBlob, salt: number): string => {
+    return hb.withStack(() => {
+        const output = hb.stackAlloc(32);
+        hb._blake3_hash_data(data.ptr(), data.length(), output, salt);
+        return bytesToHex(hb.HEAPU8.subarray(output, output + 32));
+    });
+};
+
 export class Font {
     private hbFace: number;
     private hbFont: number;
     private preprocessedFace: number = 0;
+    private _hash: string | null = null;
 
     public readonly faceCount: number;
     public readonly faceIndex: number;
@@ -131,11 +140,7 @@ export class Font {
         if (!uid || uid === '') {
             // If the UID is absent for every font in a .ttc, this will hash the entire .ttc over and over. However,
             // fonts without a UID and .ttc files are both quite rare.
-            uid = hb.withStack(() => {
-                const output = hb.stackAlloc(32);
-                hb._blake3_hash_data(data.ptr(), data.length(), output, index);
-                return bytesToHex(hb.HEAPU8.subarray(output, output + 32));
-            });
+            uid = hashBlob(data, index);
         }
         this.uid = uid;
 
@@ -669,13 +674,38 @@ export class Font {
                 }
                 hb._hb_face_destroy(builderFace);
             }
+        } else {
+            return this.getFileData();
         }
+    }
 
+    /**
+     * Get the full file data for this font. This is a copy of the data, not a reference to the original. If this is
+     * part of a TTC, this will return the *entire* contents of the TTC, unlike {@link getData}.
+     */
+    getFileData() {
         const faceBlob = hb._hb_face_reference_blob(this.hbFace);
         const blob = new hb.HbBlob(faceBlob);
         try {
             const data = blob.copyAsArray();
             return data;
+        } finally {
+            blob.destroy();
+        }
+    }
+
+    /**
+     * Get a hash for the full file data backing this font (e.g. for caching purposes). This is calculated once lazily.
+     * If this font is part of a TTC, the hash will be for the *entire* file contents.
+     */
+    getFileHash() {
+        if (this._hash !== null) return this._hash;
+
+        const faceBlob = hb._hb_face_reference_blob(this.hbFace);
+        const blob = new hb.HbBlob(faceBlob);
+        try {
+            this._hash = hashBlob(blob, 0);
+            return this._hash;
         } finally {
             blob.destroy();
         }

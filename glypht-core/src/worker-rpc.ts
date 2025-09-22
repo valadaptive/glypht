@@ -67,6 +67,15 @@ export type FontWorkerSchema =
     | {
         request: {name: 'get-font-data'; message: number};
         response: {name: 'got-font-data'; message: {data: Uint8Array<ArrayBuffer>; format: SfntVersion}};
+    }
+    | {
+        // Does not instance .ttc/.otc into single files based on the font face index
+        request: {name: 'get-font-file-data'; message: number};
+        response: {name: 'got-font-file-data'; message: Uint8Array<ArrayBuffer>};
+    }
+    | {
+        request: {name: 'get-font-file-hash'; message: number};
+        response: {name: 'got-font-file-hash'; message: string};
     };
 
 export type CompressionWorkerSchema =

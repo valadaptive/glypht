@@ -33,10 +33,7 @@ const listener = async(event: MessageEvent) => {
                 break;
             }
             case 'get-font-data': {
-                const font = fonts.get(message.message);
-                if (!font) {
-                    throw new Error(`No font with ID ${message.message}`);
-                }
+                const font = getFont(message.message);
                 const data = font.getData();
                 const format = Font.getSfntVersion(data);
                 postMessageFromWorker({
@@ -44,6 +41,26 @@ const listener = async(event: MessageEvent) => {
                     message: {data, format},
                     originId: message.id,
                 }, [data]);
+                break;
+            }
+            case 'get-font-file-data': {
+                const font = getFont(message.message);
+                const data = font.getFileData();
+                postMessageFromWorker({
+                    type: 'got-font-file-data',
+                    message: data,
+                    originId: message.id,
+                }, [data]);
+                break;
+            }
+            case 'get-font-file-hash': {
+                const font = getFont(message.message);
+                const hash = font.getFileHash();
+                postMessageFromWorker({
+                    type: 'got-font-file-hash',
+                    message: hash,
+                    originId: message.id,
+                });
                 break;
             }
             case 'close': {
@@ -63,6 +80,14 @@ addEventListener('message', listener);
 
 let fontRefId = 0;
 const fonts = new Map<number, Font>();
+
+const getFont = (id: number): Font => {
+    const font = fonts.get(id);
+    if (!font) {
+        throw new Error(`No font with ID ${id}`);
+    }
+    return font;
+};
 
 const updateFonts = async(
     loadFonts: Uint8Array[],

@@ -238,4 +238,15 @@ export type FontRef = {
      * font is part of a collection, only that particular font's data will be included).
      */
     subset(settings: SubsetSettings | null): Promise<SubsettedFont>;
+    /**
+     * Returns the original font file data behind this font. Unlike {@link subset} with `null` settings, this will not
+     * extract single font faces from collections.
+     */
+    getFontFileData(): Promise<Uint8Array<ArrayBuffer>>;
+    /**
+     * Returns a hash (as a hex string) of the original font file data behind this font (if this font is part of a
+     * collection, the hash will be the same for all the fonts in that collection). This can be helpful for e.g.
+     * persisting fonts in a webapp.
+     */
+    getFontFileHash(): Promise<string>;
 };

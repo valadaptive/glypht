@@ -20,6 +20,8 @@ export class GlyphtContext {
                 'update-fonts': 'updated-fonts',
                 'subset-font': 'subsetted-font',
                 'get-font-data': 'got-font-data',
+                'get-font-file-data': 'got-font-file-data',
+                'get-font-file-hash': 'got-font-file-hash',
             },
         );
         // Automatically garbage-collect fonts
@@ -61,11 +63,14 @@ export class GlyphtContext {
             registry.unregister(fontMessage);
             await res;
         };
-        registry.register(fontMessage, fontId, fontMessage);
-        (fontMessage as FontRef).subset = async(settings: SubsetSettings | null) => {
+        const checkCtxAlive = () => {
             if (ctxState.destroyed) {
                 throw new DOMException('This font\'s GlyphtContext has been destroyed', 'InvalidStateError');
             }
+        };
+        registry.register(fontMessage, fontId, fontMessage);
+        (fontMessage as FontRef).subset = async(settings: SubsetSettings | null) => {
+            checkCtxAlive();
             if (settings === null) {
                 const {data: fontData, format} = await fontWorker.send('get-font-data', fontId);
                 return {
@@ -85,6 +90,14 @@ export class GlyphtContext {
                 };
             }
             return await fontWorker.send('subset-font', {font: fontId, settings});
+        };
+        (fontMessage as FontRef).getFontFileData = async() => {
+            checkCtxAlive();
+            return await fontWorker.send('get-font-file-data', fontId);
+        };
+        (fontMessage as FontRef).getFontFileHash = async() => {
+            checkCtxAlive();
+            return await fontWorker.send('get-font-file-hash', fontId);
         };
         return fontMessage as FontRef;
     }
