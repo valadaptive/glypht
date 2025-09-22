@@ -31,8 +31,8 @@ export class GlyphtContext {
     /**
      * Load a set of fonts. This will return a list of {@link FontRef}s that can be subset.
      *
-     * There is no equivalent method for loading a single font because a single font file could be a collection of
-     * multiple fonts.
+     * There is no equivalent method for loading a single font, because a single font file could be a collection of
+     * multiple fonts and hence have to return an array anyway.
      *
      * @param fontFiles Font files to load.
      * @param transfer If true, all `Uint8Array`s passed in as font files will be transferred to the worker thread and
