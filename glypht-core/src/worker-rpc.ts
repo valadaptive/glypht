@@ -132,8 +132,14 @@ export default class RpcDispatcher<T extends MessageSchema> {
     private map: ReqRespMap<T>;
     private sentMessageId = 0;
     /**
-     * Number of messages we're waiting for the worker to respond to. If greater
-     * than 0, we will avoid terminating the worker until this hits 0.
+     * Number of messages we're waiting for the worker to respond to. If greater than 0, we will avoid terminating the
+     * worker until this hits 0.
+     *
+     * Terminating a web worker *should* be straightforward--we just tell it to remove any event listeners on its side,
+     * all event loops are done, and the process can exit. Unfortunately, there is either a bug in
+     * https://github.com/valadaptive/web-worker or Node that causes the event loop to stay alive forever if too many
+     * compression threads are created under certain timing conditions. So, we need to manually refcount the number of
+     * messages we're waiting on.
      */
     private inflightRequests = 0;
     /**
