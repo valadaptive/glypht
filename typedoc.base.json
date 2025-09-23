@@ -1,0 +1,8 @@
+{
+    "$schema": "https://typedoc.org/schema.json",
+    "sort": [
+        "kind",
+        "instance-first",
+        "source-order"
+    ]
+}

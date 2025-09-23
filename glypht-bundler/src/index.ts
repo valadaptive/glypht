@@ -17,6 +17,7 @@ import {formatUnicodeRanges, parseUnicodeRanges} from './unicode-ranges';
 export type * from './css';
 export {NodeType} from './css';
 export {formatUnicodeRanges, parseUnicodeRanges, parseRanges} from './unicode-ranges';
+export {FeatureMetadata, featureMetadata} from './feature-metadata';
 
 /**
  * Information about a font family. Style values are split between those that are consistent within the family and those
