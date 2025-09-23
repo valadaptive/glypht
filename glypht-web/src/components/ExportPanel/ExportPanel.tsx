@@ -272,6 +272,18 @@ const ExportPanel = () => {
         saveToFile('settings.json', settingsFile);
     }, [appState]);
 
+    const savingCliSettings = useSignal(false);
+    const saveSettingsForCli = useCallback(async() => {
+        try {
+            savingCliSettings.value = true;
+            const savedZip = await appState.saveCliSettings();
+            saveToFile('settings.zip', savedZip);
+        } catch (err) {
+            addErrorToast('Failed to save CLI settings', err);
+        }
+        savingCliSettings.value = false;
+    }, [appState, addErrorToast, savingCliSettings]);
+
     const loadSettingsFromFile = useCallback(() => {
         showOpenFilePicker({accept: '.json'}).then(async files => {
             if (files && files.length > 0) {
@@ -374,6 +386,10 @@ const ExportPanel = () => {
                     <Button onClick={loadSettingsFromFile}>
                         <Icon type="upload" title="" />
                         Load settings
+                    </Button>
+                    <Button onClick={saveSettingsForCli} disabled={savingCliSettings.value}>
+                        {savingCliSettings.value ? <Loader size={24} /> : <Icon type="download" title="" />}
+                        Save CLI config
                     </Button>
                 </div>
                 <div className={style.buttonRow}>

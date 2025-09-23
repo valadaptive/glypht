@@ -47,8 +47,8 @@ export type StyleSettingState = {
 
 export type StyleSettingsState = Record<StyleKey, StyleSettingState>;
 
-type FeatureSetKey = 'features' | 'stylisticSets' | 'characterVariants';
-type FeatureSettingsState = Record<FeatureSetKey, {feature: FeatureInfo; include: Signal<boolean>}[]>;
+export type FeatureSetKey = 'features' | 'stylisticSets' | 'characterVariants';
+export type FeatureSettingsState = Record<FeatureSetKey, {feature: FeatureInfo; include: Signal<boolean>}[]>;
 
 export type IncludeCharactersSettingsState = {
     /** Ignore the other settings and include all characters found in the input. */
@@ -80,6 +80,8 @@ export type FamilySettingsState = {
         font: FontRef;
         /** Style settings unique to this font within the broader family. */
         styleSettings: Partial<StyleSettingsState>;
+        /** This font's original filename. */
+        filename: string;
     }[];
     settings: SubsetSettingsState;
     enableSubsetting: Signal<boolean>;
@@ -158,7 +160,7 @@ export type CopiedSettings =
         type: 'includeCharactersSettingsV2';
     };
 
-export const settingsFromFonts = (fonts: FontRef[]): FamilySettingsState[] => {
+export const settingsFromFonts = (fonts: {font: FontRef; filename: string}[]): FamilySettingsState[] => {
     const instanceValuesSetting = (
         axis: Omit<FamilyInfo['axes'][number], 'name'>,
         axisInstanceValues: FamilyInfo['axisInstanceValues'],
@@ -212,7 +214,12 @@ export const settingsFromFonts = (fonts: FontRef[]): FamilySettingsState[] => {
         return styleSettings;
     };
 
-    return sortFontsIntoFamilies(fonts).map(family => {
+    const filenames = new Map<FontRef, string>();
+    for (const {font, filename} of fonts) {
+        filenames.set(font, filename);
+    }
+
+    return sortFontsIntoFamilies(fonts.map(({font}) => font)).map(family => {
         const includeFeatures: FeatureSettingsState = {
             features: [],
             stylisticSets: [],
@@ -234,6 +241,7 @@ export const settingsFromFonts = (fonts: FontRef[]): FamilySettingsState[] => {
             fonts: family.fonts.map(({font, styleValues}) => ({
                 font,
                 styleSettings: styleValuesToSettings(styleValues, family.axisInstanceValues),
+                filename: filenames.get(font)!,
             })),
             settings: {
                 styleSettings: styleValuesToSettings(family.styleValues, family.axisInstanceValues),

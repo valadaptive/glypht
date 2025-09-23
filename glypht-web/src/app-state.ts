@@ -24,6 +24,8 @@ import {
 } from './util/font-settings';
 import type GoogleFontsModalInner from './components/GoogleFontsModal/GoogleFontsModalInner';
 import type {GoogleFontsFamily} from './components/GoogleFontsModal/GoogleFontsModalInner';
+import generateConfig from './util/generate-cli-config';
+import {AsyncZipDeflate, Zip} from 'fflate';
 
 export type FontDataState =
     | {state: 'not_loaded'}
@@ -140,7 +142,7 @@ export class AppState {
         const fonts = [];
         for (const fontSettings of family.fonts) {
             if (fontSettings.font.id !== font.id) {
-                fonts.push(fontSettings.font);
+                fonts.push(fontSettings);
             }
         }
         if (fonts.length === 0) {
@@ -160,10 +162,10 @@ export class AppState {
         return await font.destroy();
     }
 
-    async addFonts(fonts: Blob[]) {
+    async addFonts(fonts: File[]) {
         this.fontsBeingLoaded.value += fonts.length;
         try {
-            const fontData: Uint8Array[] =
+            const fontData: Uint8Array<ArrayBuffer>[] =
                 await Promise.all(fonts.map(font => font.arrayBuffer().then(ab => new Uint8Array(ab))));
 
             const decompressionPromises = [];
@@ -180,13 +182,20 @@ export class AppState {
             // TODO: rework font loading progress so decompression counts towards it
             if (decompressionPromises.length > 0) await Promise.all(decompressionPromises);
 
-            const addedFonts = await glyphtContext.loadFonts(fontData, true);
+            const addedFonts: {font: FontRef; filename: string}[] = [];//await glyphtContext.loadFonts(fontData, true);
+            for (let i = 0; i < fontData.length; i++) {
+                const loadedFonts = await glyphtContext.loadFonts([fontData[i]], true);
+                for (const font of loadedFonts) {
+                    addedFonts.push({font, filename: fonts[i].name});
+                }
+            }
 
-            const existingFonts = this.fonts.peek().flatMap(family => family.fonts.map(f => f.font));
-            const existingFontIds = new Set(existingFonts.map(f => f.uid));
+            const existingFonts: {font: FontRef; filename: string}[] =
+                this.fonts.peek().flatMap(family => family.fonts);
+            const existingFontIds = new Set(existingFonts.map(f => f.font.uid));
             const duplicateFonts = [];
             for (const addedFont of addedFonts) {
-                if (existingFontIds.has(addedFont.uid)) {
+                if (existingFontIds.has(addedFont.font.uid)) {
                     duplicateFonts.push(addedFont);
                 } else {
                     existingFonts.push(addedFont);
@@ -208,7 +217,7 @@ export class AppState {
             this.fonts.value = newSettings;
 
             if (duplicateFonts.length > 0) {
-                await Promise.all(duplicateFonts.map(font => font.destroy()));
+                await Promise.all(duplicateFonts.map(font => font.font.destroy()));
             }
         } finally {
             this.fontsBeingLoaded.value -= fonts.length;
@@ -406,6 +415,56 @@ export class AppState {
             this.exportSettings.includeTTFinCSS.value = settings.exportSettings.includeTTFinCSS;
         }
     }
+
+    async saveCliSettings() {
+        const config = generateConfig({settings: this, quotes: 'single'});
+        const fontFiles = new Map<string, Promise<void>>();
+
+        const chunks: Uint8Array<ArrayBuffer>[] = [];
+
+        let zipResolve: (blob: Blob) => void, zipReject: (reason: unknown) => void;
+        const zipPromise = new Promise<Blob>((resolve, reject) => {
+            zipResolve = resolve;
+            zipReject = reject;
+        });
+
+        const zip = new Zip((err, data, final) => {
+            if (err) {
+                zip.terminate();
+                zipReject(err);
+                return;
+            }
+
+            chunks.push(data as Uint8Array<ArrayBuffer>);
+
+            if (final) {
+                const blob = new Blob(chunks, {type: 'application/zip'});
+                zipResolve(blob);
+            }
+        });
+
+        for (const family of this.fonts.value) {
+            for (const {font, filename} of family.fonts) {
+                if (fontFiles.has(filename)) continue;
+                const deflate = new AsyncZipDeflate(filename);
+                zip.add(deflate);
+                fontFiles.set(filename, (async() => {
+                    const data = await font.getFontFileData();
+                    deflate.push(data, true);
+                })());
+            }
+        }
+
+        const zipConfig = new AsyncZipDeflate('glypht.config.js');
+        zip.add(zipConfig);
+        zipConfig.push(new TextEncoder().encode(config), true);
+
+        zip.end();
+        await Promise.all(Array.from(fontFiles.values()));
+
+        return await zipPromise;
+    }
+
 }
 
 export const AppContext = createContext<AppState | undefined>(undefined);

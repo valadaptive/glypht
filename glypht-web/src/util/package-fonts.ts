@@ -5,11 +5,15 @@ export const packageFonts = (
     fonts: {
         font: SubsettedFont;
         filename: string;
-        data: {opentype: Uint8Array | null; woff: Uint8Array | null; woff2: Uint8Array | null};
+        data: {
+            opentype: Uint8Array<ArrayBuffer> | null;
+            woff: Uint8Array<ArrayBuffer> | null;
+            woff2: Uint8Array<ArrayBuffer> | null;
+        };
     }[],
     css: string,
 ) => {
-    const chunks: Uint8Array[] = [];
+    const chunks: Uint8Array<ArrayBuffer>[] = [];
 
     let zipResolve: (blob: Blob) => void, zipReject: (reason: unknown) => void;
     const zipPromise = new Promise<Blob>((resolve, reject) => {
@@ -24,7 +28,7 @@ export const packageFonts = (
             return;
         }
 
-        chunks.push(data);
+        chunks.push(data as Uint8Array<ArrayBuffer>);
 
         if (final) {
             const blob = new Blob(chunks, {type: 'application/zip'});

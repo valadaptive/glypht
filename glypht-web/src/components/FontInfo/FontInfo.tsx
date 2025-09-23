@@ -106,9 +106,10 @@ const StyleSettingComponent = ({styleSetting, name, tag}: {
     );
 };
 
-const SingleFontSettings = ({font, styleSettings, enableSubsetting}: {
+const SingleFontSettings = ({font, styleSettings, filename, enableSubsetting}: {
     font: FontRef;
     styleSettings: Partial<StyleSettingsState>;
+    filename: string;
     enableSubsetting: boolean;
 }) => {
     const appState = useAppState();
@@ -131,7 +132,7 @@ const SingleFontSettings = ({font, styleSettings, enableSubsetting}: {
                 <div className={style.singleFontName}>
                     <span className={style.singleFontFamily}>{font.familyName} </span>
                     <span className={style.singleFontSubfamily}>{font.subfamilyName} </span>
-                    <span className={style.singleFontFileSize}>{formatFileSize(font.fileSize)}</span>
+                    <span className={style.singleFontFileInfo}>({filename}, {formatFileSize(font.fileSize)})</span>
                 </div>
                 <IconButton
                     onClick={removeFont}
@@ -553,10 +554,11 @@ const FontFamilySettings = ({familySettings}: {familySettings: FamilySettingsSta
                     title={['Fonts', <span className={style.numFonts}>{fonts.length}</span>]}
                     startCollapsed={fonts.length > 6}
                 >
-                    {fonts.map(({font, styleSettings}) =>
+                    {fonts.map(({font, styleSettings, filename}) =>
                         <SingleFontSettings
                             font={font}
                             styleSettings={styleSettings}
+                            filename={filename}
                             enableSubsetting={familySettings.enableSubsetting.value}
                         />)}
                 </SettingsSection>
@@ -597,7 +599,7 @@ const FontInfo = () => {
         event.stopPropagation();
         const files = Array.from(event.dataTransfer.files);
         if (files.length > 0) {
-            appState.addFonts(files.map(file => file as Blob)).catch(err => {
+            appState.addFonts(files).catch(err => {
                 addErrorToast('Failed to add fonts', err);
             });
         }

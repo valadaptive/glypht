@@ -425,7 +425,7 @@ const AddFontButton = ({family}: {family: GoogleFontsFamily}) => {
             const fontUrl = rawFontLink(family, font);
             all.push(fetch(fontUrl)
                 .then(resp => resp.blob())
-                .then(fontData => appState.addFonts([fontData]))
+                .then(fontData => appState.addFonts([new File([fontData], font.filename, {type: fontData.type})]))
                 .then(
                     null,
                     error => {

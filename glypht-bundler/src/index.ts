@@ -446,7 +446,7 @@ const WIDTH_NAMES = new Map([
  */
 export type CharacterSetSettings = {
     /** Include these named Google Fonts character sets. */
-    includeNamedSubsets: SubsetName[];
+    includeNamedSubsets?: SubsetName[];
     /**
      * Include these custom Unicode code point ranges. You can specify an array of ranges, or a string in a format
      * similar to the CSS `unicode-range` property (see {@link parseUnicodeRanges} for details on how it's parsed).
@@ -559,13 +559,13 @@ const instanceSubsetSettings = (settings: FamilySettings[]): Map<number, (Instan
                     if (charsetName === '' || charsetName === null) {
                         // If the character set consists exclusively of pre-named Google Fonts character subsets, we can
                         // fall back to the names of those
-                        if (!parsedUnicodeRanges.length) {
+                        if (!parsedUnicodeRanges.length && charsetSettings.includeNamedSubsets) {
                             // TODO: sort if user-provided?
                             charsetName = charsetSettings.includeNamedSubsets.join('-');
                         }
                     }
                     unicodeRangeSets.push({
-                        named: charsetSettings.includeNamedSubsets,
+                        named: charsetSettings.includeNamedSubsets ?? [],
                         custom: parsedUnicodeRanges,
                         charsetName,
                     });
