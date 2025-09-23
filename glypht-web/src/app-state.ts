@@ -1,4 +1,4 @@
-import {computed, ReadonlySignal, signal, Signal} from '@preact/signals';
+import {computed, effect, ReadonlySignal, signal, Signal, untracked} from '@preact/signals';
 import {createContext} from 'preact';
 import {useContext} from 'preact/hooks';
 import {FontRef, GlyphtContext, StyleKey, SubsetName} from '@glypht/core/subsetting.js';
@@ -24,6 +24,7 @@ import {
 } from './util/font-settings';
 import type GoogleFontsModalInner from './components/GoogleFontsModal/GoogleFontsModalInner';
 import type {GoogleFontsFamily} from './components/GoogleFontsModal/GoogleFontsModalInner';
+import throttle from './util/throttle';
 import generateConfig from './util/generate-cli-config';
 import {AsyncZipDeflate, Zip} from 'fflate';
 
@@ -55,6 +56,12 @@ type AllSavedSettings = {
     type: 'AllSettingsV1';
 };
 
+type PersistedSettings = {
+    settings: unknown;
+    /** Map from hashes to original font filenames */
+    filenames: Record<string, string>;
+};
+
 const compressionContext = new WoffCompressionContext();
 const glyphtContext = new GlyphtContext();
 
@@ -73,6 +80,10 @@ export class AppState {
 
     private _exportedFonts: Signal<FontExportState> = signal({state: 'not_loaded'});
     public exportedFonts = computed(() => this._exportedFonts.value);
+
+    // Set if there are multiple "save settings" calls in flight.
+    private saveQueued = false;
+    private savingPromise: Promise<void> | null = null;
 
     public exportSettings = {
         formats: {
@@ -162,11 +173,19 @@ export class AppState {
         return await font.destroy();
     }
 
-    async addFonts(fonts: File[]) {
+    async addFontFiles(fontFiles: File[] | FileList) {
+        const namedFonts = [];
+        for (const file of fontFiles) {
+            namedFonts.push({data: file, filename: file.name});
+        }
+        await this.addFonts(namedFonts);
+    }
+
+    async addFonts(fonts: {data: Blob; filename: string}[]) {
         this.fontsBeingLoaded.value += fonts.length;
         try {
             const fontData: Uint8Array<ArrayBuffer>[] =
-                await Promise.all(fonts.map(font => font.arrayBuffer().then(ab => new Uint8Array(ab))));
+                await Promise.all(fonts.map(font => font.data.arrayBuffer().then(ab => new Uint8Array(ab))));
 
             const decompressionPromises = [];
             for (let i = 0; i < fontData.length; i++) {
@@ -186,7 +205,7 @@ export class AppState {
             for (let i = 0; i < fontData.length; i++) {
                 const loadedFonts = await glyphtContext.loadFonts([fontData[i]], true);
                 for (const font of loadedFonts) {
-                    addedFonts.push({font, filename: fonts[i].name});
+                    addedFonts.push({font, filename: fonts[i].filename});
                 }
             }
 
@@ -465,7 +484,209 @@ export class AppState {
         return await zipPromise;
     }
 
+    async saveSettingsToDisk() {
+        // We were asked to save settings when we're already in the middle of it. Set saveQueued to true, which will
+        // queue up another settings save after the current one.
+        if (this.savingPromise) {
+            this.saveQueued = true;
+            return await this.savingPromise;
+        }
+
+        // Promise that resolves when the current settings are saved.
+        const thisSave = (async() => {
+            //console.log('saving settings');
+            const filenameMap: Record<string, string> = {};
+            const persistedSettings: PersistedSettings = {
+                settings: this.saveAllSettings(),
+                filenames: filenameMap,
+            };
+            const families = this.fonts.value;
+
+            const storageDir = await navigator.storage.getDirectory();
+            const SETTINGS_DIR_NAME = 'settings';
+
+            const settingsDir = await storageDir.getDirectoryHandle(SETTINGS_DIR_NAME, {create: true});
+            // Populate a set of currently-saved font file hashes
+            const currentlySavedFonts = await Array.fromAsync(settingsDir.entries());
+            const savedFontHashes = new Set<string>();
+            // This set prevents us from saving the same collection multiple times (the hashes are unique per file, not
+            // per font face).
+            const newlySavedFontHashes = new Set<string>();
+            for (const [filename] of currentlySavedFonts) {
+                if (filename === 'settings.json') continue;
+                savedFontHashes.add(filename.split('.')[0]);
+            }
+            const fontSavePromises = [];
+            for (const family of families) {
+                for (const font of family.fonts) {
+                    try {
+                        const fontHash = await font.font.getFontFileHash();
+                        const savedFileName = `${fontHash}.ttf`;
+                        filenameMap[savedFileName] = font.filename;
+                        // Check if the font was saved. If so, remove its ID from the list of saved fonts, and don't try
+                        // re-saving it.
+                        //
+                        // Also check if we're already going to save this font file data (e.g. this font is part of a
+                        // collection, and we saved another font from this collection earlier).
+                        if (savedFontHashes.delete(fontHash) || newlySavedFontHashes.has(fontHash)) {
+                            //console.log(`keep ${fontHash}`);
+                            continue;
+                        }
+
+                        newlySavedFontHashes.add(fontHash);
+                        fontSavePromises.push((async() => {
+                            //console.log(`save ${fontHash}`);
+                            try {
+                                const fontData = await font.font.getFontFileData();
+                                const dest = await settingsDir.getFileHandle(savedFileName, {create: true});
+                                const destStream = await dest.createWritable();
+                                await destStream.write(fontData);
+                                await destStream.close();
+                            } catch (err) {
+                                // Due to async shenanigans, we may be trying to save a font that the user has removed.
+                                if (!(err instanceof DOMException && err.name === 'InvalidStateError')) {
+                                    throw err;
+                                }
+                            }
+                        })());
+                    } catch (err) {
+                        // Due to async shenanigans, we may be trying to get the file hash of a font that the user has
+                        // removed.
+                        if (!(err instanceof DOMException && err.name === 'InvalidStateError')) {
+                            throw err;
+                        }
+                    }
+
+                }
+            }
+
+            // Since we removed all the currently-loaded fonts from the set of saved font IDs, all that remains are the
+            // IDs of fonts that are no longer present in the UI. We should delete them.
+            for (const noLongerSaved of savedFontHashes) {
+                //console.log(`delete ${noLongerSaved}`);
+                fontSavePromises.push(settingsDir.removeEntry(`${noLongerSaved}.ttf`));
+            }
+
+            fontSavePromises.push((async() => {
+                const dest = await settingsDir.getFileHandle(`settings.json`, {create: true});
+                const destStream = await dest.createWritable();
+                await destStream.write(new TextEncoder().encode(JSON.stringify(persistedSettings)));
+                await destStream.close();
+            })());
+
+            await Promise.all(fontSavePromises);
+        })();
+
+        const onSaveFinished = () => {
+            this.savingPromise = null;
+            // If another settings save (or more than one) was requested during the previous one, save the settings just
+            // once more. *This* promise will not resolve until the second settings save.
+            if (this.saveQueued) {
+                this.saveQueued = false;
+                return this.saveSettingsToDisk();
+            }
+        };
+
+        // Promise#finally does not chain the way Promise#then does
+        this.savingPromise = thisSave.then(onSaveFinished, onSaveFinished);
+
+        await thisSave;
+    }
+
+    async loadSettingsFromDisk() {
+        try {
+            this.fontsBeingLoaded.value++;
+            const storageDir = await navigator.storage.getDirectory();
+            const SETTINGS_DIR_NAME = 'settings';
+
+            let settingsDir;
+            try {
+                settingsDir = await storageDir.getDirectoryHandle(SETTINGS_DIR_NAME);
+            } catch (err) {
+                if (!(err instanceof Error && err.name === 'NotFoundError')) throw err;
+                return;
+            }
+
+            const settingsHandle = await settingsDir.getFileHandle('settings.json');
+            const settingsBlob = await settingsHandle.getFile();
+            const settingsJson = JSON.parse(await settingsBlob.text()) as PersistedSettings;
+
+            const fonts: {data: Blob; filename: string}[] = [];
+            for await (const [name, handle] of settingsDir.entries()) {
+                if (name === 'settings.json' || handle.kind !== 'file') continue;
+                const fontBlob = await (handle as FileSystemFileHandle).getFile();
+                fonts.push({data: fontBlob, filename: settingsJson.filenames[name]});
+            }
+
+            await this.addFonts(fonts);
+            this.loadAllSettings(settingsJson);
+        } finally {
+            this.fontsBeingLoaded.value--;
+        }
+    }
 }
+
+/**
+ * Reads all settings signal values (for signal effect purposes) without doing any other work. Useful for performing a
+ * throttled expensive action every time the settings change.
+ * @param state The app state to track.
+ */
+const trackAllSettings = (state: AppState) => {
+    for (const font of state.fonts.value) {
+        void font.enableSubsetting.value;
+        const touchAxisSetting = (setting: AxisSettingState) => {
+            switch (setting.mode.value) {
+                case 'single':
+                    void setting.curSingle.value;
+                    break;
+                case 'range':
+                    void setting.curMin.value;
+                    void setting.curMax.value;
+                    break;
+                case 'multiple':
+                    void setting.curMultiValue.value;
+                    break;
+            }
+        };
+        for (const styleKey of ['weight', 'width', 'italic', 'slant'] as const) {
+            const styleSetting = font.settings.styleSettings[styleKey];
+            if (!styleSetting) continue;
+            if (styleSetting.type === 'single') continue;
+            touchAxisSetting(styleSetting.value);
+        }
+        for (const axisSetting of font.settings.axisSettings) {
+            touchAxisSetting(axisSetting.range);
+        }
+        for (const featureSet of [
+            font.settings.includeFeatures.features,
+            font.settings.includeFeatures.characterVariants,
+            font.settings.includeFeatures.stylisticSets,
+        ]) {
+            for (const feature of featureSet) {
+                void feature.include.value;
+            }
+        }
+        if (!font.settings.includeCharacters.includeAllCharacters.value) {
+            for (const characterSet of font.settings.includeCharacters.characterSets.value) {
+                void characterSet.name.value;
+                void characterSet.includeUnicodeRanges.value;
+                for (const namedSubset of characterSet.includeNamedSubsets) {
+                    void namedSubset.include.value;
+                }
+            }
+        }
+    }
+
+    void state.exportSettings.formats.ttf.value;
+    void state.exportSettings.formats.woff.value;
+    void state.exportSettings.formats.woff2.value;
+
+    void state.exportSettings.includeTTFinCSS.value;
+    void state.exportSettings.woffCompression.value;
+    void state.exportSettings.woff2Compression.value;
+
+    void state.cssPathPrefix.value;
+};
 
 export const AppContext = createContext<AppState | undefined>(undefined);
 
@@ -480,6 +701,15 @@ export const useAppState = (): AppState => {
 
 export const createStore = (): AppState => {
     const store = new AppState();
+
+    const saveSettingsThrottled = throttle(() => void store.saveSettingsToDisk(), 1000, true);
+
+    effect(() => {
+        trackAllSettings(store);
+        untracked(saveSettingsThrottled);
+    });
+
+    void store.loadSettingsFromDisk();
 
     return store;
 };

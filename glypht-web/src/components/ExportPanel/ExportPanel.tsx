@@ -251,7 +251,7 @@ const ExportPanel = () => {
     const uploadMore = useCallback(() => {
         showFontPicker().then(async files => {
             if (files) {
-                await appState.addFonts(Array.from(files));
+                await appState.addFontFiles(files);
             }
         })
             .catch(err => {

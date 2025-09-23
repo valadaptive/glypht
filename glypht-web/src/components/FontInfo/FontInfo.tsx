@@ -597,9 +597,8 @@ const FontInfo = () => {
         if (!hasFiles(event)) return;
         event.preventDefault();
         event.stopPropagation();
-        const files = Array.from(event.dataTransfer.files);
-        if (files.length > 0) {
-            appState.addFonts(files).catch(err => {
+        if (event.dataTransfer.files) {
+            appState.addFontFiles(event.dataTransfer.files).catch(err => {
                 addErrorToast('Failed to add fonts', err);
             });
         }
@@ -612,7 +611,7 @@ const FontInfo = () => {
     const uploadFonts = useCallback(() => {
         showFontPicker().then(async files => {
             if (files) {
-                await appState.addFonts(Array.from(files));
+                await appState.addFontFiles(files);
             }
         })
             .catch(err => {
