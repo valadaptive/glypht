@@ -43,8 +43,11 @@
     --green-active:rgb(33, 114, 114);
     --green-muted: rgb(67, 141, 122);
 
-    --pane-padding:1rem;
+    --pane-padding: 1rem;
     --corner-radius: 0.25rem;
+
+    --font: Inter, sans-serif;
+    --font-mono: 'Fira Code', monospace;
 
     --highlight-03: #8b949e;  // Comment and Bracket color
     --highlight-04: #c9d1d9;  // Caret color (reusing foreground for consistency)
