@@ -999,8 +999,7 @@ export const exportFonts = async(
         if (formats.woff) {
             compressionPromises.push(compressionContext!.compressFromTTF(
                 subsettedFont.data,
-                'woff',
-                woffCompression,
+                {algorithm: 'woff', level: woffCompression},
             ).then(compressed => {
                 if (cancelled) throw new Error('Aborted');
                 progress += woff1ProgressProportion;
@@ -1011,8 +1010,7 @@ export const exportFonts = async(
         if (formats.woff2) {
             compressionPromises.push(compressionContext!.compressFromTTF(
                 subsettedFont.data,
-                'woff2',
-                woff2Compression,
+                {algorithm: 'woff2', level: woff2Compression},
             ).then(compressed => {
                 if (cancelled) throw new Error('Aborted');
                 progress += woff2ProgressProportion;

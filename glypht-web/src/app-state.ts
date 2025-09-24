@@ -191,7 +191,7 @@ export class AppState {
                 const compressionType = WoffCompressionContext.compressionType(fontData[i]);
                 if (compressionType !== null) {
                     decompressionPromises.push(
-                        compressionContext.decompressToTTF(fontData[i], true).then(decompressed => {
+                        compressionContext.decompressToTTF(fontData[i], {transfer: true}).then(decompressed => {
                             fontData[i] = decompressed;
                         }));
                 }
@@ -200,9 +200,9 @@ export class AppState {
             // TODO: rework font loading progress so decompression counts towards it
             if (decompressionPromises.length > 0) await Promise.all(decompressionPromises);
 
-            const addedFonts: {font: FontRef; filename: string}[] = [];//await glyphtContext.loadFonts(fontData, true);
+            const addedFonts: {font: FontRef; filename: string}[] = [];
             for (let i = 0; i < fontData.length; i++) {
-                const loadedFonts = await glyphtContext.loadFonts([fontData[i]], true);
+                const loadedFonts = await glyphtContext.loadFonts([fontData[i]], {transfer: true});
                 for (const font of loadedFonts) {
                     addedFonts.push({font, filename: fonts[i].filename});
                 }

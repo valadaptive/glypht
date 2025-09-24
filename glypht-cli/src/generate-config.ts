@@ -29,7 +29,7 @@ const generateConfig = async({inputFiles, output, force, quotes, instanceCharact
     const ctx = new GlyphtContext();
     try {
         const inputs = await Promise.all(inputFiles.map(path => fs.readFile(path)));
-        const fonts = await ctx.loadFonts(inputs, true);
+        const fonts = await ctx.loadFonts(inputs, {transfer: true});
         const families = sortFontsIntoFamilies(fonts);
         const outputDir = output ? path.dirname(output) : null;
         let result = `/**

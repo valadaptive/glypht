@@ -68,7 +68,7 @@ export const build = async(config: GlyphtConfig, baseDir: string) => {
     const formats = config.formats ?? {woff2: true};
     const cctx = formats.woff || formats.woff2 ? new WoffCompressionContext() : null;
     try {
-        const fonts = await ctx.loadFonts(fontFiles, true);
+        const fonts = await ctx.loadFonts(fontFiles, {transfer: true});
         const families = sortFontsIntoFamilies(fonts);
         const familySettings: FamilySettings[] = [];
         for (const family of families) {

@@ -27,7 +27,10 @@ const context = new GlyphtContext();
 try {
     // Load font file(s)
     const fontData = new Uint8Array(/* your font file data */);
-    const fonts = await context.loadFonts([fontData], true /* Transfer the font data to the worker thread */);
+    const fonts = await context.loadFonts(
+        [fontData],
+        {transfer: true} /* Transfer the font data to the worker thread */
+    );
 
     // Subset the font
     const subsettedFont = await fonts[0].subset({
@@ -72,15 +75,15 @@ try {
         new Uint8Array(/* your TTF font data */),
     ];
     // This will compress the fonts in parallel using 3 worker threads (or fewer, if there are fewer than 3 cores)
-    const woff2Data = await Promise.all(compressor.compressFromTTF(
-        ttfData,
-        'woff2',
-        11, // Compression level. 11 is the maximum for WOFF2.
-        true // Transfer the font data to the worker thread
-    ));
+    const woff2Data = await Promise.all(ttfData.map(fileData => compressor.compressFromTTF(fileData, {
+        algorithm: 'woff2',
+        level: 11,
+        transfer: true // Transfer the font data to the worker thread
+    })));
 
     // Decompress back to TTF
-    const decompressed = await Promise.all(compressor.decompressToTTF(woff2Data));
+    const decompressed = await Promise.all(woff2Data.map(fileData =>
+        compressor.decompressToTTF(fileData, {transfer: true})));
 } finally {
     // Clean up. When running in non-browser environments, this terminates
     // worker threads, allowing the process to exit.

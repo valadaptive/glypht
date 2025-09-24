@@ -1,6 +1,15 @@
 import {FontRef, SubsetSettings} from './font-types.js';
 import RpcDispatcher, {FontMessage, FontWorkerSchema} from './worker-rpc.js';
 
+/** Options for the {@link GlyphtContext#loadFonts} method. */
+export type LoadFontsOptions = {
+    /**
+     * If true, all `Uint8Array`s passed in as font files will be transferred to the worker thread and
+     * no longer usable on this thread.
+     */
+    transfer?: boolean;
+};
+
 /**
  * Context object for all font processing. This is what you use to load fonts.
  *
@@ -37,18 +46,17 @@ export class GlyphtContext {
      * multiple fonts and hence have to return an array anyway.
      *
      * @param fontFiles Font files to load.
-     * @param transfer If true, all `Uint8Array`s passed in as font files will be transferred to the worker thread and
-     * no longer usable on this thread.
+     * @param options Options object.
      * @returns A list of loaded fonts.
      */
-    async loadFonts(fontFiles: Uint8Array[], transfer = false): Promise<FontRef[]> {
+    async loadFonts(fontFiles: Uint8Array[], options?: LoadFontsOptions): Promise<FontRef[]> {
         if (this.state.destroyed) {
             throw new DOMException('This GlyphtContext has been destroyed', 'InvalidStateError');
         }
         return (await this.fontWorker.send(
             'update-fonts',
             {loadFonts: fontFiles, unloadFonts: []},
-            transfer ? fontFiles.map(f => f.buffer) : undefined,
+            options?.transfer ? fontFiles.map(f => f.buffer) : undefined,
         )).fonts.map(fontMsg => this.hydrateFont(fontMsg));
     }
 

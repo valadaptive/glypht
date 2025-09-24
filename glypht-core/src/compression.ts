@@ -2,6 +2,33 @@ import {fetchFile, getParallelism} from './platform.js';
 import WorkerPool from './worker-pool.js';
 import RpcDispatcher, {CompressionWorkerSchema} from './worker-rpc.js';
 
+/** Options for the {@link WoffCompressionContext#compressFromTTF} method. */
+export type CompressOptions = {
+    /** The compression algorithm to use, either `woff` or `woff2`. */
+    algorithm: 'woff' | 'woff2';
+    /**
+     * The compression level. For WOFF2, this can range from 0 to 11. For WOFF, this means the number of Zopfli
+     * iterations and can theoretically go up to any value, although 15 is a good default.
+     *
+     * If not provided, the default is 15 iterations for WOFF and a level of 11 for WOFF2.
+     */
+    level?: number;
+    /**
+     * If true, the passed font file's buffer will be transferred to a worker thread and no longer usable on this
+     * thread.
+     */
+    transfer?: boolean;
+};
+
+/** Options for the {@link WoffCompressionContext#decompressToTTF} method. */
+export type DecompressOptions = {
+    /**
+     * If true, the passed font file's buffer will be transferred to a worker thread and no longer usable on this
+     * thread.
+     */
+    transfer?: boolean;
+};
+
 /**
  * Context object for font compression and decompression. All operations are done off-thread using a worker pool. If
  * running in an environment where your program is meant to exit by itself (e.g. on the command line), you must call
@@ -58,26 +85,21 @@ export class WoffCompressionContext {
     /**
      * Compress an OpenType font file to WOFF or WOFF2.
      * @param ttf The font file to compress. This must be a single font, not a collection.
-     * @param algorithm The compression algorithm to use, either `woff` or `woff2`.
-     * @param quality The compression quality. For WOFF2, this can range from 0 to 11. For WOFF, this means the number
-     * of Zopfli iterations and can theoretically go up to any value, although 15 is a good default.
-     * @param transfer If true, the passed font file's buffer will be transferred to a worker thread and no longer
-     * usable on this thread.
+     * @param options Options object.
      * @returns Compressed font data.
      */
     public async compressFromTTF(
         ttf: Uint8Array,
-        algorithm: 'woff' | 'woff2',
-        quality: number,
-        transfer = false,
+        options: CompressOptions,
     ): Promise<Uint8Array<ArrayBuffer>> {
         this.checkDestroyed();
         const pool = await this.pool;
+        const quality = options.level ?? (options.algorithm === 'woff' ? 15 : 11);
         return await pool.enqueue((async worker => {
             const compressed = await worker.send(
                 'compress-font',
-                {data: ttf, algorithm, quality},
-                transfer ? [ttf.buffer] : undefined,
+                {data: ttf, algorithm: options.algorithm, quality},
+                options.transfer ? [ttf.buffer] : undefined,
             );
             return compressed;
         }));
@@ -86,11 +108,13 @@ export class WoffCompressionContext {
     /**
      * Decompress a WOFF or WOFF2-compressed font file. Throws an error if the input font is not compressed.
      * @param compressed The compressed font file data.
-     * @param transfer If true, the passed font file's buffer will be transferred to a worker thread and no longer
-     * usable on this thread.
+     * @param options Options object.
      * @returns Decompressed font file data.
      */
-    public async decompressToTTF(compressed: Uint8Array, transfer = false): Promise<Uint8Array<ArrayBuffer>> {
+    public async decompressToTTF(
+        compressed: Uint8Array,
+        options?: DecompressOptions,
+    ): Promise<Uint8Array<ArrayBuffer>> {
         this.checkDestroyed();
         const algorithm = WoffCompressionContext.compressionType(compressed);
         if (algorithm === null) {
@@ -101,7 +125,7 @@ export class WoffCompressionContext {
             const decompressed = await worker.send(
                 'decompress-font',
                 {data: compressed, algorithm},
-                transfer ? [compressed.buffer] : undefined,
+                options?.transfer ? [compressed.buffer] : undefined,
             );
             return decompressed;
         }));
