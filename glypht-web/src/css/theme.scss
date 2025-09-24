@@ -1,3 +1,5 @@
+@use "sass:color";
+
 :root {
     --base-color-primary: #161518;
     --base-color-secondary: #101113;
@@ -19,7 +21,7 @@
     --interactive-hover: #dbdad7;
     --interactive-active: #e7e5de;
     --interactive-muted: #5f5d59;
-    --divider: #373344;
+    --divider: #36353a;
 
     --primary: #503f76;
     --primary-hover: #3c3267;
@@ -27,6 +29,8 @@
     --primary-muted: #3f3d4d;
     --primary-light: #71559b;
     --primary-lighter: #916db8;
+
+    --highlight: #{color.change(rgb(238, 179, 49), $alpha: 0.25)};
 
     --red: rgb(206, 40, 53);
     --red-hover: rgb(153, 37, 72);
@@ -48,17 +52,6 @@
 
     --font: Inter, sans-serif;
     --font-mono: 'Fira Code', monospace;
-
-    --highlight-03: #8b949e;  // Comment and Bracket color
-    --highlight-04: #c9d1d9;  // Caret color (reusing foreground for consistency)
-    --highlight-05: #7ee787;  // TagName, Name, Quote
-    --highlight-06: #d2a8ff;  // ClassName, PropertyName, Heading, Strong, Emphasis
-    --highlight-07: #79c0ff;  // VariableName, AttributeName, Number, Operator
-    --highlight-08: #ff7b72;  // Keyword, TypeName, TypeOperator
-    --highlight-09: #a5d6ff;  // String, Meta, Regexp
-    --highlight-0A: #ffdcd7;  // Deleted text color
-    --highlight-0B: #ffeef0;  // Deleted background color
-    --highlight-0C: #ffab70;  // Atom, Bool, Special VariableName
 }
 
 $base-color-primary: var(--base-color-primary);

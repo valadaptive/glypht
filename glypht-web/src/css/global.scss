@@ -1,4 +1,9 @@
 @use './theme.scss';
+@use '../generated/syntax-colors.scss';
+
+html {
+    overflow: auto;
+}
 
 html, body {
     width: 100%;
@@ -22,6 +27,9 @@ body {
     & ::-webkit-scrollbar-thumb {
         background-color: theme.$base-color-tertiary;
     }
+
+    display: flex;
+    flex-direction: column;
 }
 
 ::selection {
@@ -128,7 +136,7 @@ body.loading {
 }
 
 mark {
-    color: var(--text-color);
+    color: var(--text);
     background-color: var(--highlight);
     border-radius: 0.25rem;
     padding: 0.075rem 0.125rem;
@@ -179,13 +187,14 @@ mark {
     }
 }
 
-.hl-dk { color: #569cd6 }
-.hl-ok { color: #dcdcaa }
-.hl-kw { color: #569cd6 }
-//.hl-pn { color: var(--) }
-.hl-p { color: #d4d4d4 }
-.hl-b { color: #d4d4d4 }
-.hl-pu { color: #d4d4d4 }
-.hl-s { color: #ce9178 }
-.hl-n { color: #b5cea8 }
-.hl-se { color: #d4d4d4 }
+// CSS syntax highlighting classes
+.hl-dk { color: var(--hl-keyword); }
+.hl-ok { color: var(--hl-function); }
+.hl-kw { color: var(--hl-keyword); }
+.hl-pn { color: var(--hl-variable); }
+.hl-p { color: var(--hl-punctuation); }
+.hl-b { color: var(--hl-punctuation); }
+.hl-pu { color: var(--hl-punctuation); }
+.hl-s { color: var(--hl-string); }
+.hl-n { color: var(--hl-number); }
+.hl-se { color: var(--hl-punctuation); }

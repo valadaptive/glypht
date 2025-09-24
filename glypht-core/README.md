@@ -14,7 +14,9 @@ npm install @glypht/core
 
 ## Quick Start
 
-### Font Subsetting
+For an example of using all this functionality end-to-end, see [the Glypht CLI's code](https://github.com/valadaptive/glypht/blob/main/glypht-cli/src/build.ts).
+
+### Subsetting
 
 ```javascript
 import { GlyphtContext } from '@glypht/core';
@@ -23,16 +25,19 @@ import { GlyphtContext } from '@glypht/core';
 const context = new GlyphtContext();
 
 try {
-    // Load font files
+    // Load font file(s)
     const fontData = new Uint8Array(/* your font file data */);
     const fonts = await context.loadFonts([fontData], true /* Transfer the font data to the worker thread */);
 
     // Subset the font
     const subsettedFont = await fonts[0].subset({
-        axisValues: [], // Keep all axes as-is
+        axisValues: [
+            {type: 'single', tag: 'wdth', value: 100}, // Pin the width axis to 100
+            {type: 'variable', tag: 'wght', value: {min: 400, max: 700}} // Clamp the weight axis between 400 and 700
+        ],
         unicodeRanges: {
-            named: ['latin', 'latin-ext'], // Include Latin character sets
-            custom: [] // No custom ranges
+            named: ['latin', 'latin-ext'], // Include Latin character sets, as defined by Google Fonts
+            custom: [] // No custom Unicode ranges
         }
     });
 
@@ -51,7 +56,7 @@ try {
 
 ```
 
-### Font Compression
+### Compression
 
 ```javascript
 import { WoffCompressionContext } from '@glypht/core';

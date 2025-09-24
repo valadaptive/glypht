@@ -1,9 +1,6 @@
 import {defineConfig} from 'vite';
 import preact from '@preact/preset-vite';
 
-//import {analyzer} from 'vite-bundle-analyzer';
-
-
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [
@@ -18,7 +15,6 @@ export default defineConfig({
                 });
             },
         },
-        //analyzer(),
     ],
     css: {
         modules: {
@@ -27,5 +23,10 @@ export default defineConfig({
     },
     worker: {
         format: 'es',
+    },
+    resolve: {
+        alias: {
+            'pagefind-web': '../public/pagefind/pagefind.js',
+        },
     },
 });

@@ -7,7 +7,7 @@ A JavaScript library for advanced font bundling and CSS generation. This library
 - CSS generation and file naming. Once you've generated the fonts, this library will give them all non-colliding filenames and generate CSS that includes them all, with the proper attributes (like `unicode-range`) present according to the input settings. The CSS output supports syntax highlighting.[^1]
 - Various niceties for making the configuration format a bit friendlier (for instance, parsing Unicode range strings).
 
-This library powers the export functionality in the [Glypht web application](https://github.com/valadaptive/glypht) and [Glypht CLI](https://github.com/valadaptive/glypht/tree/main/glypht-cli).
+This library powers the export functionality in the [Glypht web application](https://glypht.valadaptive.dev) and [Glypht CLI](https://www.npmjs.com/package/@glypht/cli).
 
 ## Installation
 
@@ -42,7 +42,7 @@ try {
         console.log(`Family: ${family.name}`);
         console.log(`Fonts: ${family.fonts.length}`);
         console.log(`Shared axes: ${family.axes.map(a => a.tag).join(', ')}`);
-        console.log(`Named subsets: ${family.namedSubsets.join(', ')}`);
+        console.log(`Named character subsets: ${family.namedSubsets.join(', ')}`);
     }
 } finally {
     context.destroy();
@@ -138,11 +138,5 @@ The library provides specialized export paths:
 - **`@glypht/bundler`**: Main functionality including family organization and font export
 - **`@glypht/bundler/unicode-ranges.js`**: Unicode range parsing and formatting utilities
 - **`@glypht/bundler/feature-metadata.js`**: OpenType feature information and metadata
-
-## Related Projects
-
-- [@glypht/core](https://www.npmjs.com/package/@glypht/core) - Core font processing library
-- [@glypht/cli](https://www.npmjs.com/package/@glypht/cli) - Command-line interface
-- [Glypht Web App](https://github.com/valadaptive/glypht) - Web interface for font processing
 
 [^1]: Because this package is responsible for generating the CSS itself, it knows the type of every CSS token it generates. This means there is no dependency on any third-party syntax highlighting library.

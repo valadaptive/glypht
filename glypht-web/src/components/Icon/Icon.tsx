@@ -1,4 +1,4 @@
-import style from './style.module.scss';
+import './style.scss';
 
 import type {JSX} from 'preact';
 import classNames from 'clsx';
@@ -19,22 +19,23 @@ export type IconType =
     | 'gear'
     | 'github'
     | 'globe'
+    | 'link'
     | 'paste'
     | 'pin'
     | 'plus'
     | 'range'
     | 'reset'
+    | 'search'
     | 'stack'
     | 'upload'
     | 'warning';
 
-const Icon = ({type, title, size, motif, className, noPointer, clickableStyle}: {
+const Icon = ({type, title, size, motif, className, clickableStyle}: {
     type: IconType;
     title: string | null;
     size?: string | number;
     motif?: Motif;
     className?: string;
-    noPointer?: boolean;
     clickableStyle?: boolean;
 }): JSX.Element => {
     const cssSize = typeof size === 'string' ? size : typeof size === 'number' ? `${size}px` : undefined;
@@ -45,16 +46,15 @@ const Icon = ({type, title, size, motif, className, noPointer, clickableStyle}: 
     return (
         <div
             className={classNames(
-                style.icon,
-                style[type],
+                'icon',
+                `icon-${type}`,
                 {
-                    [style.motifPrimary]: motif === Motif.PRIMARY,
-                    [style.motifSuccess]: motif === Motif.SUCCESS,
-                    [style.motifWarning]: motif === Motif.WARNING,
-                    [style.motifError]: motif === Motif.ERROR,
-                    [style.motifMonochrome]: motif === Motif.MONOCHROME,
-                    [style.noPointer]: noPointer,
-                    [style.clickable]: clickableStyle,
+                    'motif-primary': motif === Motif.PRIMARY,
+                    'motif-success': motif === Motif.SUCCESS,
+                    'motif-warning': motif === Motif.WARNING,
+                    'motif-error': motif === Motif.ERROR,
+                    'motif-monochrome': motif === Motif.MONOCHROME,
+                    'icon-clickable': clickableStyle,
                 },
                 className,
             )}
@@ -86,14 +86,14 @@ export const IconButton = ({
     return (
         <button
             className={classNames(
-                style.iconButton,
+                'icon-button',
                 {
-                    [style.disabled]: disabled,
-                    [style.motifPrimary]: motif === Motif.PRIMARY,
-                    [style.motifSuccess]: motif === Motif.SUCCESS,
-                    [style.motifWarning]: motif === Motif.WARNING,
-                    [style.motifError]: motif === Motif.ERROR,
-                    [style.motifMonochrome]: motif === Motif.MONOCHROME,
+                    'icon-disabled': disabled,
+                    'motif-primary': motif === Motif.PRIMARY,
+                    'motif-success': motif === Motif.SUCCESS,
+                    'motif-warning': motif === Motif.WARNING,
+                    'motif-error': motif === Motif.ERROR,
+                    'motif-monochrome': motif === Motif.MONOCHROME,
                 },
                 className,
             )}
@@ -107,7 +107,6 @@ export const IconButton = ({
                 title={null}
                 size={size}
                 motif={motif}
-                noPointer={true}
             />
         </button>
     );

@@ -59,8 +59,9 @@ export type NamedInstance = {
     /** The instance's subfamily name (e.g. "Bold Condensed Display"). */
     subfamilyName: string | null;
     /**
-     * The instance's PostScript name.
-     * See https://web.archive.org/web/20250701004451/https://adobe-type-tools.github.io/font-tech-notes/pdfs/5902.AdobePSNameGeneration.pdf for more information.
+     * The instance's PostScript name. See [Adobe Technical Note
+     * #5902](https://web.archive.org/web/20250701004451/https://adobe-type-tools.github.io/font-tech-notes/pdfs/5902.AdobePSNameGeneration.pdf)
+     * for more information.
      */
     postscriptName: string | null;
     /** The OpenType variation axis coordinates that correspond to this named instance. */

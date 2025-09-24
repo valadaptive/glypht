@@ -1,9 +1,7 @@
 import {render} from 'preact';
 //import 'preact/debug';
 
-import './css/fonts.css';
-import './css/global.scss';
-import './css/buttons.scss';
+import './shared.tsx';
 
 import AppInner from './components/App/App';
 import {AppContext, createStore} from './app-state';
@@ -13,7 +11,6 @@ import {ToastProvider} from './components/Toast/Toast';
 const store = createStore();
 
 export function App() {
-
     return (
         <AppContext.Provider value={store}>
             <OverlayProvider>
@@ -25,5 +22,5 @@ export function App() {
     );
 }
 
-document.body.className = '';
-render(<App />, document.body);
+const appContainer = document.getElementById('main');
+if (appContainer) render(<App />, appContainer);

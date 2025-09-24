@@ -407,8 +407,6 @@ const ExportPanel = () => {
             <div className={style.spacer} />
             <div className={style.footer}>
                 <span>Made with <img src={blobCat} alt='blobCat' width='128' height='128' style='width: 1em; height: 1em; vertical-align: middle' /> by <a href='https://github.com/valadaptive'>valadaptive</a></span>
-                <div className={style.spacer} />
-                <a href='https://github.com/valadaptive/glypht' className={style.githubLink}><Icon type='github' title='View this project on GitHub' clickableStyle={true} size='1rem' /></a>
             </div>
         </div>
     );

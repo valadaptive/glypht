@@ -27,7 +27,7 @@
         background-color: theme.$red;
     }
 
-    &.clickable {
+    &.icon-clickable {
         @include theme.fade(opacity);
         &:hover {
             opacity: 0.875;
@@ -37,7 +37,7 @@
             opacity: 0.75;
         }
 
-        &.disabled {
+        &.icon-disabled {
             opacity: 0.5;
         }
     }
@@ -52,7 +52,7 @@
         color: $active;
     }
 
-    &.disabled {
+    &.icon-disabled {
         color: $disabled;
     }
 }
@@ -81,7 +81,7 @@
             opacity: 0.75;
         }
 
-        &.disabled {
+        &.icon-disabled {
             opacity: 0.5;
         }
     }
@@ -91,36 +91,36 @@
         border-radius: theme.$radius;
     }
 
-    &.disabled {
+    &.icon-disabled {
         cursor: not-allowed;
     }
-}
 
-.no-pointer {
-    pointer-events: none;
+    & .icon {
+        pointer-events: none;
+    }
 }
 
 @mixin def-icons($names) {
     @each $name in $names {
-        .#{$name} {
+        .icon-#{$name} {
             mask-image: url('../../assets/icons/#{$name}.svg');
         }
     }
 }
 
-.arrow-right {
+.icon-arrow-right {
     transform: rotate(-90deg);
 }
 
-.arrow-up {
+.icon-arrow-up {
     transform: rotate(180deg);
 }
 
-.arrow-left {
+.icon-arrow-left {
     transform: rotate(90deg);
 }
 
-.arrow-right, .arrow-down, .arrow-up, .arrow-left {
+.icon-arrow-right, .icon-arrow-down, .icon-arrow-up, .icon-arrow-left {
     mask-image: url('../../assets/icons/arrow-down.svg');
     @include theme.fade(transform);
 }
@@ -136,11 +136,13 @@
     gear
     github
     globe
+    link
     paste
     pin
     plus
     range
     reset
+    search
     stack
     upload
     warning

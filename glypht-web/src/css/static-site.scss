@@ -1,0 +1,419 @@
+#navigation-bar {
+    flex: 0 0 auto;
+    display: flex;
+    font-size: 1.25rem;
+    padding-right: 1rem;
+    background: var(--base-color-tertiary);
+    min-height: 4rem;
+    position: relative;
+}
+
+.navbar-pages {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+
+    & li {
+        display: inline-block;
+        // This allows the items to transition from a row to a grid as the screen narrows
+        flex-grow: 1;
+        flex-basis: 0;
+    }
+}
+
+.navbar-pages a, .navbar-logo {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 0 0.625rem;
+    white-space: nowrap;
+    text-decoration: none;
+    color: var(--text);
+
+    transition: background-color 0.1s;
+
+    &:hover,
+    &.active {
+        background-color: var(--toggle-hover);
+    }
+}
+
+.navbar-logo {
+    gap: 0.5rem;
+    font-weight: 600;
+    font-variation-settings: 'opsz' 32;
+    font-size: 1.5rem;
+}
+
+.navbar-logo-icon {
+    background-image: url('/src/assets/icons/logo-plain.svg');
+    background-size: contain;
+    display: inline-flex;
+    width: 48px;
+    height: 48px;
+}
+
+.nav-cols {
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+    flex: 1 1 0;
+}
+
+#content {
+    flex: 0 1 12in;
+    padding: 0 2rem 4rem;
+}
+
+#main {
+    flex: 1 1 0;
+    overflow: auto;
+}
+
+.header-anchor {
+    color: inherit;
+    // Seems to be necessary when we set vertical-align on child elements, for some reason
+    text-underline-offset: 4px;
+
+    & > * {
+        vertical-align: middle;
+    }
+
+    &:not(:hover) {
+        text-decoration: none;
+
+        &::after {
+            display: none;
+        }
+    }
+
+    &::after {
+        content: '';
+        display: inline-block;
+        vertical-align: middle;
+        height: 24px;
+        width: 24px;
+        background-color: var(--link);
+        mask-size: 24px;
+        mask-position: center;
+        mask-image: url('../assets/icons/link.svg');
+    }
+}
+
+.navigation-details {
+    padding: 0 0 0 2rem;
+}
+
+.navigation-summary {
+    display: none;
+}
+
+.navigation-sidebar {
+    width: 3in;
+    position: relative;
+
+    & > ul {
+        position: fixed;
+        list-style-type: none;
+        padding: 0;
+        width: 3in;
+
+        & ul {
+            list-style-type: none;
+            padding: 0;
+            margin-left: calc(0.5rem + 12px - 1px);
+            border-left: 2px solid var(--divider);
+        }
+    }
+
+    & summary {
+        display: flex;
+        cursor: pointer;
+
+        &::before {
+            content: '';
+            width: 24px;
+
+            background-color: currentColor;
+            mask-size: 24px;
+            mask-position: center;
+            mask-image: url('../assets/icons/arrow-down.svg');
+            transform: rotate(-90deg);
+
+            margin-left: 0.5rem;
+        }
+
+        & > a {
+            flex: 1 0 auto;
+        }
+    }
+
+    & details[open] > summary::before {
+        transform: rotate(0);
+    }
+}
+
+.navigation-sidebar-entry-title {
+    display: block;
+    color: var(--text);
+    text-decoration: none;
+    padding: 0.325rem 0.75rem;
+    transition: background-color 0.1s;
+
+    &:hover {
+        background-color: var(--toggle-hover);
+    }
+
+    &.navigation-active {
+        font-weight: bold;
+        background-color: var(--toggle-active);
+    }
+}
+
+
+#search-area {
+    align-self: center;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+
+    & > summary {
+        float: right;
+
+        &::marker {
+            content: "";
+        }
+    }
+}
+
+#search {
+    position: relative;
+    display: inline-block;
+}
+
+@property --grad-progress {
+    syntax: "<length-percentage>";
+    inherits: false;
+    initial-value: -20%;
+}
+
+
+#search-input {
+    padding-right: 24px;
+    background: linear-gradient(to right, var(--base-color-tertiary) var(--grad-progress), var(--divider) calc(var(--grad-progress) + 10%), var(--base-color-tertiary) calc(var(--grad-progress) + 20%));
+
+    &.loading {
+        animation: search-loading 0.5s linear infinite;
+    }
+}
+
+@keyframes search-loading {
+    to {
+        --grad-progress: 100%;
+    }
+}
+
+#search-clear {
+    position: absolute;
+    right: 0;
+    top: calc(50% - 12px);
+    display: none;
+
+    &.active {
+        display: inline-block;
+    }
+}
+
+#search-open {
+    display: none;
+}
+
+#search-results-container {
+    box-sizing: border-box;
+    z-index: 1;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    visibility: hidden;
+}
+
+.search-results {
+    background-color: var(--base-color-primary);
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    visibility: visible;
+
+    box-shadow: 0px 0px 18px 8px rgba(0, 0, 0, 0.375);
+}
+
+.search-results-page-input {
+    appearance: textfield;
+    width: 3rem;
+}
+
+.pagination {
+    background-color: var(--base-color-tertiary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem;
+}
+
+.search-results-list {
+    overflow: auto;
+}
+
+.search-result, .search-sub-result {
+    display: block;
+    color: var(--text);
+    text-decoration: none;
+}
+
+.search-result {
+    padding: 0.5rem 1rem;
+    transition: background-color 0.1s;
+
+    &:hover {
+        background-color: var(--toggle-hover);
+    }
+
+    &:active {
+        background-color: var(--toggle-active);
+    }
+
+    & mark {
+        color: var(--text);
+        background-color: var(--highlight);
+        border-radius: 0.25rem;
+        padding: 0.075rem 0.125rem;
+        margin: -0.075rem -0.125rem;
+    }
+}
+
+.search-sub-result {
+    padding-left: 1rem;
+}
+
+.result-title, .sub-result-title {
+    font-weight: 650;
+}
+
+.result-title {
+    font-size: 1.5rem;
+}
+
+.sub-result-excerpt {
+    font-size: 80%;
+}
+
+.search-no-results {
+    font-weight: 650;
+    text-align: center;
+    font-size: 2rem;
+    padding: 2rem;
+}
+
+@media (max-width: 9in) {
+    .nav-cols {
+        flex-direction: column;
+    }
+
+    .navigation-details {
+        padding: 1rem 2rem 0 2rem;
+
+        &[open] .navigation-summary::before {
+            transform: rotate(0deg);
+        }
+    }
+
+    .navigation-sidebar {
+        width: 100%;
+
+        & > ul {
+            position: initial;
+            margin-bottom: 0;
+        }
+    }
+
+    .navigation-summary {
+        display: flex;
+        font-weight: bold;
+        cursor: pointer;
+        align-items: center;
+
+        &::before {
+            content: '';
+            margin-right: 0.5rem;
+            display: inline-block;
+
+            width: 24px;
+            height: 24px;
+
+            background-color: currentColor;
+            mask-size: 24px;
+            mask-position: center;
+            mask-image: url('../assets/icons/arrow-down.svg');
+            transform: rotate(-90deg);
+        }
+    }
+
+    #content {
+        width: 100%;
+        box-sizing: border-box;
+        flex-basis: auto;
+    }
+
+    #search {
+        display: none;
+
+        &.open {
+            display: unset;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    #search-open {
+        display: unset;
+    }
+
+    #search-area.open {
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        padding: 0 1rem;
+        background-color: var(--base-color-tertiary);
+        align-self: stretch;
+
+        position: absolute;
+        & #search {
+            display: unset;
+            flex: 1 1 auto;
+            display: flex;
+        }
+
+        & #search-input {
+            flex: 1 1 auto;
+        }
+
+        & #search-open {
+            display: none;
+        }
+    }
+}

@@ -3,10 +3,12 @@
 
 .export-panel {
     background-color: theme.$base-color-tertiary;
-    overflow: auto;
+    // interferes with splitter :(
+    //overflow: auto;
     display: flex;
     flex-direction: column;
     flex: 0 1 auto;
+    position: relative;
 
     &.horizontal {
         max-width: 50%;
@@ -33,7 +35,8 @@
 }
 
 .vertical .splitter {
-    width: 100%;
+    left: 0;
+    right: 0;
     height: var(--splitter-size);
     cursor: ns-resize;
     border-left: none;
@@ -42,7 +45,8 @@
 }
 
 .horizontal .splitter {
-    height: 100%;
+    top: 0;
+    bottom: 0;
     width: var(--splitter-size);
     cursor: ew-resize;
     border-right: none;
@@ -64,20 +68,32 @@
     .splitter {
         background-color: theme.$base-color-tertiary;
         border: none;
+
+        &::after {
+            content: '';
+            background-color: theme.$divider;
+            border-radius: var(--splitter-size);
+            display: flex;
+            align-self: center;
+        }
+    }
+
+    .horizontal .splitter {
+        transform: translateX(calc(var(--splitter-size) / -2));
+
+        &::after {
+            width: 2px;
+            height: 50%;
+        }
     }
 
     .vertical .splitter {
         transform: translateY(calc(var(--splitter-size) / -2));
-    }
 
-    .splitter::after {
-        content: '';
-        background-color: theme.$divider;
-        height: 2px;
-        width: 50%;
-        border-radius: var(--splitter-size);
-        display: flex;
-        align-self: center;
+        &::after {
+            height: 2px;
+            width: 50%;
+        }
     }
 }
 
@@ -276,8 +292,4 @@
     gap: 0.5rem;
     padding: 1rem;
     padding-top: 0;
-}
-
-.github-link {
-    display: flex;
 }

@@ -1,63 +1,36 @@
 # Glypht: a Webfont Converter / Subsetter / Instancer
 
-This is a webapp for working with web fonts and deploying them to production. It's intended to provide the full pipeline: you put your source fonts in, and get web-ready fonts out. There are many existing tools for various steps in this pipeline, but putting them all together is a tedious manual process. Glypht provides a pipeline that can output Google Fonts-quality web-ready fonts, but fully self-hostable:
+Glypht is a toolkit for working with web fonts and deploying them to production. It provides the full pipeline: you put your source fonts in, and get web-ready fonts out. There are many existing tools for various steps in this pipeline, but putting them all together is a tedious manual process. Glypht provides a pipeline that can output Google Fonts-quality web-ready fonts, but fully self-hostable.
 
-1. **Subsetting:** Reduce the character set of the fonts to only languages used on your website, and remove unnecessary OpenType features, saving space.
-2. **Instancing:** Convert variable fonts to sets of static fonts, or separate out different character sets into different font files to be downloaded as needed. The latter also entails generating [the CSS `unicode-range` property](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/unicode-range) for each output font, which Glypht will do for you.
-3. **Converting:** Convert TTF/OTF fonts to WOFF2 (and optionally WOFF, if you need to support older browsers). Glypht does this in parallel, using all available CPU threads. As a bonus, Glypht also accepts WOFF and WOFF2 as input, so you can also use it as a WOFF(2) -> TTF converter in a pinch.
-4. **Packaging:** Do all of the above and generate a CSS file containing `@font-face` declarations for all the fonts. You can then download all the fonts and use them for your site.
+You can use Glypht as a webapp or a CLI. The webapp is good for static sites or other use cases where you don't want to add a build step--you upload your input fonts, and download a static set of web-ready fonts. If you want to integrate Glypht into your build process, you can use the CLI. It functions like a bundler: you specify the list of input fonts and processing settings using a JavaScript config file.
 
-Unlike all similar web-based tools that I'm aware of, this runs **entirely client-side** via WebAssembly. Despite the performance penalty of running in WebAssembly compared to native code, this is actually significantly *faster* than other web-based tools I've tested, and probably all the Python ones too.
+You can export CLI settings from the webapp, which lets you use Glypht to access the Google Fonts library, graphically configure all the settings, then save the fonts and the settings for use in your own build pipeline.
 
-The actual font subsetting/instancing is done via [the HarfBuzz library](https://harfbuzz.github.io), compiled to WebAssembly.
+For more about Glypht, see [the online documentation](https://glypht.valadaptive.dev/docs/).
 
-## Comparison
+## What it does
 
-- Glypht:
-  - Performs subsetting, instancing, conversion, and packaging.
-  - Performs conversion in parallel using web workers.
-  - Is browser-based, but runs client-side--no fonts are ever uploaded to a third-party server.
-  - Is designed with **first-class support for variable fonts.** Many similar tools don't support variable fonts at all, and those that do (e.g. pyftsubset) don't support subsetting the variable axes themselves.
+Packaging fonts for the web involves multiple steps:
 
-- [FontSquirrel's webfont generator](https://www.fontsquirrel.com/tools/webfont-generator):
-  - Performs subsetting, hinting, conversion, feature flattening/freezing, and packaging.
-  - Seems to perform its own secret-sauce autohinting by default, even if the font already has hinting.
-  - "Auto-adjusts" vertical metrics by default.
-  - May also do other processing steps that are geared towards the legacy web and are of dubious merit today.
-  - Runs server-side, and is extremely slow (10 seconds just to upload small font files, around a minute to process them).
-  - Doesn't support variable fonts; just returns a .zip containing no font files at all (after the requisite 1-minute wait).
+1. Subsetting. This is the part that tools like `pyftsubset` and `hb-subset` can do already. You give them a single font file, and they output a *subset* of it with, say, only the glyphs that cover your website's language, and maybe paring down or removing unused axes in variable fonts.
 
-- [Everything Fonts' subsetter](https://everythingfonts.com/subsetter):
-  - Performs character subsetting only; doesn't do any conversion.
-  - Runs server-side; quite fast, but appears to have a hidden file size limit that it doesn't tell you about, and fails silently if you exceed it.
+    `hb-subset` and Glypht support limiting the range of variable fonts' axes, but `pyftsubset` does not. See the section below for why this is so useful.
 
-- [pyftsubset](https://fonttools.readthedocs.io/en/latest/subset/index.html):
-  - Does both subsetting and conversion, as a command-line tool.
-  - Written in Python and hence may be tricky to install.
-  - Unlike Glypht, doesn't support instancing, pinning, or restricting the range of OpenType variation axes (for variable fonts).
+2. Instancing. The CSS `@font-face` declaration lets you map multiple font *files* to the same family name. This means that you can split up your fonts by language script, or by weight/width/other attributes.
 
-- [glyphhanger](https://github.com/zachleat/glyphhanger):
-  - Command-line tool; shells out to `pyftsubset` for the subsetting part.
-  - Allows for very precise subsetting by scanning for all characters used in a given file or set of files.
+    Google Fonts splits up all its fonts by language to improve load times, and Glypht lets you do the same for self-hosted fonts. It lets you specify [the same language sets](https://github.com/googlefonts/nam-files) as Google Fonts, as well as your own custom lists of codepoints to include.
 
-- [HarfBuzz' `hb-subset`](https://harfbuzz.github.io/utilities.html#utilities-command-line-hbsubset):
-  - Command-line interface for the same API that Glypht uses internally.
-  - Supports all the same subsetting operations as Glypht does.
-  - Performs subsetting only, no conversion.
+    You can also instance variable fonts into static fonts. Say, for instance, you have a variable font with a "slant" axis that goes from 0 (upright) to 14 (italic). With Glypht, you can instance that font into two different faces, an upright face and an italic one. If you instance across multiple axes or character sets, Glypht will compute and output the full matrix of font faces.
 
-- [kombu](https://kombu.kanejaku.org/):
-  - Performs conversion only; no subsetting.
-  - Doesn't generate CSS.
-  - Runs client-side, but only uses one thread (Glypht can convert multiple fonts in parallel).
+3. Compression. `pyftsubset` supports WOFF and WOFF2 compression, but `hb-subset` does not. Glypht does, and will automatically use multiple threads when compressing multiple font files. Glypht will export WOFF2 by default (it's supported by all modern browsers), but also supports WOFF and uncompressed TTF output.
 
-- [google-webfonts-helper](https://gwfh.mranftl.com/):
-  - Performs packaging of fonts available from Google Fonts, allowing them to be self-hosted.
-  - Instancing is required; variable fonts will be converted into static fonts, increasing the total download size. This is not Google Fonts' fault, but rather a limitation of google-webfonts-helper itself.
-  - Doesn't support any non-default OpenType features (like character variants, stylistic sets, tabular figures, small caps, etc), since Google Fonts [strips them](https://github.com/google/fonts/issues/1335).
+4. Packaging. Once you have your font files, you'll need some CSS to act as glue code. As mentioned above, the `@font-face` declaration maps a single font face to part of a font family, but also allows specifying *where* in that family the font is, with properties like `font-weight` and `unicode-range`. Glypht will generate a CSS file containing all the font faces, in all the formats you specify, each properly mapped into their position in their font families.
 
-## Variable fonts
+Unlike many similar tools that I'm aware of, this is pure JavaScript/WebAssembly. For the webapp, this means it runs entirely client-side (no fonts are uploaded to any external server, and there are no worries about that server ever going down or being exceptionally slow). For the CLI app, this means you don't need to worry about installing any native dependencies. The actual font subsetting/instancing is done via [the venerable HarfBuzz library](https://harfbuzz.github.io), compiled to WebAssembly, and compression is done via WebAssembly as well.
 
-Variable font support is so useful because variable fonts are smaller than static fonts. One variable font in a variety of styles is typically smaller than the equivalent split into several static fonts, and can be served with just one HTTP request.
+## Why variable fonts?
+
+Variable font support is so useful because variable fonts are small. One variable font in a variety of styles is typically smaller than the equivalent split into several static fonts, and can be served with just one HTTP request.
 
 Take [Inter](https://rsms.me/inter/), for example. It's a variable font with a weight that ranges from 100 to 900.
 
@@ -68,16 +41,3 @@ Let's say you only need certain weights, say, 400 (regular) to 700 (bold). If yo
 However, Glypht lets you go even further and limit the font's weight range while keeping it a variable font. As far as I know, `hb-subset` is the only other tool which can do this.
 
 If Inter's weight range is limited to 400-700, with the other settings remaining the same, the font is now **163KB**, smaller than both the full variable font and the pair of static fonts! As an added bonus, you get all the weights between 400 and 700 for free.
-
-
-## Future ideas
-
-- Allow for "freezing" OpenType features (see https://twardoch.github.io/fonttools-opentype-feature-freezer/)
-- Autohinting
-  - This is tricky because we may need different autohinters for CFF/CFF2 and TrueType outlines
-- Preview the glyphs in a font
-- Preview font features (see https://fontdrop.info/)
-- Make use of the data in https://github.com/google/fonts/ for font preview text, axis descriptions, etc.
-- Support the new [incremental font transfer](https://w3c.github.io/IFT/Overview.html) standard
-  - Probably should wait for it to be actually standardized though
-- Use the feature tag info registry more (show explanations of font features)

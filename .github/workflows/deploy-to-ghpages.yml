@@ -27,7 +27,7 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
 
       - run: npm ci
-      - run: npm run build
+      - run: npm run site:build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
@@ -36,5 +36,5 @@ jobs:
           NODE_ENV: production
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./glypht-web/dist
+          publish_dir: ./glypht-web/_site
           cname: glypht.valadaptive.dev
