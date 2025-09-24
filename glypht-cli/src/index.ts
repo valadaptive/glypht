@@ -1,4 +1,4 @@
-import type {FamilySubsetSettings} from '@glypht/bundler';
+import type {FamilySubsetSettings} from '@glypht/bundler-utils';
 
 /**
  * The configuration format for the Glypht CLI. This is what you'll export from your config file.

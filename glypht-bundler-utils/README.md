@@ -1,4 +1,4 @@
-# @glypht/bundler
+# @glypht/bundler-utils
 
 A JavaScript library for advanced font bundling and CSS generation. This library provides higher-level functionality on top of [@glypht/core](https://www.npmjs.com/package/@glypht/core), namely:
 
@@ -12,7 +12,7 @@ This library powers the export functionality in the [Glypht web application](htt
 ## Installation
 
 ```bash
-npm install @glypht/bundler
+npm install @glypht/bundler-utils
 ```
 
 ## Quick Start
@@ -21,7 +21,7 @@ npm install @glypht/bundler
 
 ```javascript
 import { GlyphtContext } from '@glypht/core';
-import { sortFontsIntoFamilies } from '@glypht/bundler';
+import { sortFontsIntoFamilies } from '@glypht/bundler-utils';
 
 const context = new GlyphtContext();
 
@@ -53,7 +53,7 @@ try {
 
 ```javascript
 import { WoffCompressionContext } from '@glypht/core';
-import { exportFonts } from '@glypht/bundler';
+import { exportFonts } from '@glypht/bundler-utils';
 
 const compressionContext = new WoffCompressionContext();
 
@@ -98,7 +98,7 @@ try {
 ### CSS Generation with Syntax Highlighting
 
 ```javascript
-import { exportedFontsToCSS } from '@glypht/bundler';
+import { exportedFontsToCSS } from '@glypht/bundler-utils';
 
 // Generate CSS from exported fonts
 const cssOutput = exportedFontsToCSS(
@@ -120,7 +120,7 @@ for (const span of cssOutput.spans) {
 ### Unicode Range Parsing
 
 ```javascript
-import { parseUnicodeRanges, formatUnicodeRanges } from '@glypht/bundler';
+import { parseUnicodeRanges, formatUnicodeRanges } from '@glypht/bundler-utils';
 
 // Parse Unicode ranges from strings
 const ranges = parseUnicodeRanges('U+0020-007F, U+00A0-00FF, U+0100-017F');
@@ -135,8 +135,8 @@ console.log(cssRanges); // ['U+20-7f', 'U+a0-ff', 'U+100-17f']
 
 The library provides specialized export paths:
 
-- **`@glypht/bundler`**: Main functionality including family organization and font export
-- **`@glypht/bundler/unicode-ranges.js`**: Unicode range parsing and formatting utilities
-- **`@glypht/bundler/feature-metadata.js`**: OpenType feature information and metadata
+- **`@glypht/bundler-utils`**: Main functionality including family organization and font export
+- **`@glypht/bundler-utils/unicode-ranges.js`**: Unicode range parsing and formatting utilities
+- **`@glypht/bundler-utils/feature-metadata.js`**: OpenType feature information and metadata
 
 [^1]: Because this package is responsible for generating the CSS itself, it knows the type of every CSS token it generates. This means there is no dependency on any third-party syntax highlighting library.

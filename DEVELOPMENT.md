@@ -7,7 +7,7 @@ This project uses Git submodules heavily--if you cloned it without them, use `gi
 This is a monorepo with four packages:
 
 - `@glypht/core` - Font subsetting and compression logic
-- `@glypht/bundler` - Higher-level functionality for bundling, splitting, and transforming font files
+- `@glypht/bundler-utils` - Higher-level functionality for bundling, splitting, and transforming font files
 - `@glypht/cli` - Command-line interface for font processing
 - `@glypht/web` - Web application frontend and documentation site
 

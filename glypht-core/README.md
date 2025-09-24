@@ -4,7 +4,7 @@ A JavaScript library for subsetting and compressing font files. This library pow
 
 Care has been taken to ensure compatibility across platforms and JS runtimes. Browsers, Node.js, Bun, and Deno should all function. Because this library makes heavy use of WebAssembly and Web Workers, if you want to *bundle* Glypht, you'll need a bundler that recognizes and transforms the `new URL('...', import.meta.url)` and `new Worker(new URL('...', import.meta.url), {type: 'module'})` patterns (such as Vite).
 
-For higher-level functionality (such as sorting fonts into groups, instancing multiple output fonts from one input font, and CSS generation), see [@glypht/bundler](https://www.npmjs.com/package/@glypht/bundler).
+For higher-level functionality (such as sorting fonts into groups, instancing multiple output fonts from one input font, and CSS generation), see [@glypht/bundler-utils](https://www.npmjs.com/package/@glypht/bundler-utils).
 
 ## Installation
 

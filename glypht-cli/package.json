@@ -25,7 +25,7 @@
     "directory": "glypht-cli"
   },
   "dependencies": {
-    "@glypht/bundler": "^0.0.6",
+    "@glypht/bundler-utils": "^0.0.6",
     "@glypht/core": "^0.0.6",
     "citty": "^0.1.6",
     "consola": "^3.4.2",

@@ -9,7 +9,7 @@ import {
     parseRanges,
     parseUnicodeRanges,
     SubsetAxisSetting,
-} from '@glypht/bundler';
+} from '@glypht/bundler-utils';
 import {WoffCompressionContext} from '@glypht/core/compression.js';
 
 import {

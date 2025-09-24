@@ -5,7 +5,7 @@
         "path": "./glypht-core"
     },
     {
-        "path": "./glypht-bundler"
+        "path": "./glypht-bundler-utils"
     }
 ]
 }

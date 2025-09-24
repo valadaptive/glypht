@@ -5,7 +5,7 @@ import {consola} from 'consola';
 import {colorize} from 'consola/utils';
 
 import {GlyphtContext, WoffCompressionContext} from '@glypht/core';
-import {exportedFontsToCSS, exportFonts, FamilySettings, sortFontsIntoFamilies} from '@glypht/bundler';
+import {exportedFontsToCSS, exportFonts, FamilySettings, sortFontsIntoFamilies} from '@glypht/bundler-utils';
 
 import formatFileSize from './format-file-size';
 import type {GlyphtConfig} from '.';

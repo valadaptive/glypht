@@ -6,7 +6,7 @@ import type {TargetedEvent} from 'preact/compat';
 import {Signal, useSignal} from '@preact/signals';
 import classNames from 'clsx';
 import {flip, offset, shift, size} from '@floating-ui/dom';
-import {ExportedFont, exportedFontsToCSS, NodeType} from '@glypht/bundler';
+import {ExportedFont, exportedFontsToCSS, NodeType} from '@glypht/bundler-utils';
 
 import {useAddErrorToast} from '../Toast/Toast';
 import {Button, CheckboxToggle, SpinBox, TextBox, ToggleIcon} from '../Widgets/Widgets';

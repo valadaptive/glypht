@@ -34,8 +34,8 @@ import {showFontPicker} from '../../util/file-picker';
 import formatFileSize from '../../util/format-file-size';
 import {ComponentChildren} from 'preact';
 import {useLiveSignal} from '../../util/signal-utils';
-import {featureMetadata} from '@glypht/bundler/feature-metadata.js';
-import {parseRanges, parseUnicodeRanges} from '@glypht/bundler';
+import {featureMetadata} from '@glypht/bundler-utils/feature-metadata.js';
+import {parseRanges, parseUnicodeRanges} from '@glypht/bundler-utils';
 import axisSpinboxParams from '../../util/axis-spinbox-params';
 
 const AxisSettingComponent = ({axis}: {axis: AxisSettingState}) => {

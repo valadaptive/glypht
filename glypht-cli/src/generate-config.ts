@@ -1,5 +1,5 @@
-import {sortFontsIntoFamilies} from '@glypht/bundler';
-import {featureMetadata} from '@glypht/bundler/feature-metadata.js';
+import {sortFontsIntoFamilies} from '@glypht/bundler-utils';
+import {featureMetadata} from '@glypht/bundler-utils/feature-metadata.js';
 import {FeatureInfo, GlyphtContext} from '@glypht/core';
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';

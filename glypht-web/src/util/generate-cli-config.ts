@@ -1,5 +1,5 @@
-import {parseRanges} from '@glypht/bundler';
-import {featureMetadata} from '@glypht/bundler/feature-metadata.js';
+import {parseRanges} from '@glypht/bundler-utils';
+import {featureMetadata} from '@glypht/bundler-utils/feature-metadata.js';
 import {FeatureInfo} from '@glypht/core';
 import {AxisSettingState, CharacterSetSettingsState} from './font-settings';
 import {Signal} from '@preact/signals';

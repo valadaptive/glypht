@@ -30,7 +30,7 @@ async function genApiDocs(): Promise<DocsPage[]> {
         entryPointStrategy: 'packages',
         entryPoints: [
             resolvePath('../../../glypht-core'),
-            resolvePath('../../../glypht-bundler'),
+            resolvePath('../../../glypht-bundler-utils'),
             resolvePath('../../../glypht-cli'),
         ],
         tsconfig: resolvePath('../../../tsconfig.docs.json'),

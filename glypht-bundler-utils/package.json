@@ -1,5 +1,5 @@
 {
-  "name": "@glypht/bundler",
+  "name": "@glypht/bundler-utils",
   "version": "0.0.6",
   "description": "Higher-level functionality for bundling, splitting, and transforming font files",
   "type": "module",
@@ -39,7 +39,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/valadaptive/glypht.git",
-    "directory": "glypht-bundler"
+    "directory": "glypht-bundler-utils"
   },
   "dependencies": {
     "@glypht/core": "^0.0.6"
