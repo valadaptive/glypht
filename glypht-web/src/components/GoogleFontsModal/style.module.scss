@@ -114,8 +114,6 @@
 }
 
 .font-preview-header {
-    font-weight: bold;
-    font-size: 1.5rem;
     margin-bottom: 0.5rem;
     display: flex;
     align-items: center;
@@ -123,6 +121,11 @@
     & .add-font-button {
         margin-left: auto;
     }
+}
+
+.font-preview-title {
+    font-weight: bold;
+    font-size: 1.5rem;
 }
 
 .font-meta {

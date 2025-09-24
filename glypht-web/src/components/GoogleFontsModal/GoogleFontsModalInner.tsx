@@ -10,9 +10,10 @@ import {
     SearchableCheckboxDropdown,
     ToggleIcon,
     Dropdown,
+    Button,
 } from '../Widgets/Widgets';
 import {FamilyProto, FontProto, LanguageProto, AxisProto, ScriptProto} from '../../generated/google-fonts-types';
-import {IconButton} from '../Icon/Icon';
+import Icon, {IconButton} from '../Icon/Icon';
 import {useCallback, useId, useMemo} from 'preact/hooks';
 import {useAddErrorToast} from '../Toast/Toast';
 
@@ -355,8 +356,8 @@ const FontPreview = ({family}: {
         <div className={style.fontPreview}>
             <style>{fontCss}</style>
             <header className={style.fontPreviewHeader}>
-                <div>{family.name}</div>
-                <AddFontButton family={family} />
+                <div className={style.fontPreviewTitle}>{family.name}</div>
+                <AddFontButton family={family} fullSize={true} />
             </header>
             <div className={style.fontMeta}>
                 <div className={style.fontMetaLine}>
@@ -409,7 +410,7 @@ const FontPreview = ({family}: {
     );
 };
 
-const AddFontButton = ({family}: {family: GoogleFontsFamily}) => {
+const AddFontButton = ({family, fullSize}: {family: GoogleFontsFamily; fullSize?: boolean}) => {
     const appState = useAppState();
     const addErrorToast = useAddErrorToast();
     const isAdding = useSignal(false);
@@ -435,6 +436,29 @@ const AddFontButton = ({family}: {family: GoogleFontsFamily}) => {
         }
         Promise.all(all).then(doneAdding, doneAdding);
     }, [appState, family, isAdding]);
+
+    if (fullSize) {
+        return <Button
+            className={style.addFontButton} disabled={isAdding.value || appState.loadedFamilies.value.has(family.name)}
+            onClick={handleAdd}
+        >
+            {isAdding.value ?
+                <>
+                    <Loader size={24} />
+                    Add font
+                </> :
+                appState.loadedFamilies.value.has(family.name) ?
+                    <>
+                        <Icon type='check' title='' />
+                        Added
+                    </> :
+                    <>
+                        <Icon type='plus' title='' />
+                        Add font
+                    </>
+            }
+        </Button>;
+    }
 
     return (
         <div className={style.addFontButton}>
