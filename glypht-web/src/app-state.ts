@@ -91,8 +91,7 @@ export class AppState {
             woff: signal(false),
             woff2: signal(true),
         },
-        // The default in sfnt2woff-zopfli is 15, but there does not seem to be any difference in output size
-        woffCompression: signal(1),
+        woffCompression: signal(15),
         woff2Compression: signal(11),
         includeTTFinCSS: signal(true),
     };
@@ -619,7 +618,7 @@ export class AppState {
             }
 
             await this.addFonts(fonts);
-            this.loadAllSettings(settingsJson);
+            this.loadAllSettings(settingsJson.settings);
         } finally {
             this.fontsBeingLoaded.value--;
         }
