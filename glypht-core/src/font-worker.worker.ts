@@ -113,6 +113,7 @@ const updateFonts = async(
             familyName: newFont.familyName,
             subfamilyName: newFont.subfamilyName,
             styleValues: newFont.styleValues,
+            styleAttributes: newFont.styleAttributes,
             fileSize: newFont.fileSize,
             axes: newFont.axes,
             features: newFont.features,

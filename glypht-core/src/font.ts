@@ -9,9 +9,12 @@ import createHarfbuzz, {
 } from './hb-wrapper.js';
 import {
     AxisInfo,
+    AxisValue,
+    DesignAxisRecord,
     FeatureInfo,
     NamedInstance,
     SfntVersion,
+    StyleAttributes,
     StyleValue,
     StyleValues,
     SubsetAxisInfo,
@@ -79,6 +82,7 @@ export class Font {
     public readonly familyName: string;
     public readonly subfamilyName: string;
     public readonly styleValues: StyleValues;
+    public readonly styleAttributes: StyleAttributes | null;
     public readonly fileSize: number;
     /** Variable font axes. Does not include variable axes listed in {@link styleValues}. */
     public readonly axes: AxisInfo[];
@@ -166,6 +170,8 @@ export class Font {
         this.axes = axisInfo;
         this.styleValues = styleValues;
         this.namedInstances = namedInstances;
+
+        this.styleAttributes = this.parseStatTable();
 
         const featureInfo: FeatureInfo[] = [];
         const seenTags = new Set();
@@ -425,6 +431,125 @@ export class Font {
                 hb._free(namePtr);
             }
         });
+    }
+
+    private parseStatTable(): StyleAttributes | null {
+        const ptr = hb._hb_face_reference_table(this.hbFace, hbTag('STAT'));
+        if (!ptr) return null;
+        const statBlob = new hb.HbBlob(ptr);
+        try {
+            const stat = statBlob.data();
+            let offset = stat;
+            const readU16 = () => {
+                const result = hb.memoryView.getUint16(offset);
+                offset += 2;
+                return result;
+            };
+            const readU32 = () => {
+                const result = hb.memoryView.getUint32(offset);
+                offset += 4;
+                return result;
+            };
+            const readFixed = () => {
+                const result = hb.memoryView.getInt32(offset) / 65536;
+                offset += 4;
+                return result;
+            };
+            const seek = (to: number) => {
+                offset = stat + to;
+            };
+
+            const __majorVersion = readU16();
+            const __minorVersion = readU16();
+            const designAxisSize = readU16();
+            const designAxisCount = readU16();
+            const designAxesOffset = readU32();
+            const axisValueCount = readU16();
+            const offsetToAxisValueOffsets = readU32();
+
+            const designAxes: DesignAxisRecord[] = [];
+
+            for (let i = 0; i < designAxisCount; i++) {
+                seek(designAxesOffset + (i * designAxisSize));
+                const tag = tagName(readU32());
+                const axisNameID = readU16();
+                const ordering = readU16();
+                const name = this.getOpentypeName(axisNameID);
+                designAxes.push({tag, name, ordering});
+            }
+
+            const axisValues: AxisValue[] = [];
+            for (let i = 0; i < axisValueCount; i++) {
+                seek(offsetToAxisValueOffsets + (i * 2));
+                const axisValueOffset = readU16();
+                seek(offsetToAxisValueOffsets + axisValueOffset);
+
+                const format = readU16();
+                const axisIndexOrCount = readU16();
+                const flags = readU16();
+                const nameID = readU16();
+                const name = this.getOpentypeName(nameID);
+                const axisValue = {flags, name};
+
+                switch (format) {
+                    case 1: {
+                        const value = readFixed();
+                        axisValues.push(Object.assign(axisValue, {
+                            format,
+                            axisIndex: axisIndexOrCount,
+                            value,
+                        }));
+                        break;
+                    }
+                    case 2: {
+                        const nominalValue = readFixed();
+                        let min = readFixed();
+                        let max = readFixed();
+                        // Per the OpenType spec: "Some design axes may be open ended, having an effective minimum value
+                        // of negative infinity, or an effective maximum value of positive infinity. To represent an
+                        // effective minimum of negative infinity, set rangeMinValue to 0x80000000. To represent an
+                        // effective maximum of positive infinity, set rangeMaxValue to 0x7FFFFFFF."
+                        if (min === -32768) min = -Infinity;
+                        if (max === 32767.99998474121) max = Infinity;
+                        axisValues.push(Object.assign(axisValue, {
+                            format,
+                            axisIndex: axisIndexOrCount,
+                            nominalValue,
+                            min,
+                            max,
+                        }));
+                        break;
+                    }
+                    case 3: {
+                        const value = readFixed();
+                        const linkedValue = readFixed();
+                        axisValues.push(Object.assign(axisValue, {
+                            format,
+                            axisIndex: axisIndexOrCount,
+                            value,
+                            linkedValue,
+                        }));
+                        break;
+                    }
+                    case 4: {
+                        const values = [];
+                        for (let j = 0; j < axisIndexOrCount; j++) {
+                            values.push({axisIndex: readU16(), value: readFixed()});
+                        }
+                        axisValues.push(Object.assign(axisValue, {
+                            format,
+                            axisCount: axisIndexOrCount,
+                            axisValues: values,
+                        }));
+                        break;
+                    }
+                }
+            }
+
+            return {designAxes, axisValues};
+        } finally {
+            statBlob.destroy();
+        }
     }
 
     destroy() {

@@ -87,6 +87,7 @@ export class GlyphtContext {
                     format,
                     data: fontData,
                     styleValues: fontMessage.styleValues,
+                    styleAttributes: fontMessage.styleAttributes,
                     axes: fontMessage.axes.map(axis => ({
                         type: 'variable',
                         tag: axis.tag,

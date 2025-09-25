@@ -19,6 +19,7 @@ type WasmExportsOnly<T extends object> = Omit<T, keyof EmscriptenDefinedExports>
 
 export type AugmentedModule<T extends object> = WasmExportsOnly<T> & {
     wasmMemory: WebAssembly.Memory;
+    memoryView: DataView;
     HEAPU8: Uint8Array;
     stackAlloc(sz: number): number;
     stackRestore(val: number): number;
@@ -54,14 +55,13 @@ const instantiateWasm = async(path: string | URL | BufferSource, imports: WebAss
  */
 export const initWasm = async <T extends object>(source: string | URL | BufferSource): Promise<AugmentedModule<T>> => {
     const stub = () => {throw new Error('Not implemented');};
-    let memoryView: DataView;
     const importFns = {
         fd_seek: stub,
         fd_write: stub,
         fd_close: stub,
         proc_exit: stub,
         emscripten_notify_memory_growth: () => {
-            memoryView = new DataView((instance.exports.memory as WebAssembly.Memory).buffer);
+            augmentedModule.memoryView = new DataView((instance.exports.memory as WebAssembly.Memory).buffer);
             augmentedModule.HEAPU8 = new Uint8Array((instance.exports.memory as WebAssembly.Memory).buffer);
         },
     };
@@ -71,12 +71,12 @@ export const initWasm = async <T extends object>(source: string | URL | BufferSo
         wasi_snapshot_preview1: importFns,
     };
     const {module, instance} = await instantiateWasm(source, imports);
-    memoryView = new DataView((instance.exports.memory as WebAssembly.Memory).buffer);
 
     const funcTable = instance.exports.__indirect_function_table as WebAssembly.Table;
     const augmentedModule: AugmentedModule<T> = {
         wasmMemory: instance.exports.memory as WebAssembly.Memory,
         HEAPU8: new Uint8Array((instance.exports.memory as WebAssembly.Memory).buffer),
+        memoryView: new DataView((instance.exports.memory as WebAssembly.Memory).buffer),
         stackAlloc: instance.exports._emscripten_stack_alloc,
         stackRestore: instance.exports._emscripten_stack_restore,
         stackSave: instance.exports.emscripten_stack_get_current,
@@ -94,16 +94,16 @@ export const initWasm = async <T extends object>(source: string | URL | BufferSo
             }
         },
         readUint32(addr) {
-            return memoryView.getUint32(addr, true);
+            return this.memoryView.getUint32(addr, true);
         },
         writeUint32(addr, value) {
-            memoryView.setUint32(addr, value, true);
+            this.memoryView.setUint32(addr, value, true);
         },
         readFloat32(addr) {
-            return memoryView.getFloat32(addr, true);
+            return this.memoryView.getFloat32(addr, true);
         },
         writeFloat32(addr, value) {
-            memoryView.setFloat32(addr, value, true);
+            this.memoryView.setFloat32(addr, value, true);
         },
         malloc(size) {
             const ptr: number = (instance.exports.malloc as (size: number) => number)(size);

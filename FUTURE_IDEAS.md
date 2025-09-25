@@ -12,3 +12,4 @@
 - Use the feature tag info registry more (show explanations of font features)
 - Drop legacy `kern` table if HarfBuzz doesn't already
 - Use the Google Fonts repo's style tags in the browser
+- Use the STAT table to get static names for instances (e.g. "Linear" and "Casual")

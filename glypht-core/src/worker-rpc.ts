@@ -3,6 +3,7 @@ import {
     FeatureInfo,
     NamedInstance,
     SfntVersion,
+    StyleAttributes,
     StyleValues,
     SubsetInfo,
     SubsetSettings,
@@ -30,6 +31,7 @@ export type FontMessage = {
     familyName: string;
     subfamilyName: string;
     styleValues: StyleValues;
+    styleAttributes: StyleAttributes | null;
     fileSize: number;
     axes: AxisInfo[];
     features: FeatureInfo[];

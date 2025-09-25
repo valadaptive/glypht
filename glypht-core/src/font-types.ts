@@ -89,6 +89,154 @@ export type StyleValues = Record<StyleKey, StyleValue>;
 export type SfntVersion = 'truetype' | 'opentype';
 
 /**
+ * Design axis record from the [STAT table](https://learn.microsoft.com/en-us/typography/opentype/spec/stat).
+ */
+export type DesignAxisRecord = {
+    /** A tag designating the axis (e.g. "wght", "opsz"). */
+    tag: string;
+    /** The axis' name (e.g. "Weight", "Optical Size"). */
+    name: string | null;
+    /**
+     * The order of this axis relative to others, e.g. in a face name (for example, if "opsz" is 0 and "wght" is 1, then
+     * a face's name might end in "Display Bold").
+     */
+    ordering: number;
+};
+
+/**
+ * Format for an axis value record ({@link AxisValue}).
+ */
+export enum AxisValueFormat {
+    SingleValue = 1,
+    Range = 2,
+    LinkedValue = 3,
+    MultipleValues = 4,
+};
+
+/** Flags for an {@link AxisValue}. */
+export enum AxisValueFlags {
+    /**
+     * If set, this axis value table provides axis value information that is applicable to other fonts within the same
+     * font family. This is used if the other fonts were released earlier and did not include information about values
+     * for some axis. If newer versions of the other fonts include the information themselves and are present, then this
+     * table is ignored.
+     */
+    OlderSibling = 0x0001,
+    /**
+     * If set, it indicates that the axis value represents the “normal” value for the axis and may be omitted when
+     * composing name strings.
+     */
+    Elidable = 0x0002,
+}
+
+/**
+ * A record that associates a single axis value with a name.
+ */
+export type AxisValueSingle = {
+    format: AxisValueFormat.SingleValue;
+    flags: AxisValueFlags;
+    name: string | null;
+    axisIndex: number;
+    value: number;
+};
+
+/**
+ * A record that associates a range of axis values with a name.
+ *
+ * The range is inclusive, and may be open-ended, in which case min or max will be negative or positive infinity
+ * respectively.
+ *
+ * The behavior when these ranges overlap with values in other axis value records is complicated, but described in the
+ * OpenType spec:
+ *
+ * > The range specification of a format 2 table is inclusive: both the minimum and maximum values are included within
+ * > the range. Two tables for a given axis may have ranges that touch (the rangeMaxValue of one range is the
+ * > rangeMinValue of the other), but ranges should not overlap more than that. In the case of two ranges that touch:
+ * >
+ * >   - At most one of the ranges should have the nominalValue set to the axis value at which the ranges touch.
+ * >   - When the requested axis value is the value at which the ranges touch, the higher range must be used unless the
+ * >     nominalValue for the lower range is set to the value at which the ranges touch, and the nominalValue for the
+ * >     higher range is greater than that value.
+ * >
+ * > Similar behavior is used if the value of a format 1 or format 3 table touches the range of a format 2 table:
+ * >
+ * >   - If the value of a format 1 or format 3 table is equal to the rangeMaxValue of a format 2 table, the format 1 or
+ * >     format 3 table is used.
+ * >   - If the value of a format 1 or format 3 table is equal to the rangeMinValue of a format 2 table, the format 1 or
+ * >     format 3 table is used except if the nominalValue of the format 2 table is also equal to the rangeMinValue.
+ * >
+ * > If two format 2 tables have ranges for the same axis with non-zero overlap, then the following guidance is
+ * > recommended for applications:
+ * >
+ * >   - If two tables have identical ranges, the application should consistently choose one and ignore the other, by
+ * >     its own criteria.
+ * >   - Else, if the range of one table is entirely contained within the range of other, then the table with the
+ * >     smaller range should be ignored.
+ * >   - Else, for axis values within the overlapping range, use the table with the higher range (both rangeMinValue and
+ * >     rangeMaxValue are higher).
+ */
+export type AxisValueRange = {
+    format: AxisValueFormat.Range;
+    flags: AxisValueFlags;
+    name: string | null;
+    axisIndex: number;
+    nominalValue: number;
+    min: number;
+    max: number;
+};
+
+/**
+ * A record that associates an axis value to another linked axis value. This is primarily intended to link a regular
+ * weight to a "Bold" weight, e,g. to know which weight to select if a user clicks the "Bold" button.
+ */
+export type AxisValueLinked = {
+    format: AxisValueFormat.LinkedValue;
+    flags: AxisValueFlags;
+    name: string | null;
+    axisIndex: number;
+    value: number;
+    linkedValue: number;
+};
+
+/**
+ * A record that associates a set of axis values to a single name. There's some spec subtlety here:
+ *
+ * > When searching for an axis value table to match a particular combination of values, if two format 4 tables are
+ * > found to be a partial match for that combination of values, the table that matches a greater number of values (the
+ * > most specific match) should be used. If two matching format 4 tables are equally specific—the same number of values
+ * > for a different set of axes—then the first matching table should be used.
+ * >
+ * > Similarly, if a format 1, format 2 or format 3 table has a (nominal) value used in a format 4 table that also has
+ * > values for other axes, the format 4 table, being the more specific match, should be used.
+ * >
+ * > Because a format 4 table combines values on multiple axes, there can be ambiguity about axis ordering. This could
+ * > arise when dynamically composing names using the labels provided by axis value tables, or in other situations in
+ * > which the axisOrdering values of axis records are used. For a format 4 table, the axisOrdering value assumed should
+ * > be the lowest axisOrdering value for the axes referenced by the format 4 table.
+ */
+export type AxisValueMultiple = {
+    format: AxisValueFormat.MultipleValues;
+    flags: AxisValueFlags;
+    name: string | null;
+    axisValues: {axisIndex: number; value: number}[];
+};
+
+/** An axis-value-to-name mapping. */
+export type AxisValue = AxisValueSingle | AxisValueRange | AxisValueLinked | AxisValueMultiple;
+
+/**
+ * Values from the font's [STAT table](https://learn.microsoft.com/en-us/typography/opentype/spec/stat), if present.
+ * These values describe a font's style axes (even those not present as *variation* axes), and the font's position in
+ * the axis space.
+ */
+export type StyleAttributes = {
+    /** The font's design axes. */
+    designAxes: DesignAxisRecord[];
+    /** Design axis value mappings. */
+    axisValues: AxisValue[];
+};
+
+/**
  * Output font after subsetting.
  */
 export type SubsettedFont = {
@@ -204,6 +352,10 @@ export type FontRef = {
     subfamilyName: string;
     /** This font's style values (weight, width, italic, slant). These may be static or variable. */
     styleValues: StyleValues;
+    /**
+     * Values from the font's [STAT table](https://learn.microsoft.com/en-us/typography/opentype/spec/stat), if present.
+     */
+    styleAttributes: StyleAttributes | null;
     /**
      * The size of the file this font comes from. If this font comes from a collection file, this will be the size of
      * the entire collection.
