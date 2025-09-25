@@ -27,7 +27,7 @@ const SubsetAxisSettingSchema = v.variant('type', [
 const SubsetNameSchema = v.picklist(SUBSET_NAMES);
 
 const CharacterSetSettingsSchema = v.object({
-    includeNamedSubsets: v.array(SubsetNameSchema),
+    includeNamedSubsets: v.optional(v.array(SubsetNameSchema)),
     includeUnicodeRanges: v.optional(
         v.union([v.string(), v.array(v.union([v.number(), v.tuple([v.number(), v.number()])]))])),
     name: v.optional(v.string()),
