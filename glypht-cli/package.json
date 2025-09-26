@@ -24,6 +24,7 @@
     "url": "git+https://github.com/valadaptive/glypht.git",
     "directory": "glypht-cli"
   },
+  "homepage": "https://glypht.valadaptive.dev/docs/api/modules/_glypht_cli.html",
   "dependencies": {
     "@glypht/bundler-utils": "^0.0.7",
     "@glypht/core": "^0.0.7",

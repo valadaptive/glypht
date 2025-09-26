@@ -44,6 +44,7 @@
     "url": "git+https://github.com/valadaptive/glypht.git",
     "directory": "glypht-core"
   },
+  "homepage": "https://glypht.valadaptive.dev/docs/api/modules/_glypht_core.html",
   "devDependencies": {
     "@rollup/plugin-inject": "^5.0.5",
     "@rollup/plugin-typescript": "^12.1.4",
