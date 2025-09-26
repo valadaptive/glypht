@@ -1,7 +1,7 @@
 {
   "name": "@glypht/core",
   "type": "module",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Library for subsetting and (de)compressing font files",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

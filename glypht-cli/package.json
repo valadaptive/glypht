@@ -1,6 +1,6 @@
 {
   "name": "@glypht/cli",
-  "version": "0.0.1",
+  "version": "0.0.7",
   "type": "module",
   "description": "Front-end tooling for your web fonts",
   "main": "dist/index.js",
@@ -25,8 +25,8 @@
     "directory": "glypht-cli"
   },
   "dependencies": {
-    "@glypht/bundler-utils": "^0.0.6",
-    "@glypht/core": "^0.0.6",
+    "@glypht/bundler-utils": "^0.0.7",
+    "@glypht/core": "^0.0.7",
     "citty": "^0.1.6",
     "consola": "^3.4.2",
     "tinyglobby": "^0.2.14"

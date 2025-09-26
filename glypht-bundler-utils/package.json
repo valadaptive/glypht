@@ -1,6 +1,6 @@
 {
   "name": "@glypht/bundler-utils",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Higher-level functionality for bundling, splitting, and transforming font files",
   "type": "module",
   "main": "dist/index.js",
@@ -42,7 +42,7 @@
     "directory": "glypht-bundler-utils"
   },
   "dependencies": {
-    "@glypht/core": "^0.0.6"
+    "@glypht/core": "^0.0.7"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^12.1.4",
