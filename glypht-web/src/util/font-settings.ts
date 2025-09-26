@@ -3,6 +3,14 @@ import type {FeatureInfo, FontRef, StyleKey, StyleValues, SubsetName} from '@gly
 import {FamilyInfo, sortFontsIntoFamilies} from '@glypht/bundler-utils';
 import {featureMetadata} from '@glypht/bundler-utils/feature-metadata.js';
 
+import axesListJson from '../generated/axes.json';
+import {AxisProto} from '../generated/google-fonts-types';
+const axesList = axesListJson as AxisProto[];
+const axisMetadata = new Map<string, AxisProto>();
+for (const axis of axesList) {
+    axisMetadata.set(axis.tag, axis);
+}
+
 /**
  * Type of a variation axis setting mode.
  *
@@ -246,9 +254,15 @@ export const settingsFromFonts = (fonts: {font: FontRef; filename: string}[]): F
             settings: {
                 styleSettings: styleValuesToSettings(family.styleValues, family.axisInstanceValues),
                 axisSettings: family.axes.map(axis => {
+                    let axisName = axis.name ?? undefined;
+                    // If the axis name is the same as the tag, or it has no defined name, try looking it up from Google
+                    // Fonts
+                    if (axis.name === axis.tag || typeof axis.name === 'undefined') {
+                        axisName = axisMetadata.get(axis.tag)?.displayName;
+                    }
                     return {
                         tag: axis.tag,
-                        name: axis.name ?? axis.tag,
+                        name: axisName ?? axis.tag,
                         range: {
                             min: axis.min,
                             defaultValue: axis.defaultValue,
