@@ -253,6 +253,8 @@ export type SubsettedFont = {
     data: Uint8Array<ArrayBuffer>;
     /** The font's style values (weight, width, italic, slant), either variable or fixed. */
     styleValues: StyleValues;
+    /** This font's style axis attributes. */
+    styleAttributes: StyleAttributes;
     /**
      * Information about the non-style variation axes. All axes from the original font are included here, even if they
      * were pinned to fixed values.

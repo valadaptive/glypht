@@ -31,7 +31,7 @@ export type FontMessage = {
     familyName: string;
     subfamilyName: string;
     styleValues: StyleValues;
-    styleAttributes: StyleAttributes | null;
+    styleAttributes: StyleAttributes;
     fileSize: number;
     axes: AxisInfo[];
     features: FeatureInfo[];

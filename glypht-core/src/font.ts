@@ -10,6 +10,7 @@ import createHarfbuzz, {
 import {
     AxisInfo,
     AxisValue,
+    AxisValueFormat,
     DesignAxisRecord,
     FeatureInfo,
     NamedInstance,
@@ -18,6 +19,7 @@ import {
     StyleValue,
     StyleValues,
     SubsetAxisInfo,
+    SubsetAxisSetting,
     SubsetInfo,
     SubsetSettings,
     SubsettedFont,
@@ -82,7 +84,7 @@ export class Font {
     public readonly familyName: string;
     public readonly subfamilyName: string;
     public readonly styleValues: StyleValues;
-    public readonly styleAttributes: StyleAttributes | null;
+    public readonly styleAttributes: StyleAttributes;
     public readonly fileSize: number;
     /** Variable font axes. Does not include variable axes listed in {@link styleValues}. */
     public readonly axes: AxisInfo[];
@@ -171,7 +173,7 @@ export class Font {
         this.styleValues = styleValues;
         this.namedInstances = namedInstances;
 
-        this.styleAttributes = this.parseStatTable();
+        this.styleAttributes = this.parseStatTable() ?? {designAxes: [], axisValues: []};
 
         const featureInfo: FeatureInfo[] = [];
         const seenTags = new Set();
@@ -729,6 +731,57 @@ export class Font {
                 }
             }
 
+            const styleAttributes: StyleAttributes = {
+                designAxes: [],
+                axisValues: [],
+            };
+            for (const axis of this.styleAttributes.designAxes) {
+                styleAttributes.designAxes.push(Object.assign({}, axis));
+            }
+            const axisSettingsByTag = new Map<string, SubsetAxisSetting>();
+            for (const axisSetting of settings.axisValues) {
+                axisSettingsByTag.set(axisSetting.tag, axisSetting);
+            }
+            const axisValueOutsideRange = (tag: string, value: number) => {
+                const axisSetting = axisSettingsByTag.get(tag);
+                if (!axisSetting) return false;
+                if (axisSetting.type === 'single') return value !== axisSetting.value;
+                return value < axisSetting.value.min || value > axisSetting.value.max;
+            };
+            for (const axisValue of this.styleAttributes.axisValues) {
+                switch (axisValue.format) {
+                    case AxisValueFormat.SingleValue: {
+                        const tag = styleAttributes.designAxes[axisValue.axisIndex].tag;
+                        if (!axisValueOutsideRange(tag, axisValue.value)) styleAttributes.axisValues.push(axisValue);
+                        break;
+                    }
+                    case AxisValueFormat.Range: {
+                        const tag = styleAttributes.designAxes[axisValue.axisIndex].tag;
+                        // It feels like we should be checking if the ranges intersect at all, but HarfBuzz just checks
+                        // the nominal value
+                        if (!axisValueOutsideRange(tag, axisValue.nominalValue)) {
+                            styleAttributes.axisValues.push(axisValue);
+                        }
+                        break;
+                    }
+                    case AxisValueFormat.LinkedValue: {
+                        const tag = styleAttributes.designAxes[axisValue.axisIndex].tag;
+                        if (!axisValueOutsideRange(tag, axisValue.value)) styleAttributes.axisValues.push(axisValue);
+                        break;
+                    }
+                    case AxisValueFormat.MultipleValues: {
+                        for (const subValue of axisValue.axisValues) {
+                            const tag = styleAttributes.designAxes[subValue.axisIndex].tag;
+                            if (!axisValueOutsideRange(tag, subValue.value)) {
+                                styleAttributes.axisValues.push(axisValue);
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+
             const subsetCodepoints = new hb.HbSet();
             subsetCodepoints.setTo(this.codePoints);
             subsetCodepoints.intersect(unicodeSet);
@@ -743,6 +796,7 @@ export class Font {
                 format: tag === hbTag('OTTO') ? 'opentype' : 'truetype',
                 data,
                 styleValues: styleValues as StyleValues,
+                styleAttributes,
                 axes,
                 namedInstance: subsetNamedInstance,
                 unicodeRanges,

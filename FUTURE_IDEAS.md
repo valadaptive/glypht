@@ -12,4 +12,4 @@
 - Use the feature tag info registry more (show explanations of font features)
 - Drop legacy `kern` table if HarfBuzz doesn't already
 - Use the Google Fonts repo's style tags in the browser
-- Use the STAT table to get static names for instances (e.g. "Linear" and "Casual")
+- Let the user specify names for custom instanced axis values (for instance, instancing opsz to `8, 32` could be `8, 32@'Display'` to name the 32pt one "Foo Display")

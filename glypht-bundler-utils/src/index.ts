@@ -1,14 +1,17 @@
-import type {
-    AxisInfo,
-    FeatureInfo,
-    FontRef,
-    StyleKey,
-    StyleValue,
-    StyleValues,
-    SubsetAxisInfo,
-    SubsetName,
-    SubsettedFont,
-    WoffCompressionContext,
+import {
+    AxisValueFlags,
+    AxisValueFormat,
+    AxisValueMultiple,
+    type AxisInfo,
+    type FeatureInfo,
+    type FontRef,
+    type StyleKey,
+    type StyleValue,
+    type StyleValues,
+    type SubsetAxisInfo,
+    type SubsetName,
+    type SubsettedFont,
+    type WoffCompressionContext,
 } from '@glypht/core';
 
 import CSSEmitter, {CSSOutput} from './css';
@@ -612,14 +615,17 @@ const instanceSubsetSettings = (settings: FamilySettings[]): Map<number, (Instan
  * @returns A map of family names -> axes and style values that vary within that family.
  */
 const findVaryingAxes = (fonts: SubsettedFont[]) => {
-    const varyingAxesByFamily = new Map<string, {
-        varyingAxes: Set<string>;
-        varyingStyleValues: {weight: boolean; width: boolean; italic: boolean; slant: boolean};
-    }>();
+    const varyingAxesByFamily = new Map<string, Set<string>>();
     const axesByFamily = new Map<string, {
         axes: Map<string, SubsetAxisInfo>;
         styleValues: Partial<Record<StyleKey, StyleValue>>;
     }>();
+    const styleToAxisNames = {
+        italic: 'ital',
+        slant: 'slnt',
+        weight: 'wght',
+        width: 'wdth',
+    } as const;
 
     for (const font of fonts) {
         let axesInfo = axesByFamily.get(font.familyName);
@@ -628,15 +634,11 @@ const findVaryingAxes = (fonts: SubsettedFont[]) => {
             axesByFamily.set(font.familyName, axesInfo);
         }
         const {axes, styleValues} = axesInfo;
-        let varyingInfo = varyingAxesByFamily.get(font.familyName);
-        if (!varyingInfo) {
-            varyingInfo = {
-                varyingAxes: new Set(),
-                varyingStyleValues: {weight: false, width: false, italic: false, slant: false},
-            };
-            varyingAxesByFamily.set(font.familyName, varyingInfo);
+        let varyingAxes = varyingAxesByFamily.get(font.familyName);
+        if (!varyingAxes) {
+            varyingAxes = new Set();
+            varyingAxesByFamily.set(font.familyName, varyingAxes);
         }
-        const {varyingAxes} = varyingInfo;
         for (const axis of font.axes) {
             const existingAxis = axes.get(axis.tag);
             if (existingAxis) {
@@ -663,7 +665,7 @@ const findVaryingAxes = (fonts: SubsettedFont[]) => {
                 continue;
             }
             if (!styleValuesEqual(styleValues[styleName], styleValue)) {
-                varyingInfo.varyingStyleValues[styleName] = true;
+                varyingAxes.add(styleToAxisNames[styleName]);
                 styleValues[styleName] = styleValue;
             }
         }
@@ -677,11 +679,10 @@ const fontFilenames = (fonts: ExportedFont[]) => {
 
     const filenames = new Map<SubsettedFont, string>();
     for (const {font, charsetNameOrIndex, overrideName} of fonts) {
-        const varyingInfo = varyingAxesByFamily.get(font.familyName)!;
+        const varyingAxes = varyingAxesByFamily.get(font.familyName)!;
         filenames.set(font, fontFilename(
             font,
-            varyingInfo.varyingAxes,
-            varyingInfo.varyingStyleValues,
+            varyingAxes,
             charsetNameOrIndex,
             overrideName,
         ));
@@ -692,74 +693,258 @@ const fontFilenames = (fonts: ExportedFont[]) => {
 
 const roundDecimal = (v: number) => Math.round(v * 1000) / 1000;
 
+/**
+ * Return a list of instance labels necessary to disambiguate this from other fonts in the family, for filenames or CSS
+ * family names.
+ *
+ * For filename purposes, this might return something like ["Condensed", "Bold", "Italic", "Casual"]. For CSS, where
+ * weight/width/slope properties are part of the `@font-face` declaration but other axes are not, it might return
+ * something like ["Casual"].
+ *
+ * TODO: Add tests for this. Good test fonts would be Recursive (lots of axes), Nunito Sans (has both "ital" and "slnt"
+ * axes, which is not best practice), Inter ("opsz" axis).
+ *
+ * @param font The font to operate on.
+ * @param varyingAxes Axis tags that vary over all fonts in this family.
+ * @param includeStyleValues Whether to include weight/width/slope labels in the output. This should be true for
+ * filenames, where every single instance needs to be unique, but false for CSS family names, where we only need to give
+ * a unique name to every instance with different non-WWS values.
+ * @returns A list of labels.
+ */
+const getInstanceLabels = (font: SubsettedFont, varyingAxes: Set<string>, includeStyleValues: boolean): string[] => {
+    // eslint-disable-next-line eqeqeq
+    if (font.namedInstance?.subfamilyName != null) {
+        return [font.namedInstance?.subfamilyName];
+    }
+    const styleValueTags = new Set(['ital', 'slnt', 'wght', 'wdth']);
+
+    const axisValuesByTag = new Map<string, StyleValue>([
+        ['ital', font.styleValues.italic],
+        ['slnt', font.styleValues.slant],
+        ['wght', font.styleValues.weight],
+        ['wdth', font.styleValues.width],
+    ]);
+    for (const axisSetting of font.axes) {
+        axisValuesByTag.set(axisSetting.tag, axisSetting);
+    }
+
+    // We'll eliminate axes as we go
+    const remainingAxes = new Set(axisValuesByTag.keys());
+
+    const axisLabels: {label: string; ordering: number}[] = [];
+
+    // First check for multi-value axis value labels
+    const matchingMultiAxisRecords: AxisValueMultiple[] = [];
+    outer:
+    for (const axisValue of font.styleAttributes.axisValues) {
+        if (axisValue.format !== AxisValueFormat.MultipleValues) {
+            continue;
+        }
+        let allValuesAreStyleValues = true;
+        let anyAxesVary = false;
+        for (const subValue of axisValue.axisValues) {
+            const axis = font.styleAttributes.designAxes[subValue.axisIndex];
+
+            const fontAxisValue = axisValuesByTag.get(axis.tag);
+            // This multi-value label requires an axis value not in the font (this shouldn't happen, I think?)
+            if (typeof fontAxisValue === 'undefined') continue outer;
+            // This multi-value label specifies an axis value different from what's in this font
+            if (fontAxisValue.type !== 'single' || fontAxisValue.value !== subValue.value) {
+                continue outer;
+            }
+
+            if (!styleValueTags.has(axis.tag)) allValuesAreStyleValues = false;
+            if (varyingAxes.has(axis.tag)) anyAxesVary = true;
+        }
+        if (
+            // Any of the axis values specified in this record vary among different fonts in this family, and are worth
+            // including in order to disambiguate this font from others
+            anyAxesVary &&
+            // Either this label includes some non-style-value-related (weight/width/slope) axis values, or we want to
+            // include style-value-related names anyway
+            (includeStyleValues || !allValuesAreStyleValues) &&
+            // This label is not "elidable" (can be omitted when composing name strings like we're doing here)
+            !(axisValue.flags & AxisValueFlags.Elidable)
+        ) {
+            matchingMultiAxisRecords.push(axisValue);
+        }
+    }
+    // Sort in descending order by most values matched:
+    //
+    // "When searching for an axis value table to match a particular combination of values, if two format 4 tables are
+    // found to be a partial match for that combination of values, the table that matches a greater number of values
+    // (the most specific match) should be used."
+    matchingMultiAxisRecords.sort((a, b) => b.axisValues.length - a.axisValues.length);
+
+    for (const axisValue of matchingMultiAxisRecords) {
+        if (!axisValue.name) continue;
+        // We may have already pushed an axis label that "used up" some of the axes
+        if (!axisValue.axisValues.every(
+            ({axisIndex}) => remainingAxes.has(font.styleAttributes.designAxes[axisIndex].tag))) {
+            continue;
+        }
+        // These axes are being mapped to a label
+        for (const subValue of axisValue.axisValues) {
+            remainingAxes.delete(font.styleAttributes.designAxes[subValue.axisIndex].tag);
+        }
+        // "Because a format 4 table combines values on multiple axes, there can be ambiguity about axis ordering. This
+        // could arise when dynamically composing names using the labels provided by axis value tables, or in other
+        // situations in which the axisOrdering values of axis records are used. For a format 4 table, the axisOrdering
+        // value assumed should be the lowest axisOrdering value for the axes referenced by the format 4 table."
+        const ordering = axisValue.axisValues.reduce((prev, {axisIndex}) => {
+            return Math.min(prev, font.styleAttributes.designAxes[axisIndex].ordering);
+        }, Infinity);
+        axisLabels.push({label: axisValue.name, ordering});
+    }
+
+    // Format 1 and 3 axis values
+    for (const axisValue of font.styleAttributes.axisValues) {
+        if (!(axisValue.format === AxisValueFormat.SingleValue || axisValue.format === AxisValueFormat.LinkedValue)) {
+            continue;
+        }
+        if (!axisValue.name) continue;
+
+        const axis = font.styleAttributes.designAxes[axisValue.axisIndex];
+        if (!remainingAxes.has(axis.tag)) continue;
+
+        const fontAxisValue = axisValuesByTag.get(axis.tag);
+        if (typeof fontAxisValue === 'undefined') continue;
+        if (fontAxisValue.type !== 'single' || fontAxisValue.value !== axisValue.value) {
+            continue;
+        }
+
+        // We've mapped this axis value to a label, whether or not we elide it
+        remainingAxes.delete(axis.tag);
+
+        const elide = (styleValueTags.has(axis.tag) && !includeStyleValues) ||
+            (axisValue.flags & AxisValueFlags.Elidable) ||
+            !varyingAxes.has(axis.tag);
+
+        if (!elide) axisLabels.push({label: axisValue.name, ordering: axis.ordering});
+    }
+
+    // Format 2 axis values
+    //
+    // TODO: If multiple fonts are instanced to have axis values within the same range, we need to disambiguate them
+    // some other way, but if only one output font has an axis value within one of these ranges, we can just give it
+    // that range's label and that's sufficient.
+    for (const axisValue of font.styleAttributes.axisValues) {
+        if (axisValue.format !== AxisValueFormat.Range) continue;
+        if (!axisValue.name) continue;
+
+        const axis = font.styleAttributes.designAxes[axisValue.axisIndex];
+        if (!remainingAxes.has(axis.tag)) continue;
+
+        const fontAxisValue = axisValuesByTag.get(axis.tag);
+        if (typeof fontAxisValue === 'undefined') continue;
+        if (fontAxisValue.type !== 'variable' ||
+            fontAxisValue.value.min !== axisValue.min || fontAxisValue.value.max !== axisValue.max) {
+            continue;
+        }
+
+        // We've mapped this axis value to a label, whether or not we elide it
+        remainingAxes.delete(axis.tag);
+
+        const elide = (styleValueTags.has(axis.tag) && !includeStyleValues) ||
+            (axisValue.flags & AxisValueFlags.Elidable) ||
+            !varyingAxes.has(axis.tag);
+
+        if (!elide) axisLabels.push({label: axisValue.name, ordering: axis.ordering});
+    }
+
+    // Fall back for anything not in the STAT table
+
+    let lowestOrdering = 0;
+    let highestOrdering = 0;
+    const axisOrderings = new Map<string, number>();
+    for (const axis of font.styleAttributes.designAxes) {
+        lowestOrdering = Math.min(lowestOrdering, axis.ordering);
+        highestOrdering = Math.max(highestOrdering, axis.ordering);
+        axisOrderings.set(axis.tag, axis.ordering);
+    }
+    // Default orderings if the font has no STAT table
+    for (const axis of font.axes) {
+        if (axisOrderings.has(axis.tag)) continue;
+        axisOrderings.set(axis.tag, ++highestOrdering);
+    }
+    if (!axisOrderings.has('wdth')) axisOrderings.set('wdth', lowestOrdering - 2);
+    if (!axisOrderings.has('wght')) axisOrderings.set('wght', lowestOrdering - 1);
+    if (!axisOrderings.has('ital')) axisOrderings.set('ital', highestOrdering + 1);
+    if (!axisOrderings.has('slnt')) axisOrderings.set('slnt', highestOrdering + 2);
+
+    for (const axisTag of varyingAxes) {
+        if (!remainingAxes.has(axisTag)) continue;
+        const fontAxis = axisValuesByTag.get(axisTag);
+        if (!fontAxis) continue;
+
+        remainingAxes.delete(axisTag);
+
+        const elide = styleValueTags.has(axisTag) && !includeStyleValues;
+        if (elide) continue;
+
+        let name = undefined;
+        if (fontAxis.type === 'single') {
+            const roundValue = roundDecimal(fontAxis.value);
+            if (axisTag === 'wght') {
+                name = WEIGHT_NAMES.get(roundValue);
+            } else if (axisTag === 'wdth') {
+                name = WIDTH_NAMES.get(roundValue);
+            } else if (axisTag === 'opsz') {
+                // Convention for optical size seems to be "[n]pt"
+                name = `${roundValue}pt`;
+            }
+
+            if (!name) {
+                name = `${axisTag}${roundValue}`;
+            }
+        } else {
+            name = `${axisTag}${roundDecimal(fontAxis.value.min)}_${roundDecimal(fontAxis.value.max)}`;
+        }
+        axisLabels.push({label: name, ordering: axisOrderings.get(axisTag) ?? 0});
+    }
+    // As a special case, the ital and slnt axes don't count as "varying" if there's only one non-zero value. Add the
+    // "Italic" or "Oblique" labels manually.
+    if (includeStyleValues) {
+        if (
+            font.styleValues.italic.type === 'single' &&
+            font.styleValues.italic.value !== 0 &&
+            !varyingAxes.has('ital')
+        ) {
+            axisLabels.push({label: 'Italic', ordering: axisOrderings.get('ital')!});
+        } else if (
+            font.styleValues.slant.type === 'single' &&
+            font.styleValues.slant.value !== 0 &&
+            !varyingAxes.has('slnt')
+        ) {
+            // This should be independent of the ital axis (it's not recommended for fonts to have both an ital and slnt
+            // axis), but e.g. Nunito Sans has two static faces: an upright one with ital 0 and slnt 0, and an "Italic"
+            // one with ital 1 and slnt -9. We only want to name that "Nunito Sans Italic", not "Nunito Sans Italic
+            // Oblique".
+            axisLabels.push({label: 'Oblique', ordering: axisOrderings.get('slnt')!});
+        }
+    }
+
+    axisLabels.sort((a, b) => a.ordering - b.ordering);
+    return axisLabels.map(({label}) => label);
+};
+
 const fontFilename = (
     font: SubsettedFont,
     varyingAxes: Set<string>,
-    styleValuesVary: {weight: boolean; width: boolean; italic: boolean; slant: boolean},
     charsetNameOrIndex: number | string | null,
     overrideName?: string,
 ) => {
-    const {weight, width, italic, slant} = font.styleValues;
-
     // Don't include the subfamily name; the axis values should serve the same purpose
     // TODO: we should now have access to the family name without any of this...
     const familyName = overrideName ?? font.familyName.replace(STYLE_SUBFAMILY_END_REGEX, '').replaceAll(' ', '');
     let filename = familyName.replaceAll(' ', '');
 
-    if (font.namedInstance && font.namedInstance.subfamilyName) {
-        filename += `-${font.namedInstance.subfamilyName.replaceAll(' ', '-')}`;
-    } else {
-        if (width.type === 'single') {
-            const roundedWidth = Math.round(width.value * 2) / 2;
-            if (roundedWidth !== 100) {
-                filename += `-${WIDTH_NAMES.get(roundedWidth) ?? roundedWidth}`;
-            }
-        } else if (styleValuesVary.width) {
-            filename += `-wdth${roundDecimal(width.value.min)}_${roundDecimal(width.value.max)}`;
+    const instanceLabels = getInstanceLabels(font, varyingAxes, true);
+    if (instanceLabels.length > 0) {
+        for (let i = 0; i < instanceLabels.length; i++) {
+            instanceLabels[i] = instanceLabels[i].replaceAll(' ', '-');
         }
-
-        if (weight.type === 'single') {
-            filename += `-${WEIGHT_NAMES.get(roundDecimal(weight.value)) ?? roundDecimal(weight.value)}`;
-        } else if (styleValuesVary.weight) {
-            filename += `-wght${roundDecimal(weight.value.min)}_${roundDecimal(weight.value.max)}`;
-        }
-
-        for (const axis of font.axes) {
-            if (!varyingAxes.has(axis.tag)) continue;
-            if (axis.type === 'single') {
-                filename += `-${axis.tag}${roundDecimal(axis.value)}`;
-            } else {
-                filename += `-${axis.tag}${roundDecimal(axis.value.min)}_${roundDecimal(axis.value.max)}`;
-            }
-        }
-
-        let slantStyleName = '';
-        if (slant.type === 'variable') {
-            if (styleValuesVary.slant) slantStyleName = `slnt${roundDecimal(slant.value.min)}_${roundDecimal(slant.value.max)}`;
-        } else if (italic.type === 'variable') {
-            if (styleValuesVary.italic) slantStyleName = `ital${roundDecimal(italic.value.min)}_${roundDecimal(italic.value.max)}`;
-        } else if (styleValuesVary.italic || styleValuesVary.slant) {
-            // We instanced a font with a variable `slnt` or `ital` axis into multiple fonts with static `slnt` or
-            // `ital` values.
-            if (styleValuesVary.italic) {
-                slantStyleName += `ital${roundDecimal(italic.value)}`;
-            }
-            if (styleValuesVary.slant) {
-                slantStyleName += `slnt${roundDecimal(slant.value)}`;
-            }
-        } else {
-            // If the font style's italic property is variable, it should have been resolved to a variable `slnt` or
-            // `ital` axis above.
-            if (italic.value !== 0) {
-                slantStyleName = `Italic`;
-            } else if (slant.value !== 0) {
-                slantStyleName = `Oblique`;
-            }
-        }
-
-        if (slantStyleName.length > 0) {
-            filename += `-${slantStyleName}`;
-        }
+        filename += `-${instanceLabels.join('-')}`;
     }
 
     if (typeof charsetNameOrIndex === 'string') {
@@ -795,11 +980,21 @@ export const exportedFontsToCSS = (
         fontPathPrefix += '/';
     }
 
+    // TODO: just do this once
+    const varyingAxes = findVaryingAxes(fonts.map(f => f.font));
+
     for (const {font, data, filename, charsetNameOrIndex, overrideName} of fonts) {
         emitter.atRule('@font-face');
 
         emitter.declaration('font-family');
-        emitter.string(overrideName ?? font.familyName);
+        let familyName = overrideName ?? font.familyName;
+        // CSS @font-face declarations can map a single family name to multiple static fonts of varying weight, width,
+        // and slope, but they cannot do this for arbitrary axes, so we need to disambiguate their names.
+        const instanceLabels = getInstanceLabels(font, varyingAxes.get(font.familyName)!, false);
+        if (instanceLabels.length > 0) {
+            familyName += ` ${instanceLabels.join(' ')}`;
+        }
+        emitter.string(familyName);
         emitter.endDeclaration();
 
         emitter.declaration('font-display');
@@ -1026,7 +1221,7 @@ export const exportFonts = async(
             filename: '', // This will be filled in later. It's just to get TypeScript to shut up.
             data: dataInFormats,
             charsetNameOrIndex: settings ? settings.charsetNameOrIndex : null,
-            extension: (format: 'opentype' | 'woff' | 'woff2') => {
+            extension(format: 'opentype' | 'woff' | 'woff2') {
                 if (format === 'opentype') {
                     return subsettedFont.format === 'opentype' ? 'otf' : 'ttf';
                 }
