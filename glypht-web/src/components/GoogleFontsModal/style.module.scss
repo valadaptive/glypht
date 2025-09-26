@@ -98,6 +98,7 @@
 .font-name {
     overflow: hidden;
     text-overflow: ellipsis;
+    flex: 1 1 0;
 }
 
 .add-font-button {

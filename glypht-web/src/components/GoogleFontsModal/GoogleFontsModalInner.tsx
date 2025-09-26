@@ -12,7 +12,7 @@ import {
     Dropdown,
     Button,
 } from '../Widgets/Widgets';
-import {FamilyProto, FontProto, LanguageProto, AxisProto, ScriptProto} from '../../generated/google-fonts-types';
+import {FamilyProto, FontProto, LanguageProto, ScriptProto} from '../../generated/google-fonts-types';
 import Icon, {IconButton} from '../Icon/Icon';
 import {useCallback, useId, useMemo} from 'preact/hooks';
 import {useAddErrorToast} from '../Toast/Toast';
@@ -28,16 +28,15 @@ import {useThrottledSignal} from '../../util/throttle';
 
 import fontsListJson from '../../generated/google-fonts.json';
 import langListJson from '../../generated/languages.json';
-import axesListJson from '../../generated/axes.json';
 import Loader from '../Loader/Loader';
 import useVirtualList from '../../util/virtual-list';
+import axisMetadata, {axesList} from '../../util/axis-metadata';
 
 const descriptionsUrl = new URL('../../generated/google-fonts-descriptions.txt', import.meta.url);
 
 export type GoogleFontsFamily = Omit<FamilyProto, 'languages'> & {languages: number[]};
 
 const langList = langListJson as {languages: LanguageProto[]; scripts: ScriptProto[]};
-const axesList = axesListJson as AxisProto[];
 
 const fontsList: GoogleFontsFamily[] = [];
 for (const font of fontsListJson as FamilyProto[]) {
@@ -59,7 +58,7 @@ for (const font of fontsListJson as FamilyProto[]) {
     fontsList.push(font as unknown as GoogleFontsFamily);
 }
 
-export {fontsList, langList, axesList};
+export {fontsList, langList};
 
 // TODO: Handjet doesn't display; Roboto Flex looks weird
 // TODO: Intel One Mono has variable and static versions side-by-side; not sure how to tell which is which
@@ -125,8 +124,14 @@ const FontPreview = ({family}: {
         const familyVariationValues: Record<string, Signal<number>> = {};
         if (family?.axes) {
             for (const axis of family.axes) {
-                const axisMeta = axesList.find(axisMeta => axisMeta.tag === axis.tag);
-                familyVariationValues[axis.tag!] = signal(axisMeta?.defaultValue ?? 100);
+                let defaultValue = axis.defaultValue;
+                if (typeof defaultValue === 'undefined') {
+                    const axisMeta = axisMetadata.get(axis.tag);
+                    if (typeof axisMeta?.defaultValue !== 'undefined') {
+                        defaultValue = axisMeta.defaultValue;
+                    }
+                }
+                familyVariationValues[axis.tag] = signal(defaultValue ?? 100);
             }
         }
 
@@ -201,7 +206,7 @@ const FontPreview = ({family}: {
     if (family.axes && Object.keys(variationValues).length > 0) {
         const variations = [];
         for (const axis of family.axes) {
-            if (axis.tag && variationValues[axis.tag] !== undefined) {
+            if (variationValues[axis.tag] !== undefined) {
                 variations.push(`"${axis.tag}" ${variationValues[axis.tag].value}`);
             }
         }
@@ -240,16 +245,15 @@ const FontPreview = ({family}: {
         <div className={style.axisControlsTitle}>Variable Axes</div>
         <div className={style.axisControlsBody}>
             {family.axes.map(axisSegment => {
-                if (!axisSegment.tag) return null;
                 const {step, smartAim} = axisSpinboxParams(axisSegment.maxValue ?? 1000);
 
-                // Find the full axis metadata from axesList
-                const fullAxis = axesList.find(ax => ax.tag === axisSegment.tag);
+                // Find the full axis metadata
+                const fullAxis = axisMetadata.get(axisSegment.tag);
 
                 // Use values from AxisSegmentProto (family-specific) with fallbacks from AxisProto (global metadata)
                 const minValue = axisSegment.minValue ?? fullAxis?.minValue ?? 0;
                 const maxValue = axisSegment.maxValue ?? fullAxis?.maxValue ?? 1000;
-                const displayName = fullAxis?.displayName ?? axisSegment.tag?.toUpperCase();
+                const displayName = fullAxis?.displayName ?? axisSegment.tag.toUpperCase();
 
                 const axisValue = variationValues[axisSegment.tag];
                 return <div key={axisSegment.tag} className={style.axisControl}>

@@ -3,13 +3,7 @@ import type {FeatureInfo, FontRef, StyleKey, StyleValues, SubsetName} from '@gly
 import {FamilyInfo, sortFontsIntoFamilies} from '@glypht/bundler-utils';
 import {featureMetadata} from '@glypht/bundler-utils/feature-metadata.js';
 
-import axesListJson from '../generated/axes.json';
-import {AxisProto} from '../generated/google-fonts-types';
-const axesList = axesListJson as AxisProto[];
-const axisMetadata = new Map<string, AxisProto>();
-for (const axis of axesList) {
-    axisMetadata.set(axis.tag, axis);
-}
+import axisMetadata from './axis-metadata';
 
 /**
  * Type of a variation axis setting mode.

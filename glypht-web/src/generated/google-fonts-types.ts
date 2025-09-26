@@ -15,9 +15,10 @@ export type FontProto = {
 };
 
 export type AxisSegmentProto = {
-    tag?: string;
+    tag: string;
     minValue?: number;
     maxValue?: number;
+    defaultValue?: number;
 };
 
 export type SourceFileProto = {

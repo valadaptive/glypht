@@ -1,11 +1,13 @@
 import style from './style.module.scss';
 
-import {useAppState} from '../../app-state';
-import Loader from '../Loader/Loader';
 import {useCallback} from 'preact/hooks';
-import Modal from '../Modal/Modal';
-
 import {signal, Signal} from '@preact/signals';
+
+import Loader from '../Loader/Loader';
+import Modal from '../Modal/Modal';
+import {useAppState} from '../../app-state';
+
+import {axesList} from '../../util/axis-metadata';
 
 const GoogleFontsModal = () => {
     const appState = useAppState();
@@ -14,8 +16,7 @@ const GoogleFontsModal = () => {
     const fontsListState = googleFontsModalState.state.value;
     if (fontsListState.state === 'not_loaded') {
         import('./GoogleFontsModalInner').then(
-            ({default: ModalComponent, axesList, langList}) => {
-                axesList.sort((a, b) => b.popularity - a.popularity);
+            ({default: ModalComponent, langList}) => {
                 const selectedAxes: Record<string, Signal<boolean>> = {};
                 for (const axis of axesList) {
                     selectedAxes[axis.tag] = signal(false);
