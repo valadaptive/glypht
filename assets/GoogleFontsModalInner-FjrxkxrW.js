@@ -1,5 +1,5 @@
 import { b as useSignal, q, T, c as useComputed, u, k, d, g } from "./search-ye_JGa7M.js";
-import { u as useAppState, a as useThrottledSignal, b as uFuzzy, s as style, D as Dropdown, c as clsx, I as IconButton, T as TextBox, d as ToggleIcon, e as axisMetadata, f as axisSpinboxParams, S as Slider, g as SpinBox, C as CheckboxToggle, h as SearchableCheckboxDropdown, i as axesList, j as useAddErrorToast, L as Loader, k as Icon, B as Button, l as CollapsibleHeader } from "./index-C5IXNLl3.js";
+import { u as useAppState, a as useThrottledSignal, b as uFuzzy, s as style, D as Dropdown, c as clsx, I as IconButton, T as TextBox, d as ToggleIcon, S as Slider, e as SpinBox, C as CheckboxToggle, f as SearchableCheckboxDropdown, g as axesList, h as useAddErrorToast, L as Loader, i as Icon, B as Button, j as axisMetadata, k as axisSpinboxParams, l as CollapsibleHeader } from "./index-BlJwL9KI.js";
 /*! @license DOMPurify 3.2.6 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/3.2.6/LICENSE */
 const {
   entries,
@@ -1066,6 +1066,63 @@ const ScriptLangList = ({ script, langs }) => {
     /* @__PURE__ */ u("div", { className: clsx(style.scriptLangs, collapsed.value && style.hide), children: langs.map((lang) => /* @__PURE__ */ u("div", { className: style.supportedLang, children: lang })) })
   ] });
 };
+const axisDefaultValue = (axisSegment) => {
+  if (axisSegment.tag === "wght") {
+    return 400;
+  }
+  if (typeof axisSegment.defaultValue !== "undefined") return axisSegment.defaultValue;
+  const fullAxis = axisMetadata.get(axisSegment.tag);
+  return fullAxis?.defaultValue ?? 100;
+};
+const AxisSlider = ({ axisSegment, axisValue }) => {
+  const fullAxis = axisMetadata.get(axisSegment.tag);
+  const defaultValue = axisDefaultValue(axisSegment);
+  const resetValue = q(() => {
+    axisValue.value = defaultValue ?? 100;
+  }, [axisValue, defaultValue]);
+  const resetButtonDisabled = typeof defaultValue !== "number" || defaultValue === axisValue.value;
+  return T(() => {
+    const { step, smartAim } = axisSpinboxParams(axisSegment.maxValue ?? 1e3);
+    const minValue = axisSegment.minValue ?? fullAxis?.minValue ?? 0;
+    const maxValue = axisSegment.maxValue ?? fullAxis?.maxValue ?? 1e3;
+    const displayName = fullAxis?.displayName ?? axisSegment.tag.toUpperCase();
+    return /* @__PURE__ */ u("div", { className: style.axisControl, children: [
+      /* @__PURE__ */ u("label", { className: style.axisLabel, children: displayName }),
+      /* @__PURE__ */ u("div", { className: style.axisInputs, children: [
+        /* @__PURE__ */ u(
+          Slider,
+          {
+            value: axisValue,
+            min: minValue,
+            max: maxValue,
+            step,
+            className: style.axisSlider
+          }
+        ),
+        /* @__PURE__ */ u(
+          SpinBox,
+          {
+            value: axisValue,
+            min: minValue,
+            max: maxValue,
+            step,
+            smartAim,
+            className: style.axisSpinBox
+          }
+        ),
+        /* @__PURE__ */ u(
+          IconButton,
+          {
+            type: "reset",
+            title: "Reset axis to default value",
+            disabled: resetButtonDisabled,
+            onClick: resetValue
+          }
+        )
+      ] })
+    ] });
+  }, [axisSegment, axisValue, resetButtonDisabled]);
+};
 const FontPreview = ({ family }) => {
   const appState = useAppState();
   const { customPreviewText } = appState.googleFontsModalState;
@@ -1073,14 +1130,7 @@ const FontPreview = ({ family }) => {
     const familyVariationValues = {};
     if (family?.axes) {
       for (const axis of family.axes) {
-        let defaultValue = axis.defaultValue;
-        if (typeof defaultValue === "undefined") {
-          const axisMeta = axisMetadata.get(axis.tag);
-          if (typeof axisMeta?.defaultValue !== "undefined") {
-            defaultValue = axisMeta.defaultValue;
-          }
-        }
-        familyVariationValues[axis.tag] = d(defaultValue ?? 100);
+        familyVariationValues[axis.tag] = d(axisDefaultValue(axis));
       }
     }
     return familyVariationValues;
@@ -1175,49 +1225,14 @@ const FontPreview = ({ family }) => {
   });
   const axisControls = family.axes ? /* @__PURE__ */ u("div", { className: style.axisControls, children: [
     /* @__PURE__ */ u("div", { className: style.axisControlsTitle, children: "Variable Axes" }),
-    /* @__PURE__ */ u("div", { className: style.axisControlsBody, children: family.axes.map((axisSegment) => {
-      const { step, smartAim } = axisSpinboxParams(axisSegment.maxValue ?? 1e3);
-      const fullAxis = axisMetadata.get(axisSegment.tag);
-      const minValue = axisSegment.minValue ?? fullAxis?.minValue ?? 0;
-      const maxValue = axisSegment.maxValue ?? fullAxis?.maxValue ?? 1e3;
-      const displayName = fullAxis?.displayName ?? axisSegment.tag.toUpperCase();
-      const axisValue = variationValues[axisSegment.tag];
-      return /* @__PURE__ */ u("div", { className: style.axisControl, children: [
-        /* @__PURE__ */ u("label", { className: style.axisLabel, children: displayName }),
-        /* @__PURE__ */ u("div", { className: style.axisInputs, children: [
-          /* @__PURE__ */ u(
-            Slider,
-            {
-              value: axisValue,
-              min: minValue,
-              max: maxValue,
-              step,
-              className: style.axisSlider
-            }
-          ),
-          /* @__PURE__ */ u(
-            SpinBox,
-            {
-              value: axisValue,
-              min: minValue,
-              max: maxValue,
-              step,
-              smartAim,
-              className: style.axisSpinBox
-            }
-          ),
-          /* @__PURE__ */ u(
-            IconButton,
-            {
-              type: "reset",
-              title: "Reset axis to default value",
-              disabled: typeof fullAxis?.defaultValue !== "number" || fullAxis?.defaultValue === axisValue.value,
-              onClick: () => axisValue.value = fullAxis?.defaultValue ?? 0
-            }
-          )
-        ] })
-      ] }, axisSegment.tag);
-    }) })
+    /* @__PURE__ */ u("div", { className: style.axisControlsBody, children: family.axes.map((axisSegment) => /* @__PURE__ */ u(
+      AxisSlider,
+      {
+        axisSegment,
+        axisValue: variationValues[axisSegment.tag]
+      },
+      axisSegment.tag
+    )) })
   ] }) : null;
   const supportedLanguages = T(() => {
     const byScript = /* @__PURE__ */ new Map();
