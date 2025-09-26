@@ -738,7 +738,7 @@ class Font {
         const numToFetch = hb.stackAlloc(4);
         hb.writeUint32(numToFetch, numAxisInfos);
         hb._hb_ot_var_get_axis_infos(face, 0, numToFetch, axisInfosRaw);
-        for (let i = axisInfosRaw; i < axisInfosRaw + axisInfoSize * numAxisInfos; i += 32) {
+        for (let i = axisInfosRaw; i < axisInfosRaw + axisInfoSize * numAxisInfos; i += axisInfoSize) {
           const tag = tagName(hb.readUint32(i + 4));
           const nameId = hb.readUint32(i + 8);
           const min = hb.readFloat32(i + 16);

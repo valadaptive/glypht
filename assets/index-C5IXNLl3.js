@@ -1,5 +1,5 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/GoogleFontsModalInner-5I2PgSO3.js","assets/search-DFXfEL4D.js","assets/search-BydhzBxC.css"])))=>i.map(i=>d[i]);
-import { _ as __vitePreload, d, T, A, y, K, E, w, n, x as x$1, u, q, a as _, g, b as useSignal, c as useComputed, k, e as d$1, r as r$1, f as E$1 } from "./search-DFXfEL4D.js";
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/GoogleFontsModalInner-BdCs3Xj2.js","assets/search-ye_JGa7M.js","assets/search-CLlH7J7c.css"])))=>i.map(i=>d[i]);
+import { _ as __vitePreload, d, T, A, y, K, E, w, n, x as x$1, u, q, a as _, g, b as useSignal, c as useComputed, k, e as d$1, r as r$1, f as E$1 } from "./search-ye_JGa7M.js";
 const app = "_app_8jc7z_44";
 const displayPane = "_display-pane_8jc7z_51";
 const mainPane = "_main-pane_8jc7z_62";
@@ -188,7 +188,7 @@ class GlyphtContext {
   constructor() {
     this.fontWorker = new RpcDispatcher(new Worker$1(new URL(
       /* @vite-ignore */
-      "/assets/font-worker.worker-CfFtQ33k.js",
+      "/assets/font-worker.worker-BA-OAnQ6.js",
       import.meta.url
     ), { type: "module" }), {
       "update-fonts": "updated-fonts",
@@ -3366,8 +3366,9 @@ const exportFonts = async (compressionContext2, families2, { formats, woffCompre
     throw error2;
   });
 };
-const axesListJson = /* @__PURE__ */ JSON.parse(`[{"tag":"ARRR","minValue":10,"defaultValue":10,"maxValue":60,"precision":0,"fallback":[{"name":"Default","value":10}],"displayName":"AR Retinal Resolution","description":" Resolution-specific enhancements in AR/VR typefaces to optimize rendering across the different resolutions of the headsets making designs accessible and easy to read.","fallbackOnly":false,"popularity":1},{"tag":"BLED","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Bleed","description":"Bleed adjusts the overall darkness in the typographic color of strokes or other forms, without any changes in overall width, line breaks, or page layout. Negative values make the font appearance lighter, while positive values make it darker, similarly to ink bleed or dot gain on paper.","fallbackOnly":false,"popularity":3},{"tag":"BNCE","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Bounce","description":"Shift glyphs up and down in the Y dimension, resulting in an uneven, bouncy baseline.","fallbackOnly":false,"popularity":1},{"tag":"CASL","minValue":0,"defaultValue":0,"maxValue":1,"precision":-2,"fallback":[{"name":"Linear","value":0},{"name":"Casual","value":1}],"displayName":"Casual","description":"Adjust stroke curvature, contrast, and terminals from a sturdy, rational Linear style to a friendly, energetic Casual style.","fallbackOnly":false,"illustrationUrl":"casual.svg","popularity":1},{"tag":"CTRS","minValue":-100,"defaultValue":0,"maxValue":100,"precision":1,"fallback":[{"name":"Reversed","value":-100},{"name":"None","value":0},{"name":"High","value":100}],"displayName":"Contrast","description":"Contrast describes the stroke width difference between the thick and thin parts of the font glyphs. A value of zero indicates no visible/apparent contrast. A positive number indicates an increase in contrast relative to the zero-contrast thickness, achieved by making the thin stroke thinner. A value of 100 indicates that the thin stroke has disappeared completely. A negative value indicates “reverse contrast”: the strokes which would conventionally be thick in the writing system are instead made thinner. In western-language fonts this might be perceived as a 19th-century, “circus” or “old West” effect. A value of -100 indicates that the strokes which would normally be thick have disappeared completely.","fallbackOnly":false,"illustrationUrl":"contrast.svg","popularity":0},{"tag":"CRSV","minValue":0,"defaultValue":0.5,"maxValue":1,"precision":-1,"fallback":[{"name":"Roman","value":0,"displayName":"Off"},{"name":"Auto","value":0.5},{"name":"Cursive","value":1,"displayName":"On"}],"displayName":"Cursive","description":"Control the substitution of cursive forms along the Slant axis. 'Off' (0) maintains Roman letterforms such as a double-storey a and g, 'Auto' (0.5) allows for Cursive substitution, and 'On' (1) asserts cursive forms even in upright text with a Slant of 0.","fallbackOnly":true,"illustrationUrl":"cursive.svg","popularity":8},{"tag":"EHLT","minValue":0,"defaultValue":12,"maxValue":1000,"precision":0,"fallback":[{"name":"Default","value":12}],"displayName":"Edge Highlight","description":"Controls thickness of edge highlight details.","fallbackOnly":false,"popularity":1},{"tag":"ELXP","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Element Expansion","description":"As the Element Expansion axis progresses, the elements move apart.","fallbackOnly":false,"popularity":6},{"tag":"ELGR","minValue":1,"defaultValue":1,"maxValue":2,"precision":-1,"fallback":[{"name":"Default","value":1}],"displayName":"Element Grid","description":"In modular fonts, where glyphs are composed using multiple copies of the same element, this axis controls how many elements are used per one grid unit.","fallbackOnly":false,"popularity":1},{"tag":"ELSH","minValue":0,"defaultValue":0,"maxValue":100,"precision":-1,"fallback":[{"name":"Default","value":0}],"displayName":"Element Shape","description":"In modular fonts, where glyphs are composed using multiple copies of the same element, this axis controls the shape of the element","fallbackOnly":false,"popularity":8},{"tag":"EDPT","minValue":0,"defaultValue":100,"maxValue":1000,"precision":0,"fallback":[{"name":"Default","value":100}],"displayName":"Extrusion Depth","description":"Controls the 3D depth on contours.","fallbackOnly":false,"popularity":1},{"tag":"FILL","minValue":0,"defaultValue":0,"maxValue":1,"precision":-2,"fallback":[{"name":"Normal","value":0},{"name":"Filled","value":1}],"displayName":"Fill","description":"Fill in transparent forms with opaque ones. Sometimes interior opaque forms become transparent, to maintain contrasting shapes. This can be useful in animation or interaction to convey a state transition. Ranges from 0 (no treatment) to 1 (completely filled).","fallbackOnly":false,"illustrationUrl":"fill.svg","popularity":0},{"tag":"FLAR","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Flare","description":"As the flare axis grows, the stem terminals go from straight (0%) to develop a swelling (100%).","fallbackOnly":false,"popularity":1},{"tag":"GRAD","minValue":-1000,"defaultValue":0,"maxValue":1000,"precision":0,"fallback":[{"name":"Normal","value":0}],"displayName":"Grade","description":"Finesse the style from lighter to bolder in typographic color, without any changes overall width, line breaks or page layout. Negative grade makes the style lighter, while positive grade makes it bolder. The units are the same as in the Weight axis.","fallbackOnly":false,"illustrationUrl":"grade.svg","popularity":3},{"tag":"HEXP","minValue":0,"defaultValue":0,"maxValue":100,"precision":-1,"fallback":[{"name":"Default","value":0}],"displayName":"Hyper Expansion","description":"Expansion of inner and outer space of glyphs.","fallbackOnly":false,"popularity":1},{"tag":"INFM","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Informality","description":"Adjusts overall design from formal and traditional (0%) to informal and unconventional (up to 100%).","fallbackOnly":false,"popularity":1},{"tag":"ital","minValue":0,"defaultValue":0,"maxValue":1,"precision":0,"fallback":[{"name":"Roman","value":0},{"name":"Italic","value":1}],"displayName":"Italic","description":"Adjust the style from roman to italic. This can be provided as a continuous range within a single font file, like most axes, or as a toggle between two roman and italic files that form a family as a pair.","fallbackOnly":true,"illustrationUrl":"italic.svg","popularity":0},{"tag":"MONO","minValue":0,"defaultValue":0,"maxValue":1,"precision":-2,"fallback":[{"name":"Proportional","value":0},{"name":"Monospace","value":1}],"displayName":"Monospace","description":"Adjust the style from Proportional (natural widths, default) to Monospace (fixed width). With proportional spacing, each glyph takes up a unique amount of space on a line, while monospace is when all glyphs have the same total character width.","fallbackOnly":false,"illustrationUrl":"monospace.svg","popularity":2},{"tag":"MORF","minValue":0,"defaultValue":0,"maxValue":60,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Morph","description":"Letterforms morph: Changing in unconventional ways, that don't alter other attributes, like width or weight. The range from 0 to 60 can be understood as seconds.","fallbackOnly":false,"popularity":3},{"tag":"opsz","minValue":5,"defaultValue":14,"maxValue":1200,"precision":-1,"fallback":[{"name":"6pt","value":6},{"name":"7pt","value":7},{"name":"8pt","value":8},{"name":"9pt","value":9},{"name":"10pt","value":10},{"name":"11pt","value":11},{"name":"12pt","value":12},{"name":"14pt","value":14},{"name":"16pt","value":16},{"name":"17pt","value":17},{"name":"18pt","value":18},{"name":"20pt","value":20},{"name":"24pt","value":24},{"name":"28pt","value":28},{"name":"36pt","value":36},{"name":"48pt","value":48},{"name":"60pt","value":60},{"name":"72pt","value":72},{"name":"96pt","value":96},{"name":"120pt","value":120},{"name":"144pt","value":144}],"displayName":"Optical Size","description":"Adapt the style to specific text sizes. At smaller sizes, letters typically become optimized for more legibility. At larger sizes, optimized for headlines, with more extreme weights and widths. In CSS this axis is activated automatically when it is available.","fallbackOnly":false,"illustrationUrl":"optical_size.svg","popularity":27},{"tag":"ROND","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Roundness","description":"Adjust shapes from angular defaults (0%) to become increasingly rounded (up to 100%).","fallbackOnly":false,"popularity":2},{"tag":"SCAN","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Scanlines","description":"Break up shapes into horizontal segments without any changes in overall width, letter spacing, or kerning, so there are no line breaks or page layout changes. Negative values make the scanlines thinner, and positive values make them thicker.","fallbackOnly":false,"popularity":3},{"tag":"SHLN","minValue":0,"defaultValue":50,"maxValue":100,"precision":-1,"fallback":[{"name":"Default","value":50}],"displayName":"Shadow Length","description":"Adjusts the font's shadow length from no shadow visible (0 %) to a maximum shadow applied (100%) relative to each family design.","fallbackOnly":false,"popularity":1},{"tag":"SHRP","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Sharpness","description":"Adjust shapes from angular or blunt default shapes (0%) to become increasingly sharped forms (up to 100%).","fallbackOnly":false,"popularity":1},{"tag":"SZP1","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Size of Paint 1","description":"Modifies the size of a paint element going from an initial size (0) to positive values that increase the size (100%) or negative values that shrink it down (-100%). Reducing the size can create transparency.","fallbackOnly":false,"popularity":0},{"tag":"SZP2","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Size of Paint 2","description":"Modifies the size of a paint element going from an initial size (0) to positive values that increase the size (100%) or negative values that shrink it down (-100%). Reducing the size can create transparency. Paint 2 is in front of Paint 1.","fallbackOnly":false,"popularity":0},{"tag":"slnt","minValue":-90,"defaultValue":0,"maxValue":90,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Slant","description":"Adjust the style from upright to slanted. Negative values produce right-leaning forms, also known to typographers as an 'oblique' style. Positive values produce left-leaning forms, also called a 'backslanted' or 'reverse oblique' style.","fallbackOnly":false,"illustrationUrl":"slant.svg","popularity":15},{"tag":"SOFT","minValue":0,"defaultValue":0,"maxValue":100,"precision":-1,"fallback":[{"name":"Sharp","value":0},{"name":"Soft","value":50},{"name":"SuperSoft","value":100}],"displayName":"Softness","description":"Adjust letterforms to become more and more soft and rounded.","fallbackOnly":false,"illustrationUrl":"softness.svg","popularity":1},{"tag":"SPAC","minValue":-100,"defaultValue":0,"maxValue":100,"precision":-1,"fallback":[{"name":"Default","value":0}],"displayName":"Spacing","description":"Adjusts the overall letter spacing of a font. The range is a relative percentage change from the family’s default spacing, so the default value is 0.","fallbackOnly":false,"popularity":1},{"tag":"VOLM","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Volume","description":"Expands and exaggerates details of a typeface to emphasize the personality. Understood in a percentage amount, it goes from a neutral state (0%) to a maximum level (100%).","fallbackOnly":false,"popularity":1},{"tag":"wght","minValue":1,"defaultValue":400,"maxValue":1000,"precision":0,"fallback":[{"name":"Thin","value":100},{"name":"ExtraLight","value":200},{"name":"Light","value":300},{"name":"Regular","value":400},{"name":"Medium","value":500},{"name":"SemiBold","value":600},{"name":"Bold","value":700},{"name":"ExtraBold","value":800},{"name":"Black","value":900}],"displayName":"Weight","description":"Adjust the style from lighter to bolder in typographic color, by varying stroke weights, spacing and kerning, and other aspects of the type. This typically changes overall width, and so may be used in conjunction with Width and Grade axes.","fallbackOnly":false,"illustrationUrl":"weight.svg","popularity":494},{"tag":"wdth","minValue":25,"defaultValue":100,"maxValue":200,"precision":-1,"fallback":[{"name":"SuperCondensed","value":25},{"name":"UltraCondensed","value":50},{"name":"ExtraCondensed","value":62.5},{"name":"Condensed","value":75},{"name":"SemiCondensed","value":87.5},{"name":"Normal","value":100},{"name":"SemiExpanded","value":112.5},{"name":"Expanded","value":125},{"name":"ExtraExpanded","value":150},{"name":"UltraExpanded","value":200}],"displayName":"Width","description":"Adjust the style from narrower to wider, by varying the proportions of counters, strokes, spacing and kerning, and other aspects of the type. This typically changes the typographic color in a subtle way, and so may be used in conjunction with Weight and Grade axes.","fallbackOnly":false,"illustrationUrl":"width.svg","popularity":89},{"tag":"WONK","minValue":0,"defaultValue":0,"maxValue":1,"precision":0,"fallback":[{"name":"NonWonky","value":0},{"name":"Wonky","value":1}],"displayName":"Wonky","description":"Toggle the substitution of wonky forms. 'Off' (0) maintains more conventional letterforms, while 'On' (1) maintains wonky letterforms, such as leaning stems in roman, or flagged ascenders in italic. These forms are also controlled by Optical Size.","fallbackOnly":true,"illustrationUrl":"wonky.svg","popularity":1},{"tag":"XELA","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Horizontal Element Alignment","description":"Align glyph elements from their default position (0%), usually the baseline, to a rightmost (100%) or leftmost (-100%) position.","fallbackOnly":false,"popularity":1},{"tag":"XOPQ","minValue":-1000,"defaultValue":88,"maxValue":2000,"precision":0,"fallback":[{"name":"Normal","value":88}],"displayName":"Thick Stroke","description":"A parametric axis for varying thick stroke weights, such as stems.","fallbackOnly":false,"illustrationUrl":"x_opaque.svg","popularity":1},{"tag":"XPN1","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Horizontal Position of Paint 1","description":"The position of the paint moves left and right. Negative values move to the left and positive values move to the right, in the X dimension. Paint 1 is behind Paint 2.","fallbackOnly":false,"popularity":0},{"tag":"XPN2","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Horizontal Position of Paint 2","description":"The position of the paint moves left and right. Negative values move to the left and positive values move to the right, in the X dimension. Paint 2 is in front of Paint 1.","fallbackOnly":false,"popularity":0},{"tag":"XROT","minValue":-180,"defaultValue":0,"maxValue":180,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Rotation in X","description":"Glyphs rotate left and right, negative values to the left and positive values to the right, in the X dimension.","fallbackOnly":false,"popularity":3},{"tag":"XTRA","minValue":-1000,"defaultValue":400,"maxValue":2000,"precision":0,"fallback":[{"name":"Normal","value":400}],"displayName":"Counter Width","description":"A parametric axis for varying counter widths in the X dimension.","fallbackOnly":false,"illustrationUrl":"x_transparent.svg","popularity":1},{"tag":"XTFI","minValue":-1000,"defaultValue":400,"maxValue":2000,"precision":0,"fallback":[{"name":"Normal","value":400}],"displayName":"X transparent figures","description":"Assigns a 'white' per mille value to each instance of the design space.","fallbackOnly":false,"popularity":0},{"tag":"YELA","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Vertical Element Alignment","description":"Align glyphs elements from their default position (0%), usually the baseline, to an upper (100%) or lower (-100%) position.","fallbackOnly":false,"popularity":2},{"tag":"YOPQ","minValue":-1000,"defaultValue":116,"maxValue":2000,"precision":0,"fallback":[{"name":"Normal","value":116}],"displayName":"Thin Stroke","description":"A parametric axis for varying thin stroke weights, such as bars and hairlines.","fallbackOnly":false,"illustrationUrl":"y_opaque.svg","popularity":2},{"tag":"YPN1","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Vertical Position of Paint 1","description":"The position of the paint moves up and down. Negative values move down and positive values move up. Paint 1 is behind Paint 2.","fallbackOnly":false,"popularity":0},{"tag":"YPN2","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Vertical Position of Paint 2","description":"The position of the paint moves up and down. Negative values move down and positive values move up. Paint 2 is in front of Paint 1.","fallbackOnly":false,"popularity":0},{"tag":"YROT","minValue":-180,"defaultValue":0,"maxValue":180,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Rotation in Y","description":"Glyphs rotate up and down, negative values tilt down and positive values tilt up, in the Y dimension.","fallbackOnly":false,"popularity":3},{"tag":"YTAS","minValue":0,"defaultValue":750,"maxValue":1000,"precision":0,"fallback":[{"name":"Normal","value":750}],"displayName":"Ascender Height","description":"A parametric axis for varying the height of lowercase ascenders.","fallbackOnly":false,"illustrationUrl":"y_transparent_ascender.svg","popularity":1},{"tag":"YTDE","minValue":-1000,"defaultValue":-250,"maxValue":0,"precision":0,"fallback":[{"name":"Normal","value":-250}],"displayName":"Descender Depth","description":"A parametric axis for varying the depth of lowercase descenders.","fallbackOnly":false,"illustrationUrl":"y_transparent_descender.svg","popularity":1},{"tag":"YTFI","minValue":-1000,"defaultValue":600,"maxValue":2000,"precision":0,"fallback":[{"name":"Normal","value":600}],"displayName":"Figure Height","description":"A parametric axis for varying the height of figures.","fallbackOnly":false,"illustrationUrl":"y_transparent_figures.svg","popularity":1},{"tag":"YTLC","minValue":0,"defaultValue":500,"maxValue":1000,"precision":0,"fallback":[{"name":"Normal","value":500}],"displayName":"Lowercase Height","description":"A parametric axis for varying the height of the lowercase.","fallbackOnly":false,"illustrationUrl":"y_transparent_lowercase.svg","popularity":2},{"tag":"YTUC","minValue":0,"defaultValue":725,"maxValue":1000,"precision":0,"fallback":[{"name":"Normal","value":725}],"displayName":"Uppercase Height","description":"A parametric axis for varying the heights of uppercase letterforms.","fallbackOnly":false,"illustrationUrl":"y_transparent_uppercase.svg","popularity":1},{"tag":"YEXT","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Vertical Extension","description":"The axis extends glyphs in the Y dimension, such as the Cap Height, Ascender and Descender lengths. This is a relative axis, starting at 0% and going to the typeface's individual maximum extent at 100%.","fallbackOnly":false,"popularity":0},{"tag":"YEAR","minValue":-4000,"defaultValue":2000,"maxValue":4000,"precision":0,"fallback":[{"name":"Default","value":2000}],"displayName":"Year","description":"Axis that shows in a metaphoric way the effect of time on a chosen topic.","fallbackOnly":false,"popularity":1},{"tag":"ZROT","minValue":-180,"defaultValue":0,"maxValue":180,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Rotation in Z","description":"Glyphs rotate left and right, negative values to the left and positive values to the right, in the Z dimension.","fallbackOnly":false,"popularity":0}]`);
+const axesListJson = /* @__PURE__ */ JSON.parse(`[{"tag":"ARRR","minValue":10,"defaultValue":10,"maxValue":60,"precision":0,"fallback":[{"name":"Default","value":10}],"displayName":"AR Retinal Resolution","description":" Resolution-specific enhancements in AR/VR typefaces to optimize rendering across the different resolutions of the headsets making designs accessible and easy to read.","fallbackOnly":false,"popularity":1},{"tag":"BLED","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Bleed","description":"Bleed adjusts the overall darkness in the typographic color of strokes or other forms, without any changes in overall width, line breaks, or page layout. Negative values make the font appearance lighter, while positive values make it darker, similarly to ink bleed or dot gain on paper.","fallbackOnly":false,"popularity":3},{"tag":"BNCE","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Bounce","description":"Shift glyphs up and down in the Y dimension, resulting in an uneven, bouncy baseline.","fallbackOnly":false,"popularity":1},{"tag":"CASL","minValue":0,"defaultValue":0,"maxValue":1,"precision":-2,"fallback":[{"name":"Linear","value":0},{"name":"Casual","value":1}],"displayName":"Casual","description":"Adjust stroke curvature, contrast, and terminals from a sturdy, rational Linear style to a friendly, energetic Casual style.","fallbackOnly":false,"illustrationUrl":"casual.svg","popularity":1},{"tag":"CTRS","minValue":-100,"defaultValue":0,"maxValue":100,"precision":1,"fallback":[{"name":"Reversed","value":-100},{"name":"None","value":0},{"name":"High","value":100}],"displayName":"Contrast","description":"Contrast describes the stroke width difference between the thick and thin parts of the font glyphs. A value of zero indicates no visible/apparent contrast. A positive number indicates an increase in contrast relative to the zero-contrast thickness, achieved by making the thin stroke thinner. A value of 100 indicates that the thin stroke has disappeared completely. A negative value indicates “reverse contrast”: the strokes which would conventionally be thick in the writing system are instead made thinner. In western-language fonts this might be perceived as a 19th-century, “circus” or “old West” effect. A value of -100 indicates that the strokes which would normally be thick have disappeared completely.","fallbackOnly":false,"illustrationUrl":"contrast.svg","popularity":0},{"tag":"CRSV","minValue":0,"defaultValue":0.5,"maxValue":1,"precision":-1,"fallback":[{"name":"Roman","value":0,"displayName":"Off"},{"name":"Auto","value":0.5},{"name":"Cursive","value":1,"displayName":"On"}],"displayName":"Cursive","description":"Control the substitution of cursive forms along the Slant axis. 'Off' (0) maintains Roman letterforms such as a double-storey a and g, 'Auto' (0.5) allows for Cursive substitution, and 'On' (1) asserts cursive forms even in upright text with a Slant of 0.","fallbackOnly":true,"illustrationUrl":"cursive.svg","popularity":10},{"tag":"EHLT","minValue":0,"defaultValue":12,"maxValue":1000,"precision":0,"fallback":[{"name":"Default","value":12}],"displayName":"Edge Highlight","description":"Controls thickness of edge highlight details.","fallbackOnly":false,"popularity":1},{"tag":"ELXP","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Element Expansion","description":"As the Element Expansion axis progresses, the elements move apart.","fallbackOnly":false,"popularity":8},{"tag":"ELGR","minValue":1,"defaultValue":1,"maxValue":2,"precision":-1,"fallback":[{"name":"Default","value":1}],"displayName":"Element Grid","description":"In modular fonts, where glyphs are composed using multiple copies of the same element, this axis controls how many elements are used per one grid unit.","fallbackOnly":false,"popularity":1},{"tag":"ELSH","minValue":0,"defaultValue":0,"maxValue":100,"precision":-1,"fallback":[{"name":"Default","value":0}],"displayName":"Element Shape","description":"In modular fonts, where glyphs are composed using multiple copies of the same element, this axis controls the shape of the element","fallbackOnly":false,"popularity":10},{"tag":"EDPT","minValue":0,"defaultValue":100,"maxValue":1000,"precision":0,"fallback":[{"name":"Default","value":100}],"displayName":"Extrusion Depth","description":"Controls the 3D depth on contours.","fallbackOnly":false,"popularity":1},{"tag":"FILL","minValue":0,"defaultValue":0,"maxValue":1,"precision":-2,"fallback":[{"name":"Normal","value":0},{"name":"Filled","value":1}],"displayName":"Fill","description":"Fill in transparent forms with opaque ones. Sometimes interior opaque forms become transparent, to maintain contrasting shapes. This can be useful in animation or interaction to convey a state transition. Ranges from 0 (no treatment) to 1 (completely filled).","fallbackOnly":false,"illustrationUrl":"fill.svg","popularity":0},{"tag":"FLAR","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Flare","description":"As the flare axis grows, the stem terminals go from straight (0%) to develop a swelling (100%).","fallbackOnly":false,"popularity":1},{"tag":"GRAD","minValue":-1000,"defaultValue":0,"maxValue":1000,"precision":0,"fallback":[{"name":"Normal","value":0}],"displayName":"Grade","description":"Finesse the style from lighter to bolder in typographic color, without any changes overall width, line breaks or page layout. Negative grade makes the style lighter, while positive grade makes it bolder. The units are the same as in the Weight axis.","fallbackOnly":false,"illustrationUrl":"grade.svg","popularity":3},{"tag":"HEXP","minValue":0,"defaultValue":0,"maxValue":100,"precision":-1,"fallback":[{"name":"Default","value":0}],"displayName":"Hyper Expansion","description":"Expansion of inner and outer space of glyphs.","fallbackOnly":false,"popularity":1},{"tag":"INFM","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Informality","description":"Adjusts overall design from formal and traditional (0%) to informal and unconventional (up to 100%).","fallbackOnly":false,"popularity":1},{"tag":"ital","minValue":0,"defaultValue":0,"maxValue":1,"precision":0,"fallback":[{"name":"Roman","value":0},{"name":"Italic","value":1}],"displayName":"Italic","description":"Adjust the style from roman to italic. This can be provided as a continuous range within a single font file, like most axes, or as a toggle between two roman and italic files that form a family as a pair.","fallbackOnly":true,"illustrationUrl":"italic.svg","popularity":0},{"tag":"MONO","minValue":0,"defaultValue":0,"maxValue":1,"precision":-2,"fallback":[{"name":"Proportional","value":0},{"name":"Monospace","value":1}],"displayName":"Monospace","description":"Adjust the style from Proportional (natural widths, default) to Monospace (fixed width). With proportional spacing, each glyph takes up a unique amount of space on a line, while monospace is when all glyphs have the same total character width.","fallbackOnly":false,"illustrationUrl":"monospace.svg","popularity":2},{"tag":"MORF","minValue":0,"defaultValue":0,"maxValue":60,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Morph","description":"Letterforms morph: Changing in unconventional ways, that don't alter other attributes, like width or weight. The range from 0 to 60 can be understood as seconds.","fallbackOnly":false,"popularity":3},{"tag":"opsz","minValue":5,"defaultValue":14,"maxValue":1200,"precision":-1,"fallback":[{"name":"6pt","value":6},{"name":"7pt","value":7},{"name":"8pt","value":8},{"name":"9pt","value":9},{"name":"10pt","value":10},{"name":"11pt","value":11},{"name":"12pt","value":12},{"name":"14pt","value":14},{"name":"16pt","value":16},{"name":"17pt","value":17},{"name":"18pt","value":18},{"name":"20pt","value":20},{"name":"24pt","value":24},{"name":"28pt","value":28},{"name":"36pt","value":36},{"name":"48pt","value":48},{"name":"60pt","value":60},{"name":"72pt","value":72},{"name":"96pt","value":96},{"name":"120pt","value":120},{"name":"144pt","value":144}],"displayName":"Optical Size","description":"Adapt the style to specific text sizes. At smaller sizes, letters typically become optimized for more legibility. At larger sizes, optimized for headlines, with more extreme weights and widths. In CSS this axis is activated automatically when it is available.","fallbackOnly":false,"illustrationUrl":"optical_size.svg","popularity":27},{"tag":"ROND","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Roundness","description":"Adjust shapes from angular defaults (0%) to become increasingly rounded (up to 100%).","fallbackOnly":false,"popularity":2},{"tag":"SCAN","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Scanlines","description":"Break up shapes into horizontal segments without any changes in overall width, letter spacing, or kerning, so there are no line breaks or page layout changes. Negative values make the scanlines thinner, and positive values make them thicker.","fallbackOnly":false,"popularity":3},{"tag":"SHLN","minValue":0,"defaultValue":50,"maxValue":100,"precision":-1,"fallback":[{"name":"Default","value":50}],"displayName":"Shadow Length","description":"Adjusts the font's shadow length from no shadow visible (0 %) to a maximum shadow applied (100%) relative to each family design.","fallbackOnly":false,"popularity":1},{"tag":"SHRP","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Sharpness","description":"Adjust shapes from angular or blunt default shapes (0%) to become increasingly sharped forms (up to 100%).","fallbackOnly":false,"popularity":1},{"tag":"SZP1","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Size of Paint 1","description":"Modifies the size of a paint element going from an initial size (0) to positive values that increase the size (100%) or negative values that shrink it down (-100%). Reducing the size can create transparency.","fallbackOnly":false,"popularity":2},{"tag":"SZP2","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Size of Paint 2","description":"Modifies the size of a paint element going from an initial size (0) to positive values that increase the size (100%) or negative values that shrink it down (-100%). Reducing the size can create transparency. Paint 2 is in front of Paint 1.","fallbackOnly":false,"popularity":2},{"tag":"slnt","minValue":-90,"defaultValue":0,"maxValue":90,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Slant","description":"Adjust the style from upright to slanted. Negative values produce right-leaning forms, also known to typographers as an 'oblique' style. Positive values produce left-leaning forms, also called a 'backslanted' or 'reverse oblique' style.","fallbackOnly":false,"illustrationUrl":"slant.svg","popularity":17},{"tag":"SOFT","minValue":0,"defaultValue":0,"maxValue":100,"precision":-1,"fallback":[{"name":"Sharp","value":0},{"name":"Soft","value":50},{"name":"SuperSoft","value":100}],"displayName":"Softness","description":"Adjust letterforms to become more and more soft and rounded.","fallbackOnly":false,"illustrationUrl":"softness.svg","popularity":1},{"tag":"SPAC","minValue":-100,"defaultValue":0,"maxValue":100,"precision":-1,"fallback":[{"name":"Default","value":0}],"displayName":"Spacing","description":"Adjusts the overall letter spacing of a font. The range is a relative percentage change from the family’s default spacing, so the default value is 0.","fallbackOnly":false,"popularity":1},{"tag":"VOLM","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Volume","description":"Expands and exaggerates details of a typeface to emphasize the personality. Understood in a percentage amount, it goes from a neutral state (0%) to a maximum level (100%).","fallbackOnly":false,"popularity":1},{"tag":"wght","minValue":1,"defaultValue":400,"maxValue":1000,"precision":0,"fallback":[{"name":"Thin","value":100},{"name":"ExtraLight","value":200},{"name":"Light","value":300},{"name":"Regular","value":400},{"name":"Medium","value":500},{"name":"SemiBold","value":600},{"name":"Bold","value":700},{"name":"ExtraBold","value":800},{"name":"Black","value":900}],"displayName":"Weight","description":"Adjust the style from lighter to bolder in typographic color, by varying stroke weights, spacing and kerning, and other aspects of the type. This typically changes overall width, and so may be used in conjunction with Width and Grade axes.","fallbackOnly":false,"illustrationUrl":"weight.svg","popularity":499},{"tag":"wdth","minValue":25,"defaultValue":100,"maxValue":200,"precision":-1,"fallback":[{"name":"SuperCondensed","value":25},{"name":"UltraCondensed","value":50},{"name":"ExtraCondensed","value":62.5},{"name":"Condensed","value":75},{"name":"SemiCondensed","value":87.5},{"name":"Normal","value":100},{"name":"SemiExpanded","value":112.5},{"name":"Expanded","value":125},{"name":"ExtraExpanded","value":150},{"name":"UltraExpanded","value":200}],"displayName":"Width","description":"Adjust the style from narrower to wider, by varying the proportions of counters, strokes, spacing and kerning, and other aspects of the type. This typically changes the typographic color in a subtle way, and so may be used in conjunction with Weight and Grade axes.","fallbackOnly":false,"illustrationUrl":"width.svg","popularity":90},{"tag":"WONK","minValue":0,"defaultValue":0,"maxValue":1,"precision":0,"fallback":[{"name":"NonWonky","value":0},{"name":"Wonky","value":1}],"displayName":"Wonky","description":"Toggle the substitution of wonky forms. 'Off' (0) maintains more conventional letterforms, while 'On' (1) maintains wonky letterforms, such as leaning stems in roman, or flagged ascenders in italic. These forms are also controlled by Optical Size.","fallbackOnly":true,"illustrationUrl":"wonky.svg","popularity":1},{"tag":"XELA","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Horizontal Element Alignment","description":"Align glyph elements from their default position (0%), usually the baseline, to a rightmost (100%) or leftmost (-100%) position.","fallbackOnly":false,"popularity":1},{"tag":"XOPQ","minValue":-1000,"defaultValue":88,"maxValue":2000,"precision":0,"fallback":[{"name":"Normal","value":88}],"displayName":"Thick Stroke","description":"A parametric axis for varying thick stroke weights, such as stems.","fallbackOnly":false,"illustrationUrl":"x_opaque.svg","popularity":1},{"tag":"XPN1","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Horizontal Position of Paint 1","description":"The position of the paint moves left and right. Negative values move to the left and positive values move to the right, in the X dimension. Paint 1 is behind Paint 2.","fallbackOnly":false,"popularity":2},{"tag":"XPN2","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Horizontal Position of Paint 2","description":"The position of the paint moves left and right. Negative values move to the left and positive values move to the right, in the X dimension. Paint 2 is in front of Paint 1.","fallbackOnly":false,"popularity":2},{"tag":"XROT","minValue":-180,"defaultValue":0,"maxValue":180,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Rotation in X","description":"Glyphs rotate left and right, negative values to the left and positive values to the right, in the X dimension.","fallbackOnly":false,"popularity":3},{"tag":"XTRA","minValue":-1000,"defaultValue":400,"maxValue":2000,"precision":0,"fallback":[{"name":"Normal","value":400}],"displayName":"Counter Width","description":"A parametric axis for varying counter widths in the X dimension.","fallbackOnly":false,"illustrationUrl":"x_transparent.svg","popularity":1},{"tag":"XTFI","minValue":-1000,"defaultValue":400,"maxValue":2000,"precision":0,"fallback":[{"name":"Normal","value":400}],"displayName":"X transparent figures","description":"Assigns a 'white' per mille value to each instance of the design space.","fallbackOnly":false,"popularity":0},{"tag":"YELA","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Vertical Element Alignment","description":"Align glyphs elements from their default position (0%), usually the baseline, to an upper (100%) or lower (-100%) position.","fallbackOnly":false,"popularity":2},{"tag":"YOPQ","minValue":-1000,"defaultValue":116,"maxValue":2000,"precision":0,"fallback":[{"name":"Normal","value":116}],"displayName":"Thin Stroke","description":"A parametric axis for varying thin stroke weights, such as bars and hairlines.","fallbackOnly":false,"illustrationUrl":"y_opaque.svg","popularity":2},{"tag":"YPN1","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Vertical Position of Paint 1","description":"The position of the paint moves up and down. Negative values move down and positive values move up. Paint 1 is behind Paint 2.","fallbackOnly":false,"popularity":2},{"tag":"YPN2","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Vertical Position of Paint 2","description":"The position of the paint moves up and down. Negative values move down and positive values move up. Paint 2 is in front of Paint 1.","fallbackOnly":false,"popularity":2},{"tag":"YROT","minValue":-180,"defaultValue":0,"maxValue":180,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Rotation in Y","description":"Glyphs rotate up and down, negative values tilt down and positive values tilt up, in the Y dimension.","fallbackOnly":false,"popularity":3},{"tag":"YTAS","minValue":0,"defaultValue":750,"maxValue":1000,"precision":0,"fallback":[{"name":"Normal","value":750}],"displayName":"Ascender Height","description":"A parametric axis for varying the height of lowercase ascenders.","fallbackOnly":false,"illustrationUrl":"y_transparent_ascender.svg","popularity":1},{"tag":"YTDE","minValue":-1000,"defaultValue":-250,"maxValue":0,"precision":0,"fallback":[{"name":"Normal","value":-250}],"displayName":"Descender Depth","description":"A parametric axis for varying the depth of lowercase descenders.","fallbackOnly":false,"illustrationUrl":"y_transparent_descender.svg","popularity":1},{"tag":"YTFI","minValue":-1000,"defaultValue":600,"maxValue":2000,"precision":0,"fallback":[{"name":"Normal","value":600}],"displayName":"Figure Height","description":"A parametric axis for varying the height of figures.","fallbackOnly":false,"illustrationUrl":"y_transparent_figures.svg","popularity":1},{"tag":"YTLC","minValue":0,"defaultValue":500,"maxValue":1000,"precision":0,"fallback":[{"name":"Normal","value":500}],"displayName":"Lowercase Height","description":"A parametric axis for varying the height of the lowercase.","fallbackOnly":false,"illustrationUrl":"y_transparent_lowercase.svg","popularity":2},{"tag":"YTUC","minValue":0,"defaultValue":725,"maxValue":1000,"precision":0,"fallback":[{"name":"Normal","value":725}],"displayName":"Uppercase Height","description":"A parametric axis for varying the heights of uppercase letterforms.","fallbackOnly":false,"illustrationUrl":"y_transparent_uppercase.svg","popularity":1},{"tag":"YEXT","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Vertical Extension","description":"The axis extends glyphs in the Y dimension, such as the Cap Height, Ascender and Descender lengths. This is a relative axis, starting at 0% and going to the typeface's individual maximum extent at 100%.","fallbackOnly":false,"popularity":0},{"tag":"YEAR","minValue":-4000,"defaultValue":2000,"maxValue":4000,"precision":0,"fallback":[{"name":"Default","value":2000}],"displayName":"Year","description":"Axis that shows in a metaphoric way the effect of time on a chosen topic.","fallbackOnly":false,"popularity":1},{"tag":"ZROT","minValue":-180,"defaultValue":0,"maxValue":180,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Rotation in Z","description":"Glyphs rotate left and right, negative values to the left and positive values to the right, in the Z dimension.","fallbackOnly":false,"popularity":0}]`);
 const axesList = axesListJson;
+axesList.sort((a, b) => b.popularity - a.popularity);
 const axisMetadata = /* @__PURE__ */ new Map();
 for (const axis of axesList) {
   axisMetadata.set(axis.tag, axis);
@@ -9677,195 +9678,195 @@ const ExportPanel = () => {
     }
   );
 };
-const tabularNums = "_tabular-nums_qkwxt_120";
-const loading = "_loading_qkwxt_180";
-const loader = "_loader_qkwxt_279";
-const spin = "_spin_qkwxt_1";
-const fancyTable = "_fancy-table_qkwxt_211";
-const hlDk = "_hl-dk_qkwxt_230";
-const hlOk = "_hl-ok_qkwxt_234";
-const hlKw = "_hl-kw_qkwxt_238";
-const hlPn = "_hl-pn_qkwxt_242";
-const hlP = "_hl-p_qkwxt_242";
-const hlB = "_hl-b_qkwxt_250";
-const hlPu = "_hl-pu_qkwxt_254";
-const hlS = "_hl-s_qkwxt_258";
-const hlN = "_hl-n_qkwxt_262";
-const hlSe = "_hl-se_qkwxt_266";
-const fontsModal = "_fonts-modal_qkwxt_270";
-const loaderPositioner = "_loader-positioner_qkwxt_279";
-const topBar = "_top-bar_qkwxt_286";
-const searchBox = "_search-box_qkwxt_295";
-const panes = "_panes_qkwxt_299";
-const mobileBackButton = "_mobile-back-button_qkwxt_305";
-const mobileFiltersButton = "_mobile-filters-button_qkwxt_306";
-const listAndPreview = "_list-and-preview_qkwxt_310";
-const fontsList = "_fonts-list_qkwxt_314";
-const fontsListSort = "_fonts-list-sort_qkwxt_323";
-const fontsListFonts = "_fonts-list-fonts_qkwxt_330";
-const fontsListFontsInner = "_fonts-list-fonts-inner_qkwxt_335";
-const fontItem = "_font-item_qkwxt_339";
-const selected = "_selected_qkwxt_351";
-const addFontButton = "_add-font-button_qkwxt_354";
-const fontName = "_font-name_qkwxt_361";
-const addFontLoader = "_add-font-loader_qkwxt_371";
-const fontPreviewHeader = "_font-preview-header_qkwxt_379";
-const fontPreviewTitle = "_font-preview-title_qkwxt_388";
-const fontMeta = "_font-meta_qkwxt_393";
-const fontMetaLine = "_font-meta-line_qkwxt_399";
-const fontPreview = "_font-preview_qkwxt_379";
-const filtersPane = "_filters-pane_qkwxt_412";
-const filterGroup = "_filter-group_qkwxt_419";
-const filterGroupTitle = "_filter-group-title_qkwxt_426";
-const filterToggle = "_filter-toggle_qkwxt_433";
-const previewControls = "_preview-controls_qkwxt_437";
-const previewTextInput = "_preview-text-input_qkwxt_443";
-const previewFontSize = "_preview-font-size_qkwxt_452";
-const previewFontSizeSlider = "_preview-font-size-slider_qkwxt_462";
-const previewContent = "_preview-content_qkwxt_466";
-const previewSamples = "_preview-samples_qkwxt_473";
-const fontSample = "_font-sample_qkwxt_479";
-const fontStyleName = "_font-style-name_qkwxt_486";
-const fontStylePreview = "_font-style-preview_qkwxt_494";
-const sectionHeader = "_section-header_qkwxt_499";
-const supportedLanguages = "_supported-languages_qkwxt_504";
-const scriptLangs = "_script-langs_qkwxt_509";
-const supportedLang = "_supported-lang_qkwxt_504";
-const scriptTitle = "_script-title_qkwxt_523";
-const axisControls = "_axis-controls_qkwxt_527";
-const axisControlsBody = "_axis-controls-body_qkwxt_535";
-const axisControlsTitle = "_axis-controls-title_qkwxt_541";
-const axisLabel = "_axis-label_qkwxt_548";
-const axisInputs = "_axis-inputs_qkwxt_555";
-const axisSlider = "_axis-slider_qkwxt_561";
-const axisSpinBox = "_axis-spin-box_qkwxt_565";
-const hide = "_hide_qkwxt_569";
-const mobilePreview = "_mobile-preview_qkwxt_585";
-const filtersExpanded = "_filters-expanded_qkwxt_605";
+const tabularNums = "_tabular-nums_pfhh5_120";
+const loading = "_loading_pfhh5_180";
+const loader = "_loader_pfhh5_279";
+const spin = "_spin_pfhh5_1";
+const fancyTable = "_fancy-table_pfhh5_211";
+const hlDk = "_hl-dk_pfhh5_230";
+const hlOk = "_hl-ok_pfhh5_234";
+const hlKw = "_hl-kw_pfhh5_238";
+const hlPn = "_hl-pn_pfhh5_242";
+const hlP = "_hl-p_pfhh5_242";
+const hlB = "_hl-b_pfhh5_250";
+const hlPu = "_hl-pu_pfhh5_254";
+const hlS = "_hl-s_pfhh5_258";
+const hlN = "_hl-n_pfhh5_262";
+const hlSe = "_hl-se_pfhh5_266";
+const fontsModal = "_fonts-modal_pfhh5_270";
+const loaderPositioner = "_loader-positioner_pfhh5_279";
+const topBar = "_top-bar_pfhh5_286";
+const searchBox = "_search-box_pfhh5_295";
+const panes = "_panes_pfhh5_299";
+const mobileBackButton = "_mobile-back-button_pfhh5_305";
+const mobileFiltersButton = "_mobile-filters-button_pfhh5_306";
+const listAndPreview = "_list-and-preview_pfhh5_310";
+const fontsList = "_fonts-list_pfhh5_314";
+const fontsListSort = "_fonts-list-sort_pfhh5_323";
+const fontsListFonts = "_fonts-list-fonts_pfhh5_330";
+const fontsListFontsInner = "_fonts-list-fonts-inner_pfhh5_335";
+const fontItem = "_font-item_pfhh5_339";
+const selected = "_selected_pfhh5_351";
+const addFontButton = "_add-font-button_pfhh5_354";
+const fontName = "_font-name_pfhh5_361";
+const addFontLoader = "_add-font-loader_pfhh5_372";
+const fontPreviewHeader = "_font-preview-header_pfhh5_380";
+const fontPreviewTitle = "_font-preview-title_pfhh5_389";
+const fontMeta = "_font-meta_pfhh5_394";
+const fontMetaLine = "_font-meta-line_pfhh5_400";
+const fontPreview = "_font-preview_pfhh5_380";
+const filtersPane = "_filters-pane_pfhh5_413";
+const filterGroup = "_filter-group_pfhh5_420";
+const filterGroupTitle = "_filter-group-title_pfhh5_427";
+const filterToggle = "_filter-toggle_pfhh5_434";
+const previewControls = "_preview-controls_pfhh5_438";
+const previewTextInput = "_preview-text-input_pfhh5_444";
+const previewFontSize = "_preview-font-size_pfhh5_453";
+const previewFontSizeSlider = "_preview-font-size-slider_pfhh5_463";
+const previewContent = "_preview-content_pfhh5_467";
+const previewSamples = "_preview-samples_pfhh5_474";
+const fontSample = "_font-sample_pfhh5_480";
+const fontStyleName = "_font-style-name_pfhh5_487";
+const fontStylePreview = "_font-style-preview_pfhh5_495";
+const sectionHeader = "_section-header_pfhh5_500";
+const supportedLanguages = "_supported-languages_pfhh5_505";
+const scriptLangs = "_script-langs_pfhh5_510";
+const supportedLang = "_supported-lang_pfhh5_505";
+const scriptTitle = "_script-title_pfhh5_524";
+const axisControls = "_axis-controls_pfhh5_528";
+const axisControlsBody = "_axis-controls-body_pfhh5_536";
+const axisControlsTitle = "_axis-controls-title_pfhh5_542";
+const axisLabel = "_axis-label_pfhh5_549";
+const axisInputs = "_axis-inputs_pfhh5_556";
+const axisSlider = "_axis-slider_pfhh5_562";
+const axisSpinBox = "_axis-spin-box_pfhh5_566";
+const hide = "_hide_pfhh5_570";
+const mobilePreview = "_mobile-preview_pfhh5_586";
+const filtersExpanded = "_filters-expanded_pfhh5_606";
 const style$1 = {
-  "tabular-nums": "_tabular-nums_qkwxt_120",
+  "tabular-nums": "_tabular-nums_pfhh5_120",
   tabularNums,
   loading,
   loader,
   spin,
-  "fancy-table": "_fancy-table_qkwxt_211",
+  "fancy-table": "_fancy-table_pfhh5_211",
   fancyTable,
-  "hl-dk": "_hl-dk_qkwxt_230",
+  "hl-dk": "_hl-dk_pfhh5_230",
   hlDk,
-  "hl-ok": "_hl-ok_qkwxt_234",
+  "hl-ok": "_hl-ok_pfhh5_234",
   hlOk,
-  "hl-kw": "_hl-kw_qkwxt_238",
+  "hl-kw": "_hl-kw_pfhh5_238",
   hlKw,
-  "hl-pn": "_hl-pn_qkwxt_242",
+  "hl-pn": "_hl-pn_pfhh5_242",
   hlPn,
-  "hl-p": "_hl-p_qkwxt_242",
+  "hl-p": "_hl-p_pfhh5_242",
   hlP,
-  "hl-b": "_hl-b_qkwxt_250",
+  "hl-b": "_hl-b_pfhh5_250",
   hlB,
-  "hl-pu": "_hl-pu_qkwxt_254",
+  "hl-pu": "_hl-pu_pfhh5_254",
   hlPu,
-  "hl-s": "_hl-s_qkwxt_258",
+  "hl-s": "_hl-s_pfhh5_258",
   hlS,
-  "hl-n": "_hl-n_qkwxt_262",
+  "hl-n": "_hl-n_pfhh5_262",
   hlN,
-  "hl-se": "_hl-se_qkwxt_266",
+  "hl-se": "_hl-se_pfhh5_266",
   hlSe,
-  "fonts-modal": "_fonts-modal_qkwxt_270",
+  "fonts-modal": "_fonts-modal_pfhh5_270",
   fontsModal,
-  "loader-positioner": "_loader-positioner_qkwxt_279",
+  "loader-positioner": "_loader-positioner_pfhh5_279",
   loaderPositioner,
-  "top-bar": "_top-bar_qkwxt_286",
+  "top-bar": "_top-bar_pfhh5_286",
   topBar,
-  "search-box": "_search-box_qkwxt_295",
+  "search-box": "_search-box_pfhh5_295",
   searchBox,
   panes,
-  "mobile-back-button": "_mobile-back-button_qkwxt_305",
+  "mobile-back-button": "_mobile-back-button_pfhh5_305",
   mobileBackButton,
-  "mobile-filters-button": "_mobile-filters-button_qkwxt_306",
+  "mobile-filters-button": "_mobile-filters-button_pfhh5_306",
   mobileFiltersButton,
-  "list-and-preview": "_list-and-preview_qkwxt_310",
+  "list-and-preview": "_list-and-preview_pfhh5_310",
   listAndPreview,
-  "fonts-list": "_fonts-list_qkwxt_314",
+  "fonts-list": "_fonts-list_pfhh5_314",
   fontsList,
-  "fonts-list-sort": "_fonts-list-sort_qkwxt_323",
+  "fonts-list-sort": "_fonts-list-sort_pfhh5_323",
   fontsListSort,
-  "fonts-list-fonts": "_fonts-list-fonts_qkwxt_330",
+  "fonts-list-fonts": "_fonts-list-fonts_pfhh5_330",
   fontsListFonts,
-  "fonts-list-fonts-inner": "_fonts-list-fonts-inner_qkwxt_335",
+  "fonts-list-fonts-inner": "_fonts-list-fonts-inner_pfhh5_335",
   fontsListFontsInner,
-  "font-item": "_font-item_qkwxt_339",
+  "font-item": "_font-item_pfhh5_339",
   fontItem,
   selected,
-  "add-font-button": "_add-font-button_qkwxt_354",
+  "add-font-button": "_add-font-button_pfhh5_354",
   addFontButton,
-  "font-name": "_font-name_qkwxt_361",
+  "font-name": "_font-name_pfhh5_361",
   fontName,
-  "add-font-loader": "_add-font-loader_qkwxt_371",
+  "add-font-loader": "_add-font-loader_pfhh5_372",
   addFontLoader,
-  "font-preview-header": "_font-preview-header_qkwxt_379",
+  "font-preview-header": "_font-preview-header_pfhh5_380",
   fontPreviewHeader,
-  "font-preview-title": "_font-preview-title_qkwxt_388",
+  "font-preview-title": "_font-preview-title_pfhh5_389",
   fontPreviewTitle,
-  "font-meta": "_font-meta_qkwxt_393",
+  "font-meta": "_font-meta_pfhh5_394",
   fontMeta,
-  "font-meta-line": "_font-meta-line_qkwxt_399",
+  "font-meta-line": "_font-meta-line_pfhh5_400",
   fontMetaLine,
-  "font-preview": "_font-preview_qkwxt_379",
+  "font-preview": "_font-preview_pfhh5_380",
   fontPreview,
-  "filters-pane": "_filters-pane_qkwxt_412",
+  "filters-pane": "_filters-pane_pfhh5_413",
   filtersPane,
-  "filter-group": "_filter-group_qkwxt_419",
+  "filter-group": "_filter-group_pfhh5_420",
   filterGroup,
-  "filter-group-title": "_filter-group-title_qkwxt_426",
+  "filter-group-title": "_filter-group-title_pfhh5_427",
   filterGroupTitle,
-  "filter-toggle": "_filter-toggle_qkwxt_433",
+  "filter-toggle": "_filter-toggle_pfhh5_434",
   filterToggle,
-  "preview-controls": "_preview-controls_qkwxt_437",
+  "preview-controls": "_preview-controls_pfhh5_438",
   previewControls,
-  "preview-text-input": "_preview-text-input_qkwxt_443",
+  "preview-text-input": "_preview-text-input_pfhh5_444",
   previewTextInput,
-  "preview-font-size": "_preview-font-size_qkwxt_452",
+  "preview-font-size": "_preview-font-size_pfhh5_453",
   previewFontSize,
-  "preview-font-size-slider": "_preview-font-size-slider_qkwxt_462",
+  "preview-font-size-slider": "_preview-font-size-slider_pfhh5_463",
   previewFontSizeSlider,
-  "preview-content": "_preview-content_qkwxt_466",
+  "preview-content": "_preview-content_pfhh5_467",
   previewContent,
-  "preview-samples": "_preview-samples_qkwxt_473",
+  "preview-samples": "_preview-samples_pfhh5_474",
   previewSamples,
-  "font-sample": "_font-sample_qkwxt_479",
+  "font-sample": "_font-sample_pfhh5_480",
   fontSample,
-  "font-style-name": "_font-style-name_qkwxt_486",
+  "font-style-name": "_font-style-name_pfhh5_487",
   fontStyleName,
-  "font-style-preview": "_font-style-preview_qkwxt_494",
+  "font-style-preview": "_font-style-preview_pfhh5_495",
   fontStylePreview,
-  "section-header": "_section-header_qkwxt_499",
+  "section-header": "_section-header_pfhh5_500",
   sectionHeader,
-  "supported-languages": "_supported-languages_qkwxt_504",
+  "supported-languages": "_supported-languages_pfhh5_505",
   supportedLanguages,
-  "script-langs": "_script-langs_qkwxt_509",
+  "script-langs": "_script-langs_pfhh5_510",
   scriptLangs,
-  "supported-lang": "_supported-lang_qkwxt_504",
+  "supported-lang": "_supported-lang_pfhh5_505",
   supportedLang,
-  "script-title": "_script-title_qkwxt_523",
+  "script-title": "_script-title_pfhh5_524",
   scriptTitle,
-  "axis-controls": "_axis-controls_qkwxt_527",
+  "axis-controls": "_axis-controls_pfhh5_528",
   axisControls,
-  "axis-controls-body": "_axis-controls-body_qkwxt_535",
+  "axis-controls-body": "_axis-controls-body_pfhh5_536",
   axisControlsBody,
-  "axis-controls-title": "_axis-controls-title_qkwxt_541",
+  "axis-controls-title": "_axis-controls-title_pfhh5_542",
   axisControlsTitle,
-  "axis-label": "_axis-label_qkwxt_548",
+  "axis-label": "_axis-label_pfhh5_549",
   axisLabel,
-  "axis-inputs": "_axis-inputs_qkwxt_555",
+  "axis-inputs": "_axis-inputs_pfhh5_556",
   axisInputs,
-  "axis-slider": "_axis-slider_qkwxt_561",
+  "axis-slider": "_axis-slider_pfhh5_562",
   axisSlider,
-  "axis-spin-box": "_axis-spin-box_qkwxt_565",
+  "axis-spin-box": "_axis-spin-box_pfhh5_566",
   axisSpinBox,
   hide,
-  "mobile-preview": "_mobile-preview_qkwxt_585",
+  "mobile-preview": "_mobile-preview_pfhh5_586",
   mobilePreview,
-  "filters-expanded": "_filters-expanded_qkwxt_605",
+  "filters-expanded": "_filters-expanded_pfhh5_606",
   filtersExpanded
 };
 const modalWrapper = "_modal-wrapper_1klsm_44";
@@ -9890,13 +9891,12 @@ const GoogleFontsModal = () => {
   const fontsListState = googleFontsModalState.state.value;
   if (fontsListState.state === "not_loaded") {
     __vitePreload(async () => {
-      const { default: ModalComponent, axesList: axesList2, langList } = await import("./GoogleFontsModalInner-5I2PgSO3.js");
-      return { default: ModalComponent, axesList: axesList2, langList };
+      const { default: ModalComponent, langList } = await import("./GoogleFontsModalInner-BdCs3Xj2.js");
+      return { default: ModalComponent, langList };
     }, true ? __vite__mapDeps([0,1,2]) : void 0).then(
-      ({ default: ModalComponent, axesList: axesList2, langList }) => {
-        axesList2.sort((a, b) => b.popularity - a.popularity);
+      ({ default: ModalComponent, langList }) => {
         const selectedAxes = {};
-        for (const axis of axesList2) {
+        for (const axis of axesList) {
           selectedAxes[axis.tag] = d(false);
         }
         const selectedLanguages = {};
@@ -9959,17 +9959,18 @@ export {
   Loader as L,
   Slider as S,
   TextBox as T,
-  axesListJson as a,
-  useThrottledSignal as b,
-  uFuzzy as c,
-  clsx as d,
-  ToggleIcon as e,
+  useThrottledSignal as a,
+  uFuzzy as b,
+  clsx as c,
+  ToggleIcon as d,
+  axisMetadata as e,
   axisSpinboxParams as f,
   SpinBox as g,
   SearchableCheckboxDropdown as h,
-  useAddErrorToast as i,
-  Icon as j,
-  CollapsibleHeader as k,
+  axesList as i,
+  useAddErrorToast as j,
+  Icon as k,
+  CollapsibleHeader as l,
   style$1 as s,
   useAppState as u
 };

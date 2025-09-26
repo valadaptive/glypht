@@ -614,13 +614,6 @@ button {
 .search-result:active {
   background-color: var(--toggle-active);
 }
-.search-result mark {
-  color: var(--text);
-  background-color: var(--highlight);
-  border-radius: 0.25rem;
-  padding: 0.075rem 0.125rem;
-  margin: -0.075rem -0.125rem;
-}
 
 .search-sub-result {
   padding-left: 1rem;
