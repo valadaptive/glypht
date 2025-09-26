@@ -12,7 +12,7 @@ import {
     Dropdown,
     Button,
 } from '../Widgets/Widgets';
-import {FamilyProto, FontProto, LanguageProto, ScriptProto} from '../../generated/google-fonts-types';
+import {AxisSegmentProto, FamilyProto, FontProto, LanguageProto, ScriptProto} from '../../generated/google-fonts-types';
 import Icon, {IconButton} from '../Icon/Icon';
 import {useCallback, useId, useMemo} from 'preact/hooks';
 import {useAddErrorToast} from '../Toast/Toast';
@@ -114,6 +114,67 @@ const ScriptLangList = ({script, langs}: {script: string; langs: string[]}) => {
     );
 };
 
+const axisDefaultValue = (axisSegment: AxisSegmentProto) => {
+    // For some reason, tons of fonts have a default weight value that isn't 400
+    if (axisSegment.tag === 'wght') {
+        return 400;
+    }
+    if (typeof axisSegment.defaultValue !== 'undefined') return axisSegment.defaultValue;
+    const fullAxis = axisMetadata.get(axisSegment.tag);
+    return fullAxis?.defaultValue ?? 100;
+};
+
+const AxisSlider = ({axisSegment, axisValue}: {axisSegment: AxisSegmentProto; axisValue: Signal<number>}) => {
+    // Find the full axis metadata
+    const fullAxis = axisMetadata.get(axisSegment.tag);
+    const defaultValue = axisDefaultValue(axisSegment);
+
+    const resetValue = useCallback(() => {
+        axisValue.value = defaultValue ?? 100;
+    }, [axisValue, defaultValue]);
+
+    const resetButtonDisabled = typeof defaultValue !== 'number' ||
+        defaultValue === axisValue.value;
+
+    return useMemo(() => {
+        const {step, smartAim} = axisSpinboxParams(axisSegment.maxValue ?? 1000);
+
+        // Use values from AxisSegmentProto (family-specific) with fallbacks from AxisProto (global metadata)
+        const minValue = axisSegment.minValue ?? fullAxis?.minValue ?? 0;
+        const maxValue = axisSegment.maxValue ?? fullAxis?.maxValue ?? 1000;
+        const displayName = fullAxis?.displayName ?? axisSegment.tag.toUpperCase();
+
+        return <div className={style.axisControl}>
+            <label className={style.axisLabel}>
+                {displayName}
+            </label>
+            <div className={style.axisInputs}>
+                <Slider
+                    value={axisValue}
+                    min={minValue}
+                    max={maxValue}
+                    step={step}
+                    className={style.axisSlider}
+                />
+                <SpinBox
+                    value={axisValue}
+                    min={minValue}
+                    max={maxValue}
+                    step={step}
+                    smartAim={smartAim}
+                    className={style.axisSpinBox}
+                />
+                <IconButton
+                    type='reset'
+                    title='Reset axis to default value'
+                    disabled={resetButtonDisabled}
+                    onClick={resetValue}
+                />
+            </div>
+        </div>;
+    }, [axisSegment, axisValue, resetButtonDisabled]);
+};
+
 const FontPreview = ({family}: {
     family: GoogleFontsFamily | null;
 }) => {
@@ -124,14 +185,7 @@ const FontPreview = ({family}: {
         const familyVariationValues: Record<string, Signal<number>> = {};
         if (family?.axes) {
             for (const axis of family.axes) {
-                let defaultValue = axis.defaultValue;
-                if (typeof defaultValue === 'undefined') {
-                    const axisMeta = axisMetadata.get(axis.tag);
-                    if (typeof axisMeta?.defaultValue !== 'undefined') {
-                        defaultValue = axisMeta.defaultValue;
-                    }
-                }
-                familyVariationValues[axis.tag] = signal(defaultValue ?? 100);
+                familyVariationValues[axis.tag] = signal(axisDefaultValue(axis));
             }
         }
 
@@ -244,49 +298,11 @@ const FontPreview = ({family}: {
     const axisControls = family.axes ? <div className={style.axisControls}>
         <div className={style.axisControlsTitle}>Variable Axes</div>
         <div className={style.axisControlsBody}>
-            {family.axes.map(axisSegment => {
-                const {step, smartAim} = axisSpinboxParams(axisSegment.maxValue ?? 1000);
-
-                // Find the full axis metadata
-                const fullAxis = axisMetadata.get(axisSegment.tag);
-                const defaultValue = axisSegment.defaultValue ?? fullAxis?.defaultValue;
-
-                // Use values from AxisSegmentProto (family-specific) with fallbacks from AxisProto (global metadata)
-                const minValue = axisSegment.minValue ?? fullAxis?.minValue ?? 0;
-                const maxValue = axisSegment.maxValue ?? fullAxis?.maxValue ?? 1000;
-                const displayName = fullAxis?.displayName ?? axisSegment.tag.toUpperCase();
-
-                const axisValue = variationValues[axisSegment.tag];
-                return <div key={axisSegment.tag} className={style.axisControl}>
-                    <label className={style.axisLabel}>
-                        {displayName}
-                    </label>
-                    <div className={style.axisInputs}>
-                        <Slider
-                            value={axisValue}
-                            min={minValue}
-                            max={maxValue}
-                            step={step}
-                            className={style.axisSlider}
-                        />
-                        <SpinBox
-                            value={axisValue}
-                            min={minValue}
-                            max={maxValue}
-                            step={step}
-                            smartAim={smartAim}
-                            className={style.axisSpinBox}
-                        />
-                        <IconButton
-                            type='reset'
-                            title='Reset axis to default value'
-                            disabled={typeof defaultValue !== 'number' ||
-                                defaultValue === axisValue.value}
-                            onClick={() => axisValue.value = defaultValue ?? 100}
-                        />
-                    </div>
-                </div>;
-            })}
+            {family.axes.map(axisSegment => <AxisSlider
+                axisSegment={axisSegment}
+                axisValue={variationValues[axisSegment.tag]}
+                key={axisSegment.tag}
+            />)}
         </div>
     </div> : null;
 
