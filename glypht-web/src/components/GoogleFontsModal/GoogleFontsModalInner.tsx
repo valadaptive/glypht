@@ -249,6 +249,7 @@ const FontPreview = ({family}: {
 
                 // Find the full axis metadata
                 const fullAxis = axisMetadata.get(axisSegment.tag);
+                const defaultValue = axisSegment.defaultValue ?? fullAxis?.defaultValue;
 
                 // Use values from AxisSegmentProto (family-specific) with fallbacks from AxisProto (global metadata)
                 const minValue = axisSegment.minValue ?? fullAxis?.minValue ?? 0;
@@ -279,9 +280,9 @@ const FontPreview = ({family}: {
                         <IconButton
                             type='reset'
                             title='Reset axis to default value'
-                            disabled={typeof fullAxis?.defaultValue !== 'number' ||
-                                fullAxis?.defaultValue === axisValue.value}
-                            onClick={() => axisValue.value = fullAxis?.defaultValue ?? 0}
+                            disabled={typeof defaultValue !== 'number' ||
+                                defaultValue === axisValue.value}
+                            onClick={() => axisValue.value = defaultValue ?? 100}
                         />
                     </div>
                 </div>;
