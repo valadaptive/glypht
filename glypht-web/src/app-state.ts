@@ -411,25 +411,25 @@ export class AppState {
                 }
             }
         }
-        if (settings.cssPathPrefix) {
+        if (typeof settings.cssPathPrefix !== 'undefined') {
             this.cssPathPrefix.value = settings.cssPathPrefix;
         }
-        if (settings.exportSettings?.formats.ttf) {
+        if (typeof settings.exportSettings?.formats.ttf !== 'undefined') {
             this.exportSettings.formats.ttf.value = settings.exportSettings.formats.ttf;
         }
-        if (settings.exportSettings?.formats.woff) {
+        if (typeof settings.exportSettings?.formats.woff !== 'undefined') {
             this.exportSettings.formats.woff.value = settings.exportSettings.formats.woff;
         }
-        if (settings.exportSettings?.formats.woff2) {
+        if (typeof settings.exportSettings?.formats.woff2 !== 'undefined') {
             this.exportSettings.formats.woff2.value = settings.exportSettings.formats.woff2;
         }
-        if (settings.exportSettings?.woffCompression) {
+        if (typeof settings.exportSettings?.woffCompression !== 'undefined') {
             this.exportSettings.woffCompression.value = settings.exportSettings.woffCompression;
         }
-        if (settings.exportSettings?.woff2Compression) {
+        if (typeof settings.exportSettings?.woff2Compression !== 'undefined') {
             this.exportSettings.woff2Compression.value = settings.exportSettings.woff2Compression;
         }
-        if (settings.exportSettings?.includeTTFinCSS) {
+        if (typeof settings.exportSettings?.includeTTFinCSS !== 'undefined') {
             this.exportSettings.includeTTFinCSS.value = settings.exportSettings.includeTTFinCSS;
         }
     }
