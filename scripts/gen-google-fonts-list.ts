@@ -195,31 +195,27 @@ const scriptType = languageDataNamespace.lookupType('ScriptProto');
 //const regionType = languageDataNamespace.lookupType('RegionProto');
 
 const languagesData: any[] = [];
-const langIndices = new Map();
 const languagesDir = path.join(gflanguagesDir, 'data/languages');
 for (const langFile of await fs.readdir(languagesDir)) {
     const langFilePath = path.join(languagesDir, langFile);
     const langProto = await fs.readFile(langFilePath, 'utf-8');
     const langFileData = parse(langProto, languageType.create({})).toJSON();
-    // We don't need the note
+    // We don't need the note or source
     delete langFileData.note;
+    delete langFileData.source;
     // This text is quite long and not very compressible
     if (langFileData.sampleText) {
-        delete langFileData.sampleText.specimen_48;
+        /*delete langFileData.sampleText.specimen_48;
         delete langFileData.sampleText.specimen_36;
         delete langFileData.sampleText.specimen_32;
         delete langFileData.sampleText.specimen_21;
-        delete langFileData.sampleText.specimen_16;
+        delete langFileData.sampleText.specimen_16;*/
+        langFileData.sampleText = {styles: langFileData.sampleText.styles};
     }
     languagesData.push(langFileData);
 }
-// Sorting by population is useful in the frontend, and also helps with compression--we store languages as a bitset,
-// and putting more popular languages towards the front means the "tail" of the bitset will contain long strings of
-// zeroes. Population is not a perfect proxy for number of fonts supporting the language, but it helps.
+// For exemplar language calculation, the most popular language wins. We'll re-sort languagesData later down.
 languagesData.sort((a, b) => (b.population ?? 0) - (a.population ?? 0));
-for (let i = 0; i < languagesData.length; i++) {
-    langIndices.set(languagesData[i].id, i);
-}
 
 logProgress('Reading and parsing all script metadata...');
 
@@ -245,7 +241,6 @@ for (let i = 0; i < numThreads; i++) {
     const w = new Worker(moduleUrl, {type: 'module'});
     const r = new RpcDispatcher<MetadataWorkerSchema>(w, {'calcMetadata': 'calcedMetadata'});
     r.sendAndForget('init', {
-        langIndices,
         languagesData,
         fontsDir,
     });
@@ -262,7 +257,6 @@ let numCompleted = 0;
 const allCompleted = new Promise(_resolve => {
     resolve = _resolve;
 });
-const shapingTimes = new Map<string, number>();
 for (let i = 0; i < sortedLocalMetadata.length; i++) {
     void pool.enqueue(async(worker) => {
         const res = await worker.send('calcMetadata', sortedLocalMetadata[i]);
@@ -279,9 +273,48 @@ for (let i = 0; i < sortedLocalMetadata.length; i++) {
 await allCompleted;
 done();
 
-for (const [lang, time] of shapingTimes) {
-    logProgress(`${lang}: ${time.toFixed(1)}ms`);
+logProgress('Sorting languages by number of supported fonts...');
+const langFontCoverage = new Map<string, number>();
+for (const family of sortedLocalMetadata) {
+    for (const langTag of family.languages) {
+        const cur = langFontCoverage.get(langTag) ?? 0;
+        langFontCoverage.set(langTag, cur + 1);
+    }
 }
+// The final sort order for languages is by number of fonts that cover each language. This helps with compression since
+// we store font language coverage as a bitset: if languages are ordered by font coverage, then each font's bitset will
+// (likely) have a long string of ones at the beginning (since most fonts will cover those languages) and a long string
+// of zeroes at the end (since few fonts will cover those languages).
+languagesData.sort((a, b) => {
+    const covA = langFontCoverage.get(a.id) ?? 0;
+    const covB = langFontCoverage.get(b.id) ?? 0;
+    return covB - covA;
+});
+const langIndices = new Map();
+for (let i = 0; i < languagesData.length; i++) {
+    langIndices.set(languagesData[i].id, i);
+}
+
+const numLangsWithAnyCoverage = langFontCoverage.size;
+for (const family of sortedLocalMetadata) {
+    // Store language data as a base64-encoded dense bitset
+    const langsBitset = new Uint8Array((numLangsWithAnyCoverage + 7) >> 3);
+    const setBitAt = (idx: number) => {
+        const bucket = idx >> 3;
+        const bitIdx = idx & 7;
+        langsBitset[bucket] |= 1 << bitIdx;
+    };
+
+    for (const lang of family.languages) {
+        setBitAt(langIndices.get(lang));
+    }
+
+    const encoded = Buffer.from(langsBitset).toString('base64');
+
+    family.languages = encoded;
+    family.primaryLanguage = langIndices.get(family.primaryLanguage);
+}
+
 logProgress(`Total shaping and analysis time: ${((performance.now() - startTime) / 1000).toFixed(1)}s`);
 
 logProgress('Reading and parsing all variation axis metadata...');
@@ -419,13 +452,14 @@ const LanguageProto = tsRegistry.LanguageProto as RecordSchema;
 // A language will always have an ID
 LanguageProto.fields
     .find(f => f.name === 'id')!.optional = false;
-// Remove exemplarChars and note for the webapp since they're never used there
-LanguageProto.fields = LanguageProto.fields.filter(f => f.name !== 'exemplarChars' && f.name !== 'note');
+// Remove exemplarChars, source, and note for the webapp since they're never used there
+LanguageProto.fields = LanguageProto.fields.filter(f =>
+    f.name !== 'exemplarChars' && f.name !== 'note' && f.name !== 'source');
 //mandatorify(LanguageProto, languagesData);
 
 const SampleTextProto = tsRegistry.SampleTextProto as RecordSchema;
-// These take up tons of space
-SampleTextProto.fields = SampleTextProto.fields.filter(f => !f.name.startsWith('specimen'));
+// We only use the "styles" field for previews
+SampleTextProto.fields = SampleTextProto.fields.filter(f => f.name === 'styles');
 
 const ScriptProto = tsRegistry.ScriptProto as RecordSchema;
 // This field is never used in the webapp

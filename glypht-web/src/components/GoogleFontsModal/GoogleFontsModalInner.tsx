@@ -45,6 +45,15 @@ const scriptsById = new Map<string, ScriptProto>();
 for (const script of langList.scripts) {
     scriptsById.set(script.id, script);
 }
+/** List of language metadata, sorted by font coverage. This is the ordering that a font's language indices refer to. */
+const languagesByCoverage = langList.languages;
+
+/**
+ * List of language metadata, sorted by population. This is the ordering to use for dropdowns and other user-facing
+ * elements.
+ */
+const languagesByPopulation = langList.languages.slice(0);
+languagesByPopulation.sort((a, b) => (b.population ?? 0) - (a.population ?? 0));
 
 const fontsList: GoogleFontsFamily[] = [];
 for (const font of fontsListJson as FamilyProto[]) {
@@ -66,7 +75,7 @@ for (const font of fontsListJson as FamilyProto[]) {
     fontsList.push(font as unknown as GoogleFontsFamily);
 }
 
-export {fontsList, langList};
+export {fontsList, languagesByPopulation as languages};
 
 // TODO: Intel One Mono has variable and static versions side-by-side; not sure how to tell which is which
 // TODO: add a reset button for the filters
@@ -99,7 +108,7 @@ const fetchDescription = async(family: GoogleFontsFamily) => {
     return DECODER.decode(respData);
 };
 
-const rawFontLink = (family: GoogleFontsFamily, font: FontProto): string => `https://raw.githubusercontent.com/google/fonts/main/${family.path}/${font.filename}`;
+const rawFontLink = (family: GoogleFontsFamily, font: FontProto): string => `http://cdn.jsdelivr.net/gh/google/fonts@main/${family.path}/${font.filename}`;
 
 const ScriptLangList = ({script, langs}: {script: string; langs: string[]}) => {
     const collapsed = useSignal(true);
@@ -238,7 +247,7 @@ const FontPreview = ({family}: {
     if (!previewText) {
         let preferredLanguage;
         if (family.primaryLanguage) {
-            preferredLanguage = langList.languages[family.primaryLanguage];
+            preferredLanguage = languagesByCoverage[family.primaryLanguage];
         }
         if (!preferredLanguage && family.primaryScript) {
             const exemplarLangTag = scriptsById.get(family.primaryScript)?.exemplarLang;
@@ -250,12 +259,17 @@ const FontPreview = ({family}: {
             }
         }
         if (!previewText) {
+            let bestPopulation = 0;
             for (const lang of family.languages) {
-                const langMeta = langList.languages[lang];
-                if (langMeta.sampleText?.styles) {
-                    previewText = langMeta.sampleText.styles;
-                    break;
+                const langMeta = languagesByCoverage[lang];
+                if (typeof langMeta.population !== 'number' || langMeta.population <= bestPopulation) {
+                    continue;
                 }
+                if (!langMeta.sampleText?.styles) {
+                    continue;
+                }
+                previewText = langMeta.sampleText.styles;
+                bestPopulation = langMeta.population;
             }
         }
         if (!previewText) {
@@ -321,7 +335,7 @@ const FontPreview = ({family}: {
     const supportedLanguages = useMemo(() => {
         const byScript = new Map<string, string[]>();
         for (const langIndex of family.languages) {
-            const lang = langList.languages[langIndex];
+            const lang = languagesByCoverage[langIndex];
             let script = lang.script && scriptsById.get(lang.script)?.name;
             if (!script) script = 'Other';
             let byThisScript = byScript.get(script);
@@ -547,14 +561,6 @@ const FiltersPane = ({modalState}: {modalState: LoadedGoogleFontsModalState}) =>
     const appState = useAppState();
     const {searchFilters} = appState.googleFontsModalState;
 
-    // Get popular languages for filtering
-    const popularLanguages = useMemo(() => {
-        return langList
-            .languages
-            .slice(0)
-            .sort((a, b) => (b.population ?? 0) - (a.population ?? 0));
-    }, [langList]);
-
     return <>
         <div className={style.filterGroup}>
             <div className={style.filterGroupTitle}>Proportion</div>
@@ -576,7 +582,7 @@ const FiltersPane = ({modalState}: {modalState: LoadedGoogleFontsModalState}) =>
         <div className={style.filterGroup}>
             <div className={style.filterGroupTitle}>Languages</div>
             <SearchableCheckboxDropdown
-                options={popularLanguages.map(lang => ({
+                options={languagesByPopulation.map(lang => ({
                     id: lang.id,
                     name: lang.name ?? lang.id,
                     searchable: lang.name ?? lang.id,
@@ -756,7 +762,7 @@ const GoogleFontsModalInner = ({fontsListState}: {fontsListState: LoadedGoogleFo
                 const hasAllSelectedLanguages = !selectedLanguagesList
                     .some(selectedLangTag =>
                         !family.languages ||
-                        !family.languages?.some(langIndex => langList.languages[langIndex].id === selectedLangTag),
+                        !family.languages?.some(langIndex => languagesByCoverage[langIndex].id === selectedLangTag),
                     );
                 if (!hasAllSelectedLanguages) return false;
             }

@@ -22,8 +22,7 @@ export type MetadataWorkerSchema =
         request: {
             name: 'init';
             message: {
-                langIndices: Map<string, number>;
-                languagesData: Record<string, any>;
+                languagesData: any[];
                 fontsDir: string;
             };
         };
@@ -43,8 +42,8 @@ export type MetadataWorkerSchema =
 const populateFontMetadata = async(
     f: any,
     hb: ReturnType<typeof createHarfbuzz<HbShapeModule>> extends Promise<infer T> ? T : never,
-    langIndices: Map<string, number>,
-    languagesData: Record<string, any>,
+    languagesData: any[],
+    allLangTags: Set<string>,
     fontsDir: string,
 ) => {
     const ENCODER = new TextEncoder();
@@ -57,14 +56,17 @@ const populateFontMetadata = async(
 
     // If the font doesn't explicitly enumerate its supported languages, we initialize this set to contain every
     // language with exemplar characters, and then remove all those which fail to shape.
-    const supportedLanguages: Set<number> = f.languages ?
-        new Set(f.languages.map((lang: string) => langIndices.get(lang))) :
-        new Set();
-    // Some fonts have language lists that contain languages not in the Google Fonts data??
-    (supportedLanguages as Set<number | undefined>).delete(undefined);
-    if (!f.languages) {
+    const supportedLanguages: Set<string> = new Set();
+    if (f.languages) {
+        for (const langTag of f.languages) {
+            // Some fonts have language lists that contain languages not in the Google Fonts data??
+            if (allLangTags.has(langTag)) {
+                supportedLanguages.add(langTag);
+            }
+        }
+    } else {
         for (let i = 0; i < languagesData.length; i++) {
-            if (languagesData[i].exemplarChars) supportedLanguages.add(i);
+            if (languagesData[i].exemplarChars) supportedLanguages.add(languagesData[i].id);
         }
     }
 
@@ -92,10 +94,10 @@ const populateFontMetadata = async(
         if (!f.languages) {
             const buf = hb._hb_buffer_create();
             for (let j = 0; j < languagesData.length; j++) {
-                // We already tried and failed to shape using this language using a previous font in this family
-                if (!supportedLanguages.has(j)) continue;
-
                 const lang = languagesData[j];
+                // We already tried and failed to shape using this language using a previous font in this family
+                if (!supportedLanguages.has(lang.id)) continue;
+
                 if (!lang.exemplarChars) continue;
 
                 // Explicitly set the buffer's language
@@ -166,7 +168,7 @@ const populateFontMetadata = async(
                 }
 
                 if (!supportsLang) {
-                    supportedLanguages.delete(j);
+                    supportedLanguages.delete(lang.id);
                 }
             }
             hb._hb_buffer_destroy(buf);
@@ -182,27 +184,12 @@ const populateFontMetadata = async(
         hasProportional = true;
     }
 
-    // Store language data as a base64-encoded dense bitset
-    const langsBitset = new Uint8Array((languagesData.length + 7) >> 3);
-    const setBitAt = (idx: number) => {
-        const bucket = idx >> 3;
-        const bitIdx = idx & 7;
-        langsBitset[bucket] |= 1 << bitIdx;
-    };
-
-    for (const lang of supportedLanguages) {
-        setBitAt(lang);
-    }
-
-    const encoded = Buffer.from(langsBitset).toString('base64');
-
-    f.languages = encoded;
-    f.primaryLanguage = langIndices.get(f.primaryLanguage);
+    f.languages = supportedLanguages;
     f.proportion = hasMonospace && hasProportional ? 'BOTH' : hasMonospace ? 'MONOSPACE' : 'PROPORTIONAL';
 };
 
-let langIndices: Map<string, number> | null = null;
-let languagesData: Record<string, any> | null = null;
+let languagesData: any[] | null = null;
+let allLangTags: Set<string> | null = null;
 let fontsDir: string;
 
 const listener = async(event: MessageEvent) => {
@@ -210,16 +197,19 @@ const listener = async(event: MessageEvent) => {
     try {
         switch (message.type) {
             case 'init': {
-                langIndices = message.message.langIndices;
                 languagesData = message.message.languagesData;
+                allLangTags = new Set();
+                for (const lang of languagesData) {
+                    allLangTags.add(lang.id);
+                }
                 fontsDir = message.message.fontsDir;
                 break;
             }
             case 'calcMetadata': {
                 const metadata = message.message;
-                if (!langIndices) throw new Error('langIndices not initialized');
                 if (!languagesData) throw new Error('languagesData not initialized');
-                await populateFontMetadata(metadata, await hb, langIndices, languagesData, fontsDir!);
+                if (!allLangTags) throw new Error('allLangTags not initialized');
+                await populateFontMetadata(metadata, await hb, languagesData, allLangTags, fontsDir!);
                 postMessageFromWorker({type: 'calcedMetadata', message: metadata, originId: message.id});
                 break;
             }

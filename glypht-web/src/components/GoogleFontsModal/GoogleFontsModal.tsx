@@ -16,13 +16,13 @@ const GoogleFontsModal = () => {
     const fontsListState = googleFontsModalState.state.value;
     if (fontsListState.state === 'not_loaded') {
         import('./GoogleFontsModalInner').then(
-            ({default: ModalComponent, langList}) => {
+            ({default: ModalComponent, languages}) => {
                 const selectedAxes: Record<string, Signal<boolean>> = {};
                 for (const axis of axesList) {
                     selectedAxes[axis.tag] = signal(false);
                 }
                 const selectedLanguages: Record<string, Signal<boolean>> = {};
-                for (const lang of langList.languages) {
+                for (const lang of languages) {
                     selectedLanguages[lang.id] = signal(false);
                 }
                 googleFontsModalState.state.value = {

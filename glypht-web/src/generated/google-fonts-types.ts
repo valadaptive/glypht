@@ -49,14 +49,7 @@ export type FamilyFallbackProto = {
 };
 
 export type SampleTextProto = {
-    mastheadFull?: string;
-    mastheadPartial?: string;
     styles?: string;
-    tester?: string;
-    posterSm?: string;
-    posterMd?: string;
-    posterLg?: string;
-    note?: string;
 };
 
 export type GlyphGroupProto = {
@@ -117,7 +110,6 @@ export type LanguageProto = {
     region?: string[];
     sampleText?: SampleTextProto;
     historical?: boolean;
-    source?: string[];
 };
 
 export type FallbackProto = {
