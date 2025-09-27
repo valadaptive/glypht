@@ -122,20 +122,17 @@ const ScriptLangList = ({script, langs}: {script: string; langs: string[]}) => {
     );
 };
 
-const axisDefaultValue = (axisSegment: AxisSegmentProto) => {
-    // For some reason, tons of fonts have a default weight value that isn't 400
-    if (axisSegment.tag === 'wght') {
-        return 400;
-    }
-    if (typeof axisSegment.defaultValue !== 'undefined') return axisSegment.defaultValue;
-    const fullAxis = axisMetadata.get(axisSegment.tag);
-    return fullAxis?.defaultValue ?? 100;
-};
-
-const AxisSlider = ({axisSegment, axisValue}: {axisSegment: AxisSegmentProto; axisValue: Signal<number>}) => {
+const AxisSlider = ({
+    axisSegment,
+    axisValue,
+    defaultValue,
+}: {
+    axisSegment: AxisSegmentProto;
+    axisValue: Signal<number>;
+    defaultValue: number;
+}) => {
     // Find the full axis metadata
     const fullAxis = axisMetadata.get(axisSegment.tag);
-    const defaultValue = axisDefaultValue(axisSegment);
 
     const resetValue = useCallback(() => {
         axisValue.value = defaultValue ?? 100;
@@ -180,7 +177,7 @@ const AxisSlider = ({axisSegment, axisValue}: {axisSegment: AxisSegmentProto; ax
                 />
             </div>
         </div>;
-    }, [axisSegment, axisValue, resetButtonDisabled]);
+    }, [axisSegment, axisValue, resetValue, resetButtonDisabled]);
 };
 
 const FontPreview = ({family}: {
@@ -190,10 +187,16 @@ const FontPreview = ({family}: {
     const {customPreviewText} = appState.googleFontsModalState;
 
     const variationValues = useMemo(() => {
-        const familyVariationValues: Record<string, Signal<number>> = {};
+        const familyVariationValues: Record<string, {default: number; value: Signal<number>}> = {};
         if (family?.axes) {
             for (const axis of family.axes) {
-                familyVariationValues[axis.tag] = signal(axisDefaultValue(axis));
+                let defaultValue = family.registryDefaultOverrides?.[axis.tag];
+                if (typeof defaultValue === 'undefined') {
+                    const fullAxis = axisMetadata.get(axis.tag);
+                    defaultValue = fullAxis?.defaultValue ?? 100;
+                }
+
+                familyVariationValues[axis.tag] = {default: defaultValue, value: signal(defaultValue)};
             }
         }
 
@@ -269,7 +272,7 @@ const FontPreview = ({family}: {
         const variations = [];
         for (const axis of family.axes) {
             if (variationValues[axis.tag] !== undefined) {
-                variations.push(`"${axis.tag}" ${variationValues[axis.tag].value}`);
+                variations.push(`"${axis.tag}" ${variationValues[axis.tag].value.value}`);
             }
         }
         if (variations.length > 0) {
@@ -303,16 +306,20 @@ const FontPreview = ({family}: {
     });
 
     // Variation axes controls
-    const axisControls = family.axes ? <div className={style.axisControls}>
-        <div className={style.axisControlsTitle}>Variable Axes</div>
-        <div className={style.axisControlsBody}>
-            {family.axes.map(axisSegment => <AxisSlider
-                axisSegment={axisSegment}
-                axisValue={variationValues[axisSegment.tag]}
-                key={axisSegment.tag}
-            />)}
-        </div>
-    </div> : null;
+    const axisControls = useMemo(() => {
+        if (!family.axes) return null;
+        return <div className={style.axisControls}>
+            <div className={style.axisControlsTitle}>Variable Axes</div>
+            <div className={style.axisControlsBody}>
+                {family.axes.map(axisSegment => <AxisSlider
+                    axisSegment={axisSegment}
+                    axisValue={variationValues[axisSegment.tag].value}
+                    defaultValue={variationValues[axisSegment.tag].default}
+                    key={axisSegment.tag}
+                />)}
+            </div>
+        </div>;
+    }, [family, variationValues]);
 
     const supportedLanguages = useMemo(() => {
         const byScript = new Map<string, string[]>();

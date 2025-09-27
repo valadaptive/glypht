@@ -404,8 +404,6 @@ FamilyProto.fields
 //mandatorify(FamilyProto, sortedLocalMetadata);
 
 const AxisSegmentProto = tsRegistry.AxisSegmentProto as RecordSchema;
-// We calculate this ourselves (from HarfBuzz)
-AxisSegmentProto.fields.push({name: 'defaultValue', type: 'number', optional: true});
 // An axis segment will always have a `tag` field
 AxisSegmentProto.fields
     .find(f => f.name === 'tag')!.optional = false;

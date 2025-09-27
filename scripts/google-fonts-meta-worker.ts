@@ -7,7 +7,7 @@
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 
-import createHarfbuzz, {hbTag, tagName} from '../glypht-core/src/hb-wrapper.js';
+import createHarfbuzz, {hbTag} from '../glypht-core/src/hb-wrapper.js';
 import {
     MessageFromWorker,
     MessageToWorker,
@@ -70,8 +70,7 @@ const populateFontMetadata = async(
 
     let hasMonospace = false;
     let hasProportional = false;
-    for (let i = 0; i < f.fonts.length; i++) {
-        const font = f.fonts[i];
+    for (const font of f.fonts) {
         const fontFilePath = path.join(fontsDir, f.path, font.filename);
         const fontData = await fs.readFile(fontFilePath);
         const blob = new hb.HbBlob(fontData);
@@ -171,38 +170,6 @@ const populateFontMetadata = async(
                 }
             }
             hb._hb_buffer_destroy(buf);
-        }
-
-        if (i === 0 && f.axes) {
-            const axisDefaults = new Map<string, number>();
-            hb.withStack(() => {
-                const numAxisInfos = hb._hb_ot_var_get_axis_count(face);
-                const axisInfoSize = 32;
-                const axisInfosRaw = hb.malloc(numAxisInfos * axisInfoSize);
-                try {
-                    const numToFetch = hb.stackAlloc(4);
-                    hb.writeUint32(numToFetch, numAxisInfos);
-                    hb._hb_ot_var_get_axis_infos(face, 0, numToFetch, axisInfosRaw);
-                    for (let i = axisInfosRaw; i < axisInfosRaw + (axisInfoSize * numAxisInfos); i += axisInfoSize) {
-                        const tag = tagName(hb.readUint32(i + 4));
-                        const __nameId = hb.readUint32(i + 8);
-                        const __min = hb.readFloat32(i + 16);
-                        const defaultValue = hb.readFloat32(i + 20);
-                        const __max = hb.readFloat32(i + 24);
-                        axisDefaults.set(tag, defaultValue);
-                    }
-                } finally {
-                    hb._free(axisInfosRaw);
-                }
-            });
-            for (const axis of f.axes) {
-                if (typeof axis.tag === 'undefined') {
-                    throw new Error(`Axis with no tag: ${JSON.stringify(axis)}`);
-                }
-                const axisDefault = axisDefaults.get(axis.tag);
-                if (typeof axisDefault === 'undefined') continue;
-                axis.defaultValue = axisDefault;
-            }
         }
 
         hb._hb_font_destroy(hbFont);

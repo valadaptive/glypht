@@ -18,7 +18,6 @@ export type AxisSegmentProto = {
     tag: string;
     minValue?: number;
     maxValue?: number;
-    defaultValue?: number;
 };
 
 export type SourceFileProto = {
