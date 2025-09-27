@@ -1,5 +1,5 @@
 import { b as useSignal, q, T, c as useComputed, u, k, d, g } from "./search-ye_JGa7M.js";
-import { u as useAppState, a as useThrottledSignal, b as uFuzzy, s as style, D as Dropdown, c as clsx, I as IconButton, T as TextBox, d as ToggleIcon, e as axisMetadata, L as Loader, S as Slider, f as SpinBox, C as CheckboxToggle, g as SearchableCheckboxDropdown, h as axesList, i as useAddErrorToast, j as Icon, B as Button, k as axisSpinboxParams, l as CollapsibleHeader } from "./index-B0odsJIf.js";
+import { u as useAppState, a as useThrottledSignal, b as uFuzzy, s as style, D as Dropdown, c as clsx, I as IconButton, T as TextBox, d as ToggleIcon, e as axisMetadata, L as Loader, S as Slider, f as SpinBox, C as CheckboxToggle, g as SearchableCheckboxDropdown, h as axesList, i as useAddErrorToast, j as Icon, B as Button, k as axisSpinboxParams, l as CollapsibleHeader } from "./index-vIPiE2z1.js";
 /*! @license DOMPurify 3.2.6 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/3.2.6/LICENSE */
 const {
   entries,
@@ -1060,7 +1060,7 @@ const fetchDescription = async (family) => {
   }
   return DECODER.decode(respData);
 };
-const rawFontLink = (family, font) => `http://cdn.jsdelivr.net/gh/google/fonts@main/${family.path}/${font.filename}`;
+const rawFontLink = (family, font) => `https://raw.githubusercontent.com/google/fonts/main/${family.path}/${font.filename}`;
 const ScriptLangList = ({ script, langs }) => {
   const collapsed = useSignal(true);
   const bodyId = g();
