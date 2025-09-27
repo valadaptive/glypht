@@ -425,7 +425,7 @@ FamilyProto.fields.push({name: 'descriptionRange', type: '[number, number]', opt
 FamilyProto.fields.push({name: 'defaultSort', type: 'number', optional: false});
 FamilyProto.fields.push({name: 'trending', type: 'number', optional: false});
 FamilyProto.fields.push({name: 'popularity', type: 'number', optional: false});
-FamilyProto.fields = FamilyProto.fields.filter(f => f.name !== 'source');
+FamilyProto.fields = FamilyProto.fields.filter(f => f.name !== 'source' && f.name !== 'orderedSampleGlyphs');
 
 // Store languages as a base64'd bitset to save space (340kB -> 250kB gzipped)
 FamilyProto.fields

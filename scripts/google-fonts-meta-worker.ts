@@ -186,6 +186,12 @@ const populateFontMetadata = async(
 
     f.languages = supportedLanguages;
     f.proportion = hasMonospace && hasProportional ? 'BOTH' : hasMonospace ? 'MONOSPACE' : 'PROPORTIONAL';
+
+    // These take up a lot of space in Noto Emoji
+    if (f.sampleText) {
+        f.sampleText = {styles: f.sampleText.styles};
+    }
+    delete f.orderedSampleGlyphs;
 };
 
 let languagesData: any[] | null = null;

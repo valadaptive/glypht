@@ -75,7 +75,6 @@ export type FamilyProto = {
     sampleGlyphs?: Record<string, string>;
     sampleText?: SampleTextProto;
     displayName?: string;
-    orderedSampleGlyphs?: GlyphGroupProto[];
     minisiteUrl?: string;
     primaryScript?: string;
     primaryLanguage?: number;
