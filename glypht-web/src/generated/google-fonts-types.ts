@@ -142,7 +142,7 @@ export type AxisProto = {
 };
 
 export type ScriptProto = {
-    id?: string;
+    id: string;
     name?: string;
     historical?: boolean;
     fictional?: boolean;

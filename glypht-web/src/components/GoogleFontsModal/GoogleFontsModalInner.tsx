@@ -37,6 +37,14 @@ const descriptionsUrl = new URL('../../generated/google-fonts-descriptions.txt',
 export type GoogleFontsFamily = Omit<FamilyProto, 'languages'> & {languages: number[]};
 
 const langList = langListJson as {languages: LanguageProto[]; scripts: ScriptProto[]};
+const languagesById = new Map<string, LanguageProto>();
+for (const language of langList.languages) {
+    languagesById.set(language.id, language);
+}
+const scriptsById = new Map<string, ScriptProto>();
+for (const script of langList.scripts) {
+    scriptsById.set(script.id, script);
+}
 
 const fontsList: GoogleFontsFamily[] = [];
 for (const font of fontsListJson as FamilyProto[]) {
@@ -233,8 +241,8 @@ const FontPreview = ({family}: {
             preferredLanguage = langList.languages[family.primaryLanguage];
         }
         if (!preferredLanguage && family.primaryScript) {
-            const exemplarLangTag = langList.scripts.find(script => script.id === family.primaryScript)?.exemplarLang;
-            preferredLanguage = langList.languages.find(lang => lang.id === exemplarLangTag);
+            const exemplarLangTag = scriptsById.get(family.primaryScript)?.exemplarLang;
+            preferredLanguage = exemplarLangTag && languagesById.get(exemplarLangTag);
         }
         if (preferredLanguage) {
             if (preferredLanguage.sampleText?.styles) {
@@ -310,7 +318,7 @@ const FontPreview = ({family}: {
         const byScript = new Map<string, string[]>();
         for (const langIndex of family.languages) {
             const lang = langList.languages[langIndex];
-            let script = lang.script && langList.scripts.find(script => script.id === lang.script)?.name;
+            let script = lang.script && scriptsById.get(lang.script)?.name;
             if (!script) script = 'Other';
             let byThisScript = byScript.get(script);
             if (!byThisScript) {
@@ -336,28 +344,22 @@ const FontPreview = ({family}: {
         );
     }, [family]);
 
-    let descriptionElem;
-    switch (description.value.state) {
-        case 'loading':
-            descriptionElem = <p><Loader size={48} /></p>;
-            break;
-        case 'loaded':
-            if (description.value.description) {
+    const descriptionElem = useMemo(() => {
+        switch (description.value.state) {
+            case 'loading':
+                return <p><Loader size={48} /></p>;
+            case 'loaded': {
+                if (!description.value.description) return  <p>No description</p>;
+
                 const sanitized = DOMPurify.sanitize(description.value.description, {
                     FORBID_TAGS: ['img', 'video', 'hr'],
                 });
-                descriptionElem = <div dangerouslySetInnerHTML={{__html: sanitized}} />;
-            } else {
-                descriptionElem = description.value.description ?? <p>No description</p>;
+                return <div dangerouslySetInnerHTML={{__html: sanitized}} />;
             }
-            break;
-        case 'error':
-            descriptionElem = description.value.error.message;
-            break;
-    }
-
-    // Generate GitHub repository link
-    const githubLink = `https://github.com/google/fonts/tree/main/${family.path}`;
+            case 'error':
+                return description.value.error.message;
+        }
+    }, [description, description.value]);
 
     // Format license display name
     const formatLicense = (license: string) => {
@@ -389,7 +391,11 @@ const FontPreview = ({family}: {
                         License: {formatLicense(family.license)}
                     </div>
                     <div>
-                        <a href={githubLink} target="_blank" rel="noopener noreferrer">
+                        <a
+                            href={`https://github.com/google/fonts/tree/main/${family.path}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             View on GitHub
                         </a>
                     </div>

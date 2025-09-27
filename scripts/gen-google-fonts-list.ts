@@ -432,6 +432,9 @@ SampleTextProto.fields = SampleTextProto.fields.filter(f => !f.name.startsWith('
 const ScriptProto = tsRegistry.ScriptProto as RecordSchema;
 // This field is never used in the webapp
 ScriptProto.fields = ScriptProto.fields.filter(f => f.name !== 'summary');
+// A script will always have an ID
+ScriptProto.fields
+    .find(f => f.name === 'id')!.optional = false;
 // Used to determine which language sample to show when the font family has a `primary_script`
 ScriptProto.fields.push({name: 'exemplarLang', type: 'string', optional: true});
 
