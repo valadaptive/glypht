@@ -68,11 +68,8 @@ for (const font of fontsListJson as FamilyProto[]) {
 
 export {fontsList, langList};
 
-// TODO: Handjet doesn't display; Roboto Flex looks weird
 // TODO: Intel One Mono has variable and static versions side-by-side; not sure how to tell which is which
-
 // TODO: add a reset button for the filters
-// TODO: "download for CLI" button?
 
 const searcher = new uFuzzy({});
 
