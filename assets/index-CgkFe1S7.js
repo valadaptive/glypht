@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/GoogleFontsModalInner-QKm8jZW8.js","assets/search-ye_JGa7M.js","assets/search-CLlH7J7c.css"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/GoogleFontsModalInner-__i_P9wQ.js","assets/search-ye_JGa7M.js","assets/search-CLlH7J7c.css"])))=>i.map(i=>d[i]);
 import { _ as __vitePreload, d, T, A, y, K, E, w, n, x as x$1, u, q, a as _, g, b as useSignal, c as useComputed, k, e as d$1, r as r$1, f as E$1 } from "./search-ye_JGa7M.js";
 const app = "_app_8jc7z_44";
 const displayPane = "_display-pane_8jc7z_51";
@@ -188,7 +188,7 @@ class GlyphtContext {
   constructor() {
     this.fontWorker = new RpcDispatcher(new Worker$1(new URL(
       /* @vite-ignore */
-      "/assets/font-worker.worker-BA-OAnQ6.js",
+      "/assets/font-worker.worker-CO4Dhj_1.js",
       import.meta.url
     ), { type: "module" }), {
       "update-fonts": "updated-fonts",
@@ -439,7 +439,7 @@ class WoffCompressionContext {
     this.parallelism = resolvedParallelism;
     this.pool = (async () => {
       const woffWasmUrls = [
-        new URL("/assets/woff1-B3aYjtk8.wasm", import.meta.url),
+        new URL("/assets/woff1-DBFllVu4.wasm", import.meta.url),
         new URL("/assets/woff2-koKwhiIF.wasm", import.meta.url)
       ];
       const [woff1, woff2] = await Promise.all(woffWasmUrls.map((url) => fetchFile(url)));
@@ -9891,7 +9891,7 @@ const GoogleFontsModal = () => {
   const fontsListState = googleFontsModalState.state.value;
   if (fontsListState.state === "not_loaded") {
     __vitePreload(async () => {
-      const { default: ModalComponent, langList } = await import("./GoogleFontsModalInner-QKm8jZW8.js");
+      const { default: ModalComponent, langList } = await import("./GoogleFontsModalInner-__i_P9wQ.js");
       return { default: ModalComponent, langList };
     }, true ? __vite__mapDeps([0,1,2]) : void 0).then(
       ({ default: ModalComponent, langList }) => {

@@ -1275,7 +1275,7 @@ class Font {
     return tag === hbTag("OTTO") ? "opentype" : "truetype";
   }
 }
-const initPromise = init(new URL("/assets/hb-COtuSG_T.wasm", import.meta.url).href);
+const initPromise = init(new URL("/assets/hb-CPUyzAJX.wasm", import.meta.url).href);
 const listener = async (event) => {
   const message = event.data;
   try {
