@@ -1,10 +1,11 @@
-import {classNames, getKindClass, hasTypeParameters} from '../util/lib';
+import {getKindClass, hasTypeParameters} from '../util/lib';
 import type {SimpleThemeContext} from '../util/context';
 import {
     DeclarationReflection,
     SignatureReflection,
 } from 'typedoc';
 import {ReflectionKind} from 'typedoc';
+import classNames from 'clsx';
 import {memberDeclaration} from '../util/member.declaration';
 import {moduleReflection} from '../util/module.reflection';
 import {commentSummary, commentTags} from '../util/comment';

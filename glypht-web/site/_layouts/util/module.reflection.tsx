@@ -6,7 +6,8 @@ import type {
 } from 'typedoc';
 import type {JSX} from 'preact';
 import {ReferenceReflection, ReflectionKind} from 'typedoc';
-import {classNames, getMemberSections, getUniquePath, isNoneSection, join} from './lib';
+import classNames from 'clsx';
+import {getMemberSections, getUniquePath, isNoneSection, join} from './lib';
 import type {SimpleThemeContext} from './context';
 import {anchorIcon} from './anchor-icon';
 import {commentSummary, commentTags, commentShortSummary} from './comment';

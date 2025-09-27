@@ -10,7 +10,8 @@ import type {
 } from 'typedoc';
 import {Comment, ReflectionKind} from 'typedoc';
 import type {JSX} from 'preact';
-import {classNames, getKindClass} from './lib';
+import classNames from 'clsx';
+import {getKindClass} from './lib';
 import type {SimpleThemeContext} from './context';
 import {anchorTargetIfPresent} from './anchor-icon';
 import {commentSummary, commentTags, reflectionFlags, renderDisplayParts} from './comment';

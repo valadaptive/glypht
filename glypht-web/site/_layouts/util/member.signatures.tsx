@@ -1,6 +1,6 @@
 import type {SimpleThemeContext} from './context';
 import type {DeclarationReflection} from 'typedoc';
-import {classNames} from './lib';
+import classNames from 'clsx';
 import {renderSignatureTitle} from './signature-renderer';
 import {memberSignatureBody} from './member.signature.body';
 

@@ -106,16 +106,6 @@ export function join<T>(joiner: JSXChildren, list: readonly T[], cb: (x: T) => J
     return <>{...result}</>;
 }
 
-export function classNames(names: Record<string, boolean | null | undefined>, extraCss?: string): string | undefined {
-    const css = Object.keys(names)
-        .filter((key) => names[key])
-        .concat(extraCss || '')
-        .join(' ')
-        .trim()
-        .replace(/\s+/g, ' ');
-    return css.length ? css : undefined;
-}
-
 export function hasTypeParameters(
     reflection: Reflection,
 ): reflection is Reflection & {typeParameters: TypeParameterReflection[]} {

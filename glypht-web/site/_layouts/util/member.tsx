@@ -1,6 +1,8 @@
-import {classNames, wbr} from './lib';
-import type {SimpleThemeContext} from './context';
 import type {DeclarationReflection, DocumentReflection} from 'typedoc';
+import classNames from 'clsx';
+
+import {wbr} from './lib';
+import type {SimpleThemeContext} from './context';
 import {reflectionFlags} from './comment';
 import {memberSignatures} from './member.signatures';
 import {memberDeclaration} from './member.declaration';

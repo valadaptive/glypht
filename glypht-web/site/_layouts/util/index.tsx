@@ -1,6 +1,7 @@
-import {SimpleThemeContext} from './context';
-import {classNames, getMemberSections, isNoneSection, type MemberSection, renderName} from './lib';
 import type {ContainerReflection} from 'typedoc';
+import classNames from 'clsx';
+import {SimpleThemeContext} from './context';
+import {getMemberSections, isNoneSection, type MemberSection, renderName} from './lib';
 
 // Placeholder for i18n
 const i18n = {
