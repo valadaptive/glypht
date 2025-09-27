@@ -108,7 +108,9 @@ const fetchDescription = async(family: GoogleFontsFamily) => {
     return DECODER.decode(respData);
 };
 
-const rawFontLink = (family: GoogleFontsFamily, font: FontProto): string => `http://cdn.jsdelivr.net/gh/google/fonts@main/${family.path}/${font.filename}`;
+const rawFontLink = (family: GoogleFontsFamily, font: FontProto): string => `https://raw.githubusercontent.com/google/fonts/main/${family.path}/${font.filename}`;
+// jsDelivr is faster on slow connections due to gzipping the response, but adds a few hundred ms of latency doing so.
+//const rawFontLink = (family: GoogleFontsFamily, font: FontProto): string => `https://cdn.jsdelivr.net/gh/google/fonts@main/${family.path}/${font.filename}`;
 
 const ScriptLangList = ({script, langs}: {script: string; langs: string[]}) => {
     const collapsed = useSignal(true);
