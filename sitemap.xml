@@ -2,226 +2,226 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/modules/_glypht_bundler-utils.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/enums/_glypht_bundler-utils.NodeType.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_bundler-utils.CSSSpan.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_bundler-utils.CSSOutput.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_bundler-utils.FeatureMetadata.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_bundler-utils.FamilyInfo.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_bundler-utils.SubsetAxisSetting.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_bundler-utils.ExportedFont.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_bundler-utils.CharacterSetSettings.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_bundler-utils.FamilySubsetSettings.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_bundler-utils.FamilySettings.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_bundler-utils.ExportFontsSettings.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/functions/_glypht_bundler-utils.featureMetadata.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/functions/_glypht_bundler-utils.sortFontsIntoFamilies.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/functions/_glypht_bundler-utils.exportedFontsToCSS.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/functions/_glypht_bundler-utils.exportFonts.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/functions/_glypht_bundler-utils.parseUnicodeRanges.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/functions/_glypht_bundler-utils.parseRanges.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/functions/_glypht_bundler-utils.formatUnicodeRanges.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/modules/_glypht_cli.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_cli.GlyphtConfig.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/functions/_glypht_cli.build.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/modules/_glypht_core.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/enums/_glypht_core.AxisValueFormat.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/enums/_glypht_core.AxisValueFlags.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/classes/_glypht_core.WoffCompressionContext.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/classes/_glypht_core.GlyphtContext.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.CompressOptions.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.DecompressOptions.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.LoadFontsOptions.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.AxisInfo.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.SubsetAxisInfo.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.StyleValue.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.FeatureInfo.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.NamedInstance.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.StyleKey.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.StyleValues.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.SfntVersion.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.DesignAxisRecord.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.AxisValueSingle.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.AxisValueRange.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.AxisValueLinked.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.AxisValueMultiple.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.AxisValue.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.StyleAttributes.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.SubsettedFont.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.SubsetInfo.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.SubsetAxisSetting.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.SubsetSettings.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.FontRef.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/types/_glypht_core.SubsetName.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/api/variables/_glypht_core.SUBSET_NAMES.html</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/comparison/</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/docs/webapp/</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
     <url>
         <loc>https://glypht.valadaptive.dev/</loc>
-        <lastmod>2025-09-28T19:44:42.867Z</lastmod>
+        <lastmod>2025-09-28T20:57:54.571Z</lastmod>
     </url>
 </urlset>
