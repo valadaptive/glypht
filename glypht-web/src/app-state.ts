@@ -85,6 +85,9 @@ export class AppState {
     private saveQueued = false;
     private savingPromise: Promise<void> | null = null;
 
+    private static SETTINGS_DIR_NAME = 'settings';
+    private static SETTINGS_FILE_NAME = 'settings.json';
+
     public exportSettings = {
         formats: {
             ttf: signal(true),
@@ -502,9 +505,8 @@ export class AppState {
             const families = this.fonts.value;
 
             const storageDir = await navigator.storage.getDirectory();
-            const SETTINGS_DIR_NAME = 'settings';
 
-            const settingsDir = await storageDir.getDirectoryHandle(SETTINGS_DIR_NAME, {create: true});
+            const settingsDir = await storageDir.getDirectoryHandle(AppState.SETTINGS_DIR_NAME, {create: true});
             // Populate a set of currently-saved font file hashes
             const currentlySavedFonts = await Array.fromAsync(settingsDir.entries());
             const savedFontHashes = new Set<string>();
@@ -512,7 +514,7 @@ export class AppState {
             // per font face).
             const newlySavedFontHashes = new Set<string>();
             for (const [filename] of currentlySavedFonts) {
-                if (filename === 'settings.json') continue;
+                if (filename === AppState.SETTINGS_FILE_NAME) continue;
                 savedFontHashes.add(filename.split('.')[0]);
             }
             const fontSavePromises = [];
@@ -567,7 +569,7 @@ export class AppState {
             }
 
             fontSavePromises.push((async() => {
-                const dest = await settingsDir.getFileHandle(`settings.json`, {create: true});
+                const dest = await settingsDir.getFileHandle(AppState.SETTINGS_FILE_NAME, {create: true});
                 const destStream = await dest.createWritable();
                 await destStream.write(new TextEncoder().encode(JSON.stringify(persistedSettings)));
                 await destStream.close();
@@ -596,23 +598,22 @@ export class AppState {
         try {
             this.fontsBeingLoaded.value++;
             const storageDir = await navigator.storage.getDirectory();
-            const SETTINGS_DIR_NAME = 'settings';
 
             let settingsDir;
             try {
-                settingsDir = await storageDir.getDirectoryHandle(SETTINGS_DIR_NAME);
+                settingsDir = await storageDir.getDirectoryHandle(AppState.SETTINGS_DIR_NAME);
             } catch (err) {
                 if (!(err instanceof Error && err.name === 'NotFoundError')) throw err;
                 return;
             }
 
-            const settingsHandle = await settingsDir.getFileHandle('settings.json');
+            const settingsHandle = await settingsDir.getFileHandle(AppState.SETTINGS_FILE_NAME);
             const settingsBlob = await settingsHandle.getFile();
             const settingsJson = JSON.parse(await settingsBlob.text()) as PersistedSettings;
 
             const fonts: {data: Blob; filename: string}[] = [];
             for await (const [name, handle] of settingsDir.entries()) {
-                if (name === 'settings.json' || handle.kind !== 'file') continue;
+                if (name === AppState.SETTINGS_FILE_NAME || handle.kind !== 'file') continue;
                 const fontBlob = await (handle as FileSystemFileHandle).getFile();
                 fonts.push({data: fontBlob, filename: settingsJson.filenames[name]});
             }
