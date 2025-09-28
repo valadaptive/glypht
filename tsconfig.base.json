@@ -3,6 +3,7 @@
 		"target": "ESNext",
 		"module": "ESNext",
 		"moduleResolution": "nodenext",
+		"skipLibCheck": true,
 		"allowJs": true,
 		"checkJs": true,
 		"strict": true,
