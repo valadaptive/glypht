@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/GoogleFontsModalInner-CP1n4cR5.js","assets/search-ye_JGa7M.js","assets/search-CLlH7J7c.css"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/GoogleFontsModalInner-cJaKwNpP.js","assets/search-ye_JGa7M.js","assets/search-CLlH7J7c.css"])))=>i.map(i=>d[i]);
 import { _ as __vitePreload, d, T, A, y, K, E, w, n, x as x$1, u, q, a as _, g, b as useSignal, c as useComputed, k, e as d$1, r as r$1, f as E$1 } from "./search-ye_JGa7M.js";
 const app = "_app_8jc7z_44";
 const displayPane = "_display-pane_8jc7z_51";
@@ -4994,6 +4994,8 @@ class AppState {
   // Set if there are multiple "save settings" calls in flight.
   saveQueued = false;
   savingPromise = null;
+  static SETTINGS_DIR_NAME = "settings";
+  static SETTINGS_FILE_NAME = "settings.json";
   exportSettings = {
     formats: {
       ttf: d(true),
@@ -5335,13 +5337,12 @@ class AppState {
       };
       const families2 = this.fonts.value;
       const storageDir = await navigator.storage.getDirectory();
-      const SETTINGS_DIR_NAME = "settings";
-      const settingsDir = await storageDir.getDirectoryHandle(SETTINGS_DIR_NAME, { create: true });
+      const settingsDir = await storageDir.getDirectoryHandle(AppState.SETTINGS_DIR_NAME, { create: true });
       const currentlySavedFonts = await Array.fromAsync(settingsDir.entries());
       const savedFontHashes = /* @__PURE__ */ new Set();
       const newlySavedFontHashes = /* @__PURE__ */ new Set();
       for (const [filename] of currentlySavedFonts) {
-        if (filename === "settings.json") continue;
+        if (filename === AppState.SETTINGS_FILE_NAME) continue;
         savedFontHashes.add(filename.split(".")[0]);
       }
       const fontSavePromises = [];
@@ -5379,7 +5380,7 @@ class AppState {
         fontSavePromises.push(settingsDir.removeEntry(`${noLongerSaved}.ttf`));
       }
       fontSavePromises.push((async () => {
-        const dest = await settingsDir.getFileHandle(`settings.json`, { create: true });
+        const dest = await settingsDir.getFileHandle(AppState.SETTINGS_FILE_NAME, { create: true });
         const destStream = await dest.createWritable();
         await destStream.write(new TextEncoder().encode(JSON.stringify(persistedSettings)));
         await destStream.close();
@@ -5400,20 +5401,19 @@ class AppState {
     try {
       this.fontsBeingLoaded.value++;
       const storageDir = await navigator.storage.getDirectory();
-      const SETTINGS_DIR_NAME = "settings";
       let settingsDir;
       try {
-        settingsDir = await storageDir.getDirectoryHandle(SETTINGS_DIR_NAME);
+        settingsDir = await storageDir.getDirectoryHandle(AppState.SETTINGS_DIR_NAME);
       } catch (err2) {
         if (!(err2 instanceof Error && err2.name === "NotFoundError")) throw err2;
         return;
       }
-      const settingsHandle = await settingsDir.getFileHandle("settings.json");
+      const settingsHandle = await settingsDir.getFileHandle(AppState.SETTINGS_FILE_NAME);
       const settingsBlob = await settingsHandle.getFile();
       const settingsJson = JSON.parse(await settingsBlob.text());
       const fonts = [];
       for await (const [name, handle] of settingsDir.entries()) {
-        if (name === "settings.json" || handle.kind !== "file") continue;
+        if (name === AppState.SETTINGS_FILE_NAME || handle.kind !== "file") continue;
         const fontBlob = await handle.getFile();
         fonts.push({ data: fontBlob, filename: settingsJson.filenames[name] });
       }
@@ -9891,7 +9891,7 @@ const GoogleFontsModal = () => {
   const fontsListState = googleFontsModalState.state.value;
   if (fontsListState.state === "not_loaded") {
     __vitePreload(async () => {
-      const { default: ModalComponent, languages } = await import("./GoogleFontsModalInner-CP1n4cR5.js");
+      const { default: ModalComponent, languages } = await import("./GoogleFontsModalInner-cJaKwNpP.js");
       return { default: ModalComponent, languages };
     }, true ? __vite__mapDeps([0,1,2]) : void 0).then(
       ({ default: ModalComponent, languages }) => {
