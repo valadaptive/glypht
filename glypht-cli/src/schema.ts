@@ -39,7 +39,7 @@ const FamilySubsetSettingsSchema = v.variant('enableSubsetting', [
         styleValues: v.record(v.string(), SubsetAxisSettingSchema),
         axes: v.record(v.string(), SubsetAxisSettingSchema),
         features: v.optional(v.record(v.string(), v.boolean())),
-        includeCharacters: v.union([CharacterSetSettingsSchema, v.array(CharacterSetSettingsSchema), v.literal('all')]),
+        includeCharacters: v.union([v.array(CharacterSetSettingsSchema), CharacterSetSettingsSchema, v.literal('all')]),
         overrideName: v.optional(v.string()),
     }),
     v.object({
