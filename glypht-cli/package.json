@@ -1,6 +1,6 @@
 {
   "name": "@glypht/cli",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "type": "module",
   "description": "Front-end tooling for your web fonts",
   "main": "dist/index.js",
