@@ -235,7 +235,7 @@ const createHarfbuzzWrapped = async (hbWasmUrl) => {
     }
     [Symbol.iterator]() {
       const ptr = this._ptr;
-      return function* () {
+      return (function* () {
         const iter = new HbSetRangeIterator(ptr);
         for (const range of iter) {
           if (typeof range === "number") {
@@ -246,7 +246,7 @@ const createHarfbuzzWrapped = async (hbWasmUrl) => {
             }
           }
         }
-      }();
+      })();
     }
     iterRanges() {
       return new HbSetRangeIterator(this._ptr);

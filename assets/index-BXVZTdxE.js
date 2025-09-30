@@ -1,5 +1,5 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/GoogleFontsModalInner-BxkT7TpT.js","assets/search-ye_JGa7M.js","assets/search-CLlH7J7c.css"])))=>i.map(i=>d[i]);
-import { _ as __vitePreload, d, T, A, y, K, E, w, n, x as x$1, u, q, a as _, g, b as useSignal, c as useComputed, k, e as d$1, r as r$1, f as E$1 } from "./search-ye_JGa7M.js";
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/GoogleFontsModalInner-DsFeYNVI.js","assets/search-DXangmra.js","assets/search-CLlH7J7c.css"])))=>i.map(i=>d[i]);
+import { _ as __vitePreload, d, T, A, y, Q, E, w, n, x as x$1, u, q, a as _, g, b as useSignal, c as useComputed, k, e as d$1, r as r$1, G } from "./search-DXangmra.js";
 const app = "_app_8jc7z_44";
 const displayPane = "_display-pane_8jc7z_51";
 const mainPane = "_main-pane_8jc7z_62";
@@ -188,7 +188,7 @@ class GlyphtContext {
   constructor() {
     this.fontWorker = new RpcDispatcher(new Worker$1(new URL(
       /* @vite-ignore */
-      "/assets/font-worker.worker-CO4Dhj_1.js",
+      "/assets/font-worker.worker-Lel9i42t.js",
       import.meta.url
     ), { type: "module" }), {
       "update-fonts": "updated-fonts",
@@ -481,10 +481,10 @@ class WoffCompressionContext {
     this.checkDestroyed();
     const pool = await this.pool;
     const quality = options.level ?? (options.algorithm === "woff" ? 15 : 11);
-    return await pool.enqueue(async (worker) => {
+    return await pool.enqueue((async (worker) => {
       const compressed = await worker.send("compress-font", { data: ttf, algorithm: options.algorithm, quality }, options.transfer ? [ttf.buffer] : void 0);
       return compressed;
-    });
+    }));
   }
   /**
    * Decompress a WOFF or WOFF2-compressed font file. Throws an error if the input font is not compressed.
@@ -499,10 +499,10 @@ class WoffCompressionContext {
       throw new Error("This font file is not compressed");
     }
     const pool = await this.pool;
-    return await pool.enqueue(async (worker) => {
+    return await pool.enqueue((async (worker) => {
       const decompressed = await worker.send("decompress-font", { data: compressed, algorithm }, options?.transfer ? [compressed.buffer] : void 0);
       return decompressed;
-    });
+    }));
   }
   /**
    * Return the compression type for a given font file.
@@ -3991,7 +3991,7 @@ export default {
   return result;
 };
 var ch2 = {};
-var wk = function(c, id, msg, transfer, cb) {
+var wk = (function(c, id, msg, transfer, cb) {
   var w2 = new Worker(ch2[id] || (ch2[id] = URL.createObjectURL(new Blob([
     c + ';addEventListener("error",function(e){e=e.error;postMessage({$e$:[e.message,e.code,e.stack]})})'
   ], { type: "text/javascript" }))));
@@ -4007,7 +4007,7 @@ var wk = function(c, id, msg, transfer, cb) {
   };
   w2.postMessage(msg, transfer);
   return w2;
-};
+});
 var u8 = Uint8Array, u16 = Uint16Array, i32 = Int32Array;
 var fleb = new u8([
   0,
@@ -4104,7 +4104,7 @@ for (var i = 0; i < 32768; ++i) {
   x = (x & 61680) >> 4 | (x & 3855) << 4;
   rev[i] = ((x & 65280) >> 8 | (x & 255) << 8) >> 1;
 }
-var hMap = function(cd, mb, r2) {
+var hMap = (function(cd, mb, r2) {
   var s = cd.length;
   var i = 0;
   var l = new u16(mb);
@@ -4139,7 +4139,7 @@ var hMap = function(cd, mb, r2) {
     }
   }
   return co;
-};
+});
 var flt = new u8(288);
 for (var i = 0; i < 144; ++i)
   flt[i] = 8;
@@ -4491,7 +4491,7 @@ var dflt = function(dat, lvl, plvl, pre, post, st) {
   }
   return slc(o, 0, pre + shft(pos) + post);
 };
-var crct = /* @__PURE__ */ function() {
+var crct = /* @__PURE__ */ (function() {
   var t = new Int32Array(256);
   for (var i = 0; i < 256; ++i) {
     var c = i, k2 = 9;
@@ -4500,7 +4500,7 @@ var crct = /* @__PURE__ */ function() {
     t[i] = c;
   }
   return t;
-}();
+})();
 var crc = function() {
   var c = -1;
   return {
@@ -4646,7 +4646,7 @@ function StrmOpt(opts, cb) {
   this.ondata = cb;
   return opts;
 }
-var Deflate = /* @__PURE__ */ function() {
+var Deflate = /* @__PURE__ */ (function() {
   function Deflate2(opts, cb) {
     if (typeof opts == "function")
       cb = opts, opts = {};
@@ -4702,8 +4702,8 @@ var Deflate = /* @__PURE__ */ function() {
     this.s.w = this.s.i, this.s.i -= 2;
   };
   return Deflate2;
-}();
-var AsyncDeflate = /* @__PURE__ */ function() {
+})();
+var AsyncDeflate = /* @__PURE__ */ (function() {
   function AsyncDeflate2(opts, cb) {
     astrmify([
       bDflt,
@@ -4716,7 +4716,7 @@ var AsyncDeflate = /* @__PURE__ */ function() {
     }, 6);
   }
   return AsyncDeflate2;
-}();
+})();
 function deflateSync(data, opts) {
   return dopt(data, opts || {}, 0, 0);
 }
@@ -4817,7 +4817,7 @@ var wzf = function(o, b, c, d2, e) {
   wbytes(o, b + 12, d2);
   wbytes(o, b + 16, e);
 };
-var ZipPassThrough = /* @__PURE__ */ function() {
+var ZipPassThrough = /* @__PURE__ */ (function() {
   function ZipPassThrough2(filename) {
     this.filename = filename;
     this.c = crc();
@@ -4837,8 +4837,8 @@ var ZipPassThrough = /* @__PURE__ */ function() {
     this.process(chunk, final || false);
   };
   return ZipPassThrough2;
-}();
-var AsyncZipDeflate = /* @__PURE__ */ function() {
+})();
+var AsyncZipDeflate = /* @__PURE__ */ (function() {
   function AsyncZipDeflate2(filename, opts) {
     var _this = this;
     if (!opts)
@@ -4858,8 +4858,8 @@ var AsyncZipDeflate = /* @__PURE__ */ function() {
     ZipPassThrough.prototype.push.call(this, chunk, final);
   };
   return AsyncZipDeflate2;
-}();
-var Zip = /* @__PURE__ */ function() {
+})();
+var Zip = /* @__PURE__ */ (function() {
   function Zip2(cb) {
     this.ondata = cb;
     this.u = [];
@@ -4982,7 +4982,7 @@ var Zip = /* @__PURE__ */ function() {
     this.d = 2;
   };
   return Zip2;
-}();
+})();
 const compressionContext = new WoffCompressionContext();
 const glyphtContext = new GlyphtContext();
 class AppState {
@@ -5477,7 +5477,7 @@ const trackAllSettings = (state) => {
   void state.exportSettings.woff2Compression.value;
   void state.cssPathPrefix.value;
 };
-const AppContext = K(void 0);
+const AppContext = Q(void 0);
 const useAppState = () => {
   const context = x$1(AppContext);
   if (!context) throw new Error("No AppState provided");
@@ -5676,8 +5676,9 @@ function getOppositeAxis(axis) {
 function getAxisLength(axis) {
   return axis === "y" ? "height" : "width";
 }
+const yAxisSides = /* @__PURE__ */ new Set(["top", "bottom"]);
 function getSideAxis(placement) {
-  return ["top", "bottom"].includes(getSide(placement)) ? "y" : "x";
+  return yAxisSides.has(getSide(placement)) ? "y" : "x";
 }
 function getAlignmentAxis(placement) {
   return getOppositeAxis(getSideAxis(placement));
@@ -5702,19 +5703,19 @@ function getExpandedPlacements(placement) {
 function getOppositeAlignmentPlacement(placement) {
   return placement.replace(/start|end/g, (alignment) => oppositeAlignmentMap[alignment]);
 }
+const lrPlacement = ["left", "right"];
+const rlPlacement = ["right", "left"];
+const tbPlacement = ["top", "bottom"];
+const btPlacement = ["bottom", "top"];
 function getSideList(side, isStart, rtl) {
-  const lr = ["left", "right"];
-  const rl = ["right", "left"];
-  const tb = ["top", "bottom"];
-  const bt = ["bottom", "top"];
   switch (side) {
     case "top":
     case "bottom":
-      if (rtl) return isStart ? rl : lr;
-      return isStart ? lr : rl;
+      if (rtl) return isStart ? rlPlacement : lrPlacement;
+      return isStart ? lrPlacement : rlPlacement;
     case "left":
     case "right":
-      return isStart ? tb : bt;
+      return isStart ? tbPlacement : btPlacement;
     default:
       return [];
   }
@@ -6020,15 +6021,20 @@ const flip$1 = function(options) {
         const nextIndex = (((_middlewareData$flip2 = middlewareData.flip) == null ? void 0 : _middlewareData$flip2.index) || 0) + 1;
         const nextPlacement = placements[nextIndex];
         if (nextPlacement) {
-          return {
-            data: {
-              index: nextIndex,
-              overflows: overflowsData
-            },
-            reset: {
-              placement: nextPlacement
-            }
-          };
+          const ignoreCrossAxisOverflow = checkCrossAxis === "alignment" ? initialSideAxis !== getSideAxis(nextPlacement) : false;
+          if (!ignoreCrossAxisOverflow || // We leave the current main axis only if every placement on that axis
+          // overflows the main axis.
+          overflowsData.every((d2) => getSideAxis(d2.placement) === initialSideAxis ? d2.overflows[0] > 0 : true)) {
+            return {
+              data: {
+                index: nextIndex,
+                overflows: overflowsData
+              },
+              reset: {
+                placement: nextPlacement
+              }
+            };
+          }
         }
         let resetPlacement = (_overflowsData$filter = overflowsData.filter((d2) => d2.overflows[0] <= 0).sort((a, b) => a.overflows[1] - b.overflows[1])[0]) == null ? void 0 : _overflowsData$filter.placement;
         if (!resetPlacement) {
@@ -6066,6 +6072,7 @@ const flip$1 = function(options) {
     }
   };
 };
+const originSides = /* @__PURE__ */ new Set(["left", "top"]);
 async function convertValueToCoords(state, options) {
   const {
     placement,
@@ -6076,7 +6083,7 @@ async function convertValueToCoords(state, options) {
   const side = getSide(placement);
   const alignment = getAlignment(placement);
   const isVertical = getSideAxis(placement) === "y";
-  const mainAxisMulti = ["left", "top"].includes(side) ? -1 : 1;
+  const mainAxisMulti = originSides.has(side) ? -1 : 1;
   const crossAxisMulti = rtl && isVertical ? -1 : 1;
   const rawValue = evaluate(options, state);
   let {
@@ -6324,31 +6331,37 @@ function isShadowRoot(value) {
   }
   return value instanceof ShadowRoot || value instanceof getWindow(value).ShadowRoot;
 }
+const invalidOverflowDisplayValues = /* @__PURE__ */ new Set(["inline", "contents"]);
 function isOverflowElement(element) {
   const {
     overflow,
     overflowX,
     overflowY,
     display
-  } = getComputedStyle(element);
-  return /auto|scroll|overlay|hidden|clip/.test(overflow + overflowY + overflowX) && !["inline", "contents"].includes(display);
+  } = getComputedStyle$1(element);
+  return /auto|scroll|overlay|hidden|clip/.test(overflow + overflowY + overflowX) && !invalidOverflowDisplayValues.has(display);
 }
+const tableElements = /* @__PURE__ */ new Set(["table", "td", "th"]);
 function isTableElement(element) {
-  return ["table", "td", "th"].includes(getNodeName(element));
+  return tableElements.has(getNodeName(element));
 }
+const topLayerSelectors = [":popover-open", ":modal"];
 function isTopLayer(element) {
-  return [":popover-open", ":modal"].some((selector) => {
+  return topLayerSelectors.some((selector) => {
     try {
       return element.matches(selector);
-    } catch (e) {
+    } catch (_e) {
       return false;
     }
   });
 }
+const transformProperties = ["transform", "translate", "scale", "rotate", "perspective"];
+const willChangeValues = ["transform", "translate", "scale", "rotate", "perspective", "filter"];
+const containValues = ["paint", "layout", "strict", "content"];
 function isContainingBlock(elementOrCss) {
   const webkit = isWebKit();
-  const css = isElement(elementOrCss) ? getComputedStyle(elementOrCss) : elementOrCss;
-  return ["transform", "translate", "scale", "rotate", "perspective"].some((value) => css[value] ? css[value] !== "none" : false) || (css.containerType ? css.containerType !== "normal" : false) || !webkit && (css.backdropFilter ? css.backdropFilter !== "none" : false) || !webkit && (css.filter ? css.filter !== "none" : false) || ["transform", "translate", "scale", "rotate", "perspective", "filter"].some((value) => (css.willChange || "").includes(value)) || ["paint", "layout", "strict", "content"].some((value) => (css.contain || "").includes(value));
+  const css = isElement(elementOrCss) ? getComputedStyle$1(elementOrCss) : elementOrCss;
+  return transformProperties.some((value) => css[value] ? css[value] !== "none" : false) || (css.containerType ? css.containerType !== "normal" : false) || !webkit && (css.backdropFilter ? css.backdropFilter !== "none" : false) || !webkit && (css.filter ? css.filter !== "none" : false) || willChangeValues.some((value) => (css.willChange || "").includes(value)) || containValues.some((value) => (css.contain || "").includes(value));
 }
 function getContainingBlock(element) {
   let currentNode = getParentNode(element);
@@ -6366,10 +6379,11 @@ function isWebKit() {
   if (typeof CSS === "undefined" || !CSS.supports) return false;
   return CSS.supports("-webkit-backdrop-filter", "none");
 }
+const lastTraversableNodeNames = /* @__PURE__ */ new Set(["html", "body", "#document"]);
 function isLastTraversableNode(node) {
-  return ["html", "body", "#document"].includes(getNodeName(node));
+  return lastTraversableNodeNames.has(getNodeName(node));
 }
-function getComputedStyle(element) {
+function getComputedStyle$1(element) {
   return getWindow(element).getComputedStyle(element);
 }
 function getNodeScroll(element) {
@@ -6428,7 +6442,7 @@ function getFrameElement(win) {
   return win.parent && Object.getPrototypeOf(win.parent) ? win.frameElement : null;
 }
 function getCssDimensions(element) {
-  const css = getComputedStyle(element);
+  const css = getComputedStyle$1(element);
   let width = parseFloat(css.width) || 0;
   let height = parseFloat(css.height) || 0;
   const hasOffset = isHTMLElement(element);
@@ -6524,7 +6538,7 @@ function getBoundingClientRect(element, includeScale, isFixedStrategy, offsetPar
     while (currentIFrame && offsetParent && offsetWin !== currentWin) {
       const iframeScale = getScale(currentIFrame);
       const iframeRect = currentIFrame.getBoundingClientRect();
-      const css = getComputedStyle(currentIFrame);
+      const css = getComputedStyle$1(currentIFrame);
       const left = iframeRect.left + (currentIFrame.clientLeft + parseFloat(css.paddingLeft)) * iframeScale.x;
       const top = iframeRect.top + (currentIFrame.clientTop + parseFloat(css.paddingTop)) * iframeScale.y;
       x *= iframeScale.x;
@@ -6551,15 +6565,9 @@ function getWindowScrollBarX(element, rect) {
   }
   return rect.left + leftScroll;
 }
-function getHTMLOffset(documentElement, scroll, ignoreScrollbarX) {
-  if (ignoreScrollbarX === void 0) {
-    ignoreScrollbarX = false;
-  }
+function getHTMLOffset(documentElement, scroll) {
   const htmlRect = documentElement.getBoundingClientRect();
-  const x = htmlRect.left + scroll.scrollLeft - (ignoreScrollbarX ? 0 : (
-    // RTL <body> scrollbar.
-    getWindowScrollBarX(documentElement, htmlRect)
-  ));
+  const x = htmlRect.left + scroll.scrollLeft - getWindowScrollBarX(documentElement, htmlRect);
   const y2 = htmlRect.top + scroll.scrollTop;
   return {
     x,
@@ -6597,7 +6605,7 @@ function convertOffsetParentRelativeRectToViewportRelativeRect(_ref) {
       offsets.y = offsetRect.y + offsetParent.clientTop;
     }
   }
-  const htmlOffset = documentElement && !isOffsetParentAnElement && !isFixed ? getHTMLOffset(documentElement, scroll, true) : createCoords(0);
+  const htmlOffset = documentElement && !isOffsetParentAnElement && !isFixed ? getHTMLOffset(documentElement, scroll) : createCoords(0);
   return {
     width: rect.width * scale.x,
     height: rect.height * scale.y,
@@ -6616,7 +6624,7 @@ function getDocumentRect(element) {
   const height = max(html.scrollHeight, html.clientHeight, body.scrollHeight, body.clientHeight);
   let x = -scroll.scrollLeft + getWindowScrollBarX(element);
   const y2 = -scroll.scrollTop;
-  if (getComputedStyle(body).direction === "rtl") {
+  if (getComputedStyle$1(body).direction === "rtl") {
     x += max(html.clientWidth, body.clientWidth) - width;
   }
   return {
@@ -6626,6 +6634,7 @@ function getDocumentRect(element) {
     y: y2
   };
 }
+const SCROLLBAR_MAX = 25;
 function getViewportRect(element, strategy) {
   const win = getWindow(element);
   const html = getDocumentElement(element);
@@ -6643,6 +6652,19 @@ function getViewportRect(element, strategy) {
       y2 = visualViewport.offsetTop;
     }
   }
+  const windowScrollbarX = getWindowScrollBarX(html);
+  if (windowScrollbarX <= 0) {
+    const doc = html.ownerDocument;
+    const body = doc.body;
+    const bodyStyles = getComputedStyle(body);
+    const bodyMarginInline = doc.compatMode === "CSS1Compat" ? parseFloat(bodyStyles.marginLeft) + parseFloat(bodyStyles.marginRight) || 0 : 0;
+    const clippingStableScrollbarWidth = Math.abs(html.clientWidth - body.clientWidth - bodyMarginInline);
+    if (clippingStableScrollbarWidth <= SCROLLBAR_MAX) {
+      width -= clippingStableScrollbarWidth;
+    }
+  } else if (windowScrollbarX <= SCROLLBAR_MAX) {
+    width += windowScrollbarX;
+  }
   return {
     width,
     height,
@@ -6650,6 +6672,7 @@ function getViewportRect(element, strategy) {
     y: y2
   };
 }
+const absoluteOrFixed = /* @__PURE__ */ new Set(["absolute", "fixed"]);
 function getInnerBoundingClientRect(element, strategy) {
   const clientRect = getBoundingClientRect(element, true, strategy === "fixed");
   const top = clientRect.top + element.clientTop;
@@ -6690,7 +6713,7 @@ function hasFixedPositionAncestor(element, stopNode) {
   if (parentNode === stopNode || !isElement(parentNode) || isLastTraversableNode(parentNode)) {
     return false;
   }
-  return getComputedStyle(parentNode).position === "fixed" || hasFixedPositionAncestor(parentNode, stopNode);
+  return getComputedStyle$1(parentNode).position === "fixed" || hasFixedPositionAncestor(parentNode, stopNode);
 }
 function getClippingElementAncestors(element, cache) {
   const cachedResult = cache.get(element);
@@ -6699,15 +6722,15 @@ function getClippingElementAncestors(element, cache) {
   }
   let result = getOverflowAncestors(element, [], false).filter((el) => isElement(el) && getNodeName(el) !== "body");
   let currentContainingBlockComputedStyle = null;
-  const elementIsFixed = getComputedStyle(element).position === "fixed";
+  const elementIsFixed = getComputedStyle$1(element).position === "fixed";
   let currentNode = elementIsFixed ? getParentNode(element) : element;
   while (isElement(currentNode) && !isLastTraversableNode(currentNode)) {
-    const computedStyle = getComputedStyle(currentNode);
+    const computedStyle = getComputedStyle$1(currentNode);
     const currentNodeIsContaining = isContainingBlock(currentNode);
     if (!currentNodeIsContaining && computedStyle.position === "fixed") {
       currentContainingBlockComputedStyle = null;
     }
-    const shouldDropCurrentNode = elementIsFixed ? !currentNodeIsContaining && !currentContainingBlockComputedStyle : !currentNodeIsContaining && computedStyle.position === "static" && !!currentContainingBlockComputedStyle && ["absolute", "fixed"].includes(currentContainingBlockComputedStyle.position) || isOverflowElement(currentNode) && !currentNodeIsContaining && hasFixedPositionAncestor(element, currentNode);
+    const shouldDropCurrentNode = elementIsFixed ? !currentNodeIsContaining && !currentContainingBlockComputedStyle : !currentNodeIsContaining && computedStyle.position === "static" && !!currentContainingBlockComputedStyle && absoluteOrFixed.has(currentContainingBlockComputedStyle.position) || isOverflowElement(currentNode) && !currentNodeIsContaining && hasFixedPositionAncestor(element, currentNode);
     if (shouldDropCurrentNode) {
       result = result.filter((ancestor) => ancestor !== currentNode);
     } else {
@@ -6763,6 +6786,9 @@ function getRectRelativeToOffsetParent(element, offsetParent, strategy) {
     scrollTop: 0
   };
   const offsets = createCoords(0);
+  function setLeftRTLScrollbarOffset() {
+    offsets.x = getWindowScrollBarX(documentElement);
+  }
   if (isOffsetParentAnElement || !isOffsetParentAnElement && !isFixed) {
     if (getNodeName(offsetParent) !== "body" || isOverflowElement(documentElement)) {
       scroll = getNodeScroll(offsetParent);
@@ -6772,8 +6798,11 @@ function getRectRelativeToOffsetParent(element, offsetParent, strategy) {
       offsets.x = offsetRect.x + offsetParent.clientLeft;
       offsets.y = offsetRect.y + offsetParent.clientTop;
     } else if (documentElement) {
-      offsets.x = getWindowScrollBarX(documentElement);
+      setLeftRTLScrollbarOffset();
     }
+  }
+  if (isFixed && !isOffsetParentAnElement && documentElement) {
+    setLeftRTLScrollbarOffset();
   }
   const htmlOffset = documentElement && !isOffsetParentAnElement && !isFixed ? getHTMLOffset(documentElement, scroll) : createCoords(0);
   const x = rect.left + scroll.scrollLeft - offsets.x - htmlOffset.x;
@@ -6786,10 +6815,10 @@ function getRectRelativeToOffsetParent(element, offsetParent, strategy) {
   };
 }
 function isStaticPositioned(element) {
-  return getComputedStyle(element).position === "static";
+  return getComputedStyle$1(element).position === "static";
 }
 function getTrueOffsetParent(element, polyfill) {
-  if (!isHTMLElement(element) || getComputedStyle(element).position === "fixed") {
+  if (!isHTMLElement(element) || getComputedStyle$1(element).position === "fixed") {
     return null;
   }
   if (polyfill) {
@@ -6840,7 +6869,7 @@ const getElementRects = async function(data) {
   };
 };
 function isRTL(element) {
-  return getComputedStyle(element).direction === "rtl";
+  return getComputedStyle$1(element).direction === "rtl";
 }
 const platform = {
   convertOffsetParentRelativeRectToViewportRelativeRect,
@@ -6923,7 +6952,7 @@ function observeMove(element, onMove) {
         // Handle <iframe>s
         root: root.ownerDocument
       });
-    } catch (e) {
+    } catch (_e) {
       io = new IntersectionObserver(handleObserve, options);
     }
     io.observe(element);
@@ -7668,37 +7697,45 @@ function uFuzzy(opts) {
 }
 const latinize = (() => {
   let accents = {
-    A: "ÁÀÃÂÄĄ",
-    a: "áàãâäą",
-    E: "ÉÈÊËĖ",
-    e: "éèêëę",
-    I: "ÍÌÎÏĮ",
-    i: "íìîïį",
+    A: "ÁÀÃÂÄĄĂÅ",
+    a: "áàãâäąăå",
+    E: "ÉÈÊËĖĚ",
+    e: "éèêëęě",
+    I: "ÍÌÎÏĮİ",
+    i: "íìîïįı",
     O: "ÓÒÔÕÖ",
     o: "óòôõö",
-    U: "ÚÙÛÜŪŲ",
-    u: "úùûüūų",
+    U: "ÚÙÛÜŪŲŮŰ",
+    u: "úùûüūųůű",
     C: "ÇČĆ",
     c: "çčć",
+    D: "Ď",
+    d: "ď",
+    G: "Ğ",
+    g: "ğ",
     L: "Ł",
     l: "ł",
-    N: "ÑŃ",
-    n: "ñń",
-    S: "ŠŚ",
-    s: "šś",
-    Z: "ŻŹ",
-    z: "żź"
+    N: "ÑŃŇ",
+    n: "ñńň",
+    S: "ŠŚȘŞ",
+    s: "šśșş",
+    T: "ŢȚŤ",
+    t: "ţțť",
+    Y: "Ý",
+    y: "ý",
+    Z: "ŻŹŽ",
+    z: "żźž"
   };
-  let accentsMap = /* @__PURE__ */ new Map();
+  let accentsMap = {};
   let accentsTpl = "";
   for (let r2 in accents) {
     accents[r2].split("").forEach((a) => {
       accentsTpl += a;
-      accentsMap.set(a, r2);
+      accentsMap[a] = r2;
     });
   }
   let accentsRe = new RegExp(`[${accentsTpl}]`, "g");
-  let replacer = (m) => accentsMap.get(m);
+  let replacer = (m) => accentsMap[m];
   return (strings) => {
     if (typeof strings == "string")
       return strings.replace(accentsRe, replacer);
@@ -7757,7 +7794,7 @@ const overlays = "_overlays_1ovwj_1";
 const style$4 = {
   overlays
 };
-const OverlayContext = K(void 0);
+const OverlayContext = Q(void 0);
 const Overlay = ({ children }) => {
   const context = x$1(OverlayContext);
   if (!context) return null;
@@ -8319,7 +8356,7 @@ class FakeImmutable {
     return this.inner;
   }
 }
-const ToastContext = K(void 0);
+const ToastContext = Q(void 0);
 const Toast = ({ children, toastRef, closeToast, showCloseButton, timeout, motif = Motif.PRIMARY, title }) => {
   let iconType, iconTitle;
   switch (motif) {
@@ -9891,7 +9928,7 @@ const GoogleFontsModal = () => {
   const fontsListState = googleFontsModalState.state.value;
   if (fontsListState.state === "not_loaded") {
     __vitePreload(async () => {
-      const { default: ModalComponent, languages } = await import("./GoogleFontsModalInner-BxkT7TpT.js");
+      const { default: ModalComponent, languages } = await import("./GoogleFontsModalInner-DsFeYNVI.js");
       return { default: ModalComponent, languages };
     }, true ? __vite__mapDeps([0,1,2]) : void 0).then(
       ({ default: ModalComponent, languages }) => {
@@ -9950,7 +9987,7 @@ function App() {
   return /* @__PURE__ */ u(AppContext.Provider, { value: store, children: /* @__PURE__ */ u(OverlayProvider, { children: /* @__PURE__ */ u(ToastProvider, { children: /* @__PURE__ */ u(App$1, {}) }) }) });
 }
 const appContainer = document.getElementById("main");
-if (appContainer) E$1(/* @__PURE__ */ u(App, {}), appContainer);
+if (appContainer) G(/* @__PURE__ */ u(App, {}), appContainer);
 export {
   Button as B,
   CheckboxToggle as C,
