@@ -1,5 +1,5 @@
 import { b as useSignal, q, T, c as useComputed, u, k, d, g } from "./search-DXangmra.js";
-import { u as useAppState, a as useThrottledSignal, b as uFuzzy, s as style, D as Dropdown, c as clsx, I as IconButton, T as TextBox, d as ToggleIcon, e as axisMetadata, L as Loader, S as Slider, f as SpinBox, C as CheckboxToggle, g as SearchableCheckboxDropdown, h as axesList, i as useAddErrorToast, j as Icon, B as Button, k as axisSpinboxParams, l as CollapsibleHeader } from "./index-BXVZTdxE.js";
+import { u as useAppState, a as useThrottledSignal, b as uFuzzy, s as style, D as Dropdown, c as clsx, I as IconButton, T as TextBox, d as ToggleIcon, e as axisMetadata, L as Loader, S as Slider, f as SpinBox, C as CheckboxToggle, g as SearchableCheckboxDropdown, h as axesList, i as useAddErrorToast, j as Icon, B as Button, k as axisSpinboxParams, l as CollapsibleHeader } from "./index-BDZHeMO9.js";
 /*! @license DOMPurify 3.2.7 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/3.2.7/LICENSE */
 const {
   entries,
@@ -1032,7 +1032,7 @@ const languagesByPopulation = langList.languages.slice(0);
 languagesByPopulation.sort((a, b) => (b.population ?? 0) - (a.population ?? 0));
 const fontsList = [];
 for (const font of fontsListJson) {
-  const languageTags = [];
+  const languageMetas = [];
   if (font.languages) {
     const bitset = atob(font.languages);
     for (let i = 0; i < bitset.length; i++) {
@@ -1041,12 +1041,12 @@ for (const font of fontsListJson) {
         const bit = byte & 1 << j;
         if (bit !== 0) {
           const bitIdx = (i << 3) + j;
-          languageTags.push(bitIdx);
+          languageMetas.push(languagesByCoverage[bitIdx]);
         }
       }
     }
   }
-  font.languages = languageTags;
+  font.languages = languageMetas;
   fontsList.push(font);
 }
 const searcher = new uFuzzy({});
@@ -1199,8 +1199,7 @@ const FontPreview = ({ family }) => {
     }
     if (!previewText) {
       let bestPopulation = 0;
-      for (const lang of family.languages) {
-        const langMeta = languagesByCoverage[lang];
+      for (const langMeta of family.languages) {
         if (typeof langMeta.population !== "number" || langMeta.population <= bestPopulation) {
           continue;
         }
@@ -1266,8 +1265,7 @@ const FontPreview = ({ family }) => {
   }, [family, variationValues]);
   const supportedLanguages = T(() => {
     const byScript = /* @__PURE__ */ new Map();
-    for (const langIndex of family.languages) {
-      const lang = languagesByCoverage[langIndex];
+    for (const lang of family.languages) {
       let script = lang.script && scriptsById.get(lang.script)?.name;
       if (!script) script = "Other";
       let byThisScript = byScript.get(script);
@@ -1606,7 +1604,7 @@ const GoogleFontsModalInner = ({ fontsListState }) => {
       if (!classificationMatch) return false;
       if (selectedLanguagesList.length) {
         const hasAllSelectedLanguages = !selectedLanguagesList.some(
-          (selectedLangTag) => !family.languages || !family.languages?.some((langIndex) => languagesByCoverage[langIndex].id === selectedLangTag)
+          (selectedLangTag) => !family.languages || !family.languages?.some((lang) => lang.id === selectedLangTag)
         );
         if (!hasAllSelectedLanguages) return false;
       }

@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/GoogleFontsModalInner-DsFeYNVI.js","assets/search-DXangmra.js","assets/search-CLlH7J7c.css"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/GoogleFontsModalInner-DXUZqbR5.js","assets/search-DXangmra.js","assets/search-CLlH7J7c.css"])))=>i.map(i=>d[i]);
 import { _ as __vitePreload, d, T, A, y, Q, E, w, n, x as x$1, u, q, a as _, g, b as useSignal, c as useComputed, k, e as d$1, r as r$1, G } from "./search-DXangmra.js";
 const app = "_app_8jc7z_44";
 const displayPane = "_display-pane_8jc7z_51";
@@ -9928,7 +9928,7 @@ const GoogleFontsModal = () => {
   const fontsListState = googleFontsModalState.state.value;
   if (fontsListState.state === "not_loaded") {
     __vitePreload(async () => {
-      const { default: ModalComponent, languages } = await import("./GoogleFontsModalInner-DsFeYNVI.js");
+      const { default: ModalComponent, languages } = await import("./GoogleFontsModalInner-DXUZqbR5.js");
       return { default: ModalComponent, languages };
     }, true ? __vite__mapDeps([0,1,2]) : void 0).then(
       ({ default: ModalComponent, languages }) => {
