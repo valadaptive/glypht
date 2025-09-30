@@ -5,5 +5,5 @@
 		"module": "nodenext",
 		"types": ["node"]
 	},
-	"include": ["src/**/*.ts", "../c-libs-wrapper/*.ts"],
+	"include": ["src/**/*.ts", "test/**/*.ts", "../c-libs-wrapper/*.ts", "vitest.config.ts"],
 }

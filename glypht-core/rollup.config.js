@@ -3,6 +3,11 @@ import inject from '@rollup/plugin-inject';
 import * as path from 'node:path';
 import * as fs from 'node:fs/promises';
 
+/**
+* @import {RollupOptions[]} from 'rollup'
+*/
+
+/** @type {RollupOptions[]} */
 export default [
     {
         input: [

@@ -24,9 +24,10 @@
         "eslint": "^9.32.0",
         "globals": "^16.3.0",
         "jiti": "^2.5.1",
-		"pbtxtjs": "https://github.com/valadaptive/pbtxtjs.git",
+        "pbtxtjs": "https://github.com/valadaptive/pbtxtjs.git",
         "rollup": "^4.46.2",
         "typescript": "^5.8.3",
-        "typescript-eslint": "^8.38.0"
+        "typescript-eslint": "^8.38.0",
+        "vitest": "^3.2.4"
     }
 }
