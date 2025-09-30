@@ -34,7 +34,7 @@ import axisMetadata, {axesList} from '../../util/axis-metadata';
 
 const descriptionsUrl = new URL('../../generated/google-fonts-descriptions.txt', import.meta.url);
 
-export type GoogleFontsFamily = Omit<FamilyProto, 'languages'> & {languages: number[]};
+export type GoogleFontsFamily = Omit<FamilyProto, 'languages'> & {languages: LanguageProto[]};
 
 const langList = langListJson as {languages: LanguageProto[]; scripts: ScriptProto[]};
 const languagesById = new Map<string, LanguageProto>();
@@ -57,7 +57,7 @@ languagesByPopulation.sort((a, b) => (b.population ?? 0) - (a.population ?? 0));
 
 const fontsList: GoogleFontsFamily[] = [];
 for (const font of fontsListJson as FamilyProto[]) {
-    const languageTags = [];
+    const languageMetas = [];
     if (font.languages) {
         const bitset = atob(font.languages);
         for (let i = 0; i < bitset.length; i++) {
@@ -66,12 +66,12 @@ for (const font of fontsListJson as FamilyProto[]) {
                 const bit = byte & (1 << j);
                 if (bit !== 0) {
                     const bitIdx = (i << 3) + j;
-                    languageTags.push(bitIdx);
+                    languageMetas.push(languagesByCoverage[bitIdx]);
                 }
             }
         };
     }
-    (font as unknown as GoogleFontsFamily).languages = languageTags;
+    (font as unknown as GoogleFontsFamily).languages = languageMetas;
     fontsList.push(font as unknown as GoogleFontsFamily);
 }
 
@@ -262,8 +262,7 @@ const FontPreview = ({family}: {
         }
         if (!previewText) {
             let bestPopulation = 0;
-            for (const lang of family.languages) {
-                const langMeta = languagesByCoverage[lang];
+            for (const langMeta of family.languages) {
                 if (typeof langMeta.population !== 'number' || langMeta.population <= bestPopulation) {
                     continue;
                 }
@@ -336,8 +335,7 @@ const FontPreview = ({family}: {
 
     const supportedLanguages = useMemo(() => {
         const byScript = new Map<string, string[]>();
-        for (const langIndex of family.languages) {
-            const lang = languagesByCoverage[langIndex];
+        for (const lang of family.languages) {
             let script = lang.script && scriptsById.get(lang.script)?.name;
             if (!script) script = 'Other';
             let byThisScript = byScript.get(script);
@@ -764,7 +762,7 @@ const GoogleFontsModalInner = ({fontsListState}: {fontsListState: LoadedGoogleFo
                 const hasAllSelectedLanguages = !selectedLanguagesList
                     .some(selectedLangTag =>
                         !family.languages ||
-                        !family.languages?.some(langIndex => languagesByCoverage[langIndex].id === selectedLangTag),
+                        !family.languages?.some(lang => lang.id === selectedLangTag),
                     );
                 if (!hasAllSelectedLanguages) return false;
             }
