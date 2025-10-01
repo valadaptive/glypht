@@ -364,8 +364,17 @@ const axisRangeProduct = (axisRanges: MultiSubsetAxis[]): InstancedSubsetAxisSet
 export type ExportedFont = {
     /** The subsetted font. */
     font: SubsettedFont;
-    /** If set, ignore `font.familyName` and treat this as the family name instead. */
-    overrideName?: string;
+    /** Info shared among all exported fonts within a family. */
+    familyInfo: {
+        /**
+         * Axes that differ among font faces within this family (for example, axes that were instanced into multiple
+         * fonts, or where there were multiple static input fonts to begin with). This includes "wght", "wdth", "ital",
+         * and "slnt" axes.
+         */
+        differingAxes: Set<string>;
+        /** If set, ignore `font.familyName` and treat this as the family name instead. */
+        overrideName: string | null;
+    };
     /** The font's filename, sans extension. */
     filename: string;
     /** The font file data, in all the formats requested to export to. */
@@ -511,8 +520,14 @@ export type FamilySettings = {
     }[];
 } & FamilySubsetSettings;
 
-const instanceSubsetSettings = (settings: FamilySettings[]): Map<number, (InstanceSubsetSettings | null)[]> => {
-    const settingsByFont = new Map<number, (InstanceSubsetSettings | null)[]>();
+const instanceSubsetSettings = (family: FamilySettings): {
+    font: FontRef;
+    settings: InstanceSubsetSettings | null;
+}[] => {
+    const settingsByFont: {
+        font: FontRef;
+        settings: InstanceSubsetSettings | null;
+    }[] = [];
 
     const styleKeyToTag = (styleKey: StyleKey): string => {
         switch (styleKey) {
@@ -523,69 +538,69 @@ const instanceSubsetSettings = (settings: FamilySettings[]): Map<number, (Instan
         }
     };
 
-    for (const family of settings) {
-        for (const font of family.fonts) {
-            if (!family.enableSubsetting) {
-                settingsByFont.set(font.font.id, [null]);
-                continue;
-            }
+    for (const {font, styleValues} of family.fonts) {
+        if (!family.enableSubsetting) {
+            settingsByFont.push({font, settings: null});
+            continue;
+        }
 
-            const axisValues: MultiSubsetAxis[] = [];
-            for (const [tag, value] of Object.entries(family.axes)) {
-                axisValues.push({tag, ...value!});
-            }
+        const axisValues: MultiSubsetAxis[] = [];
+        for (const [tag, value] of Object.entries(family.axes)) {
+            axisValues.push({tag, ...value!});
+        }
 
-            for (const [settingName, styleValue] of Object.entries(family.styleValues)) {
+        for (const [settingName, styleValue] of Object.entries(family.styleValues)) {
+            axisValues.push({tag: styleKeyToTag(settingName as StyleKey), ...styleValue});
+        }
+
+        if (styleValues) {
+            for (const [settingName, styleValue] of Object.entries(styleValues)) {
                 axisValues.push({tag: styleKeyToTag(settingName as StyleKey), ...styleValue});
             }
+        }
 
-            if (font.styleValues) {
-                for (const [settingName, styleValue] of Object.entries(font.styleValues)) {
-                    axisValues.push({tag: styleKeyToTag(settingName as StyleKey), ...styleValue});
+        let unicodeRangeSets = [];
+        const charSettings = family.includeCharacters;
+        if (charSettings === 'all') {
+            unicodeRangeSets = ['all'] as const;
+        } else {
+            const charSettingsArr = Array.isArray(charSettings) ? charSettings : [charSettings];
+            for (const charsetSettings of charSettingsArr) {
+                let charsetName: string | null = charsetSettings.name ?? null;
+                let parsedUnicodeRanges;
+                if (typeof charsetSettings.includeUnicodeRanges === 'string') {
+                    parsedUnicodeRanges = parseUnicodeRanges(charsetSettings.includeUnicodeRanges);
+                    if (!parsedUnicodeRanges) throw new Error(`Invalid Unicode ranges: ${charsetSettings.includeUnicodeRanges}`);
+                } else {
+                    parsedUnicodeRanges = charsetSettings.includeUnicodeRanges ?? [];
                 }
+                if (charsetName === '' || charsetName === null) {
+                    // If the character set consists exclusively of pre-named Google Fonts character subsets, we can
+                    // fall back to the names of those
+                    if (!parsedUnicodeRanges.length && charsetSettings.includeNamedSubsets) {
+                        // TODO: sort if user-provided?
+                        charsetName = charsetSettings.includeNamedSubsets.join('-');
+                    }
+                }
+                unicodeRangeSets.push({
+                    named: charsetSettings.includeNamedSubsets ?? [],
+                    custom: parsedUnicodeRanges,
+                    charsetName,
+                });
             }
 
-            let unicodeRangeSets = [];
-            const charSettings = family.includeCharacters;
-            if (charSettings === 'all') {
-                unicodeRangeSets = ['all'] as const;
-            } else {
-                const charSettingsArr = Array.isArray(charSettings) ? charSettings : [charSettings];
-                for (const charsetSettings of charSettingsArr) {
-                    let charsetName: string | null = charsetSettings.name ?? null;
-                    let parsedUnicodeRanges;
-                    if (typeof charsetSettings.includeUnicodeRanges === 'string') {
-                        parsedUnicodeRanges = parseUnicodeRanges(charsetSettings.includeUnicodeRanges);
-                        if (!parsedUnicodeRanges) throw new Error(`Invalid Unicode ranges: ${charsetSettings.includeUnicodeRanges}`);
-                    } else {
-                        parsedUnicodeRanges = charsetSettings.includeUnicodeRanges ?? [];
-                    }
-                    if (charsetName === '' || charsetName === null) {
-                        // If the character set consists exclusively of pre-named Google Fonts character subsets, we can
-                        // fall back to the names of those
-                        if (!parsedUnicodeRanges.length && charsetSettings.includeNamedSubsets) {
-                            // TODO: sort if user-provided?
-                            charsetName = charsetSettings.includeNamedSubsets.join('-');
-                        }
-                    }
-                    unicodeRangeSets.push({
-                        named: charsetSettings.includeNamedSubsets ?? [],
-                        custom: parsedUnicodeRanges,
-                        charsetName,
-                    });
-                }
+        }
 
-            }
+        // Instantiate for the cartesian product of all instanced variation axes...
+        const flattenedAxisSettings = axisRangeProduct(axisValues);
 
-            // Instantiate for the cartesian product of all instanced variation axes...
-            const flattenedAxisSettings = axisRangeProduct(axisValues);
-
-            // Then once for each character set
-            const flattenedSettings = [];
-            for (const axisValues of flattenedAxisSettings) {
-                for (let i = 0; i < unicodeRangeSets.length; i++) {
-                    const unicodeRanges = unicodeRangeSets[i];
-                    flattenedSettings.push({
+        // Then once for each character set
+        for (const axisValues of flattenedAxisSettings) {
+            for (let i = 0; i < unicodeRangeSets.length; i++) {
+                const unicodeRanges = unicodeRangeSets[i];
+                settingsByFont.push({
+                    font,
+                    settings: {
                         axisValues,
                         features: family.features ?? {},
                         unicodeRanges,
@@ -597,11 +612,9 @@ const instanceSubsetSettings = (settings: FamilySettings[]): Map<number, (Instan
                                 unicodeRanges.charsetName :
                                 i,
                         preprocess: flattenedAxisSettings.length * unicodeRangeSets.length > 1,
-                    });
-                }
+                    },
+                });
             }
-
-            settingsByFont.set(font.font.id, flattenedSettings);
         }
     }
 
@@ -614,12 +627,12 @@ const instanceSubsetSettings = (settings: FamilySettings[]): Map<number, (Instan
  * @param fonts The fonts to search within.
  * @returns A map of family names -> axes and style values that vary within that family.
  */
-const findVaryingAxes = (fonts: SubsettedFont[]) => {
-    const varyingAxesByFamily = new Map<string, Set<string>>();
-    const axesByFamily = new Map<string, {
-        axes: Map<string, SubsetAxisInfo>;
-        styleValues: Partial<Record<StyleKey, StyleValue>>;
-    }>();
+const findDifferingAxes = (fonts: SubsettedFont[]) => {
+    const varyingAxes = new Set<string>();
+    const axesInfo = {
+        axes: new Map<string, SubsetAxisInfo>(),
+        styleValues: {} as Partial<Record<StyleKey, StyleValue>>,
+    };
     const styleToAxisNames = {
         italic: 'ital',
         slant: 'slnt',
@@ -628,17 +641,7 @@ const findVaryingAxes = (fonts: SubsettedFont[]) => {
     } as const;
 
     for (const font of fonts) {
-        let axesInfo = axesByFamily.get(font.familyName);
-        if (!axesInfo) {
-            axesInfo = {axes: new Map(), styleValues: {}};
-            axesByFamily.set(font.familyName, axesInfo);
-        }
         const {axes, styleValues} = axesInfo;
-        let varyingAxes = varyingAxesByFamily.get(font.familyName);
-        if (!varyingAxes) {
-            varyingAxes = new Set();
-            varyingAxesByFamily.set(font.familyName, varyingAxes);
-        }
         for (const axis of font.axes) {
             const existingAxis = axes.get(axis.tag);
             if (existingAxis) {
@@ -671,24 +674,7 @@ const findVaryingAxes = (fonts: SubsettedFont[]) => {
         }
     }
 
-    return varyingAxesByFamily;
-};
-
-const fontFilenames = (fonts: ExportedFont[]) => {
-    const varyingAxesByFamily = findVaryingAxes(fonts.map(font => font.font));
-
-    const filenames = new Map<SubsettedFont, string>();
-    for (const {font, charsetNameOrIndex, overrideName} of fonts) {
-        const varyingAxes = varyingAxesByFamily.get(font.familyName)!;
-        filenames.set(font, fontFilename(
-            font,
-            varyingAxes,
-            charsetNameOrIndex,
-            overrideName,
-        ));
-    }
-
-    return filenames;
+    return varyingAxes;
 };
 
 const roundDecimal = (v: number) => Math.round(v * 1000) / 1000;
@@ -711,7 +697,11 @@ const roundDecimal = (v: number) => Math.round(v * 1000) / 1000;
  * a unique name to every instance with different non-WWS values.
  * @returns A list of labels.
  */
-const getInstanceLabels = (font: SubsettedFont, varyingAxes: Set<string>, includeStyleValues: boolean): string[] => {
+const getInstanceLabels = (
+    font: SubsettedFont,
+    varyingAxes: Set<string>,
+    includeStyleValues: boolean,
+): string[] => {
     // eslint-disable-next-line eqeqeq
     if (font.namedInstance?.subfamilyName != null) {
         return [font.namedInstance?.subfamilyName];
@@ -932,7 +922,7 @@ const fontFilename = (
     font: SubsettedFont,
     varyingAxes: Set<string>,
     charsetNameOrIndex: number | string | null,
-    overrideName?: string,
+    overrideName: string | null,
 ) => {
     // Don't include the subfamily name; the axis values should serve the same purpose
     // TODO: we should now have access to the family name without any of this...
@@ -980,17 +970,14 @@ export const exportedFontsToCSS = (
         fontPathPrefix += '/';
     }
 
-    // TODO: just do this once
-    const varyingAxes = findVaryingAxes(fonts.map(f => f.font));
-
-    for (const {font, data, filename, charsetNameOrIndex, overrideName} of fonts) {
+    for (const {font, data, filename, charsetNameOrIndex, familyInfo} of fonts) {
         emitter.atRule('@font-face');
 
         emitter.declaration('font-family');
-        let familyName = overrideName ?? font.familyName;
+        let familyName = familyInfo.overrideName ?? font.familyName;
         // CSS @font-face declarations can map a single family name to multiple static fonts of varying weight, width,
         // and slope, but they cannot do this for arbitrary axes, so we need to disambiguate their names.
-        const instanceLabels = getInstanceLabels(font, varyingAxes.get(font.familyName)!, false);
+        const instanceLabels = getInstanceLabels(font, familyInfo.differingAxes, false);
         if (instanceLabels.length > 0) {
             familyName += ` ${instanceLabels.join(' ')}`;
         }
@@ -1141,104 +1128,116 @@ export const exportFonts = async(
         onProgress,
     }: ExportFontsSettings,
 ): Promise<ExportedFont[]> => {
-    const fontList = [];
-    const subsetSettingsByFont = instanceSubsetSettings(families);
-    for (const family of families) {
-        for (const font of family.fonts) {
-            const settings = subsetSettingsByFont.get(font.font.id)!;
-            for (const flattenedSettings of settings) {
-                fontList.push({font: font.font, overrideName: family.overrideName, settings: flattenedSettings});
+    let totalOutputFonts = 0;
+    let totalProgressProportion = 0;
+    const subsetProgressProportion = 1;
+
+    const instancedFamilies = families.map(family => {
+        const instances = instanceSubsetSettings(family);
+        totalOutputFonts += instances.length;
+        for (const font of instances) {
+            if (font.settings) {
+                totalProgressProportion += subsetProgressProportion;
             }
         }
-    }
+        return {family, instances};
+    });
 
-    const subsetProgressProportion = 1;
     const parallelism = (await compressionContext?.getParallelism()) ?? 1;
     // TODO: Probably not an accurate estimate since cores can't work on both WOFF1 and WOFF2 at the same time
     const woff1ProgressProportion = (2 * woffCompression) /
-        Math.min(parallelism, fontList.length);
+        Math.min(parallelism, totalOutputFonts);
     // TODO: the speed varies by compression level
-    const woff2ProgressProportion = 32 / Math.min(parallelism, fontList.length);
-    let totalProgressProportion = 0;
-    for (const font of fontList) {
-        if (font.settings) {
-            totalProgressProportion += subsetProgressProportion;
-        }
-    }
+    const woff2ProgressProportion = 32 / Math.min(parallelism, totalOutputFonts);
     if (formats.woff) {
-        totalProgressProportion += woff1ProgressProportion * fontList.length;
+        totalProgressProportion += woff1ProgressProportion * totalOutputFonts;
     }
     if (formats.woff2) {
-        totalProgressProportion += woff2ProgressProportion * fontList.length;
+        totalProgressProportion += woff2ProgressProportion * totalOutputFonts;
     }
     let progress = 0;
     onProgress?.(0);
 
     let cancelled = false;
-
-    const fontPromises = fontList.map(async({font, overrideName, settings}) => {
-        const subsettedFont = await font.subset(settings);
-        if (cancelled) throw new Error('Aborted');
-        const dataInFormats: ExportedFont['data'] = {
-            opentype: formats.ttf ? subsettedFont.data : null,
-            woff: null,
-            woff2: null,
-        };
-
-        progress += subsetProgressProportion;
-        onProgress?.(progress / totalProgressProportion);
-        const compressionPromises = [];
-        if ((formats.woff || formats.woff2) && compressionContext === null) {
-            throw new Error('woff or woff2 formats enabled but no compression context provided');
-        }
-        if (formats.woff) {
-            compressionPromises.push(compressionContext!.compressFromTTF(
-                subsettedFont.data,
-                {algorithm: 'woff', level: woffCompression},
-            ).then(compressed => {
-                if (cancelled) throw new Error('Aborted');
-                progress += woff1ProgressProportion;
-                onProgress?.(progress / totalProgressProportion);
-                dataInFormats.woff = compressed;
-            }));
-        }
-        if (formats.woff2) {
-            compressionPromises.push(compressionContext!.compressFromTTF(
-                subsettedFont.data,
-                {algorithm: 'woff2', level: woff2Compression},
-            ).then(compressed => {
-                if (cancelled) throw new Error('Aborted');
-                progress += woff2ProgressProportion;
-                onProgress?.(progress / totalProgressProportion);
-                dataInFormats.woff2 = compressed;
-            }));
-        }
-        if (compressionPromises.length > 0) await Promise.all(compressionPromises);
-
-        return {
-            font: subsettedFont,
-            overrideName,
-            filename: '', // This will be filled in later. It's just to get TypeScript to shut up.
-            data: dataInFormats,
-            charsetNameOrIndex: settings ? settings.charsetNameOrIndex : null,
-            extension(format: 'opentype' | 'woff' | 'woff2') {
-                if (format === 'opentype') {
-                    return subsettedFont.format === 'opentype' ? 'otf' : 'ttf';
-                }
-                return format;
-            },
-        };
-    });
-
-    return Promise.all(fontPromises).then(exportedFonts => {
-        const filenames = fontFilenames(exportedFonts);
-        for (const exportedFont of exportedFonts) {
-            const filename = filenames.get(exportedFont.font)!;
-            exportedFont.filename = filename;
-        }
-        return exportedFonts;
-    }, error => {
+    const cancelOnError = (err: unknown) => {
         cancelled = true;
-        throw error;
+        throw err;
+    };
+
+    const compressionPromises: Promise<void>[] = [];
+
+    const familyPromises = instancedFamilies.map(({family, instances}) => {
+        const instancePromises = instances.map(async({font, settings}) => {
+            const subsettedFont = await font.subset(settings);
+            if (cancelled) throw new DOMException('Operation cancelled', 'AbortError');
+            const dataInFormats: ExportedFont['data'] = {
+                opentype: formats.ttf ? subsettedFont.data : null,
+                woff: null,
+                woff2: null,
+            };
+
+            progress += subsetProgressProportion;
+            onProgress?.(progress / totalProgressProportion);
+            if ((formats.woff || formats.woff2) && compressionContext === null) {
+                throw new Error('woff or woff2 formats enabled but no compression context provided');
+            }
+            if (formats.woff) {
+                compressionPromises.push(compressionContext!.compressFromTTF(
+                    subsettedFont.data,
+                    {algorithm: 'woff', level: woffCompression},
+                ).then(compressed => {
+                    if (cancelled) throw new DOMException('Operation cancelled', 'AbortError');
+                    progress += woff1ProgressProportion;
+                    onProgress?.(progress / totalProgressProportion);
+                    dataInFormats.woff = compressed;
+                }, cancelOnError));
+            }
+            if (formats.woff2) {
+                compressionPromises.push(compressionContext!.compressFromTTF(
+                    subsettedFont.data,
+                    {algorithm: 'woff2', level: woff2Compression},
+                ).then(compressed => {
+                    if (cancelled) throw new DOMException('Operation cancelled', 'AbortError');
+                    progress += woff2ProgressProportion;
+                    onProgress?.(progress / totalProgressProportion);
+                    dataInFormats.woff2 = compressed;
+                }, cancelOnError));
+            }
+            const charsetNameOrIndex = settings?.charsetNameOrIndex ?? null;
+
+            return {subsettedFont, dataInFormats, charsetNameOrIndex};
+        });
+
+        return Promise.all(instancePromises).then(subsettedFonts => {
+            const differingAxes = findDifferingAxes(subsettedFonts.map(f => f.subsettedFont));
+            const overrideName = family.overrideName ?? null;
+            const familyInfo = {overrideName, differingAxes};
+
+            return subsettedFonts.map(({subsettedFont, dataInFormats, charsetNameOrIndex}) => {
+                return {
+                    font: subsettedFont,
+                    familyInfo,
+                    filename: fontFilename(
+                        subsettedFont,
+                        differingAxes,
+                        charsetNameOrIndex,
+                        overrideName,
+                    ),
+                    data: dataInFormats,
+                    charsetNameOrIndex,
+                    extension(format: 'opentype' | 'woff' | 'woff2') {
+                        if (format === 'opentype') {
+                            return subsettedFont.format === 'opentype' ? 'otf' : 'ttf';
+                        }
+                        return format;
+                    },
+                };
+            });
+        });
     });
+
+    const exportedFamilies = await Promise.all(familyPromises).then(undefined, cancelOnError);
+    await Promise.all(compressionPromises);
+    const exportedFonts = exportedFamilies.flat();
+    return exportedFonts;
 };
