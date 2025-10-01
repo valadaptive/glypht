@@ -28,7 +28,8 @@
   "scripts": {
     "build": "rollup -c rollup.config.js",
     "prepack": "rollup -c rollup.config.js",
-    "watch": "rollup --watch -c rollup.config.js"
+    "watch": "rollup --watch -c rollup.config.js",
+    "test": "vitest --watch=false"
   },
   "files": [
     "dist/**/*.{js,ts,wasm}",

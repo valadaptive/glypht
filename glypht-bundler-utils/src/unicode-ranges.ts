@@ -99,6 +99,8 @@ export const formatUnicodeRanges = (ranges: (number | readonly [number, number])
         const range = ranges[i];
         if (typeof range === 'number') {
             result.push(`U+${range.toString(16)}`);
+        } else if (range[0] === range[1]) {
+            result.push(`U+${range[0].toString(16)}`);
         } else {
             result.push(`U+${range[0].toString(16)}-${range[1].toString(16)}`);
         }
