@@ -372,9 +372,22 @@ export type ExportedFont = {
          * and "slnt" axes.
          */
         differingAxes: Set<string>;
-        /** If set, ignore `font.familyName` and treat this as the family name instead. */
+        /**
+         * If set, ignore `font.familyName` and treat this as the family name instead. This does not include any
+         * disambiguations provided in the {@link ExportedFont#cssName} property.
+         */
         overrideName: string | null;
     };
+    /**
+     * The font's family name, as it should be used in CSS.
+     *
+     * While the CSS `@font-face` declaration allows fonts to specify their location in a design space along the weight,
+     * width, and slope axes, it does not allow this for *arbitrary* axes. So, if an input font is instanced along one
+     * of those axes, each instance will be given a unique CSS name.
+     *
+     * Because of this, different fonts in the same source family can end up with different CSS family names.
+     */
+    cssName: string;
     /** The font's filename, sans extension. */
     filename: string;
     /** The font file data, in all the formats requested to export to. */
@@ -970,18 +983,11 @@ export const exportedFontsToCSS = (
         fontPathPrefix += '/';
     }
 
-    for (const {font, data, filename, charsetNameOrIndex, familyInfo} of fonts) {
+    for (const {font, data, filename, charsetNameOrIndex, cssName} of fonts) {
         emitter.atRule('@font-face');
 
         emitter.declaration('font-family');
-        let familyName = familyInfo.overrideName ?? font.familyName;
-        // CSS @font-face declarations can map a single family name to multiple static fonts of varying weight, width,
-        // and slope, but they cannot do this for arbitrary axes, so we need to disambiguate their names.
-        const instanceLabels = getInstanceLabels(font, familyInfo.differingAxes, false);
-        if (instanceLabels.length > 0) {
-            familyName += ` ${instanceLabels.join(' ')}`;
-        }
-        emitter.string(familyName);
+        emitter.string(cssName);
         emitter.endDeclaration();
 
         emitter.declaration('font-display');
@@ -1214,9 +1220,17 @@ export const exportFonts = async(
             const familyInfo = {overrideName, differingAxes};
 
             return subsettedFonts.map(({subsettedFont, dataInFormats, charsetNameOrIndex}) => {
+                let cssName = overrideName ?? subsettedFont.familyName;
+                // CSS @font-face declarations can map a single family name to multiple static fonts of varying weight,
+                // width, and slope, but they cannot do this for arbitrary axes, so we need to disambiguate their names.
+                const instanceLabels = getInstanceLabels(subsettedFont, familyInfo.differingAxes, false);
+                if (instanceLabels.length > 0) {
+                    cssName += ` ${instanceLabels.join(' ')}`;
+                }
                 return {
                     font: subsettedFont,
                     familyInfo,
+                    cssName,
                     filename: fontFilename(
                         subsettedFont,
                         differingAxes,
