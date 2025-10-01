@@ -192,6 +192,7 @@ const populateFontMetadata = async(
         f.sampleText = {styles: f.sampleText.styles};
     }
     delete f.orderedSampleGlyphs;
+    delete f.subsets;
 };
 
 let languagesData: any[] | null = null;

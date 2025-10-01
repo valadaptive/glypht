@@ -65,7 +65,6 @@ export type FamilyProto = {
     dateAdded: string;
     fonts: FontProto[];
     aliases?: string[];
-    subsets?: string[];
     ttfAutohintArgs?: string;
     axes?: AxisSegmentProto[];
     registryDefaultOverrides?: Record<string, number>;
