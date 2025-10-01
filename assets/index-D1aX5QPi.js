@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/GoogleFontsModalInner-C_rQgOvG.js","assets/search-DXangmra.js","assets/search-CLlH7J7c.css"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/GoogleFontsModalInner-CEKBBvEM.js","assets/search-DXangmra.js","assets/search-CLlH7J7c.css"])))=>i.map(i=>d[i]);
 import { _ as __vitePreload, d, T, A, y, Q, E, w, n, x as x$1, u, q, a as _, g, b as useSignal, c as useComputed, k, e as d$1, r as r$1, G } from "./search-DXangmra.js";
 const app = "_app_8jc7z_44";
 const displayPane = "_display-pane_8jc7z_51";
@@ -609,6 +609,8 @@ const formatUnicodeRanges = (ranges) => {
     const range = ranges[i];
     if (typeof range === "number") {
       result.push(`U+${range.toString(16)}`);
+    } else if (range[0] === range[1]) {
+      result.push(`U+${range[0].toString(16)}`);
     } else {
       result.push(`U+${range[0].toString(16)}-${range[1].toString(16)}`);
     }
@@ -2856,8 +2858,8 @@ const WIDTH_NAMES = /* @__PURE__ */ new Map([
   [150, "ExtraExpanded"],
   [200, "UltraExpanded"]
 ]);
-const instanceSubsetSettings = (settings) => {
-  const settingsByFont = /* @__PURE__ */ new Map();
+const instanceSubsetSettings = (family) => {
+  const settingsByFont = [];
   const styleKeyToTag = (styleKey) => {
     switch (styleKey) {
       case "weight":
@@ -2870,58 +2872,58 @@ const instanceSubsetSettings = (settings) => {
         return "slnt";
     }
   };
-  for (const family of settings) {
-    for (const font of family.fonts) {
-      if (!family.enableSubsetting) {
-        settingsByFont.set(font.font.id, [null]);
-        continue;
-      }
-      const axisValues = [];
-      for (const [tag, value] of Object.entries(family.axes)) {
-        axisValues.push({ tag, ...value });
-      }
-      for (const [settingName, styleValue] of Object.entries(family.styleValues)) {
+  for (const { font, styleValues } of family.fonts) {
+    if (!family.enableSubsetting) {
+      settingsByFont.push({ font, settings: null });
+      continue;
+    }
+    const axisValues = [];
+    for (const [tag, value] of Object.entries(family.axes)) {
+      axisValues.push({ tag, ...value });
+    }
+    for (const [settingName, styleValue] of Object.entries(family.styleValues)) {
+      axisValues.push({ tag: styleKeyToTag(settingName), ...styleValue });
+    }
+    if (styleValues) {
+      for (const [settingName, styleValue] of Object.entries(styleValues)) {
         axisValues.push({ tag: styleKeyToTag(settingName), ...styleValue });
       }
-      if (font.styleValues) {
-        for (const [settingName, styleValue] of Object.entries(font.styleValues)) {
-          axisValues.push({ tag: styleKeyToTag(settingName), ...styleValue });
+    }
+    let unicodeRangeSets = [];
+    const charSettings = family.includeCharacters;
+    if (charSettings === "all") {
+      unicodeRangeSets = ["all"];
+    } else {
+      const charSettingsArr = Array.isArray(charSettings) ? charSettings : [charSettings];
+      for (const charsetSettings of charSettingsArr) {
+        let charsetName = charsetSettings.name ?? null;
+        let parsedUnicodeRanges;
+        if (typeof charsetSettings.includeUnicodeRanges === "string") {
+          parsedUnicodeRanges = parseUnicodeRanges(charsetSettings.includeUnicodeRanges);
+          if (!parsedUnicodeRanges)
+            throw new Error(`Invalid Unicode ranges: ${charsetSettings.includeUnicodeRanges}`);
+        } else {
+          parsedUnicodeRanges = charsetSettings.includeUnicodeRanges ?? [];
         }
-      }
-      let unicodeRangeSets = [];
-      const charSettings = family.includeCharacters;
-      if (charSettings === "all") {
-        unicodeRangeSets = ["all"];
-      } else {
-        const charSettingsArr = Array.isArray(charSettings) ? charSettings : [charSettings];
-        for (const charsetSettings of charSettingsArr) {
-          let charsetName = charsetSettings.name ?? null;
-          let parsedUnicodeRanges;
-          if (typeof charsetSettings.includeUnicodeRanges === "string") {
-            parsedUnicodeRanges = parseUnicodeRanges(charsetSettings.includeUnicodeRanges);
-            if (!parsedUnicodeRanges)
-              throw new Error(`Invalid Unicode ranges: ${charsetSettings.includeUnicodeRanges}`);
-          } else {
-            parsedUnicodeRanges = charsetSettings.includeUnicodeRanges ?? [];
+        if (charsetName === "" || charsetName === null) {
+          if (!parsedUnicodeRanges.length && charsetSettings.includeNamedSubsets) {
+            charsetName = charsetSettings.includeNamedSubsets.join("-");
           }
-          if (charsetName === "" || charsetName === null) {
-            if (!parsedUnicodeRanges.length && charsetSettings.includeNamedSubsets) {
-              charsetName = charsetSettings.includeNamedSubsets.join("-");
-            }
-          }
-          unicodeRangeSets.push({
-            named: charsetSettings.includeNamedSubsets ?? [],
-            custom: parsedUnicodeRanges,
-            charsetName
-          });
         }
+        unicodeRangeSets.push({
+          named: charsetSettings.includeNamedSubsets ?? [],
+          custom: parsedUnicodeRanges,
+          charsetName
+        });
       }
-      const flattenedAxisSettings = axisRangeProduct(axisValues);
-      const flattenedSettings = [];
-      for (const axisValues2 of flattenedAxisSettings) {
-        for (let i = 0; i < unicodeRangeSets.length; i++) {
-          const unicodeRanges = unicodeRangeSets[i];
-          flattenedSettings.push({
+    }
+    const flattenedAxisSettings = axisRangeProduct(axisValues);
+    for (const axisValues2 of flattenedAxisSettings) {
+      for (let i = 0; i < unicodeRangeSets.length; i++) {
+        const unicodeRanges = unicodeRangeSets[i];
+        settingsByFont.push({
+          font,
+          settings: {
             axisValues: axisValues2,
             features: family.features ?? {},
             unicodeRanges,
@@ -2929,17 +2931,19 @@ const instanceSubsetSettings = (settings) => {
             // set
             charsetNameOrIndex: unicodeRangeSets.length === 1 ? null : typeof unicodeRanges !== "string" && unicodeRanges.charsetName !== null ? unicodeRanges.charsetName : i,
             preprocess: flattenedAxisSettings.length * unicodeRangeSets.length > 1
-          });
-        }
+          }
+        });
       }
-      settingsByFont.set(font.font.id, flattenedSettings);
     }
   }
   return settingsByFont;
 };
-const findVaryingAxes = (fonts) => {
-  const varyingAxesByFamily = /* @__PURE__ */ new Map();
-  const axesByFamily = /* @__PURE__ */ new Map();
+const findDifferingAxes = (fonts) => {
+  const varyingAxes = /* @__PURE__ */ new Set();
+  const axesInfo = {
+    axes: /* @__PURE__ */ new Map(),
+    styleValues: {}
+  };
   const styleToAxisNames = {
     italic: "ital",
     slant: "slnt",
@@ -2947,17 +2951,7 @@ const findVaryingAxes = (fonts) => {
     width: "wdth"
   };
   for (const font of fonts) {
-    let axesInfo = axesByFamily.get(font.familyName);
-    if (!axesInfo) {
-      axesInfo = { axes: /* @__PURE__ */ new Map(), styleValues: {} };
-      axesByFamily.set(font.familyName, axesInfo);
-    }
     const { axes, styleValues } = axesInfo;
-    let varyingAxes = varyingAxesByFamily.get(font.familyName);
-    if (!varyingAxes) {
-      varyingAxes = /* @__PURE__ */ new Set();
-      varyingAxesByFamily.set(font.familyName, varyingAxes);
-    }
     for (const axis of font.axes) {
       const existingAxis = axes.get(axis.tag);
       if (existingAxis) {
@@ -2983,23 +2977,17 @@ const findVaryingAxes = (fonts) => {
       }
     }
   }
-  return varyingAxesByFamily;
-};
-const fontFilenames = (fonts) => {
-  const varyingAxesByFamily = findVaryingAxes(fonts.map((font) => font.font));
-  const filenames = /* @__PURE__ */ new Map();
-  for (const { font, charsetNameOrIndex, overrideName } of fonts) {
-    const varyingAxes = varyingAxesByFamily.get(font.familyName);
-    filenames.set(font, fontFilename(font, varyingAxes, charsetNameOrIndex, overrideName));
-  }
-  return filenames;
+  return varyingAxes;
 };
 const roundDecimal$1 = (v) => Math.round(v * 1e3) / 1e3;
 const getInstanceLabels = (font, varyingAxes, includeStyleValues) => {
-  if (font.namedInstance?.subfamilyName != null) {
-    return [font.namedInstance?.subfamilyName];
-  }
   const styleValueTags = /* @__PURE__ */ new Set(["ital", "slnt", "wght", "wdth"]);
+  if (font.namedInstance?.subfamilyName != null) {
+    const excludeNamedInstance = !includeStyleValues && Object.keys(font.namedInstance.coords).some((axis) => styleValueTags.has(axis));
+    if (!excludeNamedInstance) {
+      return [font.namedInstance?.subfamilyName];
+    }
+  }
   const axisValuesByTag = /* @__PURE__ */ new Map([
     ["ital", font.styleValues.italic],
     ["slnt", font.styleValues.slant],
@@ -3178,16 +3166,10 @@ const exportedFontsToCSS = (fonts, fontPathPrefix, includeUncompressed) => {
   if (fontPathPrefix.length > 0 && !fontPathPrefix.endsWith("/")) {
     fontPathPrefix += "/";
   }
-  const varyingAxes = findVaryingAxes(fonts.map((f) => f.font));
-  for (const { font, data, filename, charsetNameOrIndex, overrideName } of fonts) {
+  for (const { font, data, filename, charsetNameOrIndex, cssName } of fonts) {
     emitter.atRule("@font-face");
     emitter.declaration("font-family");
-    let familyName2 = overrideName ?? font.familyName;
-    const instanceLabels = getInstanceLabels(font, varyingAxes.get(font.familyName), false);
-    if (instanceLabels.length > 0) {
-      familyName2 += ` ${instanceLabels.join(" ")}`;
-    }
-    emitter.string(familyName2);
+    emitter.string(cssName);
     emitter.endDeclaration();
     emitter.declaration("font-display");
     emitter.keyword("swap");
@@ -3275,96 +3257,103 @@ const exportedFontsToCSS = (fonts, fontPathPrefix, includeUncompressed) => {
   return emitter;
 };
 const exportFonts = async (compressionContext2, families2, { formats, woffCompression = 15, woff2Compression = 11, onProgress }) => {
-  const fontList = [];
-  const subsetSettingsByFont = instanceSubsetSettings(families2);
-  for (const family of families2) {
-    for (const font of family.fonts) {
-      const settings = subsetSettingsByFont.get(font.font.id);
-      for (const flattenedSettings of settings) {
-        fontList.push({ font: font.font, overrideName: family.overrideName, settings: flattenedSettings });
+  let totalOutputFonts = 0;
+  let totalProgressProportion = 0;
+  const subsetProgressProportion = 1;
+  const instancedFamilies = families2.map((family) => {
+    const instances = instanceSubsetSettings(family);
+    totalOutputFonts += instances.length;
+    for (const font of instances) {
+      if (font.settings) {
+        totalProgressProportion += subsetProgressProportion;
       }
     }
-  }
-  const subsetProgressProportion = 1;
+    return { family, instances };
+  });
   const parallelism = await compressionContext2?.getParallelism() ?? 1;
-  const woff1ProgressProportion = 2 * woffCompression / Math.min(parallelism, fontList.length);
-  const woff2ProgressProportion = 32 / Math.min(parallelism, fontList.length);
-  let totalProgressProportion = 0;
-  for (const font of fontList) {
-    if (font.settings) {
-      totalProgressProportion += subsetProgressProportion;
-    }
-  }
+  const woff1ProgressProportion = 2 * woffCompression / Math.min(parallelism, totalOutputFonts);
+  const woff2ProgressProportion = 32 / Math.min(parallelism, totalOutputFonts);
   if (formats.woff) {
-    totalProgressProportion += woff1ProgressProportion * fontList.length;
+    totalProgressProportion += woff1ProgressProportion * totalOutputFonts;
   }
   if (formats.woff2) {
-    totalProgressProportion += woff2ProgressProportion * fontList.length;
+    totalProgressProportion += woff2ProgressProportion * totalOutputFonts;
   }
   let progress = 0;
   onProgress?.(0);
   let cancelled = false;
-  const fontPromises = fontList.map(async ({ font, overrideName, settings }) => {
-    const subsettedFont = await font.subset(settings);
-    if (cancelled)
-      throw new Error("Aborted");
-    const dataInFormats = {
-      opentype: formats.ttf ? subsettedFont.data : null,
-      woff: null,
-      woff2: null
-    };
-    progress += subsetProgressProportion;
-    onProgress?.(progress / totalProgressProportion);
-    const compressionPromises = [];
-    if ((formats.woff || formats.woff2) && compressionContext2 === null) {
-      throw new Error("woff or woff2 formats enabled but no compression context provided");
-    }
-    if (formats.woff) {
-      compressionPromises.push(compressionContext2.compressFromTTF(subsettedFont.data, { algorithm: "woff", level: woffCompression }).then((compressed) => {
-        if (cancelled)
-          throw new Error("Aborted");
-        progress += woff1ProgressProportion;
-        onProgress?.(progress / totalProgressProportion);
-        dataInFormats.woff = compressed;
-      }));
-    }
-    if (formats.woff2) {
-      compressionPromises.push(compressionContext2.compressFromTTF(subsettedFont.data, { algorithm: "woff2", level: woff2Compression }).then((compressed) => {
-        if (cancelled)
-          throw new Error("Aborted");
-        progress += woff2ProgressProportion;
-        onProgress?.(progress / totalProgressProportion);
-        dataInFormats.woff2 = compressed;
-      }));
-    }
-    if (compressionPromises.length > 0)
-      await Promise.all(compressionPromises);
-    return {
-      font: subsettedFont,
-      overrideName,
-      filename: "",
-      // This will be filled in later. It's just to get TypeScript to shut up.
-      data: dataInFormats,
-      charsetNameOrIndex: settings ? settings.charsetNameOrIndex : null,
-      extension(format) {
-        if (format === "opentype") {
-          return subsettedFont.format === "opentype" ? "otf" : "ttf";
-        }
-        return format;
-      }
-    };
-  });
-  return Promise.all(fontPromises).then((exportedFonts2) => {
-    const filenames = fontFilenames(exportedFonts2);
-    for (const exportedFont of exportedFonts2) {
-      const filename = filenames.get(exportedFont.font);
-      exportedFont.filename = filename;
-    }
-    return exportedFonts2;
-  }, (error2) => {
+  const cancelOnError = (err2) => {
     cancelled = true;
-    throw error2;
+    throw err2;
+  };
+  const compressionPromises = [];
+  const familyPromises = instancedFamilies.map(({ family, instances }) => {
+    const instancePromises = instances.map(async ({ font, settings }) => {
+      const subsettedFont = await font.subset(settings);
+      if (cancelled)
+        throw new DOMException("Operation cancelled", "AbortError");
+      const dataInFormats = {
+        opentype: formats.ttf ? subsettedFont.data : null,
+        woff: null,
+        woff2: null
+      };
+      progress += subsetProgressProportion;
+      onProgress?.(progress / totalProgressProportion);
+      if ((formats.woff || formats.woff2) && compressionContext2 === null) {
+        throw new Error("woff or woff2 formats enabled but no compression context provided");
+      }
+      if (formats.woff) {
+        compressionPromises.push(compressionContext2.compressFromTTF(subsettedFont.data, { algorithm: "woff", level: woffCompression }).then((compressed) => {
+          if (cancelled)
+            throw new DOMException("Operation cancelled", "AbortError");
+          progress += woff1ProgressProportion;
+          onProgress?.(progress / totalProgressProportion);
+          dataInFormats.woff = compressed;
+        }, cancelOnError));
+      }
+      if (formats.woff2) {
+        compressionPromises.push(compressionContext2.compressFromTTF(subsettedFont.data, { algorithm: "woff2", level: woff2Compression }).then((compressed) => {
+          if (cancelled)
+            throw new DOMException("Operation cancelled", "AbortError");
+          progress += woff2ProgressProportion;
+          onProgress?.(progress / totalProgressProportion);
+          dataInFormats.woff2 = compressed;
+        }, cancelOnError));
+      }
+      const charsetNameOrIndex = settings?.charsetNameOrIndex ?? null;
+      return { subsettedFont, dataInFormats, charsetNameOrIndex };
+    });
+    return Promise.all(instancePromises).then((subsettedFonts) => {
+      const differingAxes = findDifferingAxes(subsettedFonts.map((f) => f.subsettedFont));
+      const overrideName = family.overrideName ?? null;
+      const familyInfo = { overrideName, differingAxes };
+      return subsettedFonts.map(({ subsettedFont, dataInFormats, charsetNameOrIndex }) => {
+        let cssName = overrideName ?? subsettedFont.familyName;
+        const instanceLabels = getInstanceLabels(subsettedFont, differingAxes, false);
+        if (instanceLabels.length > 0) {
+          cssName += ` ${instanceLabels.join(" ")}`;
+        }
+        return {
+          font: subsettedFont,
+          familyInfo,
+          cssName,
+          filename: fontFilename(subsettedFont, differingAxes, charsetNameOrIndex, overrideName),
+          data: dataInFormats,
+          charsetNameOrIndex,
+          extension(format) {
+            if (format === "opentype") {
+              return subsettedFont.format === "opentype" ? "otf" : "ttf";
+            }
+            return format;
+          }
+        };
+      });
+    });
   });
+  const exportedFamilies = await Promise.all(familyPromises).then(void 0, cancelOnError);
+  await Promise.all(compressionPromises);
+  const exportedFonts2 = exportedFamilies.flat();
+  return exportedFonts2;
 };
 const axesListJson = /* @__PURE__ */ JSON.parse(`[{"tag":"ARRR","minValue":10,"defaultValue":10,"maxValue":60,"precision":0,"fallback":[{"name":"Default","value":10}],"displayName":"AR Retinal Resolution","description":" Resolution-specific enhancements in AR/VR typefaces to optimize rendering across the different resolutions of the headsets making designs accessible and easy to read.","fallbackOnly":false,"popularity":1},{"tag":"BLED","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Bleed","description":"Bleed adjusts the overall darkness in the typographic color of strokes or other forms, without any changes in overall width, line breaks, or page layout. Negative values make the font appearance lighter, while positive values make it darker, similarly to ink bleed or dot gain on paper.","fallbackOnly":false,"popularity":3},{"tag":"BNCE","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Bounce","description":"Shift glyphs up and down in the Y dimension, resulting in an uneven, bouncy baseline.","fallbackOnly":false,"popularity":1},{"tag":"CASL","minValue":0,"defaultValue":0,"maxValue":1,"precision":-2,"fallback":[{"name":"Linear","value":0},{"name":"Casual","value":1}],"displayName":"Casual","description":"Adjust stroke curvature, contrast, and terminals from a sturdy, rational Linear style to a friendly, energetic Casual style.","fallbackOnly":false,"illustrationUrl":"casual.svg","popularity":1},{"tag":"CTRS","minValue":-100,"defaultValue":0,"maxValue":100,"precision":1,"fallback":[{"name":"Reversed","value":-100},{"name":"None","value":0},{"name":"High","value":100}],"displayName":"Contrast","description":"Contrast describes the stroke width difference between the thick and thin parts of the font glyphs. A value of zero indicates no visible/apparent contrast. A positive number indicates an increase in contrast relative to the zero-contrast thickness, achieved by making the thin stroke thinner. A value of 100 indicates that the thin stroke has disappeared completely. A negative value indicates “reverse contrast”: the strokes which would conventionally be thick in the writing system are instead made thinner. In western-language fonts this might be perceived as a 19th-century, “circus” or “old West” effect. A value of -100 indicates that the strokes which would normally be thick have disappeared completely.","fallbackOnly":false,"illustrationUrl":"contrast.svg","popularity":0},{"tag":"CRSV","minValue":0,"defaultValue":0.5,"maxValue":1,"precision":-1,"fallback":[{"name":"Roman","value":0,"displayName":"Off"},{"name":"Auto","value":0.5},{"name":"Cursive","value":1,"displayName":"On"}],"displayName":"Cursive","description":"Control the substitution of cursive forms along the Slant axis. 'Off' (0) maintains Roman letterforms such as a double-storey a and g, 'Auto' (0.5) allows for Cursive substitution, and 'On' (1) asserts cursive forms even in upright text with a Slant of 0.","fallbackOnly":true,"illustrationUrl":"cursive.svg","popularity":10},{"tag":"EHLT","minValue":0,"defaultValue":12,"maxValue":1000,"precision":0,"fallback":[{"name":"Default","value":12}],"displayName":"Edge Highlight","description":"Controls thickness of edge highlight details.","fallbackOnly":false,"popularity":1},{"tag":"ELXP","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Element Expansion","description":"As the Element Expansion axis progresses, the elements move apart.","fallbackOnly":false,"popularity":8},{"tag":"ELGR","minValue":1,"defaultValue":1,"maxValue":2,"precision":-1,"fallback":[{"name":"Default","value":1}],"displayName":"Element Grid","description":"In modular fonts, where glyphs are composed using multiple copies of the same element, this axis controls how many elements are used per one grid unit.","fallbackOnly":false,"popularity":1},{"tag":"ELSH","minValue":0,"defaultValue":0,"maxValue":100,"precision":-1,"fallback":[{"name":"Default","value":0}],"displayName":"Element Shape","description":"In modular fonts, where glyphs are composed using multiple copies of the same element, this axis controls the shape of the element","fallbackOnly":false,"popularity":10},{"tag":"EDPT","minValue":0,"defaultValue":100,"maxValue":1000,"precision":0,"fallback":[{"name":"Default","value":100}],"displayName":"Extrusion Depth","description":"Controls the 3D depth on contours.","fallbackOnly":false,"popularity":1},{"tag":"FILL","minValue":0,"defaultValue":0,"maxValue":1,"precision":-2,"fallback":[{"name":"Normal","value":0},{"name":"Filled","value":1}],"displayName":"Fill","description":"Fill in transparent forms with opaque ones. Sometimes interior opaque forms become transparent, to maintain contrasting shapes. This can be useful in animation or interaction to convey a state transition. Ranges from 0 (no treatment) to 1 (completely filled).","fallbackOnly":false,"illustrationUrl":"fill.svg","popularity":0},{"tag":"FLAR","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Flare","description":"As the flare axis grows, the stem terminals go from straight (0%) to develop a swelling (100%).","fallbackOnly":false,"popularity":1},{"tag":"GRAD","minValue":-1000,"defaultValue":0,"maxValue":1000,"precision":0,"fallback":[{"name":"Normal","value":0}],"displayName":"Grade","description":"Finesse the style from lighter to bolder in typographic color, without any changes overall width, line breaks or page layout. Negative grade makes the style lighter, while positive grade makes it bolder. The units are the same as in the Weight axis.","fallbackOnly":false,"illustrationUrl":"grade.svg","popularity":3},{"tag":"HEXP","minValue":0,"defaultValue":0,"maxValue":100,"precision":-1,"fallback":[{"name":"Default","value":0}],"displayName":"Hyper Expansion","description":"Expansion of inner and outer space of glyphs.","fallbackOnly":false,"popularity":1},{"tag":"INFM","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Informality","description":"Adjusts overall design from formal and traditional (0%) to informal and unconventional (up to 100%).","fallbackOnly":false,"popularity":1},{"tag":"ital","minValue":0,"defaultValue":0,"maxValue":1,"precision":0,"fallback":[{"name":"Roman","value":0},{"name":"Italic","value":1}],"displayName":"Italic","description":"Adjust the style from roman to italic. This can be provided as a continuous range within a single font file, like most axes, or as a toggle between two roman and italic files that form a family as a pair.","fallbackOnly":true,"illustrationUrl":"italic.svg","popularity":0},{"tag":"MONO","minValue":0,"defaultValue":0,"maxValue":1,"precision":-2,"fallback":[{"name":"Proportional","value":0},{"name":"Monospace","value":1}],"displayName":"Monospace","description":"Adjust the style from Proportional (natural widths, default) to Monospace (fixed width). With proportional spacing, each glyph takes up a unique amount of space on a line, while monospace is when all glyphs have the same total character width.","fallbackOnly":false,"illustrationUrl":"monospace.svg","popularity":2},{"tag":"MORF","minValue":0,"defaultValue":0,"maxValue":60,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Morph","description":"Letterforms morph: Changing in unconventional ways, that don't alter other attributes, like width or weight. The range from 0 to 60 can be understood as seconds.","fallbackOnly":false,"popularity":3},{"tag":"opsz","minValue":5,"defaultValue":14,"maxValue":1200,"precision":-1,"fallback":[{"name":"6pt","value":6},{"name":"7pt","value":7},{"name":"8pt","value":8},{"name":"9pt","value":9},{"name":"10pt","value":10},{"name":"11pt","value":11},{"name":"12pt","value":12},{"name":"14pt","value":14},{"name":"16pt","value":16},{"name":"17pt","value":17},{"name":"18pt","value":18},{"name":"20pt","value":20},{"name":"24pt","value":24},{"name":"28pt","value":28},{"name":"36pt","value":36},{"name":"48pt","value":48},{"name":"60pt","value":60},{"name":"72pt","value":72},{"name":"96pt","value":96},{"name":"120pt","value":120},{"name":"144pt","value":144}],"displayName":"Optical Size","description":"Adapt the style to specific text sizes. At smaller sizes, letters typically become optimized for more legibility. At larger sizes, optimized for headlines, with more extreme weights and widths. In CSS this axis is activated automatically when it is available.","fallbackOnly":false,"illustrationUrl":"optical_size.svg","popularity":27},{"tag":"ROND","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Roundness","description":"Adjust shapes from angular defaults (0%) to become increasingly rounded (up to 100%).","fallbackOnly":false,"popularity":2},{"tag":"SCAN","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Scanlines","description":"Break up shapes into horizontal segments without any changes in overall width, letter spacing, or kerning, so there are no line breaks or page layout changes. Negative values make the scanlines thinner, and positive values make them thicker.","fallbackOnly":false,"popularity":3},{"tag":"SHLN","minValue":0,"defaultValue":50,"maxValue":100,"precision":-1,"fallback":[{"name":"Default","value":50}],"displayName":"Shadow Length","description":"Adjusts the font's shadow length from no shadow visible (0 %) to a maximum shadow applied (100%) relative to each family design.","fallbackOnly":false,"popularity":1},{"tag":"SHRP","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Sharpness","description":"Adjust shapes from angular or blunt default shapes (0%) to become increasingly sharped forms (up to 100%).","fallbackOnly":false,"popularity":1},{"tag":"SZP1","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Size of Paint 1","description":"Modifies the size of a paint element going from an initial size (0) to positive values that increase the size (100%) or negative values that shrink it down (-100%). Reducing the size can create transparency.","fallbackOnly":false,"popularity":2},{"tag":"SZP2","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Size of Paint 2","description":"Modifies the size of a paint element going from an initial size (0) to positive values that increase the size (100%) or negative values that shrink it down (-100%). Reducing the size can create transparency. Paint 2 is in front of Paint 1.","fallbackOnly":false,"popularity":2},{"tag":"slnt","minValue":-90,"defaultValue":0,"maxValue":90,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Slant","description":"Adjust the style from upright to slanted. Negative values produce right-leaning forms, also known to typographers as an 'oblique' style. Positive values produce left-leaning forms, also called a 'backslanted' or 'reverse oblique' style.","fallbackOnly":false,"illustrationUrl":"slant.svg","popularity":17},{"tag":"SOFT","minValue":0,"defaultValue":0,"maxValue":100,"precision":-1,"fallback":[{"name":"Sharp","value":0},{"name":"Soft","value":50},{"name":"SuperSoft","value":100}],"displayName":"Softness","description":"Adjust letterforms to become more and more soft and rounded.","fallbackOnly":false,"illustrationUrl":"softness.svg","popularity":1},{"tag":"SPAC","minValue":-100,"defaultValue":0,"maxValue":100,"precision":-1,"fallback":[{"name":"Default","value":0}],"displayName":"Spacing","description":"Adjusts the overall letter spacing of a font. The range is a relative percentage change from the family’s default spacing, so the default value is 0.","fallbackOnly":false,"popularity":1},{"tag":"VOLM","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Volume","description":"Expands and exaggerates details of a typeface to emphasize the personality. Understood in a percentage amount, it goes from a neutral state (0%) to a maximum level (100%).","fallbackOnly":false,"popularity":1},{"tag":"wght","minValue":1,"defaultValue":400,"maxValue":1000,"precision":0,"fallback":[{"name":"Thin","value":100},{"name":"ExtraLight","value":200},{"name":"Light","value":300},{"name":"Regular","value":400},{"name":"Medium","value":500},{"name":"SemiBold","value":600},{"name":"Bold","value":700},{"name":"ExtraBold","value":800},{"name":"Black","value":900}],"displayName":"Weight","description":"Adjust the style from lighter to bolder in typographic color, by varying stroke weights, spacing and kerning, and other aspects of the type. This typically changes overall width, and so may be used in conjunction with Width and Grade axes.","fallbackOnly":false,"illustrationUrl":"weight.svg","popularity":499},{"tag":"wdth","minValue":25,"defaultValue":100,"maxValue":200,"precision":-1,"fallback":[{"name":"SuperCondensed","value":25},{"name":"UltraCondensed","value":50},{"name":"ExtraCondensed","value":62.5},{"name":"Condensed","value":75},{"name":"SemiCondensed","value":87.5},{"name":"Normal","value":100},{"name":"SemiExpanded","value":112.5},{"name":"Expanded","value":125},{"name":"ExtraExpanded","value":150},{"name":"UltraExpanded","value":200}],"displayName":"Width","description":"Adjust the style from narrower to wider, by varying the proportions of counters, strokes, spacing and kerning, and other aspects of the type. This typically changes the typographic color in a subtle way, and so may be used in conjunction with Weight and Grade axes.","fallbackOnly":false,"illustrationUrl":"width.svg","popularity":90},{"tag":"WONK","minValue":0,"defaultValue":0,"maxValue":1,"precision":0,"fallback":[{"name":"NonWonky","value":0},{"name":"Wonky","value":1}],"displayName":"Wonky","description":"Toggle the substitution of wonky forms. 'Off' (0) maintains more conventional letterforms, while 'On' (1) maintains wonky letterforms, such as leaning stems in roman, or flagged ascenders in italic. These forms are also controlled by Optical Size.","fallbackOnly":true,"illustrationUrl":"wonky.svg","popularity":1},{"tag":"XELA","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Horizontal Element Alignment","description":"Align glyph elements from their default position (0%), usually the baseline, to a rightmost (100%) or leftmost (-100%) position.","fallbackOnly":false,"popularity":1},{"tag":"XOPQ","minValue":-1000,"defaultValue":88,"maxValue":2000,"precision":0,"fallback":[{"name":"Normal","value":88}],"displayName":"Thick Stroke","description":"A parametric axis for varying thick stroke weights, such as stems.","fallbackOnly":false,"illustrationUrl":"x_opaque.svg","popularity":1},{"tag":"XPN1","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Horizontal Position of Paint 1","description":"The position of the paint moves left and right. Negative values move to the left and positive values move to the right, in the X dimension. Paint 1 is behind Paint 2.","fallbackOnly":false,"popularity":2},{"tag":"XPN2","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Horizontal Position of Paint 2","description":"The position of the paint moves left and right. Negative values move to the left and positive values move to the right, in the X dimension. Paint 2 is in front of Paint 1.","fallbackOnly":false,"popularity":2},{"tag":"XROT","minValue":-180,"defaultValue":0,"maxValue":180,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Rotation in X","description":"Glyphs rotate left and right, negative values to the left and positive values to the right, in the X dimension.","fallbackOnly":false,"popularity":3},{"tag":"XTRA","minValue":-1000,"defaultValue":400,"maxValue":2000,"precision":0,"fallback":[{"name":"Normal","value":400}],"displayName":"Counter Width","description":"A parametric axis for varying counter widths in the X dimension.","fallbackOnly":false,"illustrationUrl":"x_transparent.svg","popularity":1},{"tag":"XTFI","minValue":-1000,"defaultValue":400,"maxValue":2000,"precision":0,"fallback":[{"name":"Normal","value":400}],"displayName":"X transparent figures","description":"Assigns a 'white' per mille value to each instance of the design space.","fallbackOnly":false,"popularity":0},{"tag":"YELA","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Vertical Element Alignment","description":"Align glyphs elements from their default position (0%), usually the baseline, to an upper (100%) or lower (-100%) position.","fallbackOnly":false,"popularity":2},{"tag":"YOPQ","minValue":-1000,"defaultValue":116,"maxValue":2000,"precision":0,"fallback":[{"name":"Normal","value":116}],"displayName":"Thin Stroke","description":"A parametric axis for varying thin stroke weights, such as bars and hairlines.","fallbackOnly":false,"illustrationUrl":"y_opaque.svg","popularity":2},{"tag":"YPN1","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Vertical Position of Paint 1","description":"The position of the paint moves up and down. Negative values move down and positive values move up. Paint 1 is behind Paint 2.","fallbackOnly":false,"popularity":2},{"tag":"YPN2","minValue":-100,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Vertical Position of Paint 2","description":"The position of the paint moves up and down. Negative values move down and positive values move up. Paint 2 is in front of Paint 1.","fallbackOnly":false,"popularity":2},{"tag":"YROT","minValue":-180,"defaultValue":0,"maxValue":180,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Rotation in Y","description":"Glyphs rotate up and down, negative values tilt down and positive values tilt up, in the Y dimension.","fallbackOnly":false,"popularity":3},{"tag":"YTAS","minValue":0,"defaultValue":750,"maxValue":1000,"precision":0,"fallback":[{"name":"Normal","value":750}],"displayName":"Ascender Height","description":"A parametric axis for varying the height of lowercase ascenders.","fallbackOnly":false,"illustrationUrl":"y_transparent_ascender.svg","popularity":1},{"tag":"YTDE","minValue":-1000,"defaultValue":-250,"maxValue":0,"precision":0,"fallback":[{"name":"Normal","value":-250}],"displayName":"Descender Depth","description":"A parametric axis for varying the depth of lowercase descenders.","fallbackOnly":false,"illustrationUrl":"y_transparent_descender.svg","popularity":1},{"tag":"YTFI","minValue":-1000,"defaultValue":600,"maxValue":2000,"precision":0,"fallback":[{"name":"Normal","value":600}],"displayName":"Figure Height","description":"A parametric axis for varying the height of figures.","fallbackOnly":false,"illustrationUrl":"y_transparent_figures.svg","popularity":1},{"tag":"YTLC","minValue":0,"defaultValue":500,"maxValue":1000,"precision":0,"fallback":[{"name":"Normal","value":500}],"displayName":"Lowercase Height","description":"A parametric axis for varying the height of the lowercase.","fallbackOnly":false,"illustrationUrl":"y_transparent_lowercase.svg","popularity":2},{"tag":"YTUC","minValue":0,"defaultValue":725,"maxValue":1000,"precision":0,"fallback":[{"name":"Normal","value":725}],"displayName":"Uppercase Height","description":"A parametric axis for varying the heights of uppercase letterforms.","fallbackOnly":false,"illustrationUrl":"y_transparent_uppercase.svg","popularity":1},{"tag":"YEXT","minValue":0,"defaultValue":0,"maxValue":100,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Vertical Extension","description":"The axis extends glyphs in the Y dimension, such as the Cap Height, Ascender and Descender lengths. This is a relative axis, starting at 0% and going to the typeface's individual maximum extent at 100%.","fallbackOnly":false,"popularity":0},{"tag":"YEAR","minValue":-4000,"defaultValue":2000,"maxValue":4000,"precision":0,"fallback":[{"name":"Default","value":2000}],"displayName":"Year","description":"Axis that shows in a metaphoric way the effect of time on a chosen topic.","fallbackOnly":false,"popularity":1},{"tag":"ZROT","minValue":-180,"defaultValue":0,"maxValue":180,"precision":0,"fallback":[{"name":"Default","value":0}],"displayName":"Rotation in Z","description":"Glyphs rotate left and right, negative values to the left and positive values to the right, in the Z dimension.","fallbackOnly":false,"popularity":0}]`);
 const axesList = axesListJson;
@@ -9928,7 +9917,7 @@ const GoogleFontsModal = () => {
   const fontsListState = googleFontsModalState.state.value;
   if (fontsListState.state === "not_loaded") {
     __vitePreload(async () => {
-      const { default: ModalComponent, languages } = await import("./GoogleFontsModalInner-C_rQgOvG.js");
+      const { default: ModalComponent, languages } = await import("./GoogleFontsModalInner-CEKBBvEM.js");
       return { default: ModalComponent, languages };
     }, true ? __vite__mapDeps([0,1,2]) : void 0).then(
       ({ default: ModalComponent, languages }) => {
