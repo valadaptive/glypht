@@ -299,17 +299,19 @@ const numLangsWithAnyCoverage = langFontCoverage.size;
 for (const family of sortedLocalMetadata) {
     // Store language data as a base64-encoded dense bitset
     const langsBitset = new Uint8Array((numLangsWithAnyCoverage + 7) >> 3);
+    let lastBucket = 0;
     const setBitAt = (idx: number) => {
         const bucket = idx >> 3;
         const bitIdx = idx & 7;
         langsBitset[bucket] |= 1 << bitIdx;
+        lastBucket = Math.max(lastBucket, bucket);
     };
 
     for (const lang of family.languages) {
         setBitAt(langIndices.get(lang));
     }
 
-    const encoded = Buffer.from(langsBitset).toString('base64');
+    const encoded = Buffer.from(langsBitset.subarray(0, lastBucket + 1)).toString('base64');
 
     family.languages = encoded;
     family.primaryLanguage = langIndices.get(family.primaryLanguage);
