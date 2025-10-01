@@ -715,11 +715,16 @@ const getInstanceLabels = (
     varyingAxes: Set<string>,
     includeStyleValues: boolean,
 ): string[] => {
+    const styleValueTags = new Set(['ital', 'slnt', 'wght', 'wdth']);
     // eslint-disable-next-line eqeqeq
     if (font.namedInstance?.subfamilyName != null) {
-        return [font.namedInstance?.subfamilyName];
+        // If the named instance happens to include style values, we might not be able to use it
+        const excludeNamedInstance = !includeStyleValues && Object.keys(font.namedInstance.coords)
+            .some(axis => styleValueTags.has(axis));
+        if (!excludeNamedInstance) {
+            return [font.namedInstance?.subfamilyName];
+        }
     }
-    const styleValueTags = new Set(['ital', 'slnt', 'wght', 'wdth']);
 
     const axisValuesByTag = new Map<string, StyleValue>([
         ['ital', font.styleValues.italic],
@@ -1223,7 +1228,7 @@ export const exportFonts = async(
                 let cssName = overrideName ?? subsettedFont.familyName;
                 // CSS @font-face declarations can map a single family name to multiple static fonts of varying weight,
                 // width, and slope, but they cannot do this for arbitrary axes, so we need to disambiguate their names.
-                const instanceLabels = getInstanceLabels(subsettedFont, familyInfo.differingAxes, false);
+                const instanceLabels = getInstanceLabels(subsettedFont, differingAxes, false);
                 if (instanceLabels.length > 0) {
                     cssName += ` ${instanceLabels.join(' ')}`;
                 }
