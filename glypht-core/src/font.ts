@@ -24,7 +24,7 @@ import {
     SubsetSettings,
     SubsettedFont,
 } from './font-types.js';
-import {SUBSET_NAMES, subsetRanges, SubsetName} from './generated/subset-ranges.js';
+import {SUBSET_NAMES, subsetInfo, SubsetName} from './generated/subset-ranges.js';
 import bytesToHex from './util/bytes-to-hex.js';
 
 let hb!: MainModule;
@@ -33,7 +33,7 @@ export const init = async(wasmUrl: string) => {
     hb = await createHarfbuzz(wasmUrl);
     for (const name of SUBSET_NAMES) {
         const set = new hb.HbSet();
-        for (const range of subsetRanges(name)) {
+        for (const range of subsetInfo(name).ranges()) {
             if (typeof range === 'number') {
                 set.add(range);
             } else {
