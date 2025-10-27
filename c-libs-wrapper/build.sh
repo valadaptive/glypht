@@ -10,6 +10,7 @@ emcmake cmake \
     -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=TRUE \
     -DNOISY_LOGGING=OFF \
     -DBUILD_SHARED_LIBS=OFF \
+    -DBROTLI_STATIC_INIT=EARLY \
     -DCMAKE_BUILD_TYPE=MinSizeRel \
     ../woff2
 emmake make -j16 woff2enc woff2dec
