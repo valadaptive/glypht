@@ -1,11 +1,9 @@
 import {readdir, readFile, writeFile} from 'node:fs/promises';
 import {join} from 'node:path';
-import assert from 'node:assert';
 import protobufjs from 'protobufjs';
 const {parse: parseProto} = protobufjs;
 import {parse} from 'pbtxtjs';
-
-type Range = (readonly [number, number] | number);
+import {compress} from '@smol-range/compress';
 
 const ns = parseProto(`
 // The slicing strategy, composed of slices.
@@ -28,38 +26,7 @@ const subsetSliceFolder = join(dirname, '../nam-files/slices');
 const namFileNames = await readdir(namFileFolder);
 const subsetSliceNames = await readdir(subsetSliceFolder);
 
-const sortedCodePointsToRanges = (codePoints: Iterable<number>): Range[] => {
-    const ranges: Range[] = [];
-    let rangeStart: number | null = null;
-    let rangePrev: number | null = null;
-
-    const pushRange = () => {
-        if (rangeStart && rangePrev) {
-            if (rangeStart === rangePrev) {
-                ranges.push(rangeStart);
-            } else {
-                ranges.push([rangeStart, rangePrev] as const);
-            }
-        }
-    };
-
-    for (const codePoint of codePoints) {
-        if (rangePrev !== null && codePoint <= rangePrev) {
-            throw new Error('Code points are not sorted');
-        }
-        if (codePoint - 1 === rangePrev) {
-            // Continuation of the previous character range.
-        } else {
-            pushRange();
-            rangeStart = codePoint;
-        }
-        rangePrev = codePoint;
-    }
-    pushRange();
-    return ranges;
-};
-
-const subsetRanges: Record<string, Range[]> = {};
+const subsetRanges: Record<string, Generator<number>> = {};
 for (const filename of namFileNames) {
     const matchResult = /^([a-zA-Z0-9-]+)_unique-glyphs.nam$/.exec(filename);
     if (!matchResult) continue;
@@ -77,8 +44,7 @@ for (const filename of namFileNames) {
         }
     };
 
-    const ranges = sortedCodePointsToRanges(codePoints());
-    subsetRanges[subsetName] = ranges;
+    subsetRanges[subsetName] = codePoints();
 }
 
 const sliceSubsets = {
@@ -89,7 +55,7 @@ const sliceSubsets = {
     'korean_default.txt': 'korean',
 };
 
-const subsetSlices = new Map<string, Range[][]>();
+const subsetSlices = new Map<string, number[][]>();
 
 for (const filename of subsetSliceNames) {
     if (!Object.prototype.hasOwnProperty.call(sliceSubsets, filename)) {
@@ -105,120 +71,13 @@ for (const filename of subsetSliceNames) {
     const dest: protobufjs.Message & {subsets: {codepoints: number[]}[]} =
         SlicingStrategyType.create() as unknown as protobufjs.Message & {subsets: {codepoints: number[]}[]};
     parse(contents, dest);
-    const sliceRanges = dest.subsets.map(({codepoints}) => sortedCodePointsToRanges(codepoints));
+    const sliceRanges = dest.subsets.map(({codepoints}) => codepoints);
     subsetSlices.set(sliceSubsets[filename as keyof typeof sliceSubsets], sliceRanges);
 }
 
-const readVarint = (buffer: string, ctx: {offset: number}): number => {
-    let n = 0;
-    for (let i = 0; i < 4; i++, ctx.offset++) {
-        if (ctx.offset === buffer.length) {
-            throw new Error('Truncated buffer');
-        }
-        const chunk = buffer.charCodeAt(ctx.offset) & 0x7F;
-        n |= chunk << (i * 7);
-        if ((buffer.charCodeAt(ctx.offset) & 0x80) === 0) {
-            ctx.offset++;
-            return n >>> 0;
-        }
-    }
-
-    throw new Error(`Varint at offset ${ctx.offset} exceeds maximum encodable length of 4`);
-};
-
-const writeVarint = (n: number, buffer: Uint8Array, offset: number): number => {
-    while (true) {
-        if (offset === buffer.byteLength) return -1;
-        if ((n & ~0x7F) === 0) {
-            buffer[offset++] = n;
-            return offset;
-        } else {
-            buffer[offset++] = (n & 0x7F) | 0x80;
-            n >>>= 7;
-        }
-    }
-};
-
-const decodeRanges = function* (rangesBase64: string): Generator<(number | [number, number])> {
-    let prev = 0;
-    const ranges = atob(rangesBase64);
-    const ctx = {offset: 0};
-
-    while (ctx.offset < ranges.length) {
-        const firstEnc = readVarint(ranges, ctx);
-        const isRange = !!(firstEnc & 1);
-        const first = (firstEnc >>> 1) + prev;
-        if (isRange) {
-            const second = readVarint(ranges, ctx) + first;
-            yield [first, second];
-        } else {
-            yield first;
-        }
-        prev = first;
-    }
-};
-
-class OutStream {
-    private buffer: Uint8Array<ArrayBuffer>;
-    private cursor = 0;
-    constructor() {
-        const buf = new ArrayBuffer(1, {maxByteLength: 65536});
-        this.buffer = new Uint8Array(buf);
-    }
-
-    writeVarint(n: number) {
-        for (;;) {
-            const newOffset = writeVarint(n, this.buffer, this.cursor);
-            if (newOffset !== -1) {
-                this.cursor = newOffset;
-                break;
-            }
-            this.buffer.buffer.resize(this.buffer.byteLength * 2);
-        }
-    }
-
-    writeBytes(bytes: Uint8Array) {
-        if (this.cursor + bytes.length > this.buffer.byteLength) {
-            this.buffer.buffer.resize(Math.max(this.buffer.byteLength * 2, this.cursor + bytes.length));
-        }
-        this.buffer.set(bytes, this.cursor);
-        this.cursor += bytes.byteLength;
-    }
-
-    data() {
-        return this.buffer.subarray(0, this.cursor);
-    }
-}
-
-const encodeRanges = (ranges: Range[]): Uint8Array<ArrayBuffer> => {
-    let prev = 0;
-    const output = new OutStream();
-    for (let i = 0; i < ranges.length;) {
-        const ri = ranges[i];
-        if (typeof ri === 'number') {
-            const n = (ri - prev) << 1;
-            output.writeVarint(n);
-            prev = ri;
-        } else {
-            const start = ri[0] - prev;
-            const n1 = (start << 1) | 1;
-            const n2 = ri[1] - ri[0];
-            output.writeVarint(n1);
-            output.writeVarint(n2);
-            prev = ri[0];
-        }
-
-        i++;
-    }
-    return output.data();
-};
-
-const encodeToBase64 = (ranges: Range[]): string => {
-    const encoded = encodeRanges(ranges);
-    const stringified = Buffer.from(encoded).toString('base64');
-    assert(
-        JSON.stringify(Array.from(decodeRanges(stringified))) ===
-        JSON.stringify(ranges));
+const encodeToBase64 = (ranges: Iterable<number, void, void>): string => {
+    const encoded = compress(ranges);
+    const stringified = Buffer.from(encoded.buffer, encoded.byteOffset, encoded.byteLength).toString('base64');
     return stringified;
 };
 
@@ -234,27 +93,26 @@ for (const [subsetName, slices] of subsetSlices) {
 }
 const subsetSlicesLiteral = JSON.stringify(subsetSlicesRecord, null, 4);
 
-const fileContents = `const SUBSET_RANGES: Record<SubsetName, string> = ${subsetRangesLiteral};
+const fileContents = `import {decompress} from '@smol-range/decompress';
+
+const SUBSET_RANGES: Record<SubsetName, string> = ${subsetRangesLiteral};
 
 const SUBSET_SLICES: Partial<Record<SubsetName, string[]>> = ${subsetSlicesLiteral};
 
-const readVarint: (buffer: string, ctx: {offset: number}) => number = ${readVarint.toString()};
-const decodeRanges: (rangesBase64: string) => Generator<number | readonly [number, number], void, void> = ${decodeRanges.toString()};
-
 export type CharacterSubsetInfo = {
-    ranges(): Generator<number | readonly [number, number], void, void>;
-    slices(): (Generator<number | readonly [number, number], void, void>)[] | null;
+    ranges(onRange: (start: number, end: number) => unknown): void;
+    slices(): ((onRange: (start: number, end: number) => unknown) => void)[] | null;
 };
 
 export const subsetInfo = (subsetName: SubsetName): CharacterSubsetInfo => {
     return {
-        ranges() {
-            return decodeRanges(SUBSET_RANGES[subsetName]);
+        ranges(onRange) {
+            return decompress(SUBSET_RANGES[subsetName], onRange);
         },
         slices() {
             const subsetSlices = SUBSET_SLICES[subsetName];
             if (!subsetSlices) return null;
-            return subsetSlices.map(subsetSlice => decodeRanges(subsetSlice));
+            return subsetSlices.map(subsetSlice => (onRange => decompress(subsetSlice, onRange)));
         },
     };
 };

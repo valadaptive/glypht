@@ -33,13 +33,13 @@ export const init = async(wasmUrl: string) => {
     hb = await createHarfbuzz(wasmUrl);
     for (const name of SUBSET_NAMES) {
         const set = new hb.HbSet();
-        for (const range of subsetInfo(name).ranges()) {
-            if (typeof range === 'number') {
-                set.add(range);
+        subsetInfo(name).ranges((start, end) => {
+            if (start === end) {
+                set.add(start);
             } else {
-                set.addRange(range[0], range[1]);
+                set.addRange(start, end);
             }
-        }
+        });
         SUBSET_HB_SETS[name as SubsetName] = set;
     }
 

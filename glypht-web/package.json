@@ -39,7 +39,7 @@
 		"markdown-it-footnote": "^4.0.0",
 		"preact-render-to-string": "^6.6.1",
 		"protobufjs": "^7.5.3",
-		"sass-embedded": "^1.92.1",
+		"sass": "^1.93.2",
 		"shiki": "^3.13.0",
 		"tsx": "^4.20.5",
 		"typedoc": "^0.28.13",

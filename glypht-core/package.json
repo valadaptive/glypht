@@ -54,6 +54,7 @@
     "typedoc": "^0.28.7"
   },
   "dependencies": {
-    "@glypht/web-worker": "^1.6.0"
+    "@glypht/web-worker": "^1.6.0",
+    "@smol-range/decompress": "^0.1.0"
   }
 }
