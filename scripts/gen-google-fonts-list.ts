@@ -19,6 +19,7 @@ import {Schema, schemaToTypescript, typeToSchema} from './protobuf-tools.js';
 import WorkerPool from '../glypht-core/src/worker-pool.js';
 import RpcDispatcher from '../glypht-core/src/worker-rpc.js';
 import {MetadataWorkerSchema} from './google-fonts-meta-worker.js';
+import {compress} from '@smol-range/compress';
 
 if (!(global as {isBundled?: boolean}).isBundled) {
     // eslint-disable-next-line @stylistic/max-len
@@ -282,9 +283,8 @@ for (const family of sortedLocalMetadata) {
     }
 }
 // The final sort order for languages is by number of fonts that cover each language. This helps with compression since
-// we store font language coverage as a bitset: if languages are ordered by font coverage, then each font's bitset will
-// (likely) have a long string of ones at the beginning (since most fonts will cover those languages) and a long string
-// of zeroes at the end (since few fonts will cover those languages).
+// we store font language coverage using a run-length-esque encoding, and there will probably be long runs of
+// supported/unsupported languages as a result of sorting/
 languagesData.sort((a, b) => {
     const covA = langFontCoverage.get(a.id) ?? 0;
     const covB = langFontCoverage.get(b.id) ?? 0;
@@ -295,23 +295,15 @@ for (let i = 0; i < languagesData.length; i++) {
     langIndices.set(languagesData[i].id, i);
 }
 
-const numLangsWithAnyCoverage = langFontCoverage.size;
 for (const family of sortedLocalMetadata) {
-    // Store language data as a base64-encoded dense bitset
-    const langsBitset = new Uint8Array((numLangsWithAnyCoverage + 7) >> 3);
-    let lastBucket = 0;
-    const setBitAt = (idx: number) => {
-        const bucket = idx >> 3;
-        const bitIdx = idx & 7;
-        langsBitset[bucket] |= 1 << bitIdx;
-        lastBucket = Math.max(lastBucket, bucket);
-    };
-
+    const langsSorted = [];
     for (const lang of family.languages) {
-        setBitAt(langIndices.get(lang));
+        langsSorted.push(langIndices.get(lang));
     }
+    langsSorted.sort((a, b) => a - b);
+    const compressed = compress(langsSorted);
 
-    const encoded = Buffer.from(langsBitset.subarray(0, lastBucket + 1)).toString('base64');
+    const encoded = Buffer.from(compressed.buffer, compressed.byteOffset, compressed.byteLength).toString('base64');
 
     family.languages = encoded;
     family.primaryLanguage = langIndices.get(family.primaryLanguage);
@@ -433,7 +425,7 @@ FamilyProto.fields = FamilyProto.fields.filter(f =>
     f.name !== 'subsets',
 );
 
-// Store languages as a base64'd bitset to save space (340kB -> 250kB gzipped)
+// Store languages in a base64'd compressed format to save space (340kB -> 250kB gzipped)
 FamilyProto.fields
     .find(f => f.name === 'languages')!.type = 'string';
 

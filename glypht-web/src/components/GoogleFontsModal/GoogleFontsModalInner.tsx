@@ -21,6 +21,7 @@ import classnames from 'clsx';
 import uFuzzy from '@leeoniya/ufuzzy';
 import {signal, Signal, useComputed, useSignal} from '@preact/signals';
 import DOMPurify from 'dompurify';
+import {decompress} from '@smol-range/decompress';
 import type {ComponentChildren, JSX} from 'preact';
 
 import axisSpinboxParams from '../../util/axis-spinbox-params';
@@ -57,19 +58,13 @@ languagesByPopulation.sort((a, b) => (b.population ?? 0) - (a.population ?? 0));
 
 const fontsList: GoogleFontsFamily[] = [];
 for (const font of fontsListJson as FamilyProto[]) {
-    const languageMetas = [];
+    const languageMetas: LanguageProto[] = [];
     if (font.languages) {
-        const bitset = atob(font.languages);
-        for (let i = 0; i < bitset.length; i++) {
-            const byte = bitset.charCodeAt(i);
-            for (let j = 0; j < 8; j++) {
-                const bit = byte & (1 << j);
-                if (bit !== 0) {
-                    const bitIdx = (i << 3) + j;
-                    languageMetas.push(languagesByCoverage[bitIdx]);
-                }
+        decompress(font.languages, (start, end) => {
+            for (let i = start; i <= end; i++) {
+                languageMetas.push(languagesByCoverage[i]);
             }
-        };
+        });
     }
     (font as unknown as GoogleFontsFamily).languages = languageMetas;
     fontsList.push(font as unknown as GoogleFontsFamily);
