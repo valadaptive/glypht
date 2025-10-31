@@ -63,6 +63,6 @@ export default [
                 },
             },
         ],
-        external: ['module', 'os', 'node:url', 'node:fs/promises'],
+        external: ['module', 'os', 'node:url', 'node:fs/promises', '@smol-range/decompress'],
     },
 ];
