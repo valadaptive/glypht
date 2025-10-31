@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/GoogleFontsModalInner-Bdb0ezU0.js","assets/search-DXangmra.js","assets/search-CLlH7J7c.css"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/GoogleFontsModalInner-CU3DuD5E.js","assets/search-DXangmra.js","assets/search-CLlH7J7c.css"])))=>i.map(i=>d[i]);
 import { _ as __vitePreload, d, T, A, y, Q, E, w, n, x as x$1, u, q, a as _, g, b as useSignal, c as useComputed, k, e as d$1, r as r$1, G } from "./search-DXangmra.js";
 const app = "_app_8jc7z_44";
 const displayPane = "_display-pane_8jc7z_51";
@@ -188,7 +188,7 @@ class GlyphtContext {
   constructor() {
     this.fontWorker = new RpcDispatcher(new Worker$1(new URL(
       /* @vite-ignore */
-      "/assets/font-worker.worker-Lel9i42t.js",
+      "/assets/font-worker.worker-D9WHOxO1.js",
       import.meta.url
     ), { type: "module" }), {
       "update-fonts": "updated-fonts",
@@ -439,8 +439,8 @@ class WoffCompressionContext {
     this.parallelism = resolvedParallelism;
     this.pool = (async () => {
       const woffWasmUrls = [
-        new URL("/assets/woff1-DBFllVu4.wasm", import.meta.url),
-        new URL("/assets/woff2-koKwhiIF.wasm", import.meta.url)
+        new URL("/assets/woff1-DpqWOYSc.wasm", import.meta.url),
+        new URL("/assets/woff2-BeDcx2vd.wasm", import.meta.url)
       ];
       const [woff1, woff2] = await Promise.all(woffWasmUrls.map((url) => fetchFile(url)));
       const workers = [];
@@ -9917,7 +9917,7 @@ const GoogleFontsModal = () => {
   const fontsListState = googleFontsModalState.state.value;
   if (fontsListState.state === "not_loaded") {
     __vitePreload(async () => {
-      const { default: ModalComponent, languages } = await import("./GoogleFontsModalInner-Bdb0ezU0.js");
+      const { default: ModalComponent, languages } = await import("./GoogleFontsModalInner-CU3DuD5E.js");
       return { default: ModalComponent, languages };
     }, true ? __vite__mapDeps([0,1,2]) : void 0).then(
       ({ default: ModalComponent, languages }) => {

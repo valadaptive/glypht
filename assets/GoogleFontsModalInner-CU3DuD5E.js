@@ -1,5 +1,5 @@
 import { b as useSignal, q, T, c as useComputed, u, k, d, g } from "./search-DXangmra.js";
-import { u as useAppState, a as useThrottledSignal, b as uFuzzy, s as style, D as Dropdown, c as clsx, I as IconButton, T as TextBox, d as ToggleIcon, e as axisMetadata, L as Loader, S as Slider, f as SpinBox, C as CheckboxToggle, g as SearchableCheckboxDropdown, h as axesList, i as useAddErrorToast, j as Icon, B as Button, k as axisSpinboxParams, l as CollapsibleHeader } from "./index-BRoAu7dO.js";
+import { u as useAppState, a as useThrottledSignal, b as uFuzzy, s as style, D as Dropdown, c as clsx, I as IconButton, T as TextBox, d as ToggleIcon, e as axisMetadata, L as Loader, S as Slider, f as SpinBox, C as CheckboxToggle, g as SearchableCheckboxDropdown, h as axesList, i as useAddErrorToast, j as Icon, B as Button, k as axisSpinboxParams, l as CollapsibleHeader } from "./index-BAfx9GbU.js";
 /*! @license DOMPurify 3.2.7 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/3.2.7/LICENSE */
 const {
   entries,
