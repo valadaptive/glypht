@@ -1992,6 +1992,42 @@ statement in any design.</p>
 
 <p>To contribute to the project contact 
 <a href="mailto:astigma@astigmatic.com">Brian J. Bonislawsky</a>.</p><p>
+    Stack Sans is a sans serif font family rooted in modernist inspiration, striking a balance between timelessness and innovation. Its distinctive notched detailing, inspired by the building process, creates a recognizable signature that is unique to Stack Sans. Crafted uniquely for Stack Overflow, Stack Sans has both a hedline and text style that allow for typographic expression regardless of scale.
+</p>
+
+<p>
+    To contribute, see <a href="https://github.com/DylanYoungKoto/Stack-Sans">github.com/DylanYoungKoto/Stack-Sans</a>.
+</p>
+
+<img src="stacksans01.jpg">
+<img src="stacksans02.jpg">
+<img src="stacksans03.jpg">
+<img src="stacksans04.jpg">
+<p>
+    Stack Sans is a sans serif font family rooted in modernist inspiration, striking a balance between timelessness and innovation. Its distinctive notched detailing, inspired by the building process, creates a recognizable signature that is unique to Stack Sans. Crafted uniquely for Stack Overflow, Stack Sans has both a headline and text style that allow for typographic expression regardless of scale.
+</p>
+
+<p>
+    To contribute, see <a href="https://github.com/DylanYoungKoto/Stack-Sans">github.com/DylanYoungKoto/Stack-Sans</a>.
+</p>
+
+<img src="stacksans01.jpg">
+<img src="stacksans02.jpg">
+<img src="stacksans03.jpg">
+<img src="stacksans04.jpg">
+<p>
+    Stack Sans is a sans serif font family rooted in modernist inspiration, striking a balance between timelessness and innovation. Its distinctive notched detailing, inspired by the building process, creates a recognizable signature that is unique to Stack Sans. Crafted uniquely for Stack Overflow, Stack Sans has both a hedline and text style that allow for typographic expression regardless of scale.
+</p>
+
+<p>
+    To contribute, see <a href="https://github.com/DylanYoungKoto/Stack-Sans">github.com/DylanYoungKoto/Stack-Sans</a>.
+</p>
+
+<img src="stacksans01.jpg">
+<img src="stacksans02.jpg">
+<img src="stacksans03.jpg">
+<img src="stacksans04.jpg">
+<p>
 Staatliches is a clean cut display face with charmingly unconventional proportions.
 The alphabet was designed in response to Herbert Bayer’s title lettering on the cover of the first Bauhaus exhibition <a href="https://www.moma.org/collection/works/7567?artist_id=399&locale=en&page=1&sov_referrer=artist">catalogue</a>, which was published in 1923.
 It features full sets of capitals, numbers, punctuation, and symbols, in addition to alternate widths, discretionary ligatures, and common Latin accents.
@@ -2842,7 +2878,27 @@ A foundry specimen is maintained at <a href="http://daltonmaag.github.io/scope-o
 </p>
 <p>
 To contribute, see <a href="https://github.com/daltonmaag/scope-one">github.com/daltonmaag/scope-one</a>
-</p><p>Schibsted Grotesk is a digital-first font family crafted for user interfaces. Taking visual cues from Schibsted's proud history of printed media as well as our pioneering digital nature, Schibsted Grotesk was designed to become an active tool that empowers brand ambassadors and inspires internal and external audiences.</p>
+</p><p>
+Science Gothic is a 4-axis variable font with a wide design range, allowing it to take on many different looks and uses, from superheroes, action and pulp detectives to business and banking, from science fiction and technology to cosmetics. The basic design is closely modeled on Morris Fuller Benton’s Bank Gothic (1930–34) for American Type Founders. But where Bank Gothic was an all-caps typeface with moderate variation in weight and width, Science Gothic adds a lowercase, true small caps, extensive language coverage (extended Latin and extended Cyrillic), and four design axes: extreme weight and width axes, plus contrast, and slant. Science Gothic is a team effort, by Thomas Phinney, Vassil Kateliev and Brandon Buerkle. Special thanks to Igor Freiberger for his early contributions.
+</p>
+<p>To comment, give feedback or contribute to Science Gothic, visit https:, visit <a href="https://github.com/googlefonts/science-gothic">github.com/googlefonts/science-gothic</a></p>
+
+<hr>
+
+<video loop autoplay muted src="video01.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<img src="image01.jpeg">
+<img src="image02.jpeg">
+<img src="image03.jpeg">
+<img src="image04.jpeg">
+<img src="image05.jpeg">
+<img src="image06.jpeg">
+<img src="image07.jpeg">
+<img src="image08.jpeg">
+<img src="image09.jpeg">
+<p>Schibsted Grotesk is a digital-first font family crafted for user interfaces. Taking visual cues from Schibsted's proud history of printed media as well as our pioneering digital nature, Schibsted Grotesk was designed to become an active tool that empowers brand ambassadors and inspires internal and external audiences.</p>
 
 <p>Schibsted Grotesk covers the Underware Latin Plus character set, using 4 masters distributed across weights and italics.</p>
 
@@ -18978,6 +19034,11 @@ To contribute, see <a href="https://github.com/appajid/ntr">github.com/appajid/n
 </p>
 <p>
   Noto is a global font collection for writing in all modern and ancient
+  languages. Noto Sans Syriac Western is an unmodulated (“sans serif”) Western (Serṭā) design for texts
+  in the Middle Eastern <em>Syriac</em> script. It has 296 glyphs.
+</p>
+<p>
+  Noto is a global font collection for writing in all modern and ancient
   languages. Noto Sans Syriac Eastern is an unmodulated (“sans serif”) Eastern (Maḏnḥāyā) design for texts
   in the Middle Eastern <em>Syriac</em> script. It has 233 glyphs.
 </p>
@@ -21376,7 +21437,7 @@ reliably on web pages at medium and large font sizes.</p>
 
 <p>To contribute to the project contact 
 <a href="mailto:julia.petretta@googlemail.com">Julia Petretta</a>.</p><p>Lilita One is a display typeface with a fat look, ideal for headlines and short texts. With a slightly condensed structure and some eye-catching details, it adds personal and soft looks to any page.</p><p>
-Do you remember the "Life Savers" candies adds from the 50s?
+Do you remember the "Life Savers" candy ads from the 50s?
 That was a time when Ad Agencies actually hired Lettering Artist for they advertising text. 
 Before the advent of Photo Typesetting, all the text was beautifully drawn by hand.
 </p>
@@ -24833,6 +24894,56 @@ The font was developed by Alejandro Inler in conjunction with Ana Sanfelippo.
 <p>
 There are two Elsie families, this Regular family and a <a href="https://fonts.google.com/specimen/Elsie+Swash+Caps">Swash Caps</a> family, each with a regular weight and a black weight suitable for large display usage.
 </p>
+<p>Elms Sans is a utilitarian geometric sans serif typeface designed for clarity, consistency, and long-term adaptability. Developed to perform reliably across a wide range of modern applications—from digital interfaces to print environments—it brings a quiet precision to design systems.</p>
+
+<p>The design draws from early geometric models, with particular attention to rhythm, openness, and optical clarity. While maintaining functional neutrality, Elms Sans introduces subtle warmth in its proportions, making it suitable for both display and text use.</p>
+
+<p>Elms Sans includes two variable axes, wght (weight), and ital (italics) and spans nine weights: Thin, ExtraLight, Light, Regular, Medium, SemiBold, Bold, ExtraBold and Black, created with 3 masters.</p>
+
+<p>The name Elms is a dedication to three individuals whose mentorship shaped the designer’s career—Elijah Affi, Makua Afiomah, and Solomon Dawudu. It also references the elm tree, often associated with craftsmanship, quiet strength, and resilience—values that guided the design process, both in form and function.</p>
+
+<p>The current version supports Latin-script languages, with additional Sub-Saharan African Latin support in development.</p>
+
+<p>To contribute, see <a href="https://github.com/mara-aa/elms-sans">github.com/mara-aa/elms-sans</a>.</p>
+
+
+<img src="image01.jpg">
+
+<img src="image02.jpg">
+
+<video loop autoplay muted src="video01.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<img src="image03.jpg">
+<img src="image04.jpg">
+<img src="image05.jpg">
+
+<video loop autoplay muted src="video02.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<img src="image06.jpg">
+<img src="image07.jpg">
+
+<video loop autoplay muted src="video03.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<img src="image08.jpg">
+<img src="image09.jpg">
+
+<video loop autoplay muted src="video04.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<img src="image10.jpg">
+
+<video loop autoplay muted src="video05.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<img src="image11.jpg">
 <p>
 El Messiri is a modern Arabic typeface family designed by Mohamed Gaber (Arabic) that began with Jovanny Lemonad's Latin and Cyrillic typeface <a href="https://fonts.google.com/specimen/Philosopher">Philosopher</a>. 
 The Arabic started with the concept of a curvy Arabic typeface inspired by the beauty of Naskh and drawn as if with a brush instead of the traditional bamboo pen. 
@@ -25888,15 +25999,15 @@ Caramel comes with Latin Character sets including Western, Central, and Vietname
 <p>
 To contribute, see <a href="https://github.com/googlefonts/caramel" target="_blank">github.com/googlefonts/caramel</a>
 </p>
-<p><strong>Foundry: <a href="http://www.sorkintype.com">Sorkin Type Co</a></strong></p>
+<p>
+Capriola is a sans-serif typeface whose unique style draws upon forms seen in handwriting and italic types. Skeletons of the most characteristic glyphs are inspired by quick handwriting and based on a single hand movement (G,a,g,k,e). Capriola ambitiously seeks to push the boundaries of originality in the genre without losing legibility.
 
-<p>Capriola is a sans-serif typeface whose unique style draws upon forms seen in handwriting and italic types. Skeletons of the most characteristic glyphs are inspired by quick handwriting and based on a single hand movement (G,a,g,k,e). Capriola ambitiously seeks to push the boundaries of originality in the genre without losing legibility.</p>
+The unusual glyphs are quite noticeable in large sizes which allows for distinctive headlines. However in small sizes these gestures become less noticeable, making it possible to set longer texts. The name means somersault in Latin. The a, e and G are the real acrobats, and the "g" makes a double salto! Capriola was spaced for use on the web. Capriola's originality combined with utility makes it ideal for a wide range of uses.
+</p>
 
-<p>The unusual glyphs are quite noticeable in large sizes which allows for distinctive headlines. However in small sizes these gestures become less noticeable making it possible to set longer texts. The name "Capriola" means somersault in English. Such glyphs as "a", "e" or "G" are the real acrobats and the "g" makes a double salto! Capriola was spaced for web. Capriola's originality combined with utility makes it ideal for a wide range of uses.</p>
-
-<p>Source files are available from <a
-href="http://code.google.com/p/googlefontdirectory/">Google Code</a>.
-To contribute to the project contact <a href="mailto:sorkineben@gmail.com">Eben Sorkin</a>.<p>
+<p>
+    To contribute, see <a href="https://github.com/SorkinType/Capriola-VF">github.com/SorkinType/Capriola-VF</a>.
+</p>
 <p>
     Caprasimo is a DocRepair font, intended to improve compliance with the ISO/IEC
     29500 standard by providing fallback for Cooper Black that minimizes text reflow in Office Open
@@ -33482,7 +33593,15 @@ The result is a playful sans-serif, built on a traditional "grotesque" skeleton,
 In short, Alan Sans is a reflection of our brand's dual nature. It aims to be robust *yet* gentle, serious *yet* personable, simple *yet* sophisticated, transparent *yet* noticeable. 
 It's our "not so corporate" corporate typeface.</p>
 
+<p>You can also read a detailed blog article about its creation <a href="https://typeface.alan.com/how-we-created-alan-sans">here</a>.</p>
+
 <p>To contribute, see <a href="https://github.com/alan-eu/Alan-Sans">github.com/alan-eu/Alan-Sans</a>.</p>
+
+<img src="image00.jpeg">
+<img src="image01.jpeg">
+<img src="image03.jpeg">
+<img src="image02.jpeg">
+<img src="image04.jpeg">
 <p>
 Aladin is a calligraphic vintage face with a middle eastern touch, designed by Angel Koziupa and produced by Alejandro Paul.
 </p>
