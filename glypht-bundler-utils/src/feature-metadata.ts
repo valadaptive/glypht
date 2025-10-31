@@ -4,8 +4,6 @@ import {FEATURES} from './generated/ot-features';
 export type FeatureMetadata = {
     /** The feature's human-friendly name, if present. */
     name: string | null;
-    /** A description of what the feature does. */
-    description: string | null;
     /** Whether the feature is required, and cannot be turned off. You might choose to hide these in your UI. */
     required: boolean;
 };
@@ -55,7 +53,6 @@ export const featureMetadata = (tag: string): FeatureMetadata => {
 
     const featureInfo: FeatureMetadata = {
         name: featureName,
-        description: metadata?.description ?? '',
         required: metadata?.state === 'required',
     };
     featureMetadataMemo.set(tag, featureInfo);

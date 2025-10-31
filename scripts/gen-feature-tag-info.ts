@@ -20,17 +20,18 @@ for (const filename of featureTagFilenames) {
     const featureTag = matchResult[1];
     const featureInfo: Record<string, unknown> = parse(contents) as Record<string, unknown>;
     if (!featureInfo.title) throw new Error(`Schema ${filename} has no feature title`);
-    if (!featureInfo.description) throw new Error(`Schema ${filename} has no feature description`);
-    if (typeof featureInfo.state === 'undefined') featureInfo.state = null;
-    if (typeof featureInfo.status === 'undefined') featureInfo.status = null;
-    seenStates.add(featureInfo.state);
-    seenStatuses.add(featureInfo.status);
-    features[featureTag] = featureInfo;
+    const parsed = {
+        title: featureInfo.title,
+        state: featureInfo.state ?? null,
+        status: featureInfo.status ?? null,
+    };
+    seenStates.add(parsed.state);
+    seenStatuses.add(parsed.status);
+    features[featureTag] = parsed;
 }
 
 const featureInfoType = `{
     title: string,
-    description: string,
     state: ${Array.from(seenStates.values())
         .map(v => JSON.stringify(v))
         .join(' | ')},
@@ -39,9 +40,13 @@ const featureInfoType = `{
         .join(' | ')},
 }`;
 
-const fileContents = `export type FeatureMetadata = ${featureInfoType};
+const featureTagType = Object.keys(features)
+    .map(featName => JSON.stringify(featName))
+    .join(' | ');
 
-export const FEATURES = ${JSON.stringify(features, null, 4)} as const;
+const fileContents = `export type FeatureMetadata = ${featureInfoType};
+export type FeatureTag = ${featureTagType};
+export const FEATURES: Record<FeatureTag, FeatureMetadata> = ${JSON.stringify(features, null, 4)};
 `;
 
 const outFilePath = join(dirname, '../glypht-bundler-utils/src/generated/ot-features.ts');
