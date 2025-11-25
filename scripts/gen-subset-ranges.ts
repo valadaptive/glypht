@@ -5,6 +5,8 @@ const {parse: parseProto} = protobufjs;
 import {parse} from 'pbtxtjs';
 import {compress} from '@smol-range/compress';
 
+const GEN_SUBSET_SLICES = false;
+
 const ns = parseProto(`
 // The slicing strategy, composed of slices.
 message SlicingStrategy {
@@ -88,15 +90,19 @@ for (const [name, ranges] of Object.entries(subsetRanges)) {
 subsetRangesLiteral += '}';
 
 const subsetSlicesRecord: Record<string, string[]> = {};
-for (const [subsetName, slices] of subsetSlices) {
-    subsetSlicesRecord[subsetName] = slices.map(subsetSlice => encodeToBase64(subsetSlice));
+if (GEN_SUBSET_SLICES) {
+    for (const [subsetName, slices] of subsetSlices) {
+        subsetSlicesRecord[subsetName] = slices.map(subsetSlice => encodeToBase64(subsetSlice));
+    }
 }
+
 const subsetSlicesLiteral = JSON.stringify(subsetSlicesRecord, null, 4);
 
 const fileContents = `import {decompress} from '@smol-range/decompress';
 
 const SUBSET_RANGES: Record<SubsetName, string> = ${subsetRangesLiteral};
 
+// Temporarily disabled since we don't use these currently
 const SUBSET_SLICES: Partial<Record<SubsetName, string[]>> = ${subsetSlicesLiteral};
 
 export type CharacterSubsetInfo = {
