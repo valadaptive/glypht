@@ -2795,6 +2795,18 @@ To contribute, see <a href="https://github.com/googlefonts/send-flowers" target=
 
 <p>To contribute, please see <a href="https://github.com/philatype/Sen">github.com/philatype/Sen</a>.</p>
 <p>
+    SEKUYA is a serif all-uppercase typeface that give a strong impression to your design. The main goal was to bring a boldness and modern feel to serif font by reworking the curves also corners and balance of modern serif font families. This font is a great choice for main text / header text on a website or layout design. SEKUYA font originally created for SEKUYA game that has anime epic fantasy vibes.
+</p>
+
+<p>To contribute, see <a href="https://github.com/kevinnseptian/SEKUYA">github.com/kevinnseptian/SEKUYA</a>.</p>
+
+<hr>
+<img src="image00.jpg">
+<img src="image01.jpg">
+<img src="image02.jpg">
+<img src="image03.jpg"
+
+<p>
 The Sedgwick Ave project expresses handwritten graffiti letterforms with two designs:
 This is Sedgwick Ave Display, intended for larger size usage, accompanied by
 <a href="https://fonts.google.com/specimen/Sedgwick+Ave">Sedgwick Ave</a>, ideal for text size usage.
@@ -21411,6 +21423,17 @@ To contribute, see <a href="https://github.com/googlefonts/literata">github.com/
 <p>This project is intended to provide a libre and open font family for all current languages and writing systems that use the Lisu (Fraser) script. The design is based on LisuTzimu, designed by David Morse.</p>
 
 <p>To contribute, please see <a href="https://github.com/silnrsi/font-lisu-bosa">github.com/silnrsi/font-lisu-bosa</a>.</p>
+<img src="banner.svg" alt="LINE Seed cover image">
+<p>
+    LINE Seed is LINE’s new font that was created based on the brand’s identity of convenience and friendliness. 
+    The word "Seed" represents the idea of growing together with our users, expressing the hope that the seeds planted firmly in LINE’s services will sprout and bear fruit.
+    The Japanese typeface, LINE Seed JP, has the same DNA as the LINE Seed fonts in other languages. We adjusted the typeface’s weight and center of gravity based on its balance with the English font so that both give the same impression when used together in one sentence.
+    As a result, no extra adjustment is required as the Japanese and English typefaces are already well-balanced with each other.
+</p>
+
+<p>
+    Learn more about the LINE Seed typeface philosophy from <a href="https://seed.line.me/">https://seed.line.me/</a>
+</p>
 <p>Linefont is a variable font with Weight and Width axes for rendering small to medium-scale line charts.</p>
 
 <p>Linefont values span from 0 to 100, assigned to different characters:
@@ -21437,6 +21460,51 @@ reliably on web pages at medium and large font sizes.</p>
 
 <p>To contribute to the project contact 
 <a href="mailto:julia.petretta@googlemail.com">Julia Petretta</a>.</p><p>Lilita One is a display typeface with a fat look, ideal for headlines and short texts. With a slightly condensed structure and some eye-catching details, it adds personal and soft looks to any page.</p><p>
+    Lilex is an extended font on top of <a href="https://fonts.google.com/specimen/IBM+Plex+Mono">IBM Plex Mono</a> designed for developers. It contains ligatures, special characters (e.g. PowerLine), Greek and exists in a variable format.
+</p>
+<p>
+    Ligatures is just a font rendering feature: underlying code remains ASCII-compatible. This makes it easier to read and understand the code. In some cases, the ligatures connect closely related characters (==, ---), while in others they optically align the glyphs (.., ??).
+</p>
+
+<p>
+    To contribute, see <a href="https://github.com/mishamyrt/Lilex">github.com/mishamyrt/Lilex</a>.
+</p>
+
+<hr>
+<img src="main.png">
+<p>
+    There are 5 font weights available in Lilex, ranging from Thin to Bold. In addition, a variable font is available.
+</p>
+
+<img src="styles.png">
+
+<p>
+    Lilex comes with a full set of italics: all weights, ligatures, PowerLine. Lilex Italic can do everything that Lilex does.
+</p>
+
+<img src="italics.png">
+
+<p>
+    The font has support for Latin, Cyrillic and Greek. It also includes ligatures and powerline symbols.
+</p>
+
+<img src="character-set.png">
+
+<p>
+    The font has additional styles for some characters, so it can be configured to better fit your needs. Instructions on how to activate OpenType features in your IDE can be found on the internet, or build your own variation of the font with forced features
+</p>
+<img src="alternatives.png">
+
+<p>
+  Some ligatures also have additional options. For example, certain arrows are initially switched off to avoid conflicts with logical operations.  
+</p>
+<img src="ligatures.png">
+<p>
+    Lilex uses generated ligatures for arrows, so they can be infinite. Combine that to assemble your unique arrows. There is also a full set of single-character arrows (↑, ↓, etc.) in the font.
+</p>
+
+<img src="arrows.png">
+<p>
 Do you remember the "Life Savers" candy ads from the 50s?
 That was a time when Ad Agencies actually hired Lettering Artist for they advertising text. 
 Before the advent of Photo Typesetting, all the text was beautifully drawn by hand.
@@ -23678,6 +23746,14 @@ It comes with Latin Character sets including Western, Central, and Vietnamese la
 To contribute, see <a href="https://github.com/googlefonts/gwendolyn" target="_blank">github.com/googlefonts/gwendolyn</a>.
 </p>
 <p>
+    A smooth and elegant Hebrew handwriting font by AlefAlefAlef, inspired by Gili Levin's natural, flowing penmanship. Digitized with precision by Shavit Yaakov and Avraham Cornfeld, the font features Hebrew characters, numerals, and essential symbols, making it both versatile and delightful to use.
+</p>
+
+<p>To contribute, see <a href="https://github.com/AlefAlefAlef/gveret-levin">github.com/AlefAlefAlef/gveret-levin</a>.</p>
+
+<hr>
+<img src="image00.png">
+<p>
 Gurajada is Telugu handwriting font, suitable for headings, posters, and invitations.
 </p>
 <p>
@@ -24054,7 +24130,30 @@ The typeface is accompanied by a matching Latin design, inspired by Hermann Zapf
     well as Vietnamese and 130+ other languages.</p>
 
 <p>To contribute, please see <a href="https://github.com/productiontype/Georama">github.com/productiontype/Georama</a>.
-</p><p>Geologica is grounded in the humanist genre, but leans assertively into geometric, constructed letterforms to find its stability. The wide stance, generous spacing, large apertures and even colour makes Geologica a serious text typeface. The stylistic “Sharpness” axis adds a rational interpretation of calligraphic pen strokes - a modernist echo of the roots of writing.</p>
+</p><p>
+    Geom is a contemporary geometric sans-serif typeface designed with a balance between precision and expressiveness. While it draws inspiration from the classic geometric tradition, it introduces subtle dynamic elements that bring rhythm and energy to the letterforms. These details make Geom more than a strictly geometric construction — they lend it character and movement, setting it apart from similar typefaces.
+</p>
+
+<p>
+    Geom comes in seven weights, ranging from Light to Black, each with its own carefully adjusted proportions to maintain consistency and readability across the entire family. True italics accompany every upright weight, extending the typeface’s versatility and allowing for clear typographic hierarchy and emphasis. The typeface is also available as a variable font, providing designers with seamless control over weight transitions.
+</p>
+
+<p>
+    Although Geom was conceived primarily for display purposes — in titles, branding, and large headlines — it performs equally well in smaller text sizes. Its geometric clarity ensures excellent legibility, while its subtle deviations from pure geometry make it visually engaging even in extended reading.
+</p>
+
+<p>
+    By combining geometric precision with refined dynamism, Geom stands as a contemporary sans-serif that balances structure and liveliness — a typeface that feels both timeless and distinctly modern.
+</p>
+
+<p>
+    To contribute, see <a href="https://github.com/ThanosPoulakidas/Geom">github.com/ThanosPoulakidas/Geom</a>.
+</p>
+
+<hr>
+<img src="image00.png">
+<img src="image01.png">
+<p>Geologica is grounded in the humanist genre, but leans assertively into geometric, constructed letterforms to find its stability. The wide stance, generous spacing, large apertures and even colour makes Geologica a serious text typeface. The stylistic “Sharpness” axis adds a rational interpretation of calligraphic pen strokes - a modernist echo of the roots of writing.</p>
 
 <p>Variable axes:</p>
 <ul>
@@ -26955,16 +27054,26 @@ Designed by Veronika Burian and José Scaglione, Bree was originally released in
         href="https://github.com/artandtype/Braah">github.com/artandtype/Braah</a>.
 </p>
 <p>Bowlby One SC is designed for use as a utilitarian, All Caps and Small Caps display font. A version <a href="http://www.google.com/fonts/specimen/Bowlby+One">with lowercase characters</a> is also available. Its forms are a fusion of a handfull of designs scanned from old, early Twentieth Century type specimens. Bowlby One SC is perfect for big bold headlines and display uses that need a slightly roughened look. Bowlby is a web font, designed to be used freely across the internet by web browsers on desktop computers, laptops, cloud systems and mobile devices.</p><p>Bowlby One has been designed for use as a utilitarian, all caps display font. A version with lowercase characters is also available. Its forms are a fusion of a handfull of designs scanned from old, early Twentieth Century type specimens. Bowlby One is perfect for big bold headlines and display uses that need a slightly roughened look. Bowlby is a web font, designed to be used freely across the internet by web browsers on desktop computers, laptops, cloud systems and mobile devices.</p><p>
-    What considerations should be taken into account when approaching typography in the context of simultaneous learning of reading and writing? Borel is a French cursive primer — developed with primary school teachers and speech therapists — which aims aims to harmonise cursive strokes and common typographic structure. This typeface, named in tribute to Suzanne Borel-Maisonny (a pioneer in speech therapy), boasts a sturdy design featuring low contrast and a generous x-height. The letters are intentionally open and clearly differentiated while adhering to the conventions of handwriting in French schools. 
+    What typographic factors should be considered when teaching reading and writing simultaneously? Initiated in 2017 at the ANRT (research post-master, Nancy, France), this font project was developed in collaboration with teachers and speech therapists, aiming to question educational typographic conventions and explore non-disruptive solutions.
 </p>
+
 <p>
-    Due to the specifity of this project, the font only supports a limited set of glyphs allowing to write in French, English, Spanish, Catalan, German, Portuguese, Turkish and Vietnamese. Please submit language requests with images in the issue tracker of the reposotory linked below.
+    The traditional cursive style taught in French primary schools has a high ascender/x-height ratio, arguing against its legibility at the size of practice. This can pose a challenge for all beginner readers, particularly those with learning disabilities. Thus, <em>Borel</em> aims to harmonise cursive strokes with more common typographic structures that are recognised for enhancing readability. This typeface, named in tribute to Suzanne Borel-Maisonny (a French pioneer in speech therapy), features a robust design with a low contrast and a generous x-height. The letters are intentionally open and clearly differentiated while adhering to the conventions of writing in French schools.
 </p>
+
 <p>
-    Find more documentation here: <a href="https://github.com/RosaWagner/Borel/blob/main/README.md">Français</a> | <a href="https://github.com/RosaWagner/Borel/blob/main/README_en.md">English</a>
+    Due to the specificity of this project, the font only supports a limited set of glyphs allowing writing in Catalan, Danish, English, Finnish, German, Italian, Norwegian, Portuguese, Spanish, Swedish, Turkish, Vietnamese—and by extension, any other languages using the same alphabet. Please submit language requests with images in the issue tracker of the repository linked below.
+</p>
+
+<p>
+    Find the complete article here: <a href="https://github.com/RosaWagner/Borel/blob/main/README.md">Français</a> | <a href="https://github.com/RosaWagner/Borel/blob/main/README_en.md">English</a>
 </p>
 
 <p>To contribute, please see <a href="https://github.com/RosaWagner/Borel">github.com/RosaWagner/Borel</a>.</p>
+
+<hr />
+
+<img src="bonjour.png" />
 <p>Boogaloo was started in 2010 as a complement to the Salsa typeface, while thinking about type used in Latin American music genres and the culture's own identity. The structure of Boogaloo is that of classic American lettering, found so often in old LP albums cover art from the 1960s, when Latin music became very popular and preceding the birth of the musical phenomenon of Salsa. Functionally this typeface can be used to display texts that wish to remind readers of the 1960s, Latin music. There is movement, coolness and happiness across all its forms.</p><p>
 It's casual and contemporary. BonheurRoyale has the look of a calligraphic hand with a slightly brush feel. The contrast of this and thin strokes gives this clean style a legible quality.
 </p>
@@ -33224,6 +33333,15 @@ The Hebrew was designed by Ben Nathan, who also revised the Latin design.
 Thomas Jockin respaced and kerned the whole font. 
 </p>
 
+<p>
+    Amarna is a semi-glyphic humanist sans-serif typeface, taking inspiration from the cold sophistication of early humanist sans- and glyphic serifs such as Gill Sans or Albertus, while attempting to bring the traits which define those typefaces in line with the principles of modern sans-serif type design. Amarna is amicable and easy to read in small sizes, but takes on a much more glyphic, naturalistic quality when rendered in larger sizes, at lighter weights and especially in all-caps text. Amarna is a variable-weight font, with weights currently ranging from 100 (Hairline) to 700 (Bold).
+</p>
+
+<p>To contribute, see <a href="https://github.com/ijvanl/Amarna">github.com/ijvanl/Amarna</a>.</p>
+
+<hr>
+<img src="image00.png">
+<img src="image01.png">
 <p>The Amaranth family is a friendly upright italic design with a slight contrast and distinctive curves. With its three new styles Amaranth is healthy for all your texts too!</p><p><strong>Foundry: <a href="http://www.sorkintype.com">Sorkin Type Co</a></strong></p>
 
 <p>Amarante is a medium contrast condensed type. It uses unconventional Art Nouveau inspired shapes. Amarante is a display face but works surprisingly well in text and headlines too. Amarante supports a very broad range of languages.</p>
