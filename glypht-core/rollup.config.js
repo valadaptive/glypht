@@ -35,7 +35,7 @@ export default [
                 Worker: '@glypht/web-worker',
             }),
         ],
-        external: ['@glypht/web-worker', 'os', 'node:url', 'node:fs/promises'],
+        external: ['@glypht/web-worker', 'os', 'node:url', 'node:fs/promises', '@smol-range/decompress'],
     },
     {
         input: [

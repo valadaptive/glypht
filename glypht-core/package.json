@@ -1,7 +1,7 @@
 {
   "name": "@glypht/core",
   "type": "module",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Library for subsetting and (de)compressing font files",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -54,7 +54,7 @@
     "typedoc": "^0.28.7"
   },
   "dependencies": {
-    "@glypht/web-worker": "^1.6.0",
+    "@glypht/web-worker": "^1.7.1",
     "@smol-range/decompress": "^0.1.0"
   }
 }

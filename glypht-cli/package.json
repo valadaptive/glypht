@@ -1,6 +1,6 @@
 {
   "name": "@glypht/cli",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "type": "module",
   "description": "Front-end tooling for your web fonts",
   "main": "dist/index.js",
@@ -26,16 +26,16 @@
   },
   "homepage": "https://glypht.valadaptive.dev/docs/api/modules/_glypht_cli.html",
   "dependencies": {
-    "@glypht/bundler-utils": "^0.0.7",
-    "@glypht/core": "^0.0.7",
+    "@glypht/bundler-utils": "^0.0.8",
+    "@glypht/core": "^0.0.8",
     "citty": "^0.1.6",
     "consola": "^3.4.2",
     "tinyglobby": "^0.2.14"
   },
   "devDependencies": {
-    "rollup": "^4.44.2",
-    "@rollup/plugin-typescript": "^12.1.4",
     "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-typescript": "^12.1.4",
+    "rollup": "^4.44.2",
     "valibot": "^1.1.0"
   }
 }
