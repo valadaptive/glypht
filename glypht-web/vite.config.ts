@@ -29,4 +29,7 @@ export default defineConfig({
             'pagefind-web': '../public/pagefind/pagefind.js',
         },
     },
+    build: {
+        minify: 'esbuild',
+    },
 });
