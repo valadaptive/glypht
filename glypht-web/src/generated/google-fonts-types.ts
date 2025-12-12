@@ -143,7 +143,7 @@ export type Category = "MONOSPACE" | "SANS_SERIF" | "SERIF" | "HANDWRITING" | "D
 
 export type Classification = "MONOSPACE" | "DISPLAY" | "HANDWRITING" | "SYMBOLS";
 
-export type Stroke = "SANS_SERIF" | "SLAB_SERIF" | "SERIF" | "HANDWRITING";
+export type Stroke = "SANS_SERIF" | "SLAB_SERIF" | "SERIF";
 
 export type License = "UFL" | "OFL" | "APACHE2";
 
