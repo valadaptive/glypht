@@ -66,3 +66,9 @@ jobs:
           Auto-generated from google/fonts repository
           Triggered by scheduled workflow on $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
           git push
+
+  deploy:
+    needs: update-google-fonts
+    uses: ./.github/workflows/deploy-to-ghpages.yml
+    permissions:
+      contents: write
