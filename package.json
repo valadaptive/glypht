@@ -10,6 +10,7 @@
     "scripts": {
         "build": "cd glypht-core && npm run build && cd ../glypht-bundler-utils && npm run build && cd ../glypht-web && npm run build",
         "site:build": "cd glypht-core && npm run build && cd ../glypht-bundler-utils && npm run build && cd ../glypht-web && npm run site:build",
+        "typecheck": "tsc --build tsconfig.check.json --noEmit",
         "lint": "eslint",
         "gen-feature-tag-info": "jiti scripts/gen-feature-tag-info.ts",
         "gen-subset-ranges": "jiti scripts/gen-subset-ranges.ts",

@@ -6,6 +6,12 @@
         },
         {
             "path": "./glypht-bundler-utils"
+        },
+        {
+            "path": "./glypht-cli"
+        },
+        {
+            "path": "./glypht-web"
         }
     ]
 }
