@@ -26005,7 +26005,14 @@ To contribute, see <a href="https://github.com/googlefonts/caveat">github.com/go
 <p>
 Updated June 2019 to v1.500: Adding extended Cyrillic, by <a href="http://www.cyreal.org">Cyreal</a>, a type design foundry in Moscow, Russia.
 </p>
-<p>Caudex is a Unicode TrueType font created with FontForge. It is developed on <a href="http://sourceforge.net/projects/caudex">SourceForge</a>. It includes most of the <a href="http://www.mufi.info">Medieval Unicode Font Initiative</a> (MUFI) version 3.0 recommendations.</p> <p>The font was originally made in the late nineties using the ISO 8859-1 character set, and used for printing some old handwritten text. Greek is also included.</p><p>
+<p>'Cause' is a semi-casual, optimistic sans-serif typeface crafted to support the communication needs of non-profit organizations, educational institutions, environmental initiatives, and learning-focused applications.</p>
+
+<p>The design follows a clean monolinear construction with gently rounded terminals, offering a balance of warmth and clarity. It was created to address a recurring design need: a typeface that feels friendly and approachable without drifting into a comic or overly playful tone&mdash;capable of delivering serious messages with comfort and ease. This makes it particularly suitable for projects in education, social impact, food and lifestyle blogging, environmental advocacy, and various forms of children&rsquo;s communication materials.
+</p>
+
+<p>
+    To contribute, see <a href="https://github.com/xconsau/Cause">github.com/xconsau/Cause</a>.
+</p><p>Caudex is a Unicode TrueType font created with FontForge. It is developed on <a href="http://sourceforge.net/projects/caudex">SourceForge</a>. It includes most of the <a href="http://www.mufi.info">Medieval Unicode Font Initiative</a> (MUFI) version 3.0 recommendations.</p> <p>The font was originally made in the late nineties using the ISO 8859-1 character set, and used for printing some old handwritten text. Greek is also included.</p><p>
 Catamaran is a Unicode-compliant Latin and Tamil text type family designed for the digital age.
 The Tamil is monolinear and was designed alongside the sans serif Latin and Devanagari family <a href="http://www.google.com/fonts/specimen/Palanquin">Palanquin</a>.
 </p>
@@ -31742,33 +31749,33 @@ It comes with Latin Character sets including Western, Central, and Vietnamese la
 <p>
 To contribute, see <a href="https://github.com/googlefonts/beau-rivage" target="_blank">github.com/googlefonts/beau-rivage</a>.
 </p>
-<p>The BBH Sans family is a clean and versatile sans-serif available in three widths: BBH Sans Bogle (condensed), BBH Sans Hegarty (normal), and BBH Sans Bartle (expanded). You can explore them here:.</p>
+<p>The BBH family is a clean and versatile sans-serif available in three widths: BBH Bogle (condensed), BBH Hegarty (normal), and BBH Bartle (expanded). You can explore them here:.</p>
 
 <ul>
-  <li><a href="https://fonts.google.com/specimen/BBH+Sans+Bogle">BBH Sans Bogle</a></li>
-  <li><a href="https://fonts.google.com/specimen/BBH+Sans+Hegarty">BBH Sans Hegarty</a></li>
-  <li><a href="https://fonts.google.com/specimen/BBH+Sans+Bartle">BBH Sans Bartle</a></li>
+  <li><a href="https://fonts.google.com/specimen/BBH+Bogle">BBH Bogle</a></li>
+  <li><a href="https://fonts.google.com/specimen/BBH+Hegarty">BBH Hegarty</a></li>
+  <li><a href="https://fonts.google.com/specimen/BBH+Bartle">BBH Bartle</a></li>
 </ul>
 
-<p>To contribute, see <a href="https://github.com/Studio-DRAMA/BBHSans">github.com/Studio-DRAMA/BBHSans</a>.</p>
-<p>The BBH Sans family is a clean and versatile sans-serif available in three widths: BBH Sans Bogle (condensed), BBH Sans Hegarty (normal), and BBH Sans Bartle (expanded). You can explore them here:.</p>
+<p>To contribute, see <a href="https://github.com/Studio-DRAMA/BBH">github.com/Studio-DRAMA/BBH</a>.</p>
+<p>The BBH family is a clean and versatile sans-serif available in three widths: BBH Bogle (condensed), BBH Hegarty (normal), and BBH Bartle (expanded). You can explore them here:.</p>
 
 <ul>
-  <li><a href="https://fonts.google.com/specimen/BBH+Sans+Bogle">BBH Sans Bogle</a></li>
-  <li><a href="https://fonts.google.com/specimen/BBH+Sans+Hegarty">BBH Sans Hegarty</a></li>
-  <li><a href="https://fonts.google.com/specimen/BBH+Sans+Bartle">BBH Sans Bartle</a></li>
+  <li><a href="https://fonts.google.com/specimen/BBH+Bogle">BBH Bogle</a></li>
+  <li><a href="https://fonts.google.com/specimen/BBH+Hegarty">BBH Hegarty</a></li>
+  <li><a href="https://fonts.google.com/specimen/BBH+Bartle">BBH Bartle</a></li>
 </ul>
 
-<p>To contribute, see <a href="https://github.com/Studio-DRAMA/BBHSans">github.com/Studio-DRAMA/BBHSans</a>.</p>
-<p>The BBH Sans family is a clean and versatile sans-serif available in three widths: BBH Sans Bogle (condensed), BBH Sans Hegarty (normal), and BBH Sans Bartle (expanded). You can explore them here:.</p>
+<p>To contribute, see <a href="https://github.com/Studio-DRAMA/BBH">github.com/Studio-DRAMA/BBH</a>.</p>
+<p>The BBH family is a clean and versatile sans-serif available in three widths: BBH Bogle (condensed), BBH Hegarty (normal), and BBH Bartle (expanded). You can explore them here:.</p>
 
 <ul>
-  <li><a href="https://fonts.google.com/specimen/BBH+Sans+Bogle">BBH Sans Bogle</a></li>
-  <li><a href="https://fonts.google.com/specimen/BBH+Sans+Hegarty">BBH Sans Hegarty</a></li>
-  <li><a href="https://fonts.google.com/specimen/BBH+Sans+Bartle">BBH Sans Bartle</a></li>
+  <li><a href="https://fonts.google.com/specimen/BBH+Bogle">BBH Bogle</a></li>
+  <li><a href="https://fonts.google.com/specimen/BBH+Hegarty">BBH Hegarty</a></li>
+  <li><a href="https://fonts.google.com/specimen/BBH+Bartle">BBH Bartle</a></li>
 </ul>
 
-<p>To contribute, see <a href="https://github.com/Studio-DRAMA/BBHSans">github.com/Studio-DRAMA/BBHSans</a>.</p>
+<p>To contribute, see <a href="https://github.com/Studio-DRAMA/BBH">github.com/Studio-DRAMA/BBH</a>.</p>
 <p>
 Bayon is a Khmer font for headlines, titles and subtitles, and even banner designs.
 </p>
