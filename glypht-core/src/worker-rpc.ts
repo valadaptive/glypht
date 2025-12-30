@@ -225,7 +225,7 @@ export const postMessageFromWorker = <T extends MessageSchema>(
     transfer: Transferable[] = [],
 ) => {
     try {
-        (postMessage as (...args: unknown[]) => unknown)(message, {transfer});
+        postMessage(message, {transfer});
     } catch (error) {
         postMessage({type: 'error', message: error, originId: message.originId} satisfies MessageFromWorker<T>);
     }
