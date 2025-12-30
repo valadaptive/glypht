@@ -169,7 +169,7 @@ export default class RpcDispatcher<T extends MessageSchema> {
             message,
             id,
         };
-        worker.postMessage(fullMessage, transfer!);
+        worker.postMessage(fullMessage, {transfer});
 
         this.inflightRequests++;
         return new Promise((resolve, reject) => {
@@ -208,7 +208,7 @@ export default class RpcDispatcher<T extends MessageSchema> {
             message,
             id,
         };
-        worker.postMessage(fullMessage, transfer!);
+        worker.postMessage(fullMessage, {transfer});
     }
 
     close() {
@@ -225,7 +225,7 @@ export const postMessageFromWorker = <T extends MessageSchema>(
     transfer: Transferable[] = [],
 ) => {
     try {
-        (postMessage as (...args: unknown[]) => unknown)(message, undefined, transfer);
+        (postMessage as (...args: unknown[]) => unknown)(message, {transfer});
     } catch (error) {
         postMessage({type: 'error', message: error, originId: message.originId} satisfies MessageFromWorker<T>);
     }

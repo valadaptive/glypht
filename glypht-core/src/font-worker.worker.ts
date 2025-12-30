@@ -40,7 +40,7 @@ const listener = async(event: MessageEvent) => {
                     type: 'got-font-data',
                     message: {data, format},
                     originId: message.id,
-                }, [data]);
+                }, [data.buffer]);
                 break;
             }
             case 'get-font-file-data': {
@@ -50,7 +50,7 @@ const listener = async(event: MessageEvent) => {
                     type: 'got-font-file-data',
                     message: data,
                     originId: message.id,
-                }, [data]);
+                }, [data.buffer]);
                 break;
             }
             case 'get-font-file-hash': {
