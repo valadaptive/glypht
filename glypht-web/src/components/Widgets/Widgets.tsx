@@ -40,22 +40,31 @@ export const Dropdown = <T extends string | number>({value, options, className, 
     );
 };
 
-export const SpinBox = ({value, min, max, step = 1, smartAim = 0, className}: {
+export const SpinBox = ({
+    value,
+    min,
+    max,
+    step = 1,
+    smartAim = 0,
+    disabled,
+    className,
+    inputId,
+    'aria-labelledby': labelledBy,
+}: {
     value: Signal<number>;
     min: number;
     max: number;
     step?: number | 'any';
     smartAim?: number;
+    disabled?: boolean;
     className?: string;
+    inputId?: string;
+    'aria-labelledby'?: string;
 }): JSX.Element => {
     const handleInput = useCallback((event: Event) => {
         const newValue = Number((event.target as HTMLInputElement).value);
         value.value = newValue;
     }, [value]);
-
-    const handleDrag = useCallback((event: Event) => {
-        event.preventDefault();
-    }, []);
 
     const increment = useCallback(() => {
         value.value = Math.min(value.value + (step === 'any' ? 1 : step), max);
@@ -83,32 +92,41 @@ export const SpinBox = ({value, min, max, step = 1, smartAim = 0, className}: {
     }, []);
 
     // Drag up/down to change the value
-    const deadZone = useRef({bottom: 0, top: 0});
-    const valueStart = useRef(0);
-    const isDragging = useRef(false);
     const handlePointerDown = useCallback((event: TargetedEvent<HTMLInputElement, PointerEvent>) => {
+        // For the first drag, focus the input element and prevent selecting text until subsequent pointer events
+        if (document.activeElement !== event.currentTarget) {
+            event.preventDefault();
+            event.currentTarget.focus();
+        }
+        if (disabled) return;
         // Don't count up/down drags if the cursor is inside the spinbox
         const target = event.currentTarget;
         const rect = target.getBoundingClientRect();
-        deadZone.current = {bottom: rect.bottom, top: rect.top};
-        valueStart.current = value.value;
+        const deadZone = rect;
+        const valueStart = value.value;
 
         const onMove = (event: PointerEvent) => {
             let mouseDelta = 0;
-            if (event.clientY < deadZone.current.top) {
-                mouseDelta = event.clientY - deadZone.current.top;
-            } else if (event.clientY > deadZone.current.bottom) {
-                mouseDelta = event.clientY - deadZone.current.bottom;
+            if (event.clientY < deadZone.top) {
+                mouseDelta += event.clientY - deadZone.top;
+            } else if (event.clientY > deadZone.bottom) {
+                mouseDelta += event.clientY - deadZone.bottom;
             }
-            isDragging.current = mouseDelta !== 0;
-            if (!isDragging.current) return;
+
+            if (event.clientX < deadZone.left) {
+                mouseDelta -= event.clientX - deadZone.left;
+            } else if (event.clientX > deadZone.right) {
+                mouseDelta -= event.clientX - deadZone.right;
+            }
+
+            if (mouseDelta === 0) return;
 
             document.getSelection()?.empty();
 
             // 200px (in either direction; it's the "radius", not "diameter") for the slider to go from min to max
             const valueDelta = mouseDelta * (max - min) / 200;
 
-            const newValue = valueStart.current - valueDelta;
+            const newValue = valueStart - valueDelta;
             const clampedValue = Math.max(min, Math.min(newValue, max));
             let roundedValue = step === 'any' ? clampedValue : Math.round(clampedValue / step) * step;
             if (smartAim > 0) {
@@ -128,70 +146,66 @@ export const SpinBox = ({value, min, max, step = 1, smartAim = 0, className}: {
 
         window.addEventListener('pointermove', onMove);
         window.addEventListener('pointerup', onUp);
-    }, [min, max, value]);
+    }, [min, max, value, disabled]);
 
     const handleFocus = useCallback(() => {
+        if (disabled) return;
         isEditing.value = true;
-    }, [isEditing]);
+    }, [isEditing, disabled]);
     const handleBlur = useCallback(() => {
         isEditing.value = false;
         // Ensure the value is clamped to min/max when editing ends
         value.value = Math.max(min, Math.min(value.value, max));
     }, [isEditing, value, min, max]);
-    const onCreateInput = useCallback((elem: HTMLInputElement | null) => {
-        elem?.focus();
-    }, []);
-
-    const valueText = Number(value.value.toFixed(12)).toString();
 
     return (
-        <div className={classNames(style.spinboxWrapper, className)}>
-            {isEditing.value ? <input
-                className={style.spinboxField}
+        <div className={classNames(
+            style.spinboxWrapper,
+            className,
+            disabled && style.disabled,
+        )} aria-disabled={disabled}>
+            <input
+                className={classNames(
+                    style.spinboxField,
+                    !isEditing.value && style.spinboxIdle,
+                    'tabular-nums',
+                    disabled && style.disabled,
+                )}
                 type="number"
                 min={min}
                 max={max}
                 step={step}
                 value={Number(value.value.toFixed(12))}
+                disabled={disabled}
                 onInput={handleInput}
-                id={spinboxId}
+                id={inputId ?? spinboxId}
+                onFocus={handleFocus}
                 onBlur={handleBlur}
-                ref={onCreateInput}
-            /> :
-                <div
-                    className={classNames(style.spinboxDisplay, 'tabular-nums')}
-                    onInput={handleInput}
-                    onDragCapture={handleDrag}
-                    id={spinboxId}
-                    onPointerDown={handlePointerDown}
-                    tabIndex={0}
-                    onFocus={handleFocus}
-                    aria-valuemin={min}
-                    aria-valuemax={max}
-                    aria-valuenow={value.value}
-                    aria-valuetext={valueText}
-                    role='spinbutton'
-                >{valueText}</div>}
+                onPointerDown={handlePointerDown}
+                aria-labelledby={labelledBy}
+            />
             <div className={style.spinboxButtons}>
-                <div
+                <button
                     onClick={increment}
+                    disabled={disabled || (value.value === max)}
                     className={style.spinboxButton}
                     role="button"
-                    aria-controls={spinboxId}
+                    aria-controls={inputId ?? spinboxId}
                     aria-label="Increment"
                 >
                     <div className={style.spinboxUp} />
-                </div>
+                </button>
                 <div className={style.spinboxButtonDivider} />
-                <div
+                <button
                     onClick={decrement}
+                    disabled={disabled || (value.value === min)}
                     className={style.spinboxButton}
                     role="button"
-                    aria-controls={spinboxId}
+                    aria-controls={inputId ?? spinboxId}
                     aria-label="Decrement"
                 >
                     <div className={style.spinboxDown} />
-                </div>
+                </button>
             </div>
         </div>
     );

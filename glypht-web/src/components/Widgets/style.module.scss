@@ -36,7 +36,8 @@
     overflow: hidden;
 }
 
-.spinbox-display, input[type=number].spinbox-field {
+input[type=number].spinbox-field {
+    appearance: textfield;
     width: 3.5rem;
     padding: global.$textbox-padding-y 0 global.$textbox-padding-y global.$textbox-padding-x;
     background: none;
@@ -44,19 +45,18 @@
     margin: 0;
     font-size: 0.9rem;
     font-weight: 600;
-    color: theme.$text;
     outline: none;
-}
-
-.spinbox-display {
-    cursor: ns-resize;
-}
-
-input[type=number].spinbox-field {
-    appearance: textfield;
 
     &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
         display: none;
+    }
+
+    &.spinbox-idle {
+        cursor: all-scroll;
+    }
+
+    &.disabled.spinbox-idle {
+        cursor: not-allowed;
     }
 }
 
