@@ -1,6 +1,6 @@
 # Experimental makefile for building using wasi-sdk instead of emscripten.
 
-WASI_SDK_PATH ?= ~/Downloads/wasi-sdk-27.1gd05b57d2a212+m-x86_64-linux
+WASI_SDK_PATH ?= ~/Downloads/wasi-sdk-29.0-x86_64-linux
 CC := $(WASI_SDK_PATH)/bin/clang
 CXX := $(WASI_SDK_PATH)/bin/clang++
 LD := $(WASI_SDK_PATH)/bin/wasm-ld
@@ -66,6 +66,7 @@ woff2:
 		-DCMAKE_TOOLCHAIN_FILE=${WASI_SDK_PATH}/share/cmake/wasi-sdk-p1.cmake \
 		-DCMAKE_CXX_FLAGS="-fno-exceptions" \
 		-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=TRUE \
+    	-DBROTLI_STATIC_INIT=EARLY \
 		-DCMAKE_BUILD_TYPE=MinSizeRel \
 		../woff2
 	cd woff2-build && $(MAKE)
