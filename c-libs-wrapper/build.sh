@@ -137,6 +137,10 @@ em++ \
     harfbuzz/src/harfbuzz-subset.cc
 
 em++ \
+    -fno-exceptions \
+    -fno-rtti \
+    -fno-threadsafe-statics \
+    -fvisibility-inlines-hidden \
     -s MODULARIZE \
     -s EXPORT_ES6 \
     -s EXPORT_NAME=createHarfBuzz \
@@ -166,6 +170,10 @@ em++ \
 # harfbuzz for shaping (used when generating Google Fonts metadata)
 
 em++ \
+    -fno-exceptions \
+    -fno-rtti \
+    -fno-threadsafe-statics \
+    -fvisibility-inlines-hidden \
     -s MODULARIZE \
     -s EXPORT_ES6 \
     -s EXPORT_NAME=createHarfBuzz \
