@@ -39,7 +39,6 @@
 		"markdown-it-attrs": "^4.3.1",
 		"markdown-it-footnote": "^4.0.0",
 		"preact-render-to-string": "^6.6.1",
-		"protobufjs": "^7.5.3",
 		"sass": "^1.93.2",
 		"shiki": "^3.13.0",
 		"tsx": "^4.20.5",
@@ -48,7 +47,6 @@
 		"typescript": "^5.9.2",
 		"vite": "^7.1.7",
 		"vite-bundle-analyzer": "^1.2.3",
-		"vite-node": "^3.2.4",
 		"yaml": "^2.7.1"
 	}
 }

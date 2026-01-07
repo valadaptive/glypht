@@ -9,8 +9,10 @@ export default tseslint.config(
         ignores: [
             '**/public/**/*.{cjs,mjs,js,ts,jsx,tsx}',
             '**/c-libs-wrapper/**/*',
+            '**/.rollup.cache/**/*',
             'glypht-*/src/generated/**/*',
             'glypht-*/dist/**/*',
+            'glypht-web/_site/**/*',
             'scripts/dist/**/*',
         ],
     },
@@ -134,9 +136,6 @@ export default tseslint.config(
     {
         files: ['scripts/**/*'],
         languageOptions: {
-            parserOptions: {
-                project: 'scripts/tsconfig.json',
-            },
             globals: {
                 ...globals.node,
             },

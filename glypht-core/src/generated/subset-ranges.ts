@@ -186,6 +186,7 @@ const SUBSET_RANGES: Record<SubsetName, string> = {
     'znamenny': "xgTAQAAAc5ggtwvEQOY=",
 };
 
+// Temporarily disabled since we don't use these currently
 const SUBSET_SLICES: Partial<Record<SubsetName, string[]>> = {};
 
 export type CharacterSubsetInfo = {
