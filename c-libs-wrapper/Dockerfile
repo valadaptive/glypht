@@ -1,3 +1,3 @@
-FROM emscripten/emsdk:4.0.18
+FROM emscripten/emsdk:4.0.22
 
 RUN npm install -g typescript
