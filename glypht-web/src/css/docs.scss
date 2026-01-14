@@ -140,8 +140,21 @@ pre, .tsd-signature {
   color: var(--hl-keyword);
 }
 
-// Punctuation and operators: [], {}, (), |, &, :, ?, etc.
-.tsd-signature-symbol {
+.tsd-signature-string-literal {
+  color: var(--hl-string);
+}
+
+.tsd-signature-number-literal {
+  color: var(--hl-number);
+}
+
+// Punctuation: [], {}, (), etc.
+.tsd-signature-punctuation {
+  color: var(--hl-punctuation);
+}
+
+// Operators: |, &, etc.
+.tsd-signature-operator {
   color: var(--hl-operator);
 }
 

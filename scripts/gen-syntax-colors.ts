@@ -2,7 +2,7 @@
 import * as fs from 'node:fs/promises';
 
 import type {ThemeRegistration} from '@shikijs/core';
-import {bundledThemes} from 'shiki/themes';
+import {BundledTheme, bundledThemes} from 'shiki/themes';
 
 /**
  * Utility script to generate CSS variables from Shiki themes. These variables are used for highlighting generated CSS,
@@ -34,8 +34,10 @@ type Colors = {
 function extractColors(theme: ThemeRegistration): Colors {
     const colors = {
         // Base colors
-        foreground: theme.colors?.['editor.foreground'],
-        background: theme.colors?.['editor.background'],
+        // foreground: theme.colors?.['editor.foreground'],
+        // background: theme.colors?.['editor.background'],
+        foreground: 'var(--text)',
+        background: 'var(--base-color-secondary-dark)',
 
         // Semantic token colors
         ...theme.semanticTokenColors,
@@ -72,7 +74,7 @@ function mapTypeScriptColors(colors: Colors) {
         // Fallback patterns
         for (const pattern of patterns) {
             for (const [scope, color] of Object.entries(tokenColors)) {
-                if (scope.includes(pattern)) {
+                if (scope === pattern) {
                     return color;
                 }
             }
@@ -87,15 +89,14 @@ function mapTypeScriptColors(colors: Colors) {
         'hl-string': findColor(['string', 'string.quoted']),
         'hl-number': findColor(['constant.numeric', 'constant.language.numeric']),
         'hl-comment': findColor(['comment', 'comment.line', 'comment.block']),
-        'hl-punctuation': colors.foreground,
 
         // Types and classes
         'hl-type': findColor(['support.type', 'entity.name.type', 'storage.type']),
-        'hl-class': findColor(['entity.name.type.class', 'support.class']),
-        'hl-interface': findColor(['entity.name.type.interface', 'support.class']),
-        'hl-enum': findColor(['entity.name.type.enum', 'support.type']),
+        'hl-class': findColor(['entity.name.type.class', 'support.class', 'entity.name']),
+        'hl-interface': findColor(['entity.name.type.interface', 'support.class', 'entity.name']),
+        'hl-enum': findColor(['entity.name.type.enum', 'entity.name', 'support.type']),
         'hl-type-parameter': findColor(['entity.name.type.parameter', 'support.type']),
-        'hl-type-alias': findColor(['entity.name.type.alias', 'support.type']),
+        'hl-type-alias': findColor(['entity.name.type.alias', 'entity.name', 'support.type']),
 
         // Functions and methods
         'hl-function': findColor(['entity.name.function', 'support.function']),
@@ -121,7 +122,8 @@ function mapTypeScriptColors(colors: Colors) {
         'hl-project': findColor(['entity.name.namespace', 'entity.name.type.module']),
         'hl-reference': findColor(['variable.other.readwrite', 'variable']),
 
-        'hl-operator': findColor(['keyword.operator', 'punctuation.definition.operator']),
+        'hl-operator': findColor(['keyword.operator', 'punctuation.definition.operator', 'punctuation']),
+        'hl-punctuation': findColor(['punctuation']),
 
         'hl-foreground': colors.foreground,
         'hl-background': colors.background,
@@ -164,11 +166,11 @@ function generateShikiTheme(originalTheme: ThemeRegistration) {
 
         // Types and classes
         'hl-type': ['support.type', 'entity.name.type', 'storage.type'],
-        'hl-class': ['entity.name.type.class', 'support.class'],
-        'hl-interface': ['entity.name.type.interface'],
-        'hl-enum': ['entity.name.type.enum'],
-        'hl-type-parameter': ['entity.name.type.parameter'],
-        'hl-type-alias': ['entity.name.type.alias'],
+        'hl-class': ['entity.name.type.class', 'support.class', 'entity.name'],
+        'hl-interface': ['entity.name.type.interface', 'entity.name'],
+        'hl-enum': ['entity.name.type.enum', 'entity.name'],
+        'hl-type-parameter': ['entity.name.type.parameter', 'entity.name'],
+        'hl-type-alias': ['entity.name.type.alias', 'entity.name'],
 
         // Functions and methods
         'hl-function': ['entity.name.function', 'support.function'],
@@ -181,6 +183,7 @@ function generateShikiTheme(originalTheme: ThemeRegistration) {
         'hl-module': ['entity.name.namespace', 'entity.name.type.module'],
 
         'hl-operator': ['keyword.operator', 'punctuation.definition.operator'],
+        'hl-punctuation': ['punctuation'],
     };
 
     // Helper function to find the best CSS variable for a scope
@@ -189,15 +192,6 @@ function generateShikiTheme(originalTheme: ThemeRegistration) {
         for (const [cssVar, patterns] of Object.entries(scopePatternToCssVar)) {
             if (patterns.includes(scope)) {
                 return `var(--${cssVar})`;
-            }
-        }
-
-        // Check for partial matches
-        for (const [cssVar, patterns] of Object.entries(scopePatternToCssVar)) {
-            for (const pattern of patterns) {
-                if (scope.includes(pattern)) {
-                    return `var(--${cssVar})`;
-                }
             }
         }
 
@@ -271,9 +265,13 @@ function generateShikiTheme(originalTheme: ThemeRegistration) {
 }
 
 async function main() {
-    const theme = (await bundledThemes['dark-plus']()).default;
+    const themeName = process.argv[2] ?? 'dark-plus';
 
-    console.log('Extracting colors from theme...');
+    console.log(`Extracting colors from theme ${themeName}...`);
+    if (!(themeName in bundledThemes)) {
+        throw new Error(`${themeName} is not a valid theme (themes are ${Object.keys(bundledThemes).join(', ')})`);
+    }
+    const theme = (await bundledThemes[themeName as BundledTheme]()).default;
     const extractedColors = extractColors(theme);
 
     console.log('Mapping TypeScript colors...');

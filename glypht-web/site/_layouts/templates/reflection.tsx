@@ -121,13 +121,13 @@ function renderIndexSignature(context: SimpleThemeContext, index: SignatureRefle
                         {' '}
                     </>
                 )}
-                <span class="tsd-signature-symbol">[</span>
+                <span class="tsd-signature-punctuation">[</span>
                 {index.parameters!.map((item) => (
                     <>
                         <span class={getKindClass(item)}>{item.name}</span>: {renderType(context, item.type)}
                     </>
                 ))}
-                <span class="tsd-signature-symbol">]:</span> {renderType(context, index.type)}
+                <span class="tsd-signature-punctuation">]:</span> {renderType(context, index.type)}
             </pre>
             {commentSummary(context, index)}
             {commentTags(context, index)}

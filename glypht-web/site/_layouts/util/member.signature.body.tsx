@@ -35,12 +35,12 @@ export function memberSignatureBody(
                             <li>
                                 <pre class="tsd-signature">
                                     {reflectionFlags(context, item)}
-                                    {item.flags.isRest && <span class='tsd-signature-symbol'>...</span>}
+                                    {item.flags.isRest && <span class='tsd-signature-operator'>...</span>}
                                     <span class='tsd-kind-parameter'>{item.name}</span>
-                                    {': '}
+                                    <span class='tsd-signature-punctuation'>{': '}</span>
                                     {renderType(context, item.type)}
                                     {item.defaultValue && (
-                                        <span class='tsd-signature-symbol'>
+                                        <span class='tsd-signature-operator'>
                                             {' = '}
                                             {item.defaultValue}
                                         </span>

@@ -1,3 +1,4 @@
+/* eslint-disable @stylistic/max-len */
 import type {
     CommentDisplayPart,
     DeclarationReflection,
@@ -303,9 +304,9 @@ function renderChild(
             <li class="tsd-parameter">
                 <pre class="tsd-parameter-signature" id={anchorTargetIfPresent(context, child)}>
                     <code>
-                        {child.flags.isRest && <span class="tsd-signature-symbol">...</span>}
+                        {child.flags.isRest && <span class="tsd-signature-operator">...</span>}
                         <span class={getKindClass(child)}>{child.name}</span>
-                        <span class="tsd-signature-symbol">{child.flags.isOptional && '?'}:</span> function
+                        <span class="tsd-signature-punctuation">{child.flags.isOptional && '?'}:</span> function
                     </code>
                 </pre>
 
@@ -335,9 +336,9 @@ function renderChild(
                 {reflectionFlags(context, child)}
                 <pre class="tsd-parameter-signature" id={anchorTargetIfPresent(context, child)}>
                     <code>
-                        {child.flags.isRest && <span class="tsd-signature-symbol">...</span>}
+                        {child.flags.isRest && <span class="tsd-signature-operator">...</span>}
                         <span class={getKindClass(child)}>{child.name}</span>
-                        <span class="tsd-signature-symbol">
+                        <span class="tsd-signature-punctuation">
                             {child.flags.isOptional && '?'}
                             {': '}
                         </span>
@@ -364,7 +365,7 @@ function renderChild(
                             {reflectionFlags(context, child.getSignature)}
                             <span class="tsd-signature-keyword">get</span>{' '}
                             <span class={getKindClass(child)}>{child.name}</span>
-                            <span class="tsd-signature-symbol">():</span> {renderType(context, child.getSignature.type)}
+                            <span class="tsd-signature-punctuation">():</span> {renderType(context, child.getSignature.type)}
                         </code>
                     </pre>
 
@@ -381,14 +382,14 @@ function renderChild(
                             {reflectionFlags(context, child.setSignature)}
                             <span class="tsd-signature-keyword">set</span>{' '}
                             <span class={getKindClass(child)}>{child.name}</span>
-                            <span class="tsd-signature-symbol">(</span>
+                            <span class="tsd-signature-punctuation">(</span>
                             {child.setSignature.parameters?.map((item) => (
                                 <>
                                     {item.name}
-                                    <span class="tsd-signature-symbol">:</span> {renderType(context, item.type)}
+                                    <span class="tsd-signature-punctuation">:</span> {renderType(context, item.type)}
                                 </>
                             ))}
-                            <span class="tsd-signature-symbol">):</span> {renderType(context, child.setSignature.type)}
+                            <span class="tsd-signature-punctuation">):</span> {renderType(context, child.setSignature.type)}
                         </code>
                     </pre>
 
@@ -409,7 +410,7 @@ function renderIndexSignature(context: SimpleThemeContext, index: SignatureRefle
                         {' '}
                     </>
                 )}
-                <span class="tsd-signature-symbol">[</span>
+                <span class="tsd-signature-punctuation">[</span>
                 {index.parameters!.map((item) => (
                     <>
                         <span class={getKindClass(item)}>{item.name}</span>
@@ -417,7 +418,7 @@ function renderIndexSignature(context: SimpleThemeContext, index: SignatureRefle
                         {renderType(context, item.type)}
                     </>
                 ))}
-                <span class="tsd-signature-symbol">]:</span> {renderType(context, index.type)}
+                <span class="tsd-signature-punctuation">]:</span> {renderType(context, index.type)}
             </h5>
             {commentSummary(context, index)}
             {commentTags(context, index)}

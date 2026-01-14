@@ -37,7 +37,7 @@ export function memberDeclaration(context: SimpleThemeContext, props: Declaratio
                     return {type: 'nodes', content};
                 })}
                 {shouldRenderDefaultValue(props) && (
-                    <span class='tsd-signature-symbol'>
+                    <span class='tsd-signature-operator'>
                         {' = '}
                         {props.defaultValue}
                     </span>

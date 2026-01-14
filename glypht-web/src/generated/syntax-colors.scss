@@ -1,11 +1,11 @@
 /**
- * TypeScript/TypeDoc syntax highlighting colors
- * Generated from VS Code Dark Plus theme
+ * TypeScript/TypeDoc/CSS syntax highlighting colors
+ * Generated from scripts/gen-syntax-colors.ts
  */
 
 :root {
     --hl-accessor: #DCDCAA;
-    --hl-background: #1E1E1E;
+    --hl-background: var(--base-color-secondary-dark);
     --hl-call-signature: #DCDCAA;
     --hl-class: #4EC9B0;
     --hl-comment: #6A9955;
@@ -13,7 +13,7 @@
     --hl-constructor-signature: #DCDCAA;
     --hl-enum: #4EC9B0;
     --hl-enum-member: #4FC1FF;
-    --hl-foreground: #D4D4D4;
+    --hl-foreground: var(--text);
     --hl-function: #DCDCAA;
     --hl-get-signature: #DCDCAA;
     --hl-index-signature: #DCDCAA;
@@ -27,7 +27,7 @@
     --hl-parameter: #9CDCFE;
     --hl-project: #4EC9B0;
     --hl-property: #4FC1FF;
-    --hl-punctuation: #D4D4D4;
+    --hl-punctuation: var(--text);
     --hl-reference: #9CDCFE;
     --hl-set-signature: #DCDCAA;
     --hl-string: #ce9178;

@@ -261,7 +261,7 @@ const typeBuilder: TypeVisitor<
     array(type, builder) {
         return nodes(
             builder.type(type.elementType, TypeContext.arrayElement),
-            spanNode('tsd-signature-symbol', '[]'),
+            spanNode('tsd-signature-punctuation', '[]'),
         );
     },
     conditional(type, builder) {
@@ -274,11 +274,11 @@ const typeBuilder: TypeVisitor<
             builder.type(type.extendsType, TypeContext.conditionalExtends),
             spaceOrLine(),
             indent([
-                spanNode('tsd-signature-symbol', '?'),
+                spanNode('tsd-signature-operator', '?'),
                 space(),
                 builder.type(type.trueType, TypeContext.conditionalTrue),
                 spaceOrLine(),
-                spanNode('tsd-signature-symbol', ':'),
+                spanNode('tsd-signature-operator', ':'),
                 space(),
                 builder.type(type.falseType, TypeContext.conditionalFalse),
             ]),
@@ -309,9 +309,9 @@ const typeBuilder: TypeVisitor<
 
         return nodes(
             builder.type(type.objectType, TypeContext.indexedObject),
-            spanNode('tsd-signature-symbol', '['),
+            spanNode('tsd-signature-punctuation', '['),
             indexType,
-            spanNode('tsd-signature-symbol', ']'),
+            spanNode('tsd-signature-punctuation', ']'),
         );
     },
     inferred(type, builder) {
@@ -345,7 +345,7 @@ const typeBuilder: TypeVisitor<
         return join(
             nodes(
                 space(),
-                spanNode('tsd-signature-symbol', '&amp;'),
+                spanNode('tsd-signature-operator', '&amp;'),
                 space(),
             ),
             type.types,
@@ -356,7 +356,20 @@ const typeBuilder: TypeVisitor<
         return spanNode('tsd-signature-type', type.name);
     },
     literal(type) {
-        return spanNode('tsd-signature-type', stringify(type.value));
+        let literalClass;
+        switch (typeof type.value) {
+            case 'string':
+                literalClass = 'tsd-signature-string-literal';
+                break;
+            case 'number':
+            case 'bigint':
+                literalClass = 'tsd-signature-number-literal';
+                break;
+            default:
+                literalClass = 'tsd-signature-keyword';
+                break;
+        }
+        return spanNode(literalClass, stringify(type.value));
     },
     mapped(type, builder) {
         const parts: FormatterNode[] = [];
@@ -370,7 +383,7 @@ const typeBuilder: TypeVisitor<
                 break;
             case '-':
                 parts.push(
-                    spanNode('tsd-signature-symbol', '-'),
+                    spanNode('tsd-signature-operator', '-'),
                     spanNode('tsd-signature-keyword', 'readonly'),
                     space(),
                 );
@@ -378,7 +391,7 @@ const typeBuilder: TypeVisitor<
         }
 
         parts.push(
-            spanNode('tsd-signature-symbol', '['),
+            spanNode('tsd-signature-punctuation', '['),
             spanNode('tsd-kind-type-parameter', type.parameter),
             space(),
             spanNode('tsd-signature-keyword', 'in'),
@@ -395,22 +408,22 @@ const typeBuilder: TypeVisitor<
             );
         }
 
-        parts.push(spanNode('tsd-signature-symbol', ']'));
+        parts.push(spanNode('tsd-signature-punctuation', ']'));
 
         switch (type.optionalModifier) {
             case '+':
                 parts.push(
-                    spanNode('tsd-signature-symbol', '?:'),
+                    spanNode('tsd-signature-punctuation', '?:'),
                 );
                 break;
             case '-':
                 parts.push(
-                    spanNode('tsd-signature-symbol', '-?:'),
+                    spanNode('tsd-signature-punctuation', '-?:'),
                 );
                 break;
             default:
                 parts.push(
-                    spanNode('tsd-signature-symbol', ':'),
+                    spanNode('tsd-signature-punctuation', ':'),
                 );
         }
 
@@ -420,19 +433,19 @@ const typeBuilder: TypeVisitor<
         );
 
         return group(builder.newId(), [
-            spanNode('tsd-signature-symbol', '{'),
+            spanNode('tsd-signature-punctuation', '{'),
             spaceOrLine(),
             indent(parts),
             spaceOrLine(),
-            spanNode('tsd-signature-symbol', '}'),
+            spanNode('tsd-signature-punctuation', '}'),
         ]);
     },
     namedTupleMember(type, builder) {
         return nodes(
             textNode(type.name),
             type.isOptional ?
-                spanNode('tsd-signature-symbol', '?:') :
-                spanNode('tsd-signature-symbol', ':'),
+                spanNode('tsd-signature-punctuation', '?:') :
+                spanNode('tsd-signature-punctuation', ':'),
             space(),
             builder.type(type.element, TypeContext.none),
         );
@@ -440,7 +453,7 @@ const typeBuilder: TypeVisitor<
     optional(type, builder) {
         return nodes(
             builder.type(type.elementType, TypeContext.optionalElement),
-            spanNode('tsd-signature-symbol', '?'),
+            spanNode('tsd-signature-punctuation', '?'),
         );
     },
     predicate(type, builder) {
@@ -487,7 +500,7 @@ const typeBuilder: TypeVisitor<
                 );
             } else {
                 name = join(
-                    spanNode('tsd-signature-symbol', '.'),
+                    spanNode('tsd-signature-punctuation', '.'),
                     getUniquePath(reflection),
                     (item) => {
                         return spanNode(
@@ -514,12 +527,12 @@ const typeBuilder: TypeVisitor<
             const id = builder.newId();
             return group(id, [
                 name,
-                spanNode('tsd-signature-symbol', '<'),
+                spanNode('tsd-signature-punctuation', '<'),
                 line(),
                 indent([
                     join(
                         nodes(
-                            spanNode('tsd-signature-symbol', ','),
+                            spanNode('tsd-signature-punctuation', ','),
                             spaceOrLine(),
                         ),
                         type.typeArguments,
@@ -531,11 +544,11 @@ const typeBuilder: TypeVisitor<
                     ),
                     ifWrap(
                         id,
-                        spanNode('tsd-signature-symbol', ','),
+                        spanNode('tsd-signature-punctuation', ','),
                     ),
                 ]),
                 line(),
-                spanNode('tsd-signature-symbol', '>'),
+                spanNode('tsd-signature-punctuation', '>'),
             ]);
         }
 
@@ -546,14 +559,14 @@ const typeBuilder: TypeVisitor<
     },
     rest(type, builder) {
         return nodes(
-            spanNode('tsd-signature-symbol', '...'),
+            spanNode('tsd-signature-operator', '...'),
             builder.type(type.elementType, TypeContext.restElement),
         );
     },
     templateLiteral(type, builder) {
         const content: FormatterNode[] = [];
         content.push(
-            spanNode('tsd-signature-symbol', '`'),
+            spanNode('tsd-signature-punctuation', '`'),
         );
 
         if (type.head) {
@@ -564,9 +577,9 @@ const typeBuilder: TypeVisitor<
 
         for (const item of type.tail) {
             content.push(
-                spanNode('tsd-signature-symbol', '${'),
+                spanNode('tsd-signature-operator', '${'),
                 builder.type(item[0], TypeContext.templateLiteralElement),
-                spanNode('tsd-signature-symbol', '}'),
+                spanNode('tsd-signature-operator', '}'),
             );
             if (item[1]) {
                 content.push(
@@ -576,7 +589,7 @@ const typeBuilder: TypeVisitor<
         }
 
         content.push(
-            spanNode('tsd-signature-symbol', '`'),
+            spanNode('tsd-signature-punctuation', '`'),
         );
 
         return nodes(...content);
@@ -585,12 +598,12 @@ const typeBuilder: TypeVisitor<
         const id = builder.newId();
 
         return group(id, [
-            spanNode('tsd-signature-symbol', '['),
+            spanNode('tsd-signature-punctuation', '['),
             line(),
             indent([
                 join(
                     nodes(
-                        spanNode('tsd-signature-symbol', ','),
+                        spanNode('tsd-signature-punctuation', ','),
                         spaceOrLine(),
                     ),
                     type.elements,
@@ -599,10 +612,10 @@ const typeBuilder: TypeVisitor<
             ]),
             ifWrap(
                 id,
-                spanNode('tsd-signature-symbol', ','),
+                spanNode('tsd-signature-punctuation', ','),
             ),
             line(),
-            spanNode('tsd-signature-symbol', ']'),
+            spanNode('tsd-signature-punctuation', ']'),
         ]);
     },
     typeOperator(type, builder) {
@@ -615,7 +628,7 @@ const typeBuilder: TypeVisitor<
     union(type, builder) {
         const parentId = builder.id;
         const id = builder.newId();
-        const pipe = spanNode('tsd-signature-symbol', '|');
+        const pipe = spanNode('tsd-signature-operator', '|');
 
         const elements = type.types.flatMap((type, i) => [
             i === 0 ? ifWrap(id, nodes(pipe, space())) : space(),
@@ -699,15 +712,15 @@ export class FormattedCodeBuilder {
                                 space(),
                             ] :
                             []),
-                        spanNode('tsd-signature-symbol', '['),
+                        spanNode('tsd-signature-punctuation', '['),
                         spanNode(
                             getKindClass(index),
                             index.parameters![0].name,
                         ),
-                        spanNode('tsd-signature-symbol', ':'),
+                        spanNode('tsd-signature-punctuation', ':'),
                         space(),
                         this.type(index.parameters![0].type, TypeContext.none),
-                        spanNode('tsd-signature-symbol', ']:'),
+                        spanNode('tsd-signature-punctuation', ']:'),
                         space(),
                         this.type(index.type, TypeContext.none),
                     ),
@@ -732,12 +745,12 @@ export class FormattedCodeBuilder {
                 this.forceWrap.add(id);
             }
             return group(id, [
-                spanNode('tsd-signature-symbol', '{'),
+                spanNode('tsd-signature-punctuation', '{'),
                 spaceOrLine(),
                 indent([
                     join(
                         nodes(
-                            spanNode('tsd-signature-symbol', ';'),
+                            spanNode('tsd-signature-punctuation', ';'),
                             spaceOrLine(),
                         ),
                         members,
@@ -746,14 +759,14 @@ export class FormattedCodeBuilder {
                 ]),
                 ifWrap(
                     id,
-                    spanNode('tsd-signature-symbol', ';'),
+                    spanNode('tsd-signature-punctuation', ';'),
                 ),
                 spaceOrLine(),
-                spanNode('tsd-signature-symbol', '}'),
+                spanNode('tsd-signature-punctuation', '}'),
             ]);
         }
 
-        return spanNode('tsd-signature-symbol', '{}');
+        return spanNode('tsd-signature-punctuation', '{}');
     }
 
     typeAlias(item: DeclarationReflection) {
@@ -763,7 +776,7 @@ export class FormattedCodeBuilder {
             spanNode(getKindClass(item), item.name),
             this.typeParameters(item),
             space(),
-            spanNode('tsd-signature-symbol', '='),
+            spanNode('tsd-signature-operator', '='),
             space(),
             this.reflection(item, {topLevelLinks: true}),
         );
@@ -813,7 +826,7 @@ export class FormattedCodeBuilder {
         members.push(
             nodes(
                 this.propertyName(item, options),
-                spanNode('tsd-signature-symbol', item.flags.isOptional ? '?:' : ':'),
+                spanNode('tsd-signature-punctuation', item.flags.isOptional ? '?:' : ':'),
                 space(),
                 this.type(item.type, TypeContext.none),
             ),
@@ -869,12 +882,14 @@ export class FormattedCodeBuilder {
         const id = this.newId();
         return group(id, [
             name,
-            sig.parent.flags.isOptional ? spanNode('tsd-signature-symbol', '?') : emptyNode,
+            sig.parent.flags.isOptional ? spanNode('tsd-signature-punctuation', '?') : emptyNode,
             this.typeParameters(sig),
             ...this.parameters(sig, id),
             nodes(
                 options.arrowStyle ? space() : emptyNode,
-                spanNode('tsd-signature-symbol', options.arrowStyle ? '=>' : ':'),
+                options.arrowStyle ?
+                    spanNode('tsd-signature-operator', '=>') :
+                    spanNode('tsd-signature-punctuation', ':'),
                 space(),
                 this.type(sig.type, TypeContext.none),
             ),
@@ -890,12 +905,12 @@ export class FormattedCodeBuilder {
 
         const id = this.newId();
         return group(id, [
-            spanNode('tsd-signature-symbol', '<'),
+            spanNode('tsd-signature-punctuation', '<'),
             line(),
             indent([
                 join(
                     nodes(
-                        spanNode('tsd-signature-symbol', ','),
+                        spanNode('tsd-signature-punctuation', ','),
                         spaceOrLine(),
                     ),
                     sig.typeParameters,
@@ -904,10 +919,10 @@ export class FormattedCodeBuilder {
             ]),
             ifWrap(
                 id,
-                spanNode('tsd-signature-symbol', ','),
+                spanNode('tsd-signature-punctuation', ','),
             ),
             line(),
-            spanNode('tsd-signature-symbol', '>'),
+            spanNode('tsd-signature-punctuation', '>'),
         ]);
     }
 
@@ -947,7 +962,7 @@ export class FormattedCodeBuilder {
         if (param.default) {
             content.push(
                 space(),
-                spanNode('tsd-signature-symbol', '='),
+                spanNode('tsd-signature-operator', '='),
                 space(),
                 this.type(param.default, TypeContext.none),
             );
@@ -959,17 +974,17 @@ export class FormattedCodeBuilder {
     private parameters(sig: SignatureReflection, id: number): FormatterNode[] {
         if (!sig.parameters?.length) {
             return [
-                spanNode('tsd-signature-symbol', '()'),
+                spanNode('tsd-signature-punctuation', '()'),
             ];
         }
 
         return [
-            spanNode('tsd-signature-symbol', '('),
+            spanNode('tsd-signature-punctuation', '('),
             line(),
             indent([
                 join(
                     nodes(
-                        spanNode('tsd-signature-symbol', ','),
+                        spanNode('tsd-signature-punctuation', ','),
                         spaceOrLine(),
                     ),
                     sig.parameters,
@@ -978,10 +993,10 @@ export class FormattedCodeBuilder {
             ]),
             ifWrap(
                 id,
-                spanNode('tsd-signature-symbol', ','),
+                spanNode('tsd-signature-punctuation', ','),
             ),
             line(),
-            spanNode('tsd-signature-symbol', ')'),
+            spanNode('tsd-signature-punctuation', ')'),
         ];
     }
 
@@ -989,7 +1004,7 @@ export class FormattedCodeBuilder {
         const content: FormatterNode[] = [];
         if (param.flags.isRest) {
             content.push(
-                spanNode('tsd-signature-symbol', '...'),
+                spanNode('tsd-signature-operator', '...'),
             );
         }
         content.push(
@@ -998,11 +1013,11 @@ export class FormattedCodeBuilder {
 
         if (param.flags.isOptional || param.defaultValue) {
             content.push(
-                spanNode('tsd-signature-symbol', '?:'),
+                spanNode('tsd-signature-punctuation', '?:'),
             );
         } else {
             content.push(
-                spanNode('tsd-signature-symbol', ':'),
+                spanNode('tsd-signature-punctuation', ':'),
             );
         }
         // Tricky: We don't introduce a branch here via group()
