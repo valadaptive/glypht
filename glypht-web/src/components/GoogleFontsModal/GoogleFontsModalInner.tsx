@@ -807,7 +807,7 @@ const GoogleFontsModalInner = ({fontsListState}: {fontsListState: LoadedGoogleFo
                     {items.value.map(({item: font, index}) => {
                         return <FontItem
                             key={font.name}
-                            highlightRanges={searchedFonts.info ?
+                            highlightRanges={searchedFonts.info && searchedFonts.order[index] ?
                                 searchedFonts.info.ranges[searchedFonts.order[index]] :
                                 undefined}
                             family={font}
