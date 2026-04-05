@@ -32,6 +32,8 @@ export type SourceProto = {
     archiveUrl?: string;
     configYaml?: string;
     files?: SourceFileProto[];
+    filesInGfontsPr?: number;
+    sourceFiles?: string[];
 };
 
 export type TargetTypeProto = "TARGET_UNSPECIFIED" | "TARGET_OS_WINDOWS" | "TARGET_OS_MAC" | "TARGET_OS_LINUX" | "TARGET_OS_ANDROID" | "TARGET_OS_IOS";

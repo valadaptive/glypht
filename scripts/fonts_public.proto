@@ -93,7 +93,11 @@ message SourceProto {
       6;  // See https://github.com/googlefonts/fontc/issues/1124
   repeated SourceFileProto files = 4;
 
-  // Next = 7
+  // These two fields appear to have been made up by Claude in https://github.com/google/fonts/pull/10354
+  optional int32 files_in_gfonts_pr = 7;
+  repeated string source_files = 8;
+
+  // Next = 8
 }
 
 // A file to take from source and where to put it in dest
