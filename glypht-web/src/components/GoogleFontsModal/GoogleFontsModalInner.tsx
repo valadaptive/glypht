@@ -293,7 +293,7 @@ const FontPreview = ({family}: {
             `${font.style === 'italic' ? 'Italic' : ''} ${font.weight === 400 ? 'Regular' : font.weight}`.trim() ||
             'Regular';
 
-        return <div key={font} className={style.fontSample}>
+        return <div key={font.fullName} className={style.fontSample}>
             <div className={style.fontStyleName}>{styleName}</div>
             <div
                 className={style.fontStylePreview}

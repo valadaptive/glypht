@@ -21,34 +21,32 @@ export const featureMetadata = (tag: string): FeatureMetadata => {
     if (cached) return cached;
     // There's a catch-all entry for character variants in the database under "cv01"; likewise for stylistic sets
     let lookupTag;
-    switch (tag.slice(0, 2)) {
-        case 'ss':
-            lookupTag = 'ss01';
-            break;
-        case 'cv':
-            lookupTag = 'cv01';
-            break;
-        default:
-            lookupTag = tag;
-            break;
+    let featureName: string | null = null;
+    const numberedTagMatch = /^(ss|cv)\d{2}$/.exec(tag);
+    if (numberedTagMatch) {
+        switch (numberedTagMatch[1]) {
+            case 'ss':
+                lookupTag = 'ss01';
+                featureName = `Stylistic Set ${Number(tag.slice(2))}`;
+                break;
+            case 'cv':
+                lookupTag = 'cv01';
+                featureName = `Character Variant ${Number(tag.slice(2))}`;
+                break;
+            default:
+                lookupTag = tag;
+                break;
+        }
+    } else {
+        lookupTag = tag;
     }
+
     const metadata = Object.prototype.hasOwnProperty.call(FEATURES, lookupTag) ?
         FEATURES[lookupTag as keyof typeof FEATURES] :
         null;
 
-    let featureName: string | null;
-    switch (tag.slice(0, 2)) {
-        case 'ss': {
-            featureName = `Stylistic Set ${Number(tag.slice(2))}`;
-            break;
-        }
-        case 'cv': {
-            featureName = `Character Variant ${Number(tag.slice(2))}`;
-            break;
-        }
-        default: {
-            featureName = metadata?.title ?? null;
-        }
+    if (featureName === null && metadata?.title) {
+        featureName = metadata.title;
     }
 
     const featureInfo: FeatureMetadata = {

@@ -11,7 +11,7 @@ const Modal = ({onClose, children, className}: {
         <div className={style.modalWrapper}>
             <div className={style.modalBg} onClick={onClose} />
             <div className={style.modalPositioner}>
-                <div className={classnames(style.modal, className)}>
+                <div className={classnames(style.modal, className)} role="dialog" aria-modal="true">
                     {children}
                 </div>
             </div>

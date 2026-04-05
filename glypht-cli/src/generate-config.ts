@@ -14,7 +14,7 @@ const stringlequote = (s: string, quotes: Quotes) => {
 };
 
 const maybeQuoteIdentifier = (s: string, quotes: Quotes) => {
-    if (/[a-z_][a-z0-9_]*/i.test(s)) return s;
+    if (/^[a-z_][a-z0-9_]*$/i.test(s)) return s;
     return stringlequote(s, quotes);
 };
 

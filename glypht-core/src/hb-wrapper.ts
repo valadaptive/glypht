@@ -61,7 +61,7 @@ const createHarfbuzzWrapped = async<T extends MinMainModule = OrigMainModule>(hb
         }
 
         data() {
-            return hb._hb_blob_get_data(this._ptr, this.length());
+            return hb._hb_blob_get_data(this._ptr, 0);
         }
 
         length() {
@@ -270,6 +270,9 @@ export const enum SubsetSets {
 }
 
 export const hbTag = (s: string) => {
+    if (s.length !== 4) {
+        throw new Error(`Tag with incorrect length: ${JSON.stringify(s)}`);
+    }
     return (
         ((s.charCodeAt(0) & 0xFF) << 24) |
         ((s.charCodeAt(1) & 0xFF) << 16) |

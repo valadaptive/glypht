@@ -51,6 +51,7 @@ const listener = async(event: MessageEvent) => {
             }
             case 'close': {
                 removeEventListener('message', listener);
+                break;
             }
         }
     } catch (error) {
@@ -176,8 +177,7 @@ const decompressWoff2 = async(woff2Font: Uint8Array) => {
     const dataPtr = woff2.malloc(woff2Font.byteLength);
     woff2.HEAPU8.set(woff2Font, dataPtr);
     try {
-        const initialDecompressedSize = woff2._compute_woff2_final_size(dataPtr, woff2Font.byteLength);
-        let outPtr = woff2.malloc(initialDecompressedSize);
+        let outPtr;
         try {
             return woff2.withStack(() => {
                 const resultLengthPtr = woff2.stackAlloc(4);
@@ -190,7 +190,7 @@ const decompressWoff2 = async(woff2Font: Uint8Array) => {
                 return woff2.HEAPU8.slice(outPtr, outPtr + woff2.readUint32(resultLengthPtr));
             });
         } finally {
-            woff2._free(outPtr);
+            if (outPtr) woff2._free(outPtr);
         }
     } finally {
         woff2._free(dataPtr);

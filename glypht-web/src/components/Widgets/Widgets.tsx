@@ -63,7 +63,7 @@ export const SpinBox = ({
 }): JSX.Element => {
     const handleInput = useCallback((event: Event) => {
         const newValue = Number((event.target as HTMLInputElement).value);
-        value.value = newValue;
+        if (Number.isFinite(newValue)) value.value = newValue;
     }, [value]);
 
     const increment = useCallback(() => {
@@ -524,7 +524,7 @@ export const SearchableCheckboxDropdown = <T extends string | number>({
                 className={classNames(style.searchableDropdownButton, isOpen.value && style.open)}
                 onClick={handleToggleDropdown}
                 type="button"
-                role="select"
+                role="combobox"
             >
                 <span
                     className={style.searchableDropdownButtonText}

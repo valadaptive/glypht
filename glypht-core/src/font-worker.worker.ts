@@ -65,6 +65,7 @@ const listener = async(event: MessageEvent) => {
             }
             case 'close': {
                 removeEventListener('message', listener);
+                break;
             }
         }
     } catch (error) {
@@ -133,7 +134,7 @@ const subsetFont = (fontId: number, settings: SubsetSettings): {
 } => {
     const font = fonts.get(fontId);
     if (!font) {
-        throw new Error(`No font with ID ${font}`);
+        throw new Error(`No font with ID ${fontId}`);
     }
     const subsettedFont = font.subset(settings);
     return {subsettedFont, transfer: [subsettedFont.data.buffer]};

@@ -43,12 +43,14 @@ const SearchResults = ({results, resultsPerPage}: {
                 const subResults = hasRootSubResult ? data.sub_results.slice(1, 4) : data.sub_results.slice(0, 3);
 
                 return (
-                    <a class="search-result" key={result.id} href={data.url}>
-                        <header class="result-title">{data.meta.title ?? 'No Title'}</header>
-                        <div class="result-excerpt" dangerouslySetInnerHTML={{__html: data.excerpt}} />
+                    <div class="search-result" key={result.id}>
+                        <a class="result-link" href={data.url}>
+                            <header class="result-title">{data.meta.title ?? 'No Title'}</header>
+                            <div class="result-excerpt" dangerouslySetInnerHTML={{__html: data.excerpt}} />
+                        </a>
                         {subResults.map(subResult => {
                             return (
-                                <a className="search-sub-result" href={subResult.url}>
+                                <a className="search-sub-result" href={subResult.url} key={subResult.url}>
                                     <header class="sub-result-title">{subResult.title}</header>
                                     <div
                                         class="sub-result-excerpt"
@@ -57,7 +59,7 @@ const SearchResults = ({results, resultsPerPage}: {
                                 </a>
                             );
                         })}
-                    </a>
+                    </div>
                 );
             });
         });

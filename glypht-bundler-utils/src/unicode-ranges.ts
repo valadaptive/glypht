@@ -19,6 +19,7 @@ export const parseUnicodeRanges = (ranges: string): (readonly [number, number] |
         return [];
     }
     const parsed = [];
+    const sortRange = (start: number, end: number) => start > end ? [end, start] as const : [start, end] as const;
     for (const pointOrRange of pointsOrRanges) {
         if (pointOrRange.length > MAX_SUBSTRING_LENGTH) return null;
         if (pointOrRange.length === 0) continue;
@@ -33,7 +34,7 @@ export const parseUnicodeRanges = (ranges: string): (readonly [number, number] |
             const rangeStart = Math.min(parseInt(rangeStartHex, 16), 0x10ffff);
             const rangeEnd = Math.min(parseInt(rangeEndHex, 16), 0x10ffff);
             if (!Number.isFinite(rangeStart) || !Number.isFinite(rangeEnd)) return null;
-            parsed.push([rangeStart, rangeEnd] as const);
+            parsed.push(sortRange(rangeStart, rangeEnd));
             continue;
         }
 
@@ -42,7 +43,7 @@ export const parseUnicodeRanges = (ranges: string): (readonly [number, number] |
         if (typeof matchResult[2] === 'string') {
             const rangeEnd = parseInt(matchResult[2], 16);
             if (!Number.isFinite(rangeEnd)) return null;
-            parsed.push([rangeStart, rangeEnd] as const);
+            parsed.push(sortRange(rangeStart, rangeEnd));
         } else {
             parsed.push(rangeStart);
         }

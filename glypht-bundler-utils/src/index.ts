@@ -296,7 +296,7 @@ type InstanceSubsetSettings = {
  */
 const axisRangeProduct = (axisRanges: MultiSubsetAxis[]): InstancedSubsetAxisSetting[][] => {
     if (axisRanges.length === 0) {
-        return [];
+        return [[]];
     }
     const iterIndices = [];
     const results: InstancedSubsetAxisSetting[][] = [];
@@ -492,11 +492,11 @@ export type FamilySubsetSettings = {
     /**
      * Settings for style values: weight, width, and italic/slant.
      */
-    styleValues: Partial<Record<StyleKey, SubsetAxisSetting>>;
+    styleValues?: Partial<Record<StyleKey, SubsetAxisSetting>>;
     /**
      * Settings for variation axes, keyed by tag.
      */
-    axes: Partial<Record<string, SubsetAxisSetting>>;
+    axes?: Partial<Record<string, SubsetAxisSetting>>;
     /**
      * Feature tags to explicitly include or exclude. If not specified here, features will be included or excluded based
      * on what HarfBuzz thinks.
@@ -558,12 +558,16 @@ const instanceSubsetSettings = (family: FamilySettings): {
         }
 
         const axisValues: MultiSubsetAxis[] = [];
-        for (const [tag, value] of Object.entries(family.axes)) {
-            axisValues.push({tag, ...value!});
+        if (family.axes) {
+            for (const [tag, value] of Object.entries(family.axes)) {
+                axisValues.push({tag, ...value!});
+            }
         }
 
-        for (const [settingName, styleValue] of Object.entries(family.styleValues)) {
-            axisValues.push({tag: styleKeyToTag(settingName as StyleKey), ...styleValue});
+        if (family.styleValues) {
+            for (const [settingName, styleValue] of Object.entries(family.styleValues)) {
+                axisValues.push({tag: styleKeyToTag(settingName as StyleKey), ...styleValue});
+            }
         }
 
         if (styleValues) {
@@ -1005,8 +1009,9 @@ export const exportedFontsToCSS = (
         if (slant.type === 'variable') {
             emitter.keyword('oblique');
             // The `slnt` axis is reversed from the CSS `font-style: oblique [n]deg` value.
-            emitter.number(`${-roundDecimal(slant.value.min)}deg`);
+            // CSS requires the smaller angle to come first.
             emitter.number(`${-roundDecimal(slant.value.max)}deg`);
+            emitter.number(`${-roundDecimal(slant.value.min)}deg`);
         } else if (italic.type === 'variable') {
             emitter.keyword('oblique');
             emitter.number('0deg');

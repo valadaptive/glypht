@@ -185,9 +185,13 @@ export default class RpcDispatcher<T extends MessageSchema> {
                 if (data.type === this.map[name as unknown as keyof ReqRespMap<T>]) {
                     ac.abort();
                     resolve(data.message);
-                } else if (data.type === 'error') {
+                } else {
                     ac.abort();
-                    reject(data.message as Error);
+                    if (data.type === 'error') {
+                        reject(data.message as Error);
+                    } else {
+                        reject(new Error(`Unexpected response of type ${data.type}`));
+                    }
                 }
             }, {signal: ac.signal});
         });

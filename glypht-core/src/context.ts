@@ -35,6 +35,7 @@ export class GlyphtContext {
         );
         // Automatically garbage-collect fonts
         this.fontFinalizationRegistry = new FinalizationRegistry(fontId => {
+            if (this.state.destroyed) return;
             this.fontWorker.sendAndForget('update-fonts', {loadFonts: [], unloadFonts: [fontId]});
         });
     }

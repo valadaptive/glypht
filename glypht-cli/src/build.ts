@@ -13,7 +13,7 @@ import type {GlyphtConfig} from '.';
 const progressBar = (progress: number, width: number = 25) => {
     const proportionDone = Math.max(0, Math.min(progress, 1)) * width;
     const numFullBlocks = Math.floor(proportionDone);
-    let barString = '\u2588'.repeat(proportionDone);
+    let barString = '\u2588'.repeat(numFullBlocks);
     if (numFullBlocks < width) {
         // -1 for "none", 0-6 for block fractions. This should never be 7 because proportionDone - numFullBlocks
         // will never reach 1.
@@ -71,17 +71,25 @@ export const build = async(config: GlyphtConfig, baseDir: string) => {
         const fonts = await ctx.loadFonts(fontFiles, {transfer: true});
         const families = sortFontsIntoFamilies(fonts);
         const familySettings: FamilySettings[] = [];
+        // Track the families mentioned in the config file
+        const remainingFamilyConfigs = new Set(Object.keys(config.settings));
+
         for (const family of families) {
             const familyConfig = config.settings[family.name];
             if (!familyConfig) {
                 // TODO: "wildcard" config?
                 throw new Error(`No configuration for font family "${family.name}"`);
             }
+            remainingFamilyConfigs.delete(family.name);
             familySettings.push({
                 fonts: family.fonts,
                 ...familyConfig,
             });
         }
+        for (const remaining of remainingFamilyConfigs) {
+            consola.warn(`Font family ${JSON.stringify(remaining)} found in config, but no input font files are from that family`);
+        }
+
         const {log, done} = logUpdate();
         const exportedFonts = await exportFonts(cctx, familySettings, {
             formats,
@@ -97,7 +105,7 @@ export const build = async(config: GlyphtConfig, baseDir: string) => {
         consola.success(`Built ${exportedFonts.length} fonts`);
         const cssPrefix = path.join(config.basePath ?? '', config.outDir);
         const exportedCSS = exportedFontsToCSS(exportedFonts, cssPrefix, config.includeTtfInCss !== false);
-        await fs.mkdir(config.outDir, {recursive: true});
+        await fs.mkdir(outDir, {recursive: true});
         const writePromises = [];
         const outputFiles: {name: string; size: number}[] = [];
         let maxFilenameLen = 0;
@@ -113,6 +121,7 @@ export const build = async(config: GlyphtConfig, baseDir: string) => {
             }
         }
         const cssText = new TextEncoder().encode(exportedCSS.getString());
+        await fs.mkdir(path.dirname(outCssPath), {recursive: true});
         writePromises.push(fs.writeFile(outCssPath, cssText));
         outputFiles.push({name: path.relative(baseDir, outCssPath), size: cssText.byteLength});
         await Promise.all(writePromises);

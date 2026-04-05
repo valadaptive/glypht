@@ -1,6 +1,6 @@
 import style from './style.module.scss';
 
-import {useCallback} from 'preact/hooks';
+import {useCallback, useEffect} from 'preact/hooks';
 import {signal, Signal} from '@preact/signals';
 
 import Loader from '../Loader/Loader';
@@ -14,29 +14,33 @@ const GoogleFontsModal = () => {
     const {googleFontsModalState} = appState;
 
     const fontsListState = googleFontsModalState.state.value;
-    if (fontsListState.state === 'not_loaded') {
-        import('./GoogleFontsModalInner').then(
-            ({default: ModalComponent, languages}) => {
-                const selectedAxes: Record<string, Signal<boolean>> = {};
-                for (const axis of axesList) {
-                    selectedAxes[axis.tag] = signal(false);
-                }
-                const selectedLanguages: Record<string, Signal<boolean>> = {};
-                for (const lang of languages) {
-                    selectedLanguages[lang.id] = signal(false);
-                }
-                googleFontsModalState.state.value = {
-                    state: 'loaded',
-                    selectedAxes,
-                    selectedLanguages,
-                    ModalComponent,
-                };
-            },
-            error => {
-                googleFontsModalState.state.value = {state: 'error', error};
-            },
-        );
-    }
+    useEffect(() => {
+        if (fontsListState.state === 'not_loaded') {
+            googleFontsModalState.state.value = {state: 'loading'};
+            import('./GoogleFontsModalInner').then(
+                ({default: ModalComponent, languages}) => {
+                    const selectedAxes: Record<string, Signal<boolean>> = {};
+                    for (const axis of axesList) {
+                        selectedAxes[axis.tag] = signal(false);
+                    }
+                    const selectedLanguages: Record<string, Signal<boolean>> = {};
+                    for (const lang of languages) {
+                        selectedLanguages[lang.id] = signal(false);
+                    }
+                    googleFontsModalState.state.value = {
+                        state: 'loaded',
+                        selectedAxes,
+                        selectedLanguages,
+                        ModalComponent,
+                    };
+                },
+                error => {
+                    googleFontsModalState.state.value = {state: 'error', error};
+                },
+            );
+        }
+    }, [fontsListState]);
+
     let inner;
     switch (fontsListState.state) {
         case 'loading':

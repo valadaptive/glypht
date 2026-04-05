@@ -54,7 +54,6 @@ export default class CSSEmitter {
     private indent = 0;
     private listIndent = 0;
     private indentString: string;
-    private textLength = 0;
 
     public spans: {text: string; type: NodeType}[] = [];
 
@@ -68,7 +67,6 @@ export default class CSSEmitter {
         } else if (text.length > 0) {
             this.spans.push({text, type});
         }
-        this.textLength += text.length;
     }
 
     private pushIndent() {

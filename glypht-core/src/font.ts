@@ -253,7 +253,7 @@ export class Font {
             coverageSet.intersect(subsetSet);
 
             let subsetCodepoints = coverageSet.size();
-            // Khmer includes latin but we only want to report support for non-Latin.
+            // Khmer includes all Latin codepoints, but we only want to report support for non-Latin.
             if (subsetName === 'khmer') {
                 subsetCodepoints -= SUBSET_HB_SETS.latin.size();
             }
@@ -364,21 +364,21 @@ export class Font {
             const namedInstances: NamedInstance[] = [];
             const coordsPtr = hb.malloc(4 * numAxisInfos);
             try {
-                for (let i = 0; i < numNamedInstances; i++) {
-                    const subfamilyNameId = hb._hb_ot_var_named_instance_get_subfamily_name_id(face, i);
-                    const postscriptNameId = hb._hb_ot_var_named_instance_get_postscript_name_id(face, i);
+                for (let instIdx = 0; instIdx < numNamedInstances; instIdx++) {
+                    const subfamilyNameId = hb._hb_ot_var_named_instance_get_subfamily_name_id(face, instIdx);
+                    const postscriptNameId = hb._hb_ot_var_named_instance_get_postscript_name_id(face, instIdx);
                     const subfamilyName = this.getOpentypeName(subfamilyNameId);
                     const postscriptName = this.getOpentypeName(postscriptNameId);
                     hb.withStack(() => {
                         const numCoordsPtr = hb.stackAlloc(4);
                         hb.writeUint32(numCoordsPtr, numAxisInfos);
-                        hb._hb_ot_var_named_instance_get_design_coords(face, i, numCoordsPtr, coordsPtr);
+                        hb._hb_ot_var_named_instance_get_design_coords(face, instIdx, numCoordsPtr, coordsPtr);
                         const numCoords = hb.readUint32(numCoordsPtr);
 
                         const coords: Partial<Record<string, number>> = {};
-                        for (let i = 0; i < numCoords; i++) {
-                            const value = hb.readFloat32(coordsPtr + (i << 2));
-                            coords[axisTags[i]] = value;
+                        for (let coordIdx = 0; coordIdx < numCoords; coordIdx++) {
+                            const value = hb.readFloat32(coordsPtr + (coordIdx << 2));
+                            coords[axisTags[coordIdx]] = value;
                         }
 
 
@@ -665,7 +665,7 @@ export class Font {
             };
             for (const styleKey of ['weight', 'width', 'italic', 'slant'] as const) {
                 const styleValue = styleValues[styleKey];
-                if (styleValue.type === 'variable' && !styleValue.value.defaultValue) {
+                if (styleValue.type === 'variable' && typeof styleValue.value.defaultValue === 'undefined') {
                     styleValues[styleKey] = {
                         type: 'variable',
                         value: {

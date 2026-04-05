@@ -104,7 +104,7 @@ const ExportedFonts = ({fonts, exportedFormats}: {
                     </thead>
                     <tbody>
                         {fonts.map(({filename, data}) => (
-                            <tr>
+                            <tr key={filename}>
                                 <td className={style.fontName}>{filename}</td>
                                 {exportedFormats.ttf && <td className={style.fontFileSize}>{
                                     data.opentype ? <>

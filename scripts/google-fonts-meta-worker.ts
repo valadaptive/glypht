@@ -50,7 +50,7 @@ const populateFontMetadata = async(
     if (!f.category || f.category.length === 0) {
         throw new Error(`${f.name} has no category`);
     }
-    if (!f.fonts || f.category.length === 0) {
+    if (!f.fonts || f.fonts.length === 0) {
         throw new Error(`${f.name} has no fonts`);
     }
 
@@ -120,7 +120,7 @@ const populateFontMetadata = async(
                     // which contains really long exemplar text but which most fonts don't support.
                     let subExemplar = baseExemplar.slice(0, baseExemplar.indexOf(' ', 10));
                     const lastCharCode = subExemplar.charCodeAt(subExemplar.length - 1);
-                    if (lastCharCode >= 0xDC00 && lastCharCode <= 0xDCFF) {
+                    if (lastCharCode >= 0xDC00 && lastCharCode <= 0xDFFF) {
                         subExemplar = subExemplar.slice(0, -1);
                     }
                     exemplarSnippets.push(subExemplar);

@@ -12,7 +12,7 @@ const saveToFile = (name: string, blob: Blob): void => {
     a.click();
     setTimeout(() => {
         window.URL.revokeObjectURL(url);
-    }, 0);
+    }, 1000);
 };
 
 export default saveToFile;

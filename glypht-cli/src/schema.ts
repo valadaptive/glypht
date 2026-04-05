@@ -36,8 +36,8 @@ const CharacterSetSettingsSchema = v.object({
 const FamilySubsetSettingsSchema = v.variant('enableSubsetting', [
     v.object({
         enableSubsetting: v.literal(true),
-        styleValues: v.record(v.string(), SubsetAxisSettingSchema),
-        axes: v.record(v.string(), SubsetAxisSettingSchema),
+        styleValues: v.optional(v.record(v.string(), SubsetAxisSettingSchema)),
+        axes: v.optional(v.record(v.string(), SubsetAxisSettingSchema)),
         features: v.optional(v.record(v.string(), v.boolean())),
         includeCharacters: v.union([v.array(CharacterSetSettingsSchema), CharacterSetSettingsSchema, v.literal('all')]),
         overrideName: v.optional(v.string()),
@@ -55,7 +55,11 @@ const GlyphtConfigSchema = v.object({
     includeTtfInCss: v.optional(v.boolean()),
     basePath: v.optional(v.string()),
     settings: v.record(v.string(), FamilySubsetSettingsSchema),
-    formats: v.optional(v.record(v.string(), v.boolean())),
+    formats: v.optional(v.partial(v.object({
+        ttf: v.boolean(),
+        woff: v.boolean(),
+        woff2: v.boolean(),
+    }))),
     woffCompression: v.optional(v.number()),
     woff2Compression: v.optional(v.number()),
 });

@@ -83,6 +83,10 @@ export default class WorkerPool<S extends MessageSchema> {
         for (const worker of this.allWorkers) {
             worker.close();
         }
+        for (const {reject} of this.queuedOperations) {
+            reject(new DOMException('This worker pool has been destroyed', 'InvalidStateError'));
+        }
+        this.queuedOperations.length = 0;
         this.allWorkers.length = 0;
     }
 

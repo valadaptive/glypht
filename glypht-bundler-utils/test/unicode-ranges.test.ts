@@ -170,7 +170,7 @@ describe('parseUnicodeRanges', () => {
 
     test('parses ranges where end is before start (implementation allows this)', () => {
         const ranges = parseUnicodeRanges('U+7F-20');
-        expect(ranges).toEqual([[0x7F, 0x20]]);
+        expect(ranges).toEqual([[0x20, 0x7F]]);
     });
 
     test('clamps wildcard ranges that exceed maximum Unicode code point', () => {

@@ -432,7 +432,7 @@ const loadIncludeCharacters = (
 ) => {
     dest.includeAllCharacters.value = settings.includeAllCharacters;
     if ('characterSets' in settings) {
-        settings.characterSets.map(charSet => loadCharacterSetSettings(charSet));
+        dest.characterSets.value = settings.characterSets.map(charSet => loadCharacterSetSettings(charSet));
     } else {
         dest.characterSets.value = [loadCharacterSetSettings(settings)];
     }

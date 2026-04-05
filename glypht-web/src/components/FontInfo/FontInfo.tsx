@@ -205,7 +205,7 @@ const AxisRangeTextbox = ({ranges, disabled}: {ranges: Signal<string>; disabled?
 const CheckboxSection = <T, >({settings, name, mapping, disabled}: {
     settings: T[];
     name: string;
-    mapping: (item: T) => {label: string; checked: Signal<boolean>; title?: string};
+    mapping: (item: T) => {key: string; label: string; checked: Signal<boolean>; title?: string};
     disabled?: boolean;
 }) => {
     const settingsSignal = useLiveSignal(settings);
@@ -237,9 +237,10 @@ const CheckboxSection = <T, >({settings, name, mapping, disabled}: {
             </label></header>
             <div className={style.checkboxes}>
                 {settings.map((item) => {
-                    const {label, checked, title} = mapping(item);
+                    const {key, label, checked, title} = mapping(item);
                     return (
                         <CheckboxToggle
+                            key={key}
                             label={label}
                             checked={checked}
                             title={title}
@@ -257,12 +258,14 @@ const featureLabel = (feature: FeatureInfo) => {
 };
 
 const mapIncludeFeatures = (item: {feature: FeatureInfo; include: Signal<boolean>}) => ({
+    key: item.feature.tag,
     label: featureLabel(item.feature),
     checked: item.include,
     title: item.feature.tag,
 });
 
 const mapNamedSubsets = (item: {name: string; include: Signal<boolean>}) => ({
+    key: item.name,
     label: item.name,
     checked: item.include,
 });
@@ -476,6 +479,7 @@ const FontFamilySettings = ({familySettings}: {familySettings: FamilySettingsSta
                                         styleSetting={{type: 'variable', value: range}}
                                         name={name}
                                         tag={tag}
+                                        key={tag}
                                     />
                                 ))}
                             </div>
@@ -526,6 +530,7 @@ const FontFamilySettings = ({familySettings}: {familySettings: FamilySettingsSta
                                                 label={featureLabel(feature)}
                                                 checked={include}
                                                 title={feature.tag}
+                                                key={feature.tag}
                                             />
                                         ))}
                                     </div>
@@ -560,6 +565,7 @@ const FontFamilySettings = ({familySettings}: {familySettings: FamilySettingsSta
                             styleSettings={styleSettings}
                             filename={filename}
                             enableSubsetting={familySettings.enableSubsetting.value}
+                            key={font.id}
                         />)}
                 </SettingsSection>
             </div>
@@ -658,7 +664,7 @@ const FontInfo = () => {
             onDrop={onDrop}
             onDragLeave={onDragLeave}
         >
-            {fonts.value.map(family => <FontFamilySettings familySettings={family} />)}
+            {fonts.value.map(family => <FontFamilySettings familySettings={family} key={family.name} />)}
         </div>
     );
 };

@@ -1,5 +1,5 @@
 import {useSignal} from '@preact/signals';
-import {useCallback} from 'preact/hooks';
+import {useCallback, useRef} from 'preact/hooks';
 
 const useVirtualList = <T>({items, itemHeight, extraItems = 0}: {
     items: T[];
@@ -7,8 +7,19 @@ const useVirtualList = <T>({items, itemHeight, extraItems = 0}: {
     extraItems?: number;
 }) => {
     const virtualItems = useSignal<{item: T; index: number}[]>([]);
+    const listenerState = useRef<{
+        observer: ResizeObserver;
+        listener: () => unknown;
+        container: HTMLElement;
+    } | null>(null);
 
     const parentRef = useCallback((container: HTMLElement | null) => {
+        if (listenerState.current) {
+            const {observer, listener, container} = listenerState.current;
+            observer.unobserve(container);
+            container.removeEventListener('scroll', listener);
+            listenerState.current = null;
+        }
         if (!container) return;
 
         const rerender = () => {
@@ -34,9 +45,10 @@ const useVirtualList = <T>({items, itemHeight, extraItems = 0}: {
 
         ro.observe(container);
         container.addEventListener('scroll', scrollListener);
-        return () => {
-            ro.unobserve(container);
-            container.removeEventListener('scroll', scrollListener);
+        listenerState.current = {
+            observer: ro,
+            listener: scrollListener,
+            container,
         };
     }, [items, itemHeight]);
 
