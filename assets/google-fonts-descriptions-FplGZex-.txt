@@ -283,117 +283,95 @@ First, Liu created the character shape framework and design standards;
 then, a group of over 100 typography apprentices participated in building out the character set.
 Finally, Liu and other designers from his workshop, including Yang Kang and Wu Shaojie, edited and adjusted the characters to unify the design.
 </p>
+
+<p>
+    To contribute to the ZCool Kuaile project, please visit <a href="https://github.com/googlefonts/zcool-kuaile" >github.com/googlefonts/zcool-kuaile</a>.
+</p>
 <p>
 	Zalando Sans is a bespoke sans serif typeface, developed as a cornerstone of the Zalando brand identity. Designed with flexibility and accessibility at the heart, it meets the diverse needs of the Zalando eco-system.
 </p>
-
 <p>
 	The typeface offers exceptional adaptability through its variable font technology:
 </p>
-	
-	<ul>
-		<li>A weight axis ranging from ExtraLight to Black</li>
-		<li>A width axis ranging from Condensed to Expanded</li>
-		<li>Matching italics</li>
-	</ul>
-
+<ul>
+<li>A weight axis ranging from ExtraLight to Black</li>
+<li>A width axis ranging from Condensed to Expanded</li>
+<li>Matching italics</li>
+</ul>
 <p>
 	This flexibility allows for a wide range of expressive possibilities while maintaining a cohesive brand presence. Rooted in a sans serif “grotesque” style, the typeface aims to balance clean simplicity with attitude, combining clarity with subtle moments of personality. Its clean lines and modern aesthetic reflect Zalando's forward-thinking approach to fashion and lifestyle.
 </p>
-
 <p>
 	Staying true to Zalando’s personality—Bold, Fun, and Welcoming—Zalando Sans elevates every design it inhabits. When used effectively, it becomes a powerful design element, showcasing Zalando’s commitment to helping people feel confident in their style.
 </p>
-
 <p>
 	Zalando Sans was designed by Jakob Ekelund of KH Type, Stockholm in 2025 in collaboration with the Zalando brand and product design teams in Berlin.
 </p>
-
 <p>
 	This is the Semi Expanded version, please find here the complete family <a href="https://fonts.google.com/specimen/Zalando+Sans">Zalando Sans</a>.
 </p>
-
 <p>
 	To contribute, see <a href="https://github.com/zalando/sans">github.com/zalando/sans</a>
 </p>
-
-<hr />
-
-<img src="zalandosans1.png" />
-<img src="zalandosans2.png" />
-<img src="zalandosans3.png" />
+<hr/>
+<img src="zalandosans1.png"/>
+<img src="zalandosans2.png"/>
+<img src="zalandosans3.png"/>
 <p>
 	Zalando Sans is a bespoke sans serif typeface, developed as a cornerstone of the Zalando brand identity. Designed with flexibility and accessibility at the heart, it meets the diverse needs of the Zalando eco-system.
 </p>
-
 <p>
 	The typeface offers exceptional adaptability through its variable font technology:
 </p>
-	
-	<ul>
-		<li>A weight axis ranging from ExtraLight to Black</li>
-		<li>A width axis ranging from Condensed to Expanded</li>
-		<li>Matching italics</li>
-	</ul>
-
+<ul>
+<li>A weight axis ranging from ExtraLight to Black</li>
+<li>A width axis ranging from Condensed to Expanded</li>
+<li>Matching italics</li>
+</ul>
 <p>
 	This flexibility allows for a wide range of expressive possibilities while maintaining a cohesive brand presence. Rooted in a sans serif “grotesque” style, the typeface aims to balance clean simplicity with attitude, combining clarity with subtle moments of personality. Its clean lines and modern aesthetic reflect Zalando's forward-thinking approach to fashion and lifestyle.
 </p>
-
 <p>
 	Staying true to Zalando’s personality—Bold, Fun, and Welcoming—Zalando Sans elevates every design it inhabits. When used effectively, it becomes a powerful design element, showcasing Zalando’s commitment to helping people feel confident in their style.
 </p>
-
 <p>
 	Zalando Sans was designed by Jakob Ekelund of KH Type, Stockholm in 2025 in collaboration with the Zalando brand and product design teams in Berlin.
 </p>
-
 <p>This is the Expanded version, please find here the complete family <a href="https://fonts.google.com/specimen/Zalando+Sans">Zalando Sans</a>.</p>
-
 <p>
 	To contribute, see <a href="https://github.com/zalando/sans">github.com/zalando/sans</a>
 </p>
-
-<hr />
-
-<img src="zalandosans1.png" />
-<img src="zalandosans2.png" />
-<img src="zalandosans3.png" />
+<hr/>
+<img src="zalandosans1.png"/>
+<img src="zalandosans2.png"/>
+<img src="zalandosans3.png"/>
 <p>
 	Zalando Sans is a bespoke sans serif typeface, developed as a cornerstone of the Zalando brand identity. Designed with flexibility and accessibility at the heart, it meets the diverse needs of the Zalando eco-system.
 </p>
-
 <p>
 	The typeface offers exceptional adaptability through its variable font technology:
 </p>
-	
-	<ul>
-		<li>A weight axis ranging from ExtraLight to Black</li>
-		<li>A width axis ranging from Condensed to Expanded</li>
-		<li>Matching italics</li>
-	</ul>
-
+<ul>
+<li>A weight axis ranging from ExtraLight to Black</li>
+<li>A width axis ranging from Condensed to Expanded</li>
+<li>Matching italics</li>
+</ul>
 <p>
 	This flexibility allows for a wide range of expressive possibilities while maintaining a cohesive brand presence. Rooted in a sans serif “grotesque” style, the typeface aims to balance clean simplicity with attitude, combining clarity with subtle moments of personality. Its clean lines and modern aesthetic reflect Zalando's forward-thinking approach to fashion and lifestyle.
 </p>
-
 <p>
 	Staying true to Zalando’s personality—Bold, Fun, and Welcoming—Zalando Sans elevates every design it inhabits. When used effectively, it becomes a powerful design element, showcasing Zalando’s commitment to helping people feel confident in their style.
 </p>
-
 <p>
 	Zalando Sans was designed by Jakob Ekelund of KH Type, Stockholm in 2025 in collaboration with the Zalando brand and product design teams in Berlin.
 </p>
-
 <p>
 	To contribute, see <a href="https://github.com/zalando/sans">github.com/zalando/sans</a>
 </p>
-
-<hr />
-
-<img src="zalandosans1.png" />
-<img src="zalandosans2.png" />
-<img src="zalandosans3.png" />
+<hr/>
+<img src="zalandosans1.png"/>
+<img src="zalandosans2.png"/>
+<img src="zalandosans3.png"/>
 <p>
  Zain Group (zain.com) is a leading provider of innovative technologies and digital lifestyle communications operating 
  in eight markets across the Middle East and Africa. The objectives behind the Zain range of typefaces were to create a 
@@ -1897,6 +1875,39 @@ is designed mainly for headlines, navigation and short blocks of text over 14
 px.</p><p>Its features like splayed terminals and contour inflections improve
 the overall dymamics of letterforms, which is especially appreciated in Cyrillic
 script.</p><p>Designed by Roman Shchyukin from Gaslight.</p>
+<p>
+    Strichpunkt Sans is a hyper-modern sans serif that reinterprets the spirit of early grotesque typefaces through a contemporary lens. The family comprises eighteen styles across three widths (Normal, Wide, and Expanded) ranging from Regular to Black. While the Expanded styles make a confident statement in headlines, the Normal width is optimized for continuous reading and editorial clarity. All styles support Latin Extended and are available in static formats as well as a variable font.
+</p>
+
+<p>To contribute, see <a href="https://github.com/strichpunkt-design/Strichpunkt_Sans">github.com/strichpunkt-design/Strichpunkt_Sans</a>.</p>
+
+<img src="image1.png">
+<img src="image3.png">
+<img src="image7.png">
+
+<p>
+    Distinctive details shape its character: rounded forms meet sharp, angular features in unexpected ways: most notably in the leg of the R, the tails of a and l, and the construction of t.
+</p>
+
+<img src="image4.png">
+
+<p>
+    The sharply tapered joins of letters such as a, n, b, d and q create a dynamic interplay between soft curves and crisp edges. This balance between tradition and forward-looking expression gives the typeface both authority and warmth.
+</p>
+
+<img src="image2.png">
+
+<p>
+    Developed as part of the Strichpunkt brand, the typeface translates the studio’s visual identity into a typographic system that embodies the Strichpunkt values: Passionate, Curious, Responsible, Open.
+</p>
+
+<img src="image5.png">
+
+<p>
+    Releasing the typeface as an open-source Google font family reflects a shared commitment to making high-quality contemporary typography accessible to everyone.
+</p>
+
+<img src="image6.png">
 <p>When the space available is small, Strait becomes very useful. A great
 quality condensed typeface that is suitable for both display and text usage,
 and with excellent reading performance at 12 point size.</p>
@@ -3062,6 +3073,21 @@ The elegance of Sansita's uppercase makes this an excellent choice for packaging
 
 <p>To contribute, see <a href="https://github.com/Omnibus-Type/Saira/tree/master/SairaStencilOne">github.com/Omnibus-Type/Saira/tree/master/SairaStencilOne</a>.</p>
 <p>
+    Saira Stencil is the cut variant of the Saira typeface family. It retains the core structure of its predecessor but is defined by the strategic addition of precise cuts—some logically placed, others deliberately offbeat. This intervention creates a typeface that is both sharp and visually striking, making it an optimal choice for titles, branding, and logotypes where a bold, memorable impression is required. It was designed by Héctor Gatti and developed by the Omnibus-Type Team.
+</p>
+
+<p>
+    Saira is a contemporary sans serif system, a versatile family of 126 styles (9 different weight variants, in 7 widths, plus matching italics.) It is part of the Press Series, for it is applicable in newspapers, magazines, books and websites. Showing high adaptability, it can be used in headlines and long texts. The original masters were designed by Héctor Gatti. The character sets were later completed by the Omnibus-Type Team.
+</p>
+
+<p>
+    To contribute, see <a href="https://github.com/Omnibus-Type/Saira">github.com/Omnibus-Type/Saira</a>.
+</p>
+
+<hr>
+<img src="Saira_Stencil-01.png">
+<img src="Saira_Stencil-02.png">
+<p>
 Saira is a sans serif system.
 It features a huge range of weights and widths, ready for all kind of typographic challenges.
 </p>
@@ -3966,6 +3992,16 @@ This project is led by TipTopTyp, a type foundry based in Berlin, Germany.
 To contribute, see <a href="https://github.com/antonxheight/Ranga">Ranga on GitHub</a>.
 </p>
 <p>Ranchers is one of the many hand-lettering artists' relaxed interpretationsof sans serif type, typical of the 1950s. It's great for big posters and funheadlines. Use it bigger than 40px for maximum effect.</p><p>
+    Ramsina is a font family for the East Syriac script. The font was designed as a close revival, or facsimile, of metal type cut in India from around 1920.
+</p>
+
+<p>
+    To contribute, see <a href="https://github.com/silnrsi/font-ramsina">github.com/silnrsi/font-ramsina</a>.
+</p>
+
+<img src="image00.png">
+<img src="image01.png">
+<p>
 Rampart is a unique outline shadow font made in the image of 3-D blocks. It is best used for added impact or to demonstrate strength and stability.
 </p>
 <p>
@@ -19396,13 +19432,9 @@ To contribute, see <a href="https://github.com/appajid/ntr">github.com/appajid/n
   513 glyphs.
 </p>
 <p>
- Noto is a global font collection for writing in all modern and ancient languages.
- Noto Sans Oriya is an unmodulated (“sans serif”) design for texts in the Indic
- <em>
-  Odia (Oriya)
- </em>
- script.
- It has 513 glyphs.
+  Noto is a global font collection for writing in all modern and ancient
+  languages. Noto Sans Oriya is an unmodulated (“sans serif”) design for texts
+  in the Indic <em>Odia (Oriya)</em> script. It has 513 glyphs.
 </p>
 <p>
   Noto is a global font collection for writing in all modern and ancient
@@ -20856,10 +20888,58 @@ To contribute, see <a href="https://github.com/Tarobish/Mirza">github.com/Tarobi
   github.com/simoncozens/Miriam-Libre
  </a>
 </p>
+<p>
+  Miranda Sans is a contemporary sans serif typeface designed with a clear focus on readability on screens.
+  It is built for text that needs to be read, not noticed, with calm proportions, open shapes, and carefully balanced spacing that holds up across sizes, weights, and long passages of content.
+</p>
+
+<p>
+  To contribute, see <a href="https://github.com/maxthunberg/miranda-sans">github.com/maxthunberg/miranda-sans</a>.
+</p>
+
+<img src="image-1.png">
+
+<p>
+  The design avoids unnecessary stylistic gestures and instead concentrates on clarity, rhythm, and consistency. Each letter is shaped to work as part of a system, supporting words and sentences rather than drawing attention to itself. The result is a typeface that feels stable, neutral, and dependable, particularly in digital environments where legibility matters most.
+</p>
+
+
+<img src="image-2.png">
+
+<img src="image-3.png">
+
+<img src="image-4.png">
+
+<img src="image-5.png">
+
+<p>
+  Miranda Sans was developed with variable font technology in mind, allowing it to adapt smoothly across weights while maintaining a consistent visual voice.
+</p>
+
+<p>
+  The typeface is named after the designer's favorite person in the world, his sister Miranda. What words sometimes fail to express, letters might.
+</p>
+
+<p>
+  The family currently includes multiple weights from Regular to Bold, with matching italics, and is designed to perform consistently across both screen and print environments.
+</p>
 <p>Miniver was inspired by a trip made to the library, looking for new ideas. Immediately gravitating towards the DVD for the 1942 film Mrs. Miniver, the hand-lettered title on the cover had a very contemporary look and feel so, there was the 'springboard' into a new font. First drawn were the inline forms and then they were traced, utilizing a playful 'cutout' effect.</p><p>Mingzat is a Unicode font based on Jason Glavy's JG Lepcha custom-encoded font. With his generous permission, SIL International used his design and released the font under the SIL Open Font License (OFL). The name "Mingzat" means "treasure of letters" in the Lepcha language.</p>
 <p>Learn more at <a href="https://software.sil.org/mingzat/">software.sil.org/mingzat</a>.</p>
 <p>To contribute, see <a href="https://github.com/silnrsi/font-mingzat">github.com/silnrsi/font-mingzat</a>.</p>
+<hr/>
+<img src="hero.jpg"/>
 <p>
+<a href="https://www.sil.org/">SIL International</a> recently released three typefaces for lesser-served <a href="https://fonts.google.com/knowledge/glossary/script_writing_system">writing systems</a> (Tai Viet, Yi, Lepcha) used in Asia. 
+    SIL has also created <a href="https://fonts.google.com/specimen/Andika">Andika</a>, which is specially designed to maximize legibility for new readers.
+</p>
+<h3>SIL and lesser-served languages</h3>
+<p>
+    SIL International has a team of type designers who specialize in creating typefaces for lesser-served or non-dominant language communities. These are communities that exist alongside larger, more prominent language communities such as Chinese, English, or Arabic. 
+    These relatively smaller communities may have their own script, or they may have sounds in their language that are not represented in the script used by the majority language. 
+    Some non-dominant languages are endangered. According to UNESCO, <a href="https://www.unesco.org/en/articles/international-congress-endangered-languages-risk-begins-advance-unescos-high-level-event">about 40% of the estimated 7,000 languages are at risk of extinction.</a>
+</p>
+<p>Without typefaces, these language communities can't survive online.</p>
+<p>To learn more, read <a href="https://material.io/blog/sil-typefaces">New SIL Typefaces: Expanding type for legibility and lesser-served languages</a></p><p>
 Mina is a contemporary geometric Bangla (Bengali) and Latin family. 
 The family comes in two weights, Regular and Bold. 
 It started by extending the Latin font Exo, initially designed by Natanael Gama. 
@@ -21196,10 +21276,9 @@ depths of African culture and wisdom.
 <p>
 <img src="matangi-07.jpg"/>
 </p>
-<p>
-This script is reminiscent of fonts used to display "yinglian," the short poems and blessings traditionally posted on either side of the entryway to a home or temple.
-MaShanZheng is heavy and majestic, vital and expansive.
-</p>
+<p>This script is reminiscent of fonts used to display "yinglian," the short poems and blessings traditionally posted on either side of the entryway to a home or temple. MaShanZheng is heavy and majestic, vital and expansive.</p>
+
+<p>To contribute, please visit <a href="https://github.com/googlefonts/mashanzheng">github.com/googlefonts/mashanzheng</a>.</p>
 <p>Marvel is a contemporary and multipurpose sans serif typeface family. It can be used in headlines as well as text settings in websites, books and magazines. It was designed to look sharp, modern and even technical while keeping a unique personality. Typography has always been very important in my graphic design work, and some time ago I started working on experimental type, designing typefaces for use in my own projects so that I could give more personality to them.</p><p>Martian Mono is a monospaced version of the Martian Grotesk font for code style design. It inherits Grotesk's brutal and eye-catching aesthetics as well as all of its benefits-metrics equilibrium, readability and intelligibility, and convenience for web developers and designers who believe in a systematic approach to design.</p> 
 <p>Martian Mono consists of a variable font with a width (Condensed to SemiExpanded) and weight axes (Thin to ExtraBold).</p>
 
@@ -21623,7 +21702,7 @@ To contribute, see <a href="https://github.com/googlefonts/literata">github.com/
 </p>
 
 <p>
-    Learn more about the LINE Seed typeface philosophy from <a href="https://seed.line.me/">https://seed.line.me/</a>
+    Learn more about the LINE Seed typeface philosophy from <a href="https://seed.line.me/index_jp.html">seed.line.me</a>
 </p>
 <p>Linefont is a variable font with Weight and Width axes for rendering small to medium-scale line charts.</p>
 
@@ -23126,6 +23205,20 @@ It comes with Latin Character sets including Western, Central, and Vietnamese la
 <p>
 To contribute, see <a href="https://github.com/googlefonts/island-moments" target="_blank">github.com/googlefonts/island-moments</a>.
 </p>
+<p>
+   Iosevka Charon is a quasi-proportional font excellent for technical writing and dense UI. Iosevka Charon Mono is a true monospace font tuned for coding and terminal use. These font families are unique derivatives of Iosevka (an open source font project) by be5invis; built in a manner that makes the resulting fonts Google Fonts compliant.
+</p>
+
+<p>To contribute, please see <a href="https://github.com/jul-sh/iosevka-charon">github.com/jul-sh/iosevka-charon</a>.</p>
+
+<img src="iosevka-charon-mono.png">
+<p>
+    Iosevka Charon is a quasi-proportional font excellent for technical writing and dense UI. Iosevka Charon Mono is a true monospace font tuned for coding and terminal use. These font families are unique derivatives of Iosevka (an open source font project) by be5invis; built in a manner that makes the resulting fonts Google Fonts compliant.
+</p>
+
+<p>To contribute, please see <a href="https://github.com/jul-sh/iosevka-charon">github.com/jul-sh/iosevka-charon</a>.</p>
+
+<img src="iosevka-charon.png">
 <p>This is a specialized version of <a href="https://fonts.google.com/specimen/Inter">Inter</a> with tighter spacing, for display usage. This version also has Roman and Italic styles.
 </p>
 
@@ -23263,6 +23356,25 @@ To contribute, see <a href="https://github.com/googlefonts/imperial-script" targ
 <p>
 Imbue was designed by Tyler Finck. To contribute, see <a href="https://github.com/Etcetera-Type-Co/Imbue">github.com/Etcetera-Type-Co/Imbue</a>
 </p>
+<p>
+    The Idiqlat font supports the East Syriac style of the Syriac script. The font has support for glyph alternates, ligatures, and diacritics that the East Syriac style requires. The design of the font is a resized and modernized revival of metal type cut in India from around 1920.
+</p>
+
+<p>
+    The font name, Idiqlat, means “Tigris River” in ancient Akkadian/Assyrian. The emphasis is on the first syllable: EE-dee-klat.
+</p>
+
+<p>
+    The East Syriac style is used primarily by the Assyrians (Church of the East) and Chaldeans. It is also used by the Syrian Orthodox in headings of texts.
+</p>
+
+<p>
+    To contribute, see <a href="https://github.com/silnrsi/font-idiqlat">github.com/silnrsi/font-idiqlat</a>.
+</p>
+
+<img src="image00.png">
+<img src="image01.png">
+<img src="image02.png">
 <p>The idea of geometric typefaces with a look reminiscent of the machinery, technology, and interior design of the 1950s originated in Eurostile family by Aldo Novarese and Alessandro Butti (1952).</p> <p>Iceland is a modular square-shaped webfont by Victor Kharyk with a cold brutal character designed with the intention to perform well on screen starting from low resolutions. For this purpose the strokes are deliberatly kept vertical and diagonal cuts have a 45° angle, outlines are rounded.</p> <p>Features like wide proportions and generous x-height are introduced for better legibility. Unconventional and simplified letterforms like k, f, r aid readability at small sizes. While at display sizes they add a crisp and sharp impression.</p> <p>Uppercase letters are decently heavier compared to lowercase as a tribute to the old typographic tradition. This way uppercase is easily distinguished from lowercase, and allows scaling down to be used as Small Caps.</p> <p>Because of its ascetic modular character and squarish proportions Iceland webfont is easily integrated in modular grids and logotypes.</p><p>Iceberg is a slim condensed decorative webfont by Victor Kharyk suitable for medium to large sizes. It is monolinear and mostly monospaced, has long ascenders and descenders, and a modular construction that builds a rhythm. These features improve overall readability. Its monolinear strokes and 45 degree cuts echo letters made from folded tape.</p><p>
     IBM Plex® is the corporate typeface for IBM worldwide and an open-source project developed by the IBM Brand &amp;
     Experience team (BX&amp;D). Plex is an international typeface family designed to capture IBM&rsquo;s brand spirit
@@ -25732,6 +25844,46 @@ To contribute, visit <a href="https://github.com/EbenSorkin/Dekko">github.com/Eb
 
 <p>The David Libre project is led by Meir Sadan, a type designer based in Tel Aviv, Israel. To contribute, see <a href="https://github.com/meirsadan/david-libre"></a>github.com/meirsadan/david-libre</a>.</p>
 <p>
+  Datatype is a variable OpenType font that transforms simple text expressions into inline data visualizations—no JavaScript required. Using OpenType contextual alternates and ligature substitution, text like <code>{b:30,70,50,90}</code> automatically becomes a bar chart within your document.
+</p>
+
+<p>
+  Designed for seamless integration into text-based workflows, Datatype enables you to embed charts directly in emails, documentation, reports, and web content. The font supports three chart types: bar charts, sparklines (line charts), and pie charts, each activated through simple text syntax.
+</p>
+
+<p>
+<strong>Chart Syntax:</strong>
+</p>
+<ul>
+  <li>Bar charts: <code>{b:15,45,80,30,60}</code> (up to 20 values, 0-100)</li>
+  <li>Sparklines: <code>{l:10,40,25,70,50}</code> (up to 20 points, 0-100)</li>
+  <li>Pie charts: <code>{p:75}</code> (single percentage value)</li>
+</ul>
+
+<p>
+  The font includes two variable axes for extensive customization: Width (wdth: 0-100) controls spacing and compactness, while Weight (wght: 100-900) adjusts line thickness and visual prominence. This enables designers to fine-tune charts for different contexts—from dense dashboards to prominent presentations.
+</p>
+
+<p>
+  Datatype uses the Contextual Alternates (<code>calt</code>) feature for bar charts and sparklines, ensuring broad compatibility across applications including Google Docs, Sheets, and Slides. Pie charts utilize Standard Ligatures (<code>liga</code>), which may require manual enablement in some environments.
+</p>
+
+<p>
+  Built with fontTools and licensed under the SIL Open Font License 1.1, Datatype brings the power of inline data visualization to any application that supports OpenType features.
+</p>
+
+<p>
+  This font includes glyphs from IBM Plex™ Mono: Copyright 2017 IBM Corp. with Reserved Font Name "Plex"
+</p>
+
+<p>To contribute, see <a href="https://github.com/franktisellano/datatype">github.com/franktisellano/datatype</a>.</p>
+
+<img src="Main.png">
+<img src="Lines.png">
+<img src="Table.png">
+<img src="Bars.png">
+<img src="Pies.png">
+<p>
 Darumdrop is a flavorful handwritten font inspired by Japanese handwriting and "Daruma Otoshi" which is a Japanese folk craft game.
 </p>
 <p>
@@ -26038,6 +26190,16 @@ To contribute, see <a href="https://github.com/marcelommp/Coiny">github.com/marc
 <p>
     To contribute, see <a href="https://github.com/dancoull/ClimateCrisis">github.com/dancoull/ClimateCrisis</a>.
 </p>
+<hr/>
+<img src="hero.jpg"/>
+<h3>Show your type melting over time like a glacier with Climate Crisis and its Year axis</h3>
+<p>As mentioned in the recent article about the Tilt family, Google Fonts is adding a bunch of new expressive variable fonts and axes to the library. Check out the latest release, <a href="https://fonts.google.com/specimen/Climate+Crisis">Climate Crisis</a>.</p>
+<p>Climate Crisis, with its new variable axis called Year, was commissioned by the Nordic newspaper "<a href="https://www.hs.fi/">Helsingin Sanomat</a>" to use in its own editorial and marketing. It visualizes the urgency of climate change by appearing to degrade over time, like each character is a glacier melting away. More than just a metaphor, the font reflects actual data from the <a href="https://nsidc.org/home">National Snow and Ice Data Center</a> to represent the levels of Arctic sea ice from 1979 to 2019. Satellite measuring began in 1979. Predictive data from <a href="https://www.ipcc.ch/">The Intergovernmental Panel on Climate Change</a> (IPCC) is used to visualize the ice melting through 2050.</p>
+<p>The typeface's designers, Daniel Coull and Eino Korkala included eight <a href="https://fonts.google.com/knowledge/glossary/masters">masters</a> for the Year axis. (When type designers create a variable font, they need to embed masters at each extreme end of a variable axis, but often they embed multiple masters along the axis in order to give the in-between <a href="https://fonts.google.com/knowledge/glossary/instance">instances</a> more finesse.) The heaviest weight represents the Arctic sea ice in 1979. The lightest weight represents the IPCC's 2050 forecast, when only 30% of the ice will remain.</p>
+<p>To learn more, read:</p>
+<a href="https://design.google/library/climate-crisis">Show your type melting over time like a glacier with Climate Crisis and its Year axis.</a>
+<br/>
+<a href="https://kampanjat.hs.fi/climatefont/">Climate Crisis minisite</a>
 <p>Clicker Script finds its inspiration from RCA Records Stereo Action Series
 from the 1960's. This signature elegant yet slightly bouncy script truly
 sings, and lends a happy go lucky flavor to any design.</p>
@@ -27251,6 +27413,33 @@ Designed by Veronika Burian and José Scaglione, Bree was originally released in
     To contribute to the project please see <a
         href="https://github.com/artandtype/Braah">github.com/artandtype/Braah</a>.
 </p>
+<p>
+    This project provides Bopomofo (Zhuyin) enabled variants of Traditional Chinese typefaces, implementing the Bopomofo IVS Font Specification (bpmfvs) developed by ButTaiwan and particularly intended for use with <a href="https://buttaiwan.github.io/bpmfvs/">buttaiwan.github.io/bpmfvs/</a>.
+</p>
+<p>
+    Unlike traditional Bopomofo fonts that require separate font files for different pronunciations, these fonts utilize Ideographic Variation Sequences (IVS) and GSUB features to support polyphonic characters within a single font file. This allows users to seamlessly add pronunciation guides while maintaining the same typeface.
+</p>
+<p>
+    To contribute to this project, please visit <a href="https://github.com/ButTaiwan/bpmfvs">github.com/ButTaiwan/bpmfvs</a>
+</p>
+<p>
+    This project provides Bopomofo (Zhuyin) enabled variants of Traditional Chinese typefaces, implementing the Bopomofo IVS Font Specification (bpmfvs) developed by ButTaiwan and particularly intended for use with <a href="https://buttaiwan.github.io/bpmfvs/">buttaiwan.github.io/bpmfvs/</a>.
+</p>
+<p>
+    Unlike traditional Bopomofo fonts that require separate font files for different pronunciations, these fonts utilize Ideographic Variation Sequences (IVS) and GSUB features to support polyphonic characters within a single font file. This allows users to seamlessly add pronunciation guides while maintaining the same typeface.
+</p>
+<p>
+    To contribute to this project, please visit <a href="https://github.com/ButTaiwan/bpmfvs">github.com/ButTaiwan/bpmfvs</a>
+</p>
+<p>
+    This project provides Bopomofo (Zhuyin) enabled variants of Traditional Chinese typefaces, implementing the Bopomofo IVS Font Specification (bpmfvs) developed by ButTaiwan and particularly intended for use with <a href="https://buttaiwan.github.io/bpmfvs/">buttaiwan.github.io/bpmfvs/</a>.
+</p>
+<p>
+    Unlike traditional Bopomofo fonts that require separate font files for different pronunciations, these fonts utilize Ideographic Variation Sequences (IVS) and GSUB features to support polyphonic characters within a single font file. This allows users to seamlessly add pronunciation guides while maintaining the same typeface.
+</p>
+<p>
+    To contribute to this project, please visit <a href="https://github.com/ButTaiwan/bpmfvs">github.com/ButTaiwan/bpmfvs</a>
+</p>
 <p>Bowlby One SC is designed for use as a utilitarian, All Caps and Small Caps display font. A version <a href="http://www.google.com/fonts/specimen/Bowlby+One">with lowercase characters</a> is also available. Its forms are a fusion of a handfull of designs scanned from old, early Twentieth Century type specimens. Bowlby One SC is perfect for big bold headlines and display uses that need a slightly roughened look. Bowlby is a web font, designed to be used freely across the internet by web browsers on desktop computers, laptops, cloud systems and mobile devices.</p><p>Bowlby One has been designed for use as a utilitarian, all caps display font. A version with lowercase characters is also available. Its forms are a fusion of a handfull of designs scanned from old, early Twentieth Century type specimens. Bowlby One is perfect for big bold headlines and display uses that need a slightly roughened look. Bowlby is a web font, designed to be used freely across the internet by web browsers on desktop computers, laptops, cloud systems and mobile devices.</p><p>
     What typographic factors should be considered when teaching reading and writing simultaneously? Initiated in 2017 at the ANRT (research post-master, Nancy, France), this font project was developed in collaboration with teachers and speech therapists, aiming to question educational typographic conventions and explore non-disruptive solutions.
 </p>
@@ -27405,6 +27594,11 @@ It is heavy, sturdy, punchy, and looks best when used at medium to large sizes b
 Black And White Picture is a Korean font that expresses the nostalgia of faded black and white photos through its old and scratchy texture.
 A matching Latin font, <a href="https://fonts.google.com/specimen/Flavors">Flavors</a>, is built-in for convenience.
 </p>
+<p>
+    The BJCree typeface was originally designed in conjunction with the Naskapi community in the 1990s. When it was subsequently re-encoded for Unicode, coverage was extended for all the Cree (and Ojibwa) languages. Thus all the Algonquian language family languages that use Unified Canadian Aboriginal Syllabics are covered by the BJCree glyph inventory. That is, Plains Cree [crk], Woods Cree [cwd], Swampy Cree [csw], Moose Cree [crm], East Cree Southern [crj], East Cree Northern [crl], Naskapi [nsk], Severn Ojibwe (Oji-Cree) [ojs], and Northwestern Ojibwe [ojb].
+</p>
+
+<p>To contribute, see <a href="https://github.com/silnrsi/font-bjcree">github.com/silnrsi/font-bjcree</a>.</p>
 <p>
     モリサワのBIZ UD明朝は、教育やビジネス文書作成などに活用できるよう、より多くの方にとって読みやすく使いやすいように設計されたユニバーサルデザインフォントです。格調高い明朝体の伝統を保ちながら、見やすさ、読みやすさを実現した書体です。一般的な明朝体は、横線が細くデザインされているため、視力が弱い方やディスプレイの表示などでは読みにくいことがあります。BIZ UD明朝は従来の明朝体よりも横線が太い明朝体をベースにしており、濁点や半濁点を大きく見やすいデザインに変更しているほか、字面やふところを大きくとりながらも文字のフォルムを崩さないデザインに調整しています。
     BIZ UD Mincho is a universal design typeface designed to be easy to read and ideal for education and business documentation. It combines high quality in readability and legibility while carrying on the stately Japanese Mincho type tradition. BIZ UD
@@ -31862,6 +32056,77 @@ This is the way Beth Ellen lived her life, writing notes to share love and faith
 To contribute, see <a href="https://github.com/googlefonts/BethEllen">github.com/googlefonts/BethEllen</a>
 </p>
 <p>
+    Betania Patmos is a contemporary handwriting model designed specifically for literacy education. Its austere morphology emphasizes the essential ductus of each letter, reducing visual ambiguity and supporting clear recognition rather than decorative expression. Conceived as a practical teaching tool rather than a display typeface, BP is built for simplicity and accessibility: its OpenType features rely on contextual alternates inspired by Rosalie Wagner’s Borel, ensuring full compatibility with common word-processing software such as LibreOffice, Microsoft Office, or basic text editors. Developed through an interdisciplinary collaboration with teachers, pedagogues, and educational technology specialists, BP reflects the needs of both educators and learners. Its slightly condensed proportions enhance reading efficiency by improving word density per line and page.
+</p>
+
+<p>
+  Betania Patmos Guideline In is the version of <a href="https://fonts.google.com/specimen/Betania+Patmos+In">Betania Patmos</a> with lines designed to support handwriting practice.
+</p>
+
+<p>
+    To contribute, see <a href="https://github.com/huertatipografica/betania-patmos">github.com/huertatipografica/betania-patmos</a>.
+</p>
+
+<img src="image01.jpg">
+<img src="image02.jpg">
+<img src="image03.jpg">
+<p>
+    Betania Patmos is a contemporary handwriting model designed specifically for literacy education. Its austere morphology emphasizes the essential ductus of each letter, reducing visual ambiguity and supporting clear recognition rather than decorative expression. Conceived as a practical teaching tool rather than a display typeface, BP is built for simplicity and accessibility: its OpenType features rely on contextual alternates inspired by Rosalie Wagner’s Borel, ensuring full compatibility with common word-processing software such as LibreOffice, Microsoft Office, or basic text editors. Developed through an interdisciplinary collaboration with teachers, pedagogues, and educational technology specialists, BP reflects the needs of both educators and learners. Its slightly condensed proportions enhance reading efficiency by improving word density per line and page.
+</p>
+
+<p>
+    Betania Patmos In is the version of <a href="https://fonts.google.com/specimen/Betania+Patmos">Betania Patmos</a> with some alternatives (the round letters a, c, d, g, q have an entry stroke at the init or when isolated).
+</p>
+
+<p>
+    To contribute, see <a href="https://github.com/huertatipografica/betania-patmos">github.com/huertatipografica/betania-patmos</a>.
+</p>
+
+<img src="image01.jpg">
+<img src="image02.jpg">
+<img src="image03.jpg">
+<p>
+    Betania Patmos is a contemporary handwriting model designed specifically for literacy education. Its austere morphology emphasizes the essential ductus of each letter, reducing visual ambiguity and supporting clear recognition rather than decorative expression. Conceived as a practical teaching tool rather than a display typeface, BP is built for simplicity and accessibility: its OpenType features rely on contextual alternates inspired by Rosalie Wagner’s Borel, ensuring full compatibility with common word-processing software such as LibreOffice, Microsoft Office, or basic text editors. Developed through an interdisciplinary collaboration with teachers, pedagogues, and educational technology specialists, BP reflects the needs of both educators and learners. Its slightly condensed proportions enhance reading efficiency by improving word density per line and page.
+</p>
+
+<p>
+    Betania Patmos Guides is the family’s version that offers only guides for writing.
+</p>
+
+<p>
+    To contribute, see <a href="https://github.com/huertatipografica/betania-patmos">github.com/huertatipografica/betania-patmos</a>.
+</p>
+
+<img src="image01.jpg">
+<img src="image02.jpg">
+<img src="image03.jpg">
+<p>
+    Betania Patmos is a contemporary handwriting model designed specifically for literacy education. Its austere morphology emphasizes the essential ductus of each letter, reducing visual ambiguity and supporting clear recognition rather than decorative expression. Conceived as a practical teaching tool rather than a display typeface, BP is built for simplicity and accessibility: its OpenType features rely on contextual alternates inspired by Rosalie Wagner’s Borel, ensuring full compatibility with common word-processing software such as LibreOffice, Microsoft Office, or basic text editors. Developed through an interdisciplinary collaboration with teachers, pedagogues, and educational technology specialists, BP reflects the needs of both educators and learners. Its slightly condensed proportions enhance reading efficiency by improving word density per line and page.
+</p>
+
+<p>
+  Betania Patmos Guideline is the version of <a href="https://fonts.google.com/specimen/Betania+Patmos">Betania Patmos</a> with lines designed to support handwriting practice.
+</p>
+
+<p>
+    To contribute, see <a href="https://github.com/huertatipografica/betania-patmos">github.com/huertatipografica/betania-patmos</a>.
+</p>
+
+<img src="image01.jpg">
+<img src="image02.jpg">
+<img src="image03.jpg">
+<p>
+    Betania Patmos is a contemporary handwriting model designed specifically for literacy education. Its austere morphology emphasizes the essential ductus of each letter, reducing visual ambiguity and supporting clear recognition rather than decorative expression. Conceived as a practical teaching tool rather than a display typeface, BP is built for simplicity and accessibility: its OpenType features rely on contextual alternates inspired by Rosalie Wagner’s Borel, ensuring full compatibility with common word-processing software such as LibreOffice, Microsoft Office, or basic text editors. Developed through an interdisciplinary collaboration with teachers, pedagogues, and educational technology specialists, BP reflects the needs of both educators and learners. Its slightly condensed proportions enhance reading efficiency by improving word density per line and page.
+</p>
+
+<p>
+    To contribute, see <a href="https://github.com/huertatipografica/betania-patmos">github.com/huertatipografica/betania-patmos</a>.
+</p>
+
+<img src="image01.jpg">
+<img src="image02.jpg">
+<img src="image03.jpg">
+<p>
 Besley is a antique slab serif inspired by Robert Besley's Clarendon.
 It features a full range of weights and matching italics, making it subtle for a variety of uses. A slight rounding of the corners gives a subtle warmth, and OpenType features such as ligatures and contextual substitutions perfect the finer details. It was made with love and will continue to improve with your support. </p>
 <p>
@@ -33548,6 +33813,26 @@ Thomas Jockin respaced and kerned the whole font.
 href="http://code.google.com/p/googlefontdirectory/">Google Code</a>.
 To contribute to the project contact <a href="mailto:sorkineben@gmail.com">Eben Sorkin</a>.<p>
 <p>
+    Alyamama, is a variable Arabic typeface with a classic Naskh design with sharp, simple strokes that provide clarity and refined contrast, making it suitable for advertising, signage, and for both headlines and body text.
+</p>
+
+<p>
+    The Latin glyphs are based on the open-source typeface <a href="https://github.com/UNAL-OMD/UNAL-Ancizar">UNAL Ancízar</a>.
+</p>
+
+<p>
+    Alyamama project is led by <a href="https://mestara.com">Mestara Type</a> a type foundry specialized in creating and designing Arabic typefaces. Founded by a professional calligrapher and designer, Mestara aims to reflect the beauty, and modernity while respecting traditional calligraphic principles.
+</p>
+<p>
+    To contribute, see <a href="https://github.com/MestaraType/AlYamama">github.com/MestaraType/AlYamama</a>.
+</p>
+
+<hr />
+<img src="postYamama1.png" />
+<img src="postYamama2.png" />
+<img src="postYamama3.png" />
+<img src="postYamama4.png" />
+<p>
 Originally inspired by the blackface Impact, it soon evolved to include numerous weights, from the Black flavor of its progenitor to a super Thin weight.
 </p>
 <p>  
@@ -33683,6 +33968,70 @@ Allura was designed with advertising, display and package design in mind. This O
 In this family come complete with Latin Character sets including Western, Central, and Vietnamese language support.
 </p>
 <p>To contribute, see <a href="https://github.com/googlefonts/allura" target="_blank">github.com/googlefonts/allura</a>.</p>
+<p>
+    Allkin is a free, open-source hand-based symbol language, available as artwork via The Noun Project and as a font via Google Fonts and Monotype Fonts. Allkin means all human connection.
+</p>
+
+<p>To contribute, see <a href="https://github.com/googlefonts/allkin">github.com/googlefonts/allkin</a>.</p>
+
+<p>
+    The system contains 195 hand gestures — aligned to the 193 UN member states plus two observer states. Symbols are organised into categories: fundamental needs, social signs, emotional indicators, and conflict and peace advisories. Combined, they enable expressive, purpose-driven communication that informs and encourages peaceful resolution.
+</p>
+
+<img src="Allkin_Monotype_UserGuide_V1.0-3.png">
+
+<p>
+    Creating a universal system is no small task — and yes, a risky one. A gesture in one culture may mean something else entirely in another. Allkin embraces these differences, offering multiple gestures for shared meanings. We ask you to use the tool respectfully — and to contribute. As an open-source project, Allkin invites collaboration and dialogue. Access the GitHub repository (link) and expand the design space. Cultivate the differences that make our world so rich, and our nations so unique.
+</p>
+
+<img src="Allkin_Monotype_UserGuide_V1.0-4.png">
+
+<h3>
+    Sizing icons.
+</h3>
+
+<p>
+    Icons are optimized for visual efficiency, employing minimal detail to ensure strong recognition and impact. For optimal legibility and emphasis, they should be displayed at a relatively large scale—ideally approximating the physical dimensions of a human hand.
+</p>
+
+<img src="Allkin_Monotype_UserGuide_V1.0-5.png">
+
+<h3>
+    Key features.
+</h3>
+
+<p>
+    Although certain hand gestures are uniquely illustrated to convey specific meanings, the icon set functions as a cohesive system, crafted with the same rigor as a typeface. Parameters such as finger thickness, white line gaps between fingers, and overall hand proportions have been meticulously standardized across all icons.
+    The design achieves a precise balance between geometric simplification and anthropomorphic fidelity. This human quality is preserved by maintaining proportions—fingers, palm, and gestures—close to real hands, avoiding caricature or excessive abstraction
+</p>
+
+
+<img src="Allkin_Monotype_UserGuide_V1.0-6.png">
+
+<h3>
+    Expressing messages.
+</h3>
+
+<p>
+    Each icon carries an individual semantic value while belonging to a defined category within the system. Certain icons are reused but convey different messages, reflecting the way hand gestures function in real-life communication. For example, the ‘Yes’, ‘Thank you’ and ‘One’ gestures share the same base form: a thumbs-up.    Additionally, icons can be combined to construct composite messages, such as those symbolizing peace, as shown in the following pages.
+</p>
+
+
+<img src="Allkin_Monotype_UserGuide_V1.0-7.png">
+
+<img src="Allkin_Monotype_UserGuide_V1.0-8.png">
+
+<img src="Allkin_Monotype_UserGuide_V1.0-10.png">
+
+<h3>
+    Symbol.
+</h3>
+
+<p>
+    This symbol is a stand against conflict. A signal to the world: I will not engage in violence. Wear it. Share it. Post it. Whatever the situation, it declares: I stand for peace and resolution through collaboration.
+</p>
+
+<img src="Allkin_Monotype_UserGuide_V1.0-22.png">
 <p>
 Allison is a casual handwriting script. The lowercase forms carry an obvious flat pen calligraphic influence while the uppercase letters are more brushy in style.
 </p>
