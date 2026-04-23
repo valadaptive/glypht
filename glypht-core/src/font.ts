@@ -682,8 +682,18 @@ export class Font {
             const axes: SubsetAxisInfo[] = [];
             for (const axis of this.axes) {
                 const axisSetting = settings.axisValues.find(v => v.tag === axis.tag);
-                if (!axisSetting) continue;
-                if (axisSetting.type === 'variable') {
+                if (!axisSetting) {
+                    axes.push({
+                        tag: axis.tag,
+                        name: axis.name,
+                        type: 'variable',
+                        value: {
+                            min: axis.min,
+                            max: axis.max,
+                            defaultValue: axis.defaultValue,
+                        },
+                    });
+                } else if (axisSetting.type === 'variable') {
                     axes.push({
                         tag: axis.tag,
                         name: axis.name,

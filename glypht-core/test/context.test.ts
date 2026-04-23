@@ -144,6 +144,43 @@ test('named instances matched', async() => {
     });
 });
 
+test('subsetted font includes all original axes, even ones omitted from settings', async() => {
+    const recursive = await readFixtureFile('../../test-fixtures/Recursive_VF_1.085.ttf', import.meta.url);
+    const fonts = await context.loadFontsInTest([recursive]);
+    const font = fonts[0];
+
+    const subsetted = await font.subset({
+        axisValues: [
+            {tag: 'MONO', type: 'single', value: 1},
+        ],
+        unicodeRanges: 'all',
+    });
+
+    expect(subsetted.axes).toEqual(
+        expect.arrayContaining([
+            {
+                tag: 'MONO',
+                name: 'Monospace',
+                type: 'single',
+                value: 1,
+            },
+            {
+                tag: 'CASL',
+                name: 'Casual',
+                type: 'variable',
+                value: {min: 0, max: 1, defaultValue: 0},
+            },
+            {
+                tag: 'CRSV',
+                name: 'Cursive',
+                type: 'variable',
+                value: {min: 0, max: 1, defaultValue: 0.5},
+            },
+        ]),
+    );
+    expect(subsetted.axes).toHaveLength(3);
+});
+
 test('font collection loads all fonts', async() => {
     const interCollection = await readFixtureFile('../../test-fixtures/Inter.ttc', import.meta.url);
     const fonts = await context.loadFontsInTest([interCollection]);
