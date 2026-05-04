@@ -412,13 +412,16 @@ const loadNamedSubsets = (
         destSubset.include.value = include;
     }
 };
-const loadCharacterSetSettings = (settings: {
-    includeNamedSubsets: {name: SubsetName; include: boolean}[];
-    includeUnicodeRanges: string;
-    name?: string;
-}): CharacterSetSettingsState => {
+const loadCharacterSetSettings = (
+    template: {name: SubsetName; include: Signal<boolean>}[],
+    settings: {
+        includeNamedSubsets: {name: SubsetName; include: boolean}[];
+        includeUnicodeRanges: string;
+        name?: string;
+    },
+): CharacterSetSettingsState => {
     const destCharacterSet: CharacterSetSettingsState = {
-        includeNamedSubsets: [],
+        includeNamedSubsets: template.map(({name}) => ({name, include: signal(false)})),
         includeUnicodeRanges: signal(settings.includeUnicodeRanges),
         name: signal(settings.name ?? ''),
     };
@@ -431,10 +434,11 @@ const loadIncludeCharacters = (
     settings: StaticSubsetSettings['includeCharacters'],
 ) => {
     dest.includeAllCharacters.value = settings.includeAllCharacters;
+    const template = dest.characterSets.value[0]?.includeNamedSubsets ?? [];
     if ('characterSets' in settings) {
-        dest.characterSets.value = settings.characterSets.map(charSet => loadCharacterSetSettings(charSet));
+        dest.characterSets.value = settings.characterSets.map(charSet => loadCharacterSetSettings(template, charSet));
     } else {
-        dest.characterSets.value = [loadCharacterSetSettings(settings)];
+        dest.characterSets.value = [loadCharacterSetSettings(template, settings)];
     }
 };
 export const loadSubsetSettings = (dest: SubsetSettingsState, settings: StaticSubsetSettings) => {
