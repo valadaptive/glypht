@@ -1,5 +1,5 @@
 import axesListJson from '../generated/axes.json';
-import {AxisProto} from '../generated/google-fonts-types';
+import {AxisProto} from '../google-fonts-types';
 const axesList = axesListJson as AxisProto[];
 axesList.sort((a, b) => b.popularity - a.popularity);
 const axisMetadata = new Map<string, AxisProto>();

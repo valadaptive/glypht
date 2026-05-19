@@ -36,7 +36,13 @@ export type SourceProto = {
     sourceFiles?: string[];
 };
 
-export type TargetTypeProto = "TARGET_UNSPECIFIED" | "TARGET_OS_WINDOWS" | "TARGET_OS_MAC" | "TARGET_OS_LINUX" | "TARGET_OS_ANDROID" | "TARGET_OS_IOS";
+export type TargetTypeProto =
+    | 'TARGET_UNSPECIFIED'
+    | 'TARGET_OS_WINDOWS'
+    | 'TARGET_OS_MAC'
+    | 'TARGET_OS_LINUX'
+    | 'TARGET_OS_ANDROID'
+    | 'TARGET_OS_IOS';
 
 export type TargetProto = {
     targetType?: TargetTypeProto;
@@ -141,12 +147,12 @@ export type ScriptProto = {
     exemplarLang?: string;
 };
 
-export type Category = "MONOSPACE" | "SANS_SERIF" | "SERIF" | "HANDWRITING" | "DISPLAY";
+export type Category = 'MONOSPACE' | 'SANS_SERIF' | 'SERIF' | 'HANDWRITING' | 'DISPLAY';
 
-export type Classification = "MONOSPACE" | "DISPLAY" | "HANDWRITING" | "SYMBOLS";
+export type Classification = 'MONOSPACE' | 'DISPLAY' | 'HANDWRITING' | 'SYMBOLS';
 
-export type Stroke = "SANS_SERIF" | "SLAB_SERIF" | "SERIF";
+export type Stroke = 'SANS_SERIF' | 'SLAB_SERIF' | 'SERIF';
 
-export type License = "UFL" | "OFL" | "APACHE2";
+export type License = 'UFL' | 'OFL' | 'APACHE2';
 
-export type Proportion = "MONOSPACE" | "PROPORTIONAL" | "BOTH";
+export type Proportion = 'MONOSPACE' | 'PROPORTIONAL' | 'BOTH';

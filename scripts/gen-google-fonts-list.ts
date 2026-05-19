@@ -2,11 +2,6 @@
  * Generates JS-readable Google Fonts metadata from the Google Fonts repo (https://github.com/google/fonts).
  */
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import protobufjs from 'protobufjs';
 const {load} = protobufjs;
 import {parse} from 'pbtxtjs';
@@ -14,12 +9,17 @@ import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import Worker from '@glypht/web-worker';
 
-import {Schema, schemaToTypescript, typeToSchema} from './protobuf-tools.js';
-
 import WorkerPool from '../glypht-core/src/worker-pool.js';
 import RpcDispatcher from '../glypht-core/src/worker-rpc.js';
-import {MetadataWorkerSchema} from './google-fonts-meta-worker.js';
+import {
+    MetadataLanguageProto,
+    MetadataWorkerSchema,
+    ProcessedFamilyProto,
+    ProcessingFamilyProto,
+} from './google-fonts-meta-worker.js';
 import {compress} from '@smol-range/compress';
+import type {FamilyProto as InputFamilyProto} from './fonts_public.js';
+import type {AxisProto, ScriptProto} from '../glypht-web/src/google-fonts-types.js';
 
 if (!(global as {isBundled?: boolean}).isBundled) {
     // eslint-disable-next-line @stylistic/max-len
@@ -74,21 +74,38 @@ const logUpdate = () => {
     };
 };
 
+type LiveFamilyMetadata = {
+    family: string;
+    popularity: number;
+    trending: number;
+    defaultSort: number;
+};
+
+type ParsedFamily = InputFamilyProto & {
+    path: string;
+    descriptionRange?: [number, number];
+};
+
+// After the worker phase we mutate `languages` into the base64-compressed index string and `primaryLanguage` into a
+// numeric index. This represents that final on-disk shape.
+type FinalFamily = Omit<ProcessedFamilyProto, 'languages' | 'primaryLanguage'> & {
+    languages: string;
+    primaryLanguage?: number;
+};
+
+type ParsedAxisProto = Omit<AxisProto, 'popularity'> & {popularity?: number};
+type ParsedScriptProto = ScriptProto & {summary?: string};
+
 logProgress('Fetching live Google Fonts metadata for font statistics...');
 const liveMetadata = await fetch('https://fonts.google.com/metadata/fonts').then(resp => resp.json()) as {
-    familyMetadataList: {
-        family: string;
-        popularity: number;
-        trending: number;
-        defaultSort: number;
-    }[];
+    familyMetadataList: LiveFamilyMetadata[];
 };
 
 // We'll eventually order the final fonts list by Google's sort order as well
 liveMetadata.familyMetadataList.sort((a, b) => a.defaultSort - b.defaultSort);
 
 // Array of metadata for all fonts.
-const localMetadata = [];
+const localMetadata: ParsedFamily[] = [];
 
 // Array of UTF-8 font descriptions (and byte offset to write the next one to). The frontend uses HTTP range
 // requests to fetch one description at a time from a big text file of all concatenated descriptions, so we need
@@ -112,7 +129,7 @@ for (const file of fontsFiles) {
     const metaPath = path.join(fontsDir, file);
     const contents = await fs.readFile(metaPath, 'utf-8');
     const metadata = parse(contents, fontMetadataType.create({}));
-    const obj = metadata.toJSON();
+    const obj = metadata.toJSON() as ParsedFamily;
     // Path to the font directory, relative to the Google Fonts repository root.
     obj.path = path.dirname(file);
     // The frontend doesn't use this metadata and it's quite large and hard to compress
@@ -136,32 +153,9 @@ for (const file of fontsFiles) {
     localMetadata.push(obj);
 }
 
-// We'll later construct enums from all encountered values for these
-const allCategories = new Set<string>();
-const allClassifications = new Set<string>();
-const allStrokes = new Set<string>();
-const allLicenses = new Set<string>();
-
-for (const f of localMetadata) {
-    if (Array.isArray(f.category)) {
-        for (const c of f.category) {
-            allCategories.add(c);
-        }
-    }
-    if (Array.isArray(f.classifications)) {
-        for (const c of f.classifications) {
-            allClassifications.add(c);
-        }
-    }
-    if (typeof f.stroke === 'string') {
-        allStrokes.add(f.stroke);
-    }
-    allLicenses.add(f.license);
-}
-
 // Take the list of fonts from the live Google Fonts site and map them to our local metadata
-const localFamilies = new Map();
-const liveFamilies = new Map();
+const localFamilies = new Map<string, ParsedFamily>();
+const liveFamilies = new Map<string, LiveFamilyMetadata>();
 for (const f of liveMetadata.familyMetadataList) {
     liveFamilies.set(f.family, f);
 }
@@ -174,9 +168,9 @@ for (const f of localMetadata) {
     }
 }
 
-const sortedLocalMetadata: any[] = [];
+const sortedLocalMetadata: ProcessingFamilyProto[] = [];
 for (const f of liveMetadata.familyMetadataList) {
-    const localFamily = localFamilies.get(f.family);
+    const localFamily = localFamilies.get(f.family) as ProcessingFamilyProto | undefined;
     if (!localFamily) {
         // eslint-disable-next-line no-console
         console.warn(`${f.family} is not in the local repo`);
@@ -195,12 +189,14 @@ const languageType = languageDataNamespace.lookupType('LanguageProto');
 const scriptType = languageDataNamespace.lookupType('ScriptProto');
 //const regionType = languageDataNamespace.lookupType('RegionProto');
 
-const languagesData: any[] = [];
+type LanguageProtoRaw = MetadataLanguageProto & {note?: string; source?: string};
+
+const languagesData: MetadataLanguageProto[] = [];
 const languagesDir = path.join(gflanguagesDir, 'data/languages');
 for (const langFile of await fs.readdir(languagesDir)) {
     const langFilePath = path.join(languagesDir, langFile);
     const langProto = await fs.readFile(langFilePath, 'utf-8');
-    const langFileData = parse(langProto, languageType.create({})).toJSON();
+    const langFileData = parse(langProto, languageType.create({})).toJSON() as LanguageProtoRaw;
     // We don't need the note or source
     delete langFileData.note;
     delete langFileData.source;
@@ -220,12 +216,12 @@ languagesData.sort((a, b) => (b.population ?? 0) - (a.population ?? 0));
 
 logProgress('Reading and parsing all script metadata...');
 
-const scriptsData: any[] = [];
+const scriptsData: ParsedScriptProto[] = [];
 const scriptsDir = path.join(gflanguagesDir, 'data/scripts');
 for (const scriptFile of await fs.readdir(scriptsDir)) {
     const scriptFilePath = path.join(scriptsDir, scriptFile);
     const scriptProto = await fs.readFile(scriptFilePath, 'utf-8');
-    const scriptFileData = parse(scriptProto, scriptType.create({})).toJSON();
+    const scriptFileData = parse(scriptProto, scriptType.create({})).toJSON() as ParsedScriptProto;
     delete scriptFileData.summary;
     scriptFileData.exemplarLang = languagesData.find(lang => lang.script === scriptFileData.id)?.id;
     scriptsData.push(scriptFileData);
@@ -253,6 +249,8 @@ const {log, done} = logUpdate();
 
 const startTime = performance.now();
 
+const processedFamilies: ProcessedFamilyProto[] = new Array<ProcessedFamilyProto>(sortedLocalMetadata.length);
+
 let resolve: (v: void) => void;
 let numCompleted = 0;
 const allCompleted = new Promise(_resolve => {
@@ -260,8 +258,7 @@ const allCompleted = new Promise(_resolve => {
 });
 for (let i = 0; i < sortedLocalMetadata.length; i++) {
     void pool.enqueue(async(worker) => {
-        const res = await worker.send('calcMetadata', sortedLocalMetadata[i]);
-        sortedLocalMetadata[i] = res;
+        processedFamilies[i] = await worker.send('calcMetadata', sortedLocalMetadata[i]);
         numCompleted++;
         log(`\x1b[;100m${progressBar(numCompleted / sortedLocalMetadata.length)}\x1b[;0m ${numCompleted} / ${sortedLocalMetadata.length}`);
         if (numCompleted === sortedLocalMetadata.length) {
@@ -276,7 +273,7 @@ done();
 
 logProgress('Sorting languages by number of supported fonts...');
 const langFontCoverage = new Map<string, number>();
-for (const family of sortedLocalMetadata) {
+for (const family of processedFamilies) {
     for (const langTag of family.languages) {
         const cur = langFontCoverage.get(langTag) ?? 0;
         langFontCoverage.set(langTag, cur + 1);
@@ -290,23 +287,26 @@ languagesData.sort((a, b) => {
     const covB = langFontCoverage.get(b.id) ?? 0;
     return covB - covA;
 });
-const langIndices = new Map();
+const langIndices = new Map<string, number>();
 for (let i = 0; i < languagesData.length; i++) {
     langIndices.set(languagesData[i].id, i);
 }
 
-for (const family of sortedLocalMetadata) {
-    const langsSorted = [];
+const finalFamilies = processedFamilies as unknown as FinalFamily[];
+for (let i = 0; i < processedFamilies.length; i++) {
+    const family = processedFamilies[i];
+    const langsSorted: number[] = [];
     for (const lang of family.languages) {
-        langsSorted.push(langIndices.get(lang));
+        langsSorted.push(langIndices.get(lang)!);
     }
     langsSorted.sort((a, b) => a - b);
     const compressed = compress(langsSorted);
 
     const encoded = Buffer.from(compressed.buffer, compressed.byteOffset, compressed.byteLength).toString('base64');
 
-    family.languages = encoded;
-    family.primaryLanguage = langIndices.get(family.primaryLanguage);
+    const primaryLanguage = family.primaryLanguage;
+    finalFamilies[i].languages = encoded;
+    finalFamilies[i].primaryLanguage = primaryLanguage === undefined ? undefined : langIndices.get(primaryLanguage);
 }
 
 logProgress(`Total shaping and analysis time: ${((performance.now() - startTime) / 1000).toFixed(1)}s`);
@@ -316,19 +316,19 @@ const axisRegistryDir = path.join(fontsDir, 'axisregistry/Lib/axisregistry');
 const axisDataNamespace = await load(path.join(axisRegistryDir, 'axes.proto'));
 const axisType = axisDataNamespace.lookupType('AxisProto');
 
-const axesData: any[] = [];
+const axesData: ParsedAxisProto[] = [];
 const axesDir = path.join(axisRegistryDir, 'data');
 for (const axisFile of await fs.readdir(axesDir)) {
     if (!axisFile.endsWith('.textproto')) continue;
     const axisFilePath = path.join(axesDir, axisFile);
     const axisProto = await fs.readFile(axisFilePath, 'utf-8');
-    const axisFileData = parse(axisProto, axisType.create({})).toJSON();
+    const axisFileData = parse(axisProto, axisType.create({})).toJSON() as ParsedAxisProto;
     axesData.push(axisFileData);
 }
 
 // Sort axes by the number of fonts they're used in, and store the axis popularity on the metadata itself
-const axisPopularities = new Map();
-for (const f of sortedLocalMetadata) {
+const axisPopularities = new Map<string | undefined, number>();
+for (const f of finalFamilies) {
     if (!f.axes) continue;
     for (const axis of f.axes) {
         const popularity = axisPopularities.get(axis.tag) ?? 0;
@@ -339,146 +339,11 @@ for (const axis of axesData) {
     axis.popularity = axisPopularities.get(axis.tag) ?? 0;
 }
 
-// Convert all our Protobuf schemas to TypeScript schemas (with modifications)
-const tsRegistry: Record<string, Schema> = {};
-typeToSchema(fontMetadataType, tsRegistry);
-typeToSchema(languageType, tsRegistry);
-typeToSchema(axisType, tsRegistry);
-typeToSchema(scriptType, tsRegistry);
-
-// Enum-ify certain string values from earlier
-tsRegistry.Category = {
-    type: 'enum',
-    values: Array.from(allCategories),
-};
-tsRegistry.Classification = {
-    type: 'enum',
-    values: Array.from(allClassifications),
-};
-tsRegistry.Stroke = {
-    type: 'enum',
-    values: Array.from(allStrokes),
-};
-tsRegistry.License = {
-    type: 'enum',
-    values: Array.from(allLicenses),
-};
-// Added during processing here from the PANOSE table.
-tsRegistry.Proportion = {
-    type: 'enum',
-    values: ['MONOSPACE', 'PROPORTIONAL', 'BOTH'],
-};
-type RecordSchema = Exclude<Schema, string> & {type: 'record'};
-type ArraySchema = Exclude<Schema, string> & {type: 'array'};
-
-// TODO: this doesn't work and marks some fields as mandatory even if they're sometimes missing.
-/*const mandatorify = (schema: Schema, examples: unknown[]) => {
-    if (typeof schema === 'object' && schema.type === 'record') {
-        const fieldsMandatory: Record<string, boolean> = {};
-        for (const field of schema.fields) {
-            fieldsMandatory[field.name] = true;
-        }
-        for (const example of examples) {
-            if (typeof example === 'object') {
-                for (const field of schema.fields) {
-                    if (!Object.prototype.hasOwnProperty.call(example, field.name)) {
-                        fieldsMandatory[field.name] = false;
-                        break;
-                    }
-                }
-            }
-        }
-        for (const field of schema.fields) {
-            if (fieldsMandatory[field.name]) {
-                field.optional = false;
-            }
-        }
-    }
-};*/
-
-const FamilyProto = tsRegistry.FamilyProto as RecordSchema;
-// Refine enum field types to not just be "string"
-(FamilyProto.fields
-    .find(f => f.name === 'category')?.type as ArraySchema).elements = 'Category';
-(FamilyProto.fields
-    .find(f => f.name === 'classifications')?.type as ArraySchema).elements = 'Classification';
-FamilyProto.fields
-    .find(f => f.name === 'stroke')!.type = 'Stroke';
-FamilyProto.fields
-    .find(f => f.name === 'license')!.type = 'License';
-
-// These fields will always exist
-FamilyProto.fields
-    .find(f => f.name === 'category')!.optional = false;
-FamilyProto.fields
-    .find(f => f.name === 'fonts')!.optional = false;
-// Add custom fields
-FamilyProto.fields.push({name: 'path', type: 'string', optional: false});
-FamilyProto.fields.push({name: 'proportion', type: 'Proportion', optional: false});
-FamilyProto.fields.push({name: 'descriptionRange', type: '[number, number]', optional: true});
-FamilyProto.fields.push({name: 'defaultSort', type: 'number', optional: false});
-FamilyProto.fields.push({name: 'trending', type: 'number', optional: false});
-FamilyProto.fields.push({name: 'popularity', type: 'number', optional: false});
-FamilyProto.fields = FamilyProto.fields.filter(f =>
-    f.name !== 'source' &&
-    f.name !== 'orderedSampleGlyphs' &&
-    f.name !== 'subsets',
-);
-
-// Store languages in a base64'd compressed format to save space (340kB -> 250kB gzipped)
-FamilyProto.fields
-    .find(f => f.name === 'languages')!.type = 'string';
-
-// Store the language's index instead of the language itself
-FamilyProto.fields
-    .find(f => f.name === 'primaryLanguage')!.type = 'number';
-//mandatorify(FamilyProto, sortedLocalMetadata);
-
-const AxisSegmentProto = tsRegistry.AxisSegmentProto as RecordSchema;
-// An axis segment will always have a `tag` field
-AxisSegmentProto.fields
-    .find(f => f.name === 'tag')!.optional = false;
-
-const AxisProto = tsRegistry.AxisProto as RecordSchema;
-// An axis will always have a `tag` field
-AxisProto.fields
-    .find(f => f.name === 'tag')!.optional = false;
-// We added this ourselves earlier
-AxisProto.fields.push({name: 'popularity', type: 'number', optional: false});
-
-const LanguageProto = tsRegistry.LanguageProto as RecordSchema;
-// A language will always have an ID
-LanguageProto.fields
-    .find(f => f.name === 'id')!.optional = false;
-// Remove exemplarChars, source, and note for the webapp since they're never used there
-LanguageProto.fields = LanguageProto.fields.filter(f =>
-    f.name !== 'exemplarChars' && f.name !== 'note' && f.name !== 'source');
-//mandatorify(LanguageProto, languagesData);
-
-const SampleTextProto = tsRegistry.SampleTextProto as RecordSchema;
-// We only use the "styles" field for previews
-SampleTextProto.fields = SampleTextProto.fields.filter(f => f.name === 'styles');
-
-const ScriptProto = tsRegistry.ScriptProto as RecordSchema;
-// This field is never used in the webapp
-ScriptProto.fields = ScriptProto.fields.filter(f => f.name !== 'summary');
-// A script will always have an ID
-ScriptProto.fields
-    .find(f => f.name === 'id')!.optional = false;
-// Used to determine which language sample to show when the font family has a `primary_script`
-ScriptProto.fields.push({name: 'exemplarLang', type: 'string', optional: true});
-
-const typescriptTypes = Object.entries(tsRegistry)
-    .map(([name, type]) => {
-        return `export type ${name} = ${schemaToTypescript(type)};`;
-    })
-    .join('\n\n');
-
-logProgress('Writing generated metadata and type definitions...');
+logProgress('Writing generated metadata...');
 
 await fs.writeFile(
     path.join(SCRIPTS_DIR, '../glypht-web/src/generated/google-fonts.json'),
-    JSON.stringify(sortedLocalMetadata),
+    JSON.stringify(finalFamilies),
 );
 
 const allDescriptions = new Uint8Array(descOffset);
@@ -495,16 +360,11 @@ await fs.writeFile(
     path.join(SCRIPTS_DIR, '../glypht-web/src/generated/languages.json'),
     JSON.stringify(
         {languages: languagesData, scripts: scriptsData},
-        (k, v) => k === 'exemplarChars' ? undefined : v,
+        (k, v: unknown) => k === 'exemplarChars' ? undefined : v,
     ),
 );
 
 await fs.writeFile(
     path.join(SCRIPTS_DIR, '../glypht-web/src/generated/axes.json'),
     JSON.stringify(axesData),
-);
-
-await fs.writeFile(
-    path.join(SCRIPTS_DIR, '../glypht-web/src/generated/google-fonts-types.ts'),
-    typescriptTypes,
 );

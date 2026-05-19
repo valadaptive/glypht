@@ -12,7 +12,7 @@ import {
     Dropdown,
     Button,
 } from '../Widgets/Widgets';
-import {AxisSegmentProto, FamilyProto, FontProto, LanguageProto, ScriptProto} from '../../generated/google-fonts-types';
+import {AxisSegmentProto, FamilyProto, FontProto, LanguageProto, ScriptProto} from '../../google-fonts-types';
 import Icon, {IconButton} from '../Icon/Icon';
 import {useCallback, useId, useMemo} from 'preact/hooks';
 import {useAddErrorToast} from '../Toast/Toast';

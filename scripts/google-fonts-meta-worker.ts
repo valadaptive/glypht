@@ -1,9 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 
@@ -14,15 +8,65 @@ import {
     postMessageFromWorker,
 } from '../glypht-core/src/worker-rpc.js';
 import type {MainModule as HbShapeModule} from '../c-libs-wrapper/hb-shape.js';
+import type {FamilyProto as InputFamilyProto} from './fonts_public.js';
+import type {
+    ExemplarCharsProto,
+    LanguageProto,
+    Proportion,
+} from '../glypht-web/src/google-fonts-types.js';
 
 const hb = createHarfbuzz<HbShapeModule>(new URL('../../c-libs-wrapper/hb-shape.wasm', import.meta.url).href);
+
+/**
+ * Runtime shape of a language entry inside this script: the output `LanguageProto`
+ * plus the `exemplarChars` field used during shaping (stripped before serialization).
+ */
+export type MetadataLanguageProto = LanguageProto & {
+    exemplarChars?: ExemplarCharsProto;
+};
+
+/**
+ * A parsed family enriched with live Google Fonts metadata (popularity/sort order)
+ * and the per-family path needed to locate font files. This is what we send into
+ * the worker for HarfBuzz-based processing.
+ */
+export type ProcessingFamilyProto = InputFamilyProto & {
+    path: string;
+    descriptionRange?: [number, number];
+    defaultSort: number;
+    popularity: number;
+    trending: number;
+};
+
+/**
+ * The shape the worker produces. `languages` is mutated from a string array of
+ * tags into a Set of tags the font actually supports; `proportion` is computed
+ * from PANOSE/`MONO` axes; `orderedSampleGlyphs` and `subsets` are dropped.
+ */
+export type ProcessedFamilyProto = Omit<
+    ProcessingFamilyProto,
+    'languages' | 'orderedSampleGlyphs' | 'subsets'
+> & {
+    languages: Set<string>;
+    proportion: Proportion;
+};
+
+/**
+ * Internal view used while the worker is in the middle of mutating a family:
+ * `languages` may still be the original `string[]` or already replaced with
+ * `Set<string>`, and `proportion` is populated by the end.
+ */
+type FamilyInWorker = Omit<ProcessingFamilyProto, 'languages'> & {
+    languages?: string[] | Set<string>;
+    proportion?: Proportion;
+};
 
 export type MetadataWorkerSchema =
     | {
         request: {
             name: 'init';
             message: {
-                languagesData: any[];
+                languagesData: MetadataLanguageProto[];
                 fontsDir: string;
             };
         };
@@ -31,18 +75,18 @@ export type MetadataWorkerSchema =
     | {
         request: {
             name: 'calcMetadata';
-            message: any;
+            message: ProcessingFamilyProto;
         };
         response: {
             name: 'calcedMetadata';
-            message: any;
+            message: ProcessedFamilyProto;
         };
     };
 
 const populateFontMetadata = async(
-    f: any,
-    hb: ReturnType<typeof createHarfbuzz<HbShapeModule>> extends Promise<infer T> ? T : never,
-    languagesData: any[],
+    f: FamilyInWorker,
+    hb: Awaited<ReturnType<typeof createHarfbuzz<HbShapeModule>>>,
+    languagesData: MetadataLanguageProto[],
     allLangTags: Set<string>,
     fontsDir: string,
 ) => {
@@ -179,7 +223,7 @@ const populateFontMetadata = async(
         blob.destroy();
     }
 
-    if (f.axes?.some((axis: any) => axis.tag === 'MONO')) {
+    if (f.axes?.some(axis => axis.tag === 'MONO')) {
         hasMonospace = true;
         hasProportional = true;
     }
@@ -195,7 +239,7 @@ const populateFontMetadata = async(
     delete f.subsets;
 };
 
-let languagesData: any[] | null = null;
+let languagesData: MetadataLanguageProto[] | null = null;
 let allLangTags: Set<string> | null = null;
 let fontsDir: string;
 
@@ -217,7 +261,11 @@ const listener = async(event: MessageEvent) => {
                 if (!languagesData) throw new Error('languagesData not initialized');
                 if (!allLangTags) throw new Error('allLangTags not initialized');
                 await populateFontMetadata(metadata, await hb, languagesData, allLangTags, fontsDir!);
-                postMessageFromWorker({type: 'calcedMetadata', message: metadata, originId: message.id});
+                postMessageFromWorker({
+                    type: 'calcedMetadata',
+                    message: metadata as unknown as ProcessedFamilyProto,
+                    originId: message.id,
+                });
                 break;
             }
             case 'close': {
