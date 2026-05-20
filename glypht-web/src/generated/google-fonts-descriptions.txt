@@ -1401,7 +1401,14 @@ To contribute, see <a href="https://github.com/Gissio/font_tiny5">github.com/Gis
 <hr>
 <img src="tiny5-presentation.png">
 <img src="tiny5-sample1.png">
-<img src="tiny5-sample2.png"><p>
+<img src="tiny5-sample2.png"><p>Tinos was designed by Steve Matteson as an innovative, refreshing serif
+design that is metrically compatible with Times New Roman™. Tinos offers
+improved on-screen readability characteristics and the pan-European WGL
+character set and solves the needs of developers looking for width-compatible
+fonts to address document portability across platforms.</p>
+
+<p>Updated in May 2013 with improved hinting and released under the 
+Apache 2.0 license.</p><p>
 Timmana is a Telugu display typeface, mainly suitable for headings, posters and decorative invitations.
 As a web font it should be used in very large pixel sizes, while in print the design may be used in a broader range of sizes, perhaps even as small as at 16pt. 
 </p>
@@ -3994,13 +4001,11 @@ To contribute, see <a href="https://github.com/antonxheight/Ranga">Ranga on GitH
 <p>Ranchers is one of the many hand-lettering artists' relaxed interpretationsof sans serif type, typical of the 1950s. It's great for big posters and funheadlines. Use it bigger than 40px for maximum effect.</p><p>
     Ramsina is a font family for the East Syriac script. The font was designed as a close revival, or facsimile, of metal type cut in India from around 1920.
 </p>
-
 <p>
     To contribute, see <a href="https://github.com/silnrsi/font-ramsina">github.com/silnrsi/font-ramsina</a>.
 </p>
-
-<img src="image00.png">
-<img src="image01.png">
+<img src="image00.png"/>
+<img src="image01.png"/>
 <p>
 Rampart is a unique outline shadow font made in the image of 3-D blocks. It is best used for added impact or to demonstrate strength and stability.
 </p>
@@ -20502,16 +20507,22 @@ It comes with Latin Character sets including Western, Central, and Vietnamese la
 To contribute, see <a href="https://github.com/googlefonts/ms-madi" target="_blank">github.com/googlefonts/ms-madi</a>.
 </p>
 <p>The Charles Bluemlein Script Collection is an intriguing reminder of the heady days of hand lettering and calligraphy in the United States. From the early 1930s through World War II, there were about 200 professional hand letterers working in New York City alone. This occupation saw its demise with the advent of photo lettering, and after digital typography it became virtually extinct. The odd way in which the Bluemlein scripts were assembled and created - by collecting different signatures and then building complete alphabets from them - is a fascinating calligraphic adventure. Because the set of constructed designs looked nothing like the original signatures, fictitious names were assigned to the new script typefaces. The typeface styles were then showcased in Higgins Ink catalogs.</p> <p>Alejandro Paul and Sudtipos bring the Bluemlein scripts back to life in a set of expanded digital versions, reflecting the demands of today’s designer. Extreme care has been taken to render the original scripts authentically, keeping the fictitious names originally assigned to them by Bluemlein.</p><p>The Charles Bluemlein Script Collection is an intriguing reminder of the heady days of hand lettering and calligraphy in the United States. From the early 1930s through World War II, there were about 200 professional hand letterers working in New York City alone. This occupation saw its demise with the advent of photo lettering, and after digital typography it became virtually extinct. The odd way in which the Bluemlein scripts were assembled and created - by collecting different signatures and then building complete alphabets from them - is a fascinating calligraphic adventure. Because the set of constructed designs looked nothing like the original signatures, fictitious names were assigned to the new script typefaces. The typeface styles were then showcased in Higgins Ink catalogs.</p> <p>Alejandro Paul and Sudtipos bring the Bluemlein scripts back to life in a set of expanded digital versions, reflecting the demands of today’s designer. Extreme care has been taken to render the original scripts authentically, keeping the fictitious names originally assigned to them by Bluemlein.</p><p>The Charles Bluemlein Script Collection is an intriguing reminder of the heady days of hand lettering and calligraphy in the United States. From the early 1930s through World War II, there were about 200 professional hand letterers working in New York City alone. This occupation saw its demise with the advent of photo lettering, and after digital typography it became virtually extinct. The odd way in which the Bluemlein scripts were assembled and created - by collecting different signatures and then building complete alphabets from them - is a fascinating calligraphic adventure. Because the set of constructed designs looked nothing like the original signatures, fictitious names were assigned to the new script typefaces. The typeface styles were then showcased in Higgins Ink catalogs.</p> <p>Alejandro Paul and Sudtipos bring the Bluemlein scripts back to life in a set of expanded digital versions, reflecting the demands of today’s designer. Extreme care has been taken to render the original scripts authentically, keeping the fictitious names originally assigned to them by Bluemlein.</p><p>The Charles Bluemlein Script Collection is an intriguing reminder of the heady days of hand lettering and calligraphy in the United States. From the early 1930s through World War II, there were about 200 professional hand letterers working in New York City alone. This occupation saw its demise with the advent of photo lettering, and after digital typography it became virtually extinct. The odd way in which the Bluemlein scripts were assembled and created - by collecting different signatures and then building complete alphabets from them - is a fascinating calligraphic adventure. Because the set of constructed designs looked nothing like the original signatures, fictitious names were assigned to the new script typefaces. The typeface styles were then showcased in Higgins Ink catalogs.</p> <p>Alejandro Paul and Sudtipos bring the Bluemlein scripts back to life in a set of expanded digital versions, reflecting the demands of today’s designer. Extreme care has been taken to render the original scripts authentically, keeping the fictitious names originally assigned to them by Bluemlein.</p><p>The Charles Bluemlein Script Collection is an intriguing reminder of the heady days of hand lettering and calligraphy in the United States. From the early 1930s through World War II, there were about 200 professional hand letterers working in New York City alone. This occupation saw its demise with the advent of photo lettering, and after digital typography it became virtually extinct. The odd way in which the Bluemlein scripts were assembled and created - by collecting different signatures and then building complete alphabets from them - is a fascinating calligraphic adventure. Because the set of constructed designs looked nothing like the original signatures, fictitious names were assigned to the new script typefaces. The typeface styles were then showcased in Higgins Ink catalogs.</p> <p>Alejandro Paul and Sudtipos bring the Bluemlein scripts back to life in a set of expanded digital versions, reflecting the demands of today’s designer. Extreme care has been taken to render the original scripts authentically, keeping the fictitious names originally assigned to them by Bluemlein.</p><p>
+M+ FONTS is a little nifty font family for everyday usage. Mplus U is a Sans Serif font with nine weights from Thin to Black, supporting 5,700+ Kanjis for Japanese with GF Latin Plus. To further enhance visibility, legibility, and readability, the internal spaces of the glyphs are designed to be wider and maximize the size of the voiced/semi-voiced sound mark on the kana characters. This font is intended for use in UIs, and as an accessible/readability font (UD font). As a side effect, this font has a very cute appearance :-)
+</p>
+<p>
+To contribute to the project, visit <a href="https://github.com/coz-m/MPLUS_FONTS">github.com/coz-m/MPLUS_FONTS</a>
+</p>
+<p>
 M+ FONTS is a little nifty font family for everyday usage. Mplus Code Latin is a Sans Serif font with seven weights from Thin to Bold, supporting GF Latin Plus. Because this font is for programming usage, it has high readability even in small sizes, and letterforms are designed to avoid misreadings as much as possible. There are two styles—Mplus Code Latin 50 and Mplus Code Latin 60, each having 50% and 60% character width.
 </p>
 <p>
-To contribute to the project, visit <a href="https://github.com/coz-m/MPLUS_FONTS">https://github.com/coz-m/MPLUS_FONTS</a>
+To contribute to the project, visit <a href="https://github.com/coz-m/MPLUS_FONTS">github.com/coz-m/MPLUS_FONTS</a>
 </p>
 <p>
 M+ FONTS is a little nifty font family for everyday usage. Mplus 2 is a Sans Serif font with nine weights from Thin to Black, supporting 5,700+ Kanjis for Japanese with GF Latin Plus. With the somewhat classic letterforms, this font pursues new standard of classic modern.
 </p>
 <p>
-To contribute to the project, visit <a href="https://github.com/coz-m/MPLUS_FONTS">https://github.com/coz-m/MPLUS_FONTS</a>
+To contribute to the project, visit <a href="https://github.com/coz-m/MPLUS_FONTS">github.com/coz-m/MPLUS_FONTS</a>
 </p>
 <p>
 The <a href="http://mplus-fonts.sourceforge.jp/mplus-outline-fonts/">M+ Outline Fonts Project</a> develops a superfamily set of several families: 
@@ -20534,13 +20545,13 @@ Now released under the SIL Open Font License.
 M+ FONTS is a little nifty font family for everyday usage. Mplus 1 Code is a Sans Serif font with seven weights from Thin to Bold, supporting 5,700+ Kanjis for Japanese with GF Latin Plus. Because this font is for programming usage, it has high readability even in small sizes, and letterforms are designed to avoid misreadings as much as possible. This font is a combination of Mplus 1 full-width Japanese with new half-width monospaced Latin alphabet and figures.
 </p>
 <p>
-To contribute to the project, visit <a href="https://github.com/coz-m/MPLUS_FONTS">https://github.com/coz-m/MPLUS_FONTS</a>
+To contribute to the project, visit <a href="https://github.com/coz-m/MPLUS_FONTS">github.com/coz-m/MPLUS_FONTS</a>
 </p>
 <p>
 M+ FONTS is a little nifty font family for everyday usage. Mplus 1 is a Sans Serif font with nine weights from Thin to Black, supporting 5,700+ Kanjis for Japanese with GF Latin Plus. With the harmony of comfortable curves and straight lines, this font gives modern and generous impression, suiting for any occasions including small texts to big titles.
 </p>
 <p>
-To contribute to the project, visit <a href="https://github.com/coz-m/MPLUS_FONTS">https://github.com/coz-m/MPLUS_FONTS</a>
+To contribute to the project, visit <a href="https://github.com/coz-m/MPLUS_FONTS">github.com/coz-m/MPLUS_FONTS</a>
 </p>
 <p>
     Mozilla Headline and Mozilla Text are the custom typefaces for the Mozilla brand. This typeface font family features a unique uniwidth design. It maintains standardized spacing and kerning across all weights and styles, eliminating risk of text reflow to preserve the integrity of the layout and enhance the user’s experience. Read more about <a href="https://blog.mozilla.org/en/mozilla/mozilla-brand-next-era-of-tech/">Mozilla’s rebrand here</a>.
@@ -23359,22 +23370,18 @@ Imbue was designed by Tyler Finck. To contribute, see <a href="https://github.co
 <p>
     The Idiqlat font supports the East Syriac style of the Syriac script. The font has support for glyph alternates, ligatures, and diacritics that the East Syriac style requires. The design of the font is a resized and modernized revival of metal type cut in India from around 1920.
 </p>
-
 <p>
     The font name, Idiqlat, means “Tigris River” in ancient Akkadian/Assyrian. The emphasis is on the first syllable: EE-dee-klat.
 </p>
-
 <p>
     The East Syriac style is used primarily by the Assyrians (Church of the East) and Chaldeans. It is also used by the Syrian Orthodox in headings of texts.
 </p>
-
 <p>
     To contribute, see <a href="https://github.com/silnrsi/font-idiqlat">github.com/silnrsi/font-idiqlat</a>.
 </p>
-
-<img src="image00.png">
-<img src="image01.png">
-<img src="image02.png">
+<img src="image00.png"/>
+<img src="image01.png"/>
+<img src="image02.png"/>
 <p>The idea of geometric typefaces with a look reminiscent of the machinery, technology, and interior design of the 1950s originated in Eurostile family by Aldo Novarese and Alessandro Butti (1952).</p> <p>Iceland is a modular square-shaped webfont by Victor Kharyk with a cold brutal character designed with the intention to perform well on screen starting from low resolutions. For this purpose the strokes are deliberatly kept vertical and diagonal cuts have a 45° angle, outlines are rounded.</p> <p>Features like wide proportions and generous x-height are introduced for better legibility. Unconventional and simplified letterforms like k, f, r aid readability at small sizes. While at display sizes they add a crisp and sharp impression.</p> <p>Uppercase letters are decently heavier compared to lowercase as a tribute to the old typographic tradition. This way uppercase is easily distinguished from lowercase, and allows scaling down to be used as Small Caps.</p> <p>Because of its ascetic modular character and squarish proportions Iceland webfont is easily integrated in modular grids and logotypes.</p><p>Iceberg is a slim condensed decorative webfont by Victor Kharyk suitable for medium to large sizes. It is monolinear and mostly monospaced, has long ascenders and descenders, and a modular construction that builds a rhythm. These features improve overall readability. Its monolinear strokes and 45 degree cuts echo letters made from folded tape.</p><p>
     IBM Plex® is the corporate typeface for IBM worldwide and an open-source project developed by the IBM Brand &amp;
     Experience team (BX&amp;D). Plex is an international typeface family designed to capture IBM&rsquo;s brand spirit
@@ -24530,8 +24537,8 @@ To contribute, see <a href="https://github.com/googlefonts/genos" target="_blank
 <p>
     To contribute, see <a href="https://github.com/vercel/geist-font">github.com/vercel/geist-font</a>.
 </p>
-<hr>
-<img src="geist-banner-light.png" />
+<hr/>
+<img src="geist-banner-light.png"/>
 <p>
     Geist Sans is a sans-serif typeface designed to complement its monospace counterpart, <a href="https://fonts.google.com/specimen/Geist+Mono">Geist Mono.</a> This geometric typeface offers a clean, modern aesthetic that is ideal for headlines, logos, posters, and other large display sizes.
 </p>
@@ -24541,8 +24548,8 @@ To contribute, see <a href="https://github.com/googlefonts/genos" target="_blank
 <p>
     To contribute, see <a href="https://github.com/vercel/geist-font">github.com/vercel/geist-font</a>.
 </p>
-<hr>
-<img src="geist-banner-light.png" /><p>A gentle and modern Malayalam display typeface. Available in three weights, Gayathri is best suited for headlines, posters, titles and captions. Unicode compliant and libre licensed. </p>
+<hr/>
+<img src="geist-banner-light.png"/><p>A gentle and modern Malayalam display typeface. Available in three weights, Gayathri is best suited for headlines, posters, titles and captions. Unicode compliant and libre licensed. </p>
 
 <p>To contribute, see <a href="https://gitlab.com/smc/fonts/gayathri">gitlab.com/smc/fonts/gayathri</a>.</p>
 
@@ -24929,6 +24936,39 @@ To contribute, see <a href="https://github.com/mozilla/Fira">github.com/mozilla/
 <p>
 To contribute, see <a href="https://github.com/tonsky/FiraCode" target="_blank">https://github.com/tonsky/FiraCode</a>.
 </p>
+<p>
+    Finlandica is the official typeface of Finland, commissioned by the Prime Minister‘s Office, and free to use by everyone in the spirit of Jokaisenoikeus.
+</p>
+
+<p>
+    Finlandica Text has generous proportions and open aperture for optimal legibility, reflecting a Finnish sense of trust and calm functionality. Subtle ink traps and carefully engineered details ensure reliability across sizes and media without losing its character.
+</p>
+
+<p>
+    The companion typeface Finlandica Headline is designed to complement the quiet clarity of Text, with unique character. Finlandica supports a wide range of Latin and Cyrillic scripts.
+</p>
+
+<p>
+    To contribute, see <a href="https://github.com/HelsinkiTypeStudio/FinlandicaText">github.com/HelsinkiTypeStudio/FinlandicaText</a>.
+</p>
+
+<hr>
+<img src="finlandica-text.png">
+<p>
+    Finlandica is the official typeface of Finland, commissioned by the Prime Minister‘s Office, and free to use by everyone in the spirit of Jokaisenoikeus.
+</p>
+
+<p>
+    Finlandica Headline has strong and compressed shapes reflecting a distinctly Finnish sense of honest and resilient determination — Sisu. Counter shapes like cuts from a blunt axe improve clarity at small sizes while adding character at headline scale.
+</p>
+
+<p>
+    The companion typeface Finlandica Text is designed to complement the unique character of Headline with quiet clarity for body text. Finlandica supports a wide range of Latin and Cyrillic scripts.
+</p>
+
+<p>To contribute, see <a href="https://github.com/HelsinkiTypeStudio/FinlandicaHeadline">github.com/HelsinkiTypeStudio/FinlandicaHeadline</a>.</p>
+
+<img src="finlandica-headline.png">
 <p>The official typeface of Finland commissioned by the Prime ministers office and Business Finland for the promotion of Finnish exports. Its strong and compressed shapes embody a traditional virtue in Finnish culture: honest and resilient determination - "Sisu". Ink traps like cuts from a blunt ax, makes the typeface reliable in small sizes and gives it character in large headlines. Like the Finnhorse it's a breed suitable both as riding horse and workhorse.</p>
 <p>To contribute, see <a href="https://github.com/HelsinkiTypeStudio/Finlandica">github.com/HelsinkiTypeStudio/Finlandica</a>.</p>
 <p>
@@ -25113,6 +25153,24 @@ It comes with Latin Character sets including Western, Central, and Vietnamese la
 <p>
 To contribute, see <a href="https://github.com/googlefonts/estonia" target="_blank">github.com/googlefonts/estonia</a>.
 </p>
+<p>
+    Estedad (/~este~dAd/, meaning “Talent” in Persian) is an Arabic–Latin sans-serif typeface family available in 9 standard weights, along with a variable font (wght axis).
+</p>
+
+<p>
+    Estedad supports a wide range of Arabic and Latin codepoints, covering most use cases for both writing systems.The design is simple, smooth, and compact, with low contrast and a relatively small optical size (slightly increased in bold and heavier weights). The typeface is optimized for screen and web-oriented environments.
+</p>
+
+<p>
+    To contribute, see <a href="https://github.com/aminabedi68/Estedad">github.com/aminabedi68/Estedad</a>.
+</p>
+
+<hr>
+
+<img src="image1.jpg">
+<img src="image2.jpg">
+<img src="image3.jpg">
+
 <p>Esteban is a typeface intended to be used in texts, specially literature and poetry. Its a serif font with medium contrast, tall x height, medium compression, and robust serifs. It offers personality, readability and economy.</p> <p>One of the most important features of Esteban is its stroke, that loses or gains weight in the stems. This feature was defined from the manuscripts of Jorge Alfredo Díaz Esteban, a writer who used a tool that can generate modulated strokes. This means the stroke width varies due to the pressure of the pen on the paper, and this quality allows the font to have a presence on the page that makes texts more dynamic. The precise level of contrast was decided by experimenting with various 'colors' of density that emerge in text settings. This allows Esteban to achieve good performance even in medium and low quality prints and as a web font.</p><p>Erica is a voluptuous contemporary tribute to the sans serif work of Eric Gill that is mixed with the painter Botero.</p><p>Epunda Slab is the perfect companion of Epunda Sans. The sturdy, angled serifs give the font a robust and traditional look. Epundas Sans is a variable font with a weight axis that ranges from Light (300) to Black (900).</p>
 
 <img src="image1.png">
@@ -25542,7 +25600,7 @@ In the world of free/libre culture, however, only a few Garamond-inspired types 
 In November 2019, the family has been updated to a variable font family.
 </p>
 <p>
-This project is led by Georg Duffner, and developed at <a href="https://github.com/georgd/EB-Garamond">github.com/georgd/EB-Garamond</a>
+This version of the project was originally led by Octavio Pardo (<a href="https://github.com/octaviopardo/EBGaramond12">github.com/octaviopardo/EBGaramond12</a>), which is forked from Georg Duffner's original project <a href="https://github.com/georgd/EB-Garamond">github.com/georgd/EB-Garamond</a>. It is currently maintained with contributions from the wider community, including the Google Fonts team.
 </p>
 <p>Eater is a display font infected by the darkest of rare disease that slowly spreads at night while the webfont user sleeps.</p><p>East Sea Dokdo is a Korean and Latin font</p>
 <p>The Eagle Lake typeface is a calligraphic lettering style based on the practical Running Book Hand. It has shorter capitals that create a visually taller x-height lending to high legibility and fluidity.</p><p>
@@ -25991,7 +26049,12 @@ The tall x-height, low contrast and sturdy slabs prove to be surprisingly effici
 <p>
 Creepster is a fright-filled font, perfect for all of your grisly graphic needs!
 </p>
-<p>Covered By Your Grace is based on the adorable handwriting of a very sweet teacher friend.  I love her whimsical curves and extensions.</p><p>Coustard is a display and text serif webfont designed to be used freely across the internet by web browsers on desktop computers, laptops and mobile devices.</p> <p>Coustard has been developed from a fork of Tienne, another font in the Google Font Directory, available under the SIL Open Font License which allows for remixing fonts.</p><p>Courier Prime is a new take on IBM's Courier which was designed in 1956 by Howard Kettler.</p>
+<p>Covered By Your Grace is based on the adorable handwriting of a very sweet teacher friend.  I love her whimsical curves and extensions.</p><p>Coustard is a display and text serif webfont designed to be used freely across the internet by web browsers on desktop computers, laptops and mobile devices.</p> <p>Coustard has been developed from a fork of Tienne, another font in the Google Font Directory, available under the SIL Open Font License which allows for remixing fonts.</p><p>
+Cousine was designed by Steve Matteson as an innovative, refreshing sans serif design that is metrically compatible with Courier New™. 
+Cousine offers improved on-screen readability characteristics and the pan-European WGL character set and solves the needs of developers looking for width-compatible
+fonts to address document portability across platforms.
+</p>
+<p>Courier Prime is a new take on IBM's Courier which was designed in 1956 by Howard Kettler.</p>
 
 <p>It's a monospaced family, designed specifically for screenplays. Overall the family is more refined than its predecessor. The serifs are crisper and less rounded. The counters are subtly wider. The bold weight is a bit darker and the italics are more cursive.</p>
 
@@ -33168,6 +33231,18 @@ It comes with Latin Character sets including Western, Central, and Vietnamese la
 <p>
 To contribute, see <a href="https://github.com/googlefonts/arizonia" target="_blank">github.com/googlefonts/arizonia</a>.
 </p>
+<p>Arimo was designed by Steve Matteson as an innovative, refreshing sans
+serif design that is metrically compatible with Arial™. Arimo offers improved
+on-screen readability characteristics and the pan-European WGL character set
+and solves the needs of developers looking for width-compatible fonts to
+address document portability across platforms.</p>
+
+<p>Updated in April 2026 and re-released under the OFL. 
+ To contribute, see
+ <a href="https://github.com/googlefonts/arimo">
+  github.com/googlefonts/arimo
+ </a>
+</p>
 <p>
     A display font with soft edges and calligraphic feel is the main inspiration for Arima project.
 </p>
@@ -34076,6 +34151,25 @@ to see!</p><p>
 <p>Designed by Sveta Sebyakina in 2009, and in collaboration with Alexei Vanyashin it was first released in 2011 by Cyreal.</p>
     
 <p>To contribute to the project, visit <a href="https://github.com/cyrealtype/Alike">github.com/cyrealtype/Alike</a></p>
+<p>
+    Alien Block is a structural display typeface that treats typography as architecture. Born from an exploration of modularity, it bridges the gap between the rigid logic of a grid and the expressive needs of modern graphic design.
+</p>
+
+<p>
+    At its core, Alien Block is built on a shared modular unit, allowing characters to stack and align like architectural tiles. This systematic approach creates a distinctive visual rhythm, making it an ideal choice for logos, headlines, and experimental layouts. It is particularly effective when used in "block" compositions, where the relationship between positive and negative space becomes as important as the letters themselves.
+</p>
+
+<p>
+    Whether you are designing a futuristic poster or a minimalist brand identity, Alien Block invites you to play with its modular nature. It transforms simple text into a rhythmic, geometric landscape, offering a fresh perspective on how we compose and perceive digital letterforms.
+</p>
+
+<p>To contribute, see <a href="https://github.com/koci-design/AlienBlock">github.com/koci-design/AlienBlock</a>.</p>
+
+<hr>
+<img src="alienBlock_image_01.png">
+<img src="alienBlock_image_02.png">
+<img src="alienBlock_image_03.png">
+<img src="alienBlock_image_04.png">
 <p>Ksenia Erulevich, designer of the Alice typeface, was inspired by Lewis Carrol's novel and decided to make a typeface that will be suitable for typesetting that book.</p> 
 <p>It came out eclectic and quaint, old-fashioned, having widened proportions, open aperture, and soft rounded features; perfect for long meditative text-setting and headlines.</p>
 <p>This is in fact Ksenia's first typeface, as part of her diploma project in a Type and Typography course in Moscow, Russia.</p> 
@@ -34274,6 +34368,26 @@ Aladin is a calligraphic vintage face with a middle eastern touch, designed by A
 Casual, airy counters and friendly terminals give it an advantage as a packaging font for exotic coffees and teas.
 It also serves quite well on posters and book jackets where relaying the famous sense of Eastern hospitality and playfulness is a must.
 </p>
+<p>
+  Akt is a contemporary sans-serif typeface crafted for clarity and precision in modern digital design. Built with an interface-first approach, it ensures consistent behavior across layouts, components, and viewports — a dependable foundation for UI and design systems.
+</p>
+
+<p>
+  Each weight is designed with intent: mid-range weights support comfortable reading, while heavier ones add focus and structure to titles and key visual elements.Balancing rational geometry with refined optical details, Akt offers the precision developers need and the flexibility designers expect — a unified typographic system for modern interfaces and branding. Designed by Dima Grenev.
+</p>
+
+<p>
+  The variable font axis allows fine-tuning weight to match your layout needs. The family covers basic Latin and Cyrillic scripts and includes essential punctuation and symbols. Vertical metrics are set for balanced line spacing across platforms.
+</p>
+
+<p>
+  Design highlights include compact counters, open apertures, and a steady rhythm that works well from small UI labels to longer paragraphs. The typographic color remains consistent through the optical weight range, making it reliable for product design, dashboards, and editorial interfaces.
+</p>
+
+<p>To contribute, see <a href="https://github.com/dimgrenev/akt">github.com/dimgrenev/akt</a>.</p>
+
+<hr>
+<img src="image1.png">
 <p>Akshar is a variable display sans-serif font family that supports Latin and Devanagari.
     It is designed for titles, statements, headlines, annoucements, intros, outros, and other display texts.
     Akshar (Hindi: अक्षर) literally means an alphabet or a letter in Hindi, Marathi, Gujarati and other Indic languages.
@@ -34469,14 +34583,7 @@ and inspires them to create their own unique handwriting.</p>
 Unkempt is lacking in order and neatness, and began with hand-lettering. 
 This off-kilter gem is definitely different than a traditional regimented typeface. 
 </p>
-<p>Ultra is an ultra bold slab typeface with nods to wood type styles like Clarendon and Egyptian. Strong and dramatic letterforms for titling, a serious, yet friendly, and easily legible typestyle. Perfect for power headlines and titling for impact.</p><p>Tinos was designed by Steve Matteson as an innovative, refreshing serif
-design that is metrically compatible with Times New Roman™. Tinos offers
-improved on-screen readability characteristics and the pan-European WGL
-character set and solves the needs of developers looking for width-compatible
-fonts to address document portability across platforms.</p>
-
-<p>Updated in May 2013 with improved hinting and released under the 
-Apache 2.0 license.</p><p>Syncopate was designed in 2010 as a headline and display typeface.</p> <p>Light in weight with a wide body width, it is a unicase design where the traditional lowercase x-height has been abandoned and a single uppercase height rules the design of all of the alpha and numeric glyphs. Some uppercase glyphs are copied to their lowercase slots, where other lowercase glyphs such as the a, e, and r, are scaled up to uppercase heights. This motif allows for a vast array of setting possibilities.</p> <p>Though intended for display, Syncopate does work well for limited text runs. The letter forms are a modern and stylish sans serif inspired by the many trendy sans serif typefaces that are so prevalent today. The lighter weight and wide body impart a certain level of elegance, while the unicase approach keeps the look lively and fresh.</p> <p>A true bold was added in April 2011.</p><p>
+<p>Ultra is an ultra bold slab typeface with nods to wood type styles like Clarendon and Egyptian. Strong and dramatic letterforms for titling, a serious, yet friendly, and easily legible typestyle. Perfect for power headlines and titling for impact.</p><p>Syncopate was designed in 2010 as a headline and display typeface.</p> <p>Light in weight with a wide body width, it is a unicase design where the traditional lowercase x-height has been abandoned and a single uppercase height rules the design of all of the alpha and numeric glyphs. Some uppercase glyphs are copied to their lowercase slots, where other lowercase glyphs such as the a, e, and r, are scaled up to uppercase heights. This motif allows for a vast array of setting possibilities.</p> <p>Though intended for display, Syncopate does work well for limited text runs. The letter forms are a modern and stylish sans serif inspired by the many trendy sans serif typefaces that are so prevalent today. The lighter weight and wide body impart a certain level of elegance, while the unicase approach keeps the look lively and fresh.</p> <p>A true bold was added in April 2011.</p><p>
 Sunshiney is a little a ray of hand-crafted goodness that can lighten up the dreariest of domains. 
 </p>
 <p>
@@ -34539,22 +34646,10 @@ Crafty Girls is inspired by crochet hooks, yarn, button boxes, thread, and glitt
 This delightfully playful casual handwriting script font was hand drawn by Crystal Kluge and makes the perfect compliment to all your projects.
 Use it in your very best creative projects, then blog about them in the same font!
 </p>
-<p>
-Cousine was designed by Steve Matteson as an innovative, refreshing sans serif design that is metrically compatible with Courier New™. 
-Cousine offers improved on-screen readability characteristics and the pan-European WGL character set and solves the needs of developers looking for width-compatible
-fonts to address document portability across platforms.
-</p>
 <p>Coming Soon by Open Window is based on the handwriting from mom when she was in 6th grade. Solid balance, masterful strokes, and just a touch of lemonade stand for good measure!</p><p>
 A font you can really sink your teeth into. 
 And unlike all those tasteless fonts, Chewy never loses its flavor! 
 Chewy is sealed for freshness in an easy-open package. 
 Be sure to sample Squid's other main courses and side dishes!
 </p>
-<p>Cruise in to your favorite soda fountain and ask the jerk behind the counter to pull you a sweet red cherry cream soda! This extra wide sans-serif will take you back to the world of the 1950s teenager complete with bubbly enthusiasm and an optimistic outlook!</p><p>Calligraffitti by Open Window owes its credit to mom and all her years of Calligraphic experience. This impromptu rendering of her calligraphic alphabet captures her years or formal practice blended with a rare encounter with the mood altering music of Santana.</p><p>Arimo was designed by Steve Matteson as an innovative, refreshing sans
-serif design that is metrically compatible with Arial™. Arimo offers improved
-on-screen readability characteristics and the pan-European WGL character set
-and solves the needs of developers looking for width-compatible fonts to
-address document portability across platforms.</p>
-
-<p>Updated in May 2013 with improved hinting and released under the 
-Apache 2.0 license.</p><p>Aclonica is a strong and modern sans serif typeface with a slight deco/techno essence to it. Clean letterforms, a generous x-height for a friendlier feel and easily legible typestyle. Perfect for both display titling as well as body copy.</p>
+<p>Cruise in to your favorite soda fountain and ask the jerk behind the counter to pull you a sweet red cherry cream soda! This extra wide sans-serif will take you back to the world of the 1950s teenager complete with bubbly enthusiasm and an optimistic outlook!</p><p>Calligraffitti by Open Window owes its credit to mom and all her years of Calligraphic experience. This impromptu rendering of her calligraphic alphabet captures her years or formal practice blended with a rare encounter with the mood altering music of Santana.</p><p>Aclonica is a strong and modern sans serif typeface with a slight deco/techno essence to it. Clean letterforms, a generous x-height for a friendlier feel and easily legible typestyle. Perfect for both display titling as well as body copy.</p>
