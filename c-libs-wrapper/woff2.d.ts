@@ -1,16 +1,17 @@
 // TypeScript bindings for emscripten-generated code.  Automatically generated at compile time.
-declare namespace RuntimeExports {
+declare var RuntimeExports: {
     /** @param {string=} sig */
-    function addFunction(func: any, sig?: string | undefined): any;
-    let wasmMemory: any;
-    let wasmExports: any;
-    function stackAlloc(sz: any): any;
-    function stackRestore(val: any): any;
-    function stackSave(): any;
-    let HEAPU8: any;
-    let HEAPU32: any;
-    let HEAPF32: any;
-}
+    addFunction: (func: any, sig?: string | undefined) => any;
+    stackAlloc: (sz: any) => any;
+    stackRestore: (val: any) => any;
+    stackSave: () => any;
+    /** @type {!Uint8Array} */
+    HEAPU8: Uint8Array;
+    /** @type {!Uint32Array} */
+    HEAPU32: Uint32Array;
+    /** @type {!Float32Array} */
+    HEAPF32: Float32Array;
+};
 interface WasmModule {
   _max_woff2_compressed_size(_0: number, _1: number): number;
   _convert_ttf_to_woff2(_0: number, _1: number, _2: number, _3: number, _4: number): number;
