@@ -130,10 +130,12 @@ em++ \
     --no-warnings \
     -DHB_TINY \
     -DHB_USE_INTERNAL_QSORT \
-    -DHB_CONFIG_OVERRIDE_H=\"config-override.h\" \
+    -DHB_CONFIG_OVERRIDE_H=\"config-subset.h\" \
+    -DHB_CONFIG_OVERRIDE_LAST_H=\"config-subset-last.h\" \
     -DHB_EXPERIMENTAL_API \
     --no-entry \
     -c \
+    -o harfbuzz-subset.o \
     harfbuzz/src/harfbuzz-subset.cc
 
 em++ \
@@ -170,6 +172,24 @@ em++ \
 # harfbuzz for shaping (used when generating Google Fonts metadata)
 
 em++ \
+    -std=c++11 \
+    -fno-exceptions \
+    -fno-rtti \
+    -fno-threadsafe-statics \
+    -fvisibility-inlines-hidden \
+    -flto \
+    -O3 \
+    -I. \
+    --no-warnings \
+    -DNDEBUG \
+    -DHB_USE_INTERNAL_QSORT \
+    -DHB_EXPERIMENTAL_API \
+    --no-entry \
+    -c \
+    -o harfbuzz-shape.o \
+    harfbuzz/src/harfbuzz.cc
+
+em++ \
     -fno-exceptions \
     -fno-rtti \
     -fno-threadsafe-statics \
@@ -194,4 +214,4 @@ em++ \
     -O3 \
     -flto \
     --no-entry \
-    harfbuzz-subset.o
+    harfbuzz-shape.o
