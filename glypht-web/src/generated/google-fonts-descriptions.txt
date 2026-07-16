@@ -385,6 +385,40 @@ Finally, Liu and other designers from his workshop, including Yang Kang and Wu S
     To contribute, please see <a href="https://github.com/googlefonts/zain">github.com/googlefonts/zain</a>.
 </p>
 <p>
+    Yuyu is a slender, stylized handwritten typeface designed by Julia García López. Originally created as a personal tool for the designer's own visual identity, Yuyu is the product of years of manual refinement and care.
+</p>
+
+<p>
+    Its tall, uppercase letterforms carry a pronounced verticality that feels both fun and familiar, while resolving into a mature and cheerful finish. This balance makes Yuyu a natural fit for personal branding, editorial design, modern titling, and any project looking to build a friendly, human connection.
+</p>
+
+<p>
+    The family consists of two variations that share the same capital letters: Yuyu and Yuyu Short. Yuyu was developed with a clear focus on legibility and accessibility, making it the more practical choice for extended use. Yuyu Short, by contrast, is intended purely for aesthetic and display purposes.
+</p>
+
+<p>
+    <em>"This font is, in many ways, like a child to me. It has featured in every sketch and project for years. Seeing it today transformed into a complete typographic tool is the start of a new chapter. This is my voice, now available for yours."</em> — Julia García López
+</p>
+
+<p>To contribute, see <a href="https://github.com/JuliaGarciaLopez/Yuyu-Font">github.com/JuliaGarciaLopez/Yuyu-Font</a>.</p>
+<p>
+    Yuyu is a slender, stylized handwritten typeface designed by Julia García López. Originally created as a personal tool for the designer's own visual identity, Yuyu is the product of years of manual refinement and care.
+</p>
+
+<p>
+    Its tall, uppercase letterforms carry a pronounced verticality that feels both fun and familiar, while resolving into a mature and cheerful finish. This balance makes Yuyu a natural fit for personal branding, editorial design, modern titling, and any project looking to build a friendly, human connection.
+</p>
+
+<p>
+    The family consists of two variations that share the same capital letters: Yuyu Mid and Yuyu Short. Yuyu Mid was developed with a clear focus on legibility and accessibility, making it the more practical choice for extended use. Yuyu Short, by contrast, is intended purely for aesthetic and display purposes.
+</p>
+
+<p>
+    <em>"This font is, in many ways, like a child to me. It has featured in every sketch and project for years. Seeing it today transformed into a complete typographic tool is the start of a new chapter. This is my voice, now available for yours."</em> — Julia García López
+</p>
+
+<p>To contribute, see <a href="https://github.com/JuliaGarciaLopez/Yuyu-Font">github.com/JuliaGarciaLopez/Yuyu-Font</a>.</p>
+<p>
 Yusei Magic is a font based on handwritten letters written with permanent marker. It has a thick vertical stroke and a thin horizontal stroke, so it is highly visible. The design of the letters has both the strength of bold lines and the softness of spaciousness. Highly recommended for handwriting on blackboards and pop art designs.
 </p>
 <p>
@@ -610,7 +644,7 @@ To contribute, see <a href="https://github.com/erinmclaughlin/Yantramanav">githu
     Yves Peters on <a href="http://fontfeed.com/archives/new-fontfonts-ff-kava-with-extra-flavour/">FontFeed</a>.</p>
 
 <p>Updated in December 2013 with Cyrillic, designed by Sol Matas and Juan Pablo del Peral at <a
-        href="http://www.huertatipografica.com.ar">Huerta Tipográfica</a>.</p>
+        href="http://www.htfonts.com">HT Fonts</a>.</p>
 
 <p>To contribute, see <a href="https://github.com/yanone/kaffeesatz">github.com/yanone/kaffeesatz</a>.</p><p>
 Yaldevi is designed for display use, such as headlines, subheads, and short paragraphs, such as pull quotes. 
@@ -1552,10 +1586,11 @@ The Latin is designed by Wojciech Kalinowski and originally published as <a href
 The Tenali Ramakrishna project is led by Appaji Ambarisha Darbha, a type designer based in Hyderabad, India. 
 To contribute, see <a href="https://github.com/appajid/tenaliramakrishna ">github.com/appajid/tenaliramakrishna</a></p>
 </p>
-<p>Telex is a humanist sans serif conceived to be a web font with nice legibility at normal text sizes. Originally based on grid fitting shapes it became a multi-purpose typeface with low contrast, open counter forms, wide proportions and a touch of freshness.</p> 
+<p>Telex is a humanist sans serif conceived to be a web font with nice legibility at normal text sizes. Originally based
+    on grid fitting shapes it became a multi-purpose typeface with low contrast, open counter forms, wide proportions
+    and a touch of freshness.</p>
 
-<p>Designed by Andrés Torresi for <a href="https://www.huertatipografica.com">Huerta Tipográfica</a>.</p>
-<p>Tektur is a constructed typeface featuring octagonal outlines and rectangular counters. This rudimentary principle is applied where rounds are typically found, but most of the diagonals are left intact which helps preserve good readability and a familiar stance. The x-height is set high and ascenders are aligned with the cap height allowing for compact typesetting.</p>
+<p>Designed by Andrés Torresi for <a href="https://www.htfonts.com">HT Fonts</a>.</p><p>Tektur is a constructed typeface featuring octagonal outlines and rectangular counters. This rudimentary principle is applied where rounds are typically found, but most of the diagonals are left intact which helps preserve good readability and a familiar stance. The x-height is set high and ascenders are aligned with the cap height allowing for compact typesetting.</p>
 
 <p>To contribute, see <a href="https://github.com/hyvyys/Tektur">github.com/hyvyys/Tektur</a></p><p>Teko is an Open Source typeface that currently supports the Devanagari and Latin scripts. This font family has been created for use in headlines and other display-sized text on screen. Five font styles make up the initial release.</p>
 
@@ -2911,6 +2946,23 @@ Enjoy Seaweed Script when a rustic tropical beachside script is called for and w
 Designed by Dave 'Squid' Cohen of Neapolitan, a Font Diner brand.
 </p>
 <p>
+    Scoutie Sans is a variable sans-serif typeface designed by Ty Finck for the customer service platform <a href="https://www.helpscout.com">Help Scout</a>. It was created to serve dual roles within the Help Scout brand: a compact, highly legible workhorse for dense UI environments, and a typeface with enough personality to hold its own at display sizes in marketing contexts. The result sits at the intersection of a utility grotesque and a display sans — functional without being anonymous.
+</p>
+<p>
+    The family spans a weight range from ExtraLight to ExtraBold (200-800), with matching italics, offered as a variable font. A set of stylistic alternates gives designers control over characters with strong personality: a single-storey <em>a</em> and <em>g</em>, a straight-leg <em>R</em>, a slashed zero, a crossbar-free <em>I</em>, and others.
+</p>
+<p>
+    Scoutie Sans supports a broad Latin character set covering Western, Central, and Eastern European languages, as well as a range of African Latin orthographies.
+</p>
+<p>
+     To contribute, see <a href="https://github.com/sursly/scoutie">github.com/sursly/scoutie</a>.
+</p>
+
+<img src="image1.png">
+<img src="image2.png">
+<img src="image3.png">
+<img src="image4.png">
+<p>
 Scope One is a light slab serif typeface with elegant expressions that make it broadly useful for many different contexts. 
 The design is optimized for titling and display usage and is ideally used at 14 points and above. 
 The tall vertical proportions of the lowercase mean that it can be used in a way similar to small caps, giving a more refined typographic impression. 
@@ -3038,24 +3090,25 @@ To contribute, see <a href="https://github.com/googlefonts/sassy-frass" target="
 href="http://code.google.com/p/googlefontdirectory/">Google Code</a>.
 To contribute to the project contact <a href="mailto:sorkineben@gmail.com">Eben Sorkin</a>.<p>
 <p>
-Sarala is a Devanagari typeface family designed by Andrés Torresi and Carolina Giovagnoli for Huerta Tipográfica.
-It is based on the original Latin typeface <a href="https://www.google.com/fonts/specimen/Telex">Telex</a>, a sans serif typeface for text.
-</p>
-
-<p> 
-It is a humanist sans serif design, conceived to be a web font with nice legibility at normal text sizes. 
-Originally based on grid fitting shapes it became a multi-purpose typeface with low contrast, open counter forms, wide proportions and a touch of freshness.
+    Sarala is a Devanagari typeface family designed by Andrés Torresi and Carolina Giovagnoli for HT Fonts.
+    It is based on the original Latin typeface <a href="https://www.google.com/fonts/specimen/Telex">Telex</a>, a sans
+    serif typeface for text.
 </p>
 
 <p>
-Thanks to José Nicolás Silva, Vaishnavi Murthy and Erin McLaughlin for their feedback.
+    It is a humanist sans serif design, conceived to be a web font with nice legibility at normal text sizes.
+    Originally based on grid fitting shapes it became a multi-purpose typeface with low contrast, open counter forms,
+    wide proportions and a touch of freshness.
 </p>
 
 <p>
-The Sarala project is led by Andrés Torresi, a type designer based in Argentina. 
-To contribute, see <a href="https://github.com/andrestelex/sarala">github.com/andrestelex/sarala</a>
+    Thanks to José Nicolás Silva, Vaishnavi Murthy and Erin McLaughlin for their feedback.
 </p>
-<p>Sarabun is an open source multi-script webfont that supports both Latin and Thai. It is the "TH Sarabun New" font, made available under the Open Font License. The name "Sarabun" (สารบรรณ, RTGS: Saraban) means documentary affairs. The font is used in the Government Gazette of Thailand newspaper, and you can read more details about this font project on Wikipedia's <a href="http://en.wikipedia.org/wiki/National_fonts">National Fonts</a> page.</p><p>An ornate version of Sansita, with curvy uppercase letters, certain alternative lowercase letters and new ligatures.</p>
+
+<p>
+    The Sarala project is led by Andrés Torresi, a type designer based in Argentina.
+    To contribute, see <a href="https://github.com/andrestelex/sarala">github.com/andrestelex/sarala</a>
+</p><p>Sarabun is an open source multi-script webfont that supports both Latin and Thai. It is the "TH Sarabun New" font, made available under the Open Font License. The name "Sarabun" (สารบรรณ, RTGS: Saraban) means documentary affairs. The font is used in the Government Gazette of Thailand newspaper, and you can read more details about this font project on Wikipedia's <a href="http://en.wikipedia.org/wiki/National_fonts">National Fonts</a> page.</p><p>An ornate version of Sansita, with curvy uppercase letters, certain alternative lowercase letters and new ligatures.</p>
 
 <p>Sansita Swashed is designed by Pablo Cosgaya (Omnibus-Type) and developed by Aldo De Losa. To contribute, please see <a href="https://github.com/Omnibus-Type/Sansita-Swashed">github.com/Omnibus-Type/Sansita-Swashed</a>.</p>
 <p>Sansita One is a tasty new Omnibus-Type font designed by Pablo Cosgaya. The flavor of Sansita One's lowercase explores the relationship between typography and calligraphy. The elegance of Sansita One's uppercase makes this an excellent choice for packaging, brief texts, branding and slogans.</p><p>
@@ -3092,8 +3145,16 @@ The elegance of Sansita's uppercase makes this an excellent choice for packaging
 </p>
 
 <hr>
-<img src="Saira_Stencil-01.png">
-<img src="Saira_Stencil-02.png">
+<img src="image0.png">
+<img src="image1.png">
+<img src="image2.png">
+<img src="image3.png">
+<img src="image4.png">
+<img src="image5.png">
+<img src="image6.png">
+<img src="image7.png">
+<img src="image8.png">
+<img src="image9.png">
 <p>
 Saira is a sans serif system.
 It features a huge range of weights and widths, ready for all kind of typographic challenges.
@@ -4526,6 +4587,29 @@ Initially designed by Ilya Yudin in 2010, it was carefully refined and expanded 
 <p>
     To contribute, see <a href="https://github.com/tokotype/PlusJakartaSans">github.com/tokotype/PlusJakartaSans</a>.
 </p>
+<p>
+    Pliant typeface was conceived to address specific internal design needs. Built on the Swiss typographic tradition, Pliant offers a neutral and universal structure, making it suitable for a wide range of uses. Its design ensures clarity and consistency, especially in continuous text where legibility is a priority.
+</p>
+
+<p>
+    A distinctive feature of Pliant is its spacing, intentionally narrower than in many other typefaces. This decision was guided by practicality: it is easier to open up tight spacing to improve readability than to reduce spacing that is already too loose. This approach gives designers more control and flexibility when adapting the font to different contexts.
+</p>
+
+<p>
+    Considering these design variables, shapes, spacing, proportions we developed an additional variant aimed at headline usage. Non Pliant Normal works well for this purpose, but we felt the need for a complementary version that could pair seamlessly with it. The result is an extended variant that maintains the original spirit of Pliant while offering broader letterforms and slightly more pronounced details. This balance allows it to perform strongly in display settings without losing the rational qualities that define the family.
+</p>
+
+<p>
+    To contribute, see <a href="https://github.com/TheJonassss/Pliant">github.com/TheJonassss/Pliant</a>.
+</p>
+
+<video loop autoplay muted src="video4.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<img src="pliant-expanded-alphabet.jpg">
+
+<img src="pliant-language-support.jpg">
 <p>
     Playwrite South Africa Guides is a single-weight font companion that harmonizes seamlessly with the main family, <a href="https://fonts.google.com/specimen/Playwrite+ZA">Playwrite South Africa</a>. It includes guidelines on the baseline, x-height, ascenders, and descenders. These guides provide a visual aid for primary school children that helps young learners grasp the proportions of letterforms and assists them in drawing letters with confidence and accuracy.
 </p>
@@ -18315,14 +18399,17 @@ github.com/SorkinType/Pinyon
 .
 </p>
 <p>The world may seem cartoonish to you, pilgrim, but the funnies ain't really that funny. The Flintstones are so last century. The Hulks are in, and they're here to stay. Piedra is the rocky, fear-inducing face of galvanized triceps and überchiseled jawlines. Be intimidated, be very intimidated. You don't believe it?</p><p>
-Piazzolla is a type system intended for optimizing the available space in press media and other publications. It has a compact appearance which allows for small font sizes and tight leading while achieving solid lines and robust paragraphs.
-It has a distinctive voice that conveys a personal style, especially in display sizes. It has great performance and readability in small point sizes and long texts, both for screen and printing.
+    Piazzolla is a type system intended for optimizing the available space in press media and other publications. It has
+    a compact appearance which allows for small font sizes and tight leading while achieving solid lines and robust
+    paragraphs.
+    It has a distinctive voice that conveys a personal style, especially in display sizes. It has great performance and
+    readability in small point sizes and long texts, both for screen and printing.
 </p>
 
-<p>Designed by Juan Pablo del Peral for <a href="https://www.huertatipografica.com">Huerta Tipográfica</a>.</p>
+<p>Designed by Juan Pablo del Peral for <a href="https://www.htfonts.com">HT Fonts</a>.</p>
 
-<p>To contribute see <a href="https://github.com/huertatipografica/piazzolla">github.com/huertatipografica/piazzolla</a>.</p>
-<p>
+<p>To contribute see <a
+        href="https://github.com/huertatipografica/piazzolla">github.com/huertatipografica/piazzolla</a>.</p><p>
     Phudu is a sans-serif display typeface inspired by Vietnamese hand-lettering billboards in the old days, that
     supports a wide range of languages by Duong Tran. As a new way to achieve variable font, the lighterPhudu gets,
     the extended it becomes, for people to read it easier compared to other lightweight narrow typefaces.
@@ -20675,6 +20762,11 @@ In fall, Julieta Ulanovsky, Sol Matas, and Juan Pablo del Peral, led the develop
 The Montserrat project is led by Julieta Ulanovsky, a type designer based in Buenos Aires, Argentina. 
 To contribute, see <a href="https://github.com/JulietaUla/Montserrat">github.com/JulietaUla/Montserrat</a>
 </p>
+<p>
+    Montenegrin Gothic One is a serif typeface with slab-like terminals, designed to maintain optical consistency and a strong visual identity. Inspired by modern gothic forms, it is well-suited for headlines, logos, and typographic projects that require a bold yet elegant presence.
+</p>
+
+<p>To contribute, see <a href="https://github.com/MagicformDesign/montenegrin-gothic-one">github.com/MagicformDesign/montenegrin-gothic-one</a>.</p>
 <p>
 MonteCarlo is a beautiful formal script— both contemporary and traditional. This connecting script’s italic is slight, making it an extremely legible design.
 </p>
@@ -23871,7 +23963,39 @@ To contribute, see <a href="https://github.com/itfoundry/hind">github.com/itfoun
 <p>
 To contribute to the project, visit <a href="https://github.com/satsuyako/Hina-Mincho">github.com/satsuyako/Hina-Mincho</a>
 </p>
-<p>Hi Melody is a Korean and Latin font.</p><p>The Charles Bluemlein Script Collection is an intriguing reminder of the heady days of hand lettering and calligraphy in the United States. From the early 1930s through World War II, there were about 200 professional hand letterers working in New York City alone. This occupation saw its demise with the advent of photo lettering, and after digital typography it became virtually extinct. The odd way in which the Bluemlein scripts were assembled and created - by collecting different signatures and then building complete alphabets from them - is a fascinating calligraphic adventure. Because the set of constructed designs looked nothing like the original signatures, fictitious names were assigned to the new script typefaces. The typeface styles were then showcased in Higgins Ink catalogs.</p> <p>Alejandro Paul and Sudtipos bring the Bluemlein scripts back to life in a set of expanded digital versions, reflecting the demands of today’s designer. Extreme care has been taken to render the original scripts authentically, keeping the fictitious names originally assigned to them by Bluemlein.</p><p>Hermeneus is a grecian style font, inspired by the works of Jim Parkinson
+<p>Hi Melody is a Korean and Latin font.</p><p>
+    Hibur Mono is a single weight, monospaced, Ethiopic typeface designed for columnar display environments such as computer terminals and software code development interfaces.
+</p>
+
+<p>
+    The Hibur Mono Ethiopic glyphs have been designed from the ground up and optimized for the fixed width constraints of a monospaced typeface. Hibur Mono is compatible with the Noto Sans Mono geometric dimensions. The non-Ethiopic glyphs in Hibur Mono have also been leveraged from Noto Sans Mono.
+</p>
+
+<p>
+    To contribute, see <a href="https://github.com/typehabesha/HiburMono">github.com/typehabesha/HiburMono</a>.
+</p>
+
+<p>
+    የኅቡር ሞኖ መልከፊደል ቅርጾች (glyphs) ለቋሚ ስፋት የፊደል ቅርጽ ገደቦች እጅግ ተስማሚ በሆነ መልኩ የተመቻቹ (optimized) ናቸው። ኅቡር ሞኖ ከኖቶ ሳንስ ሞኖ (Noto Sans Mono) የጂኦሜትሪክ ልኬቶች (geometric dimensions) ጋር የተጣጣመ ሲሆን በተጨማሪም በኅቡር ሞኖ ውስጥ የተካተቱት ኢትዮጵያዊ ያልሆኑት የፊደላት ቅርጾች ከኖቶ ሳንስ ሞኖ (Noto Sans Mono) መልከፊደል የተወሰዱ ናቸው።
+</p>
+
+<p>
+    ኅቡር ሞኖ በታይፕ ሐበሻ እና በራእይ ታይፕ ጥምረት እንደ ኮምፒውተር ተርሚናሎች እና የሶፍትዌር ኮድ ማበልጸጊያ በይነገጾች (interfaces) ላሉ አገልግሎቶች ተብሎ የተነደፈ፣ ነጠላ ውፍረት ያለው እና ቋሚ ስፋት ያለው (monospaced) ኢትዮጵያዊ መልከፊደል ነው።
+</p>
+
+<p>
+    ለዚህ ፕሮጀክት አስተዋጽኦ ለማድረግ <a href="https://github.com/typehabesha/HiburMono">github.com/typehabesha/HiburMono</a>
+</p>
+
+<img src="Hibur-Mono-Preview-1.png">
+<img src="Hibur-Mono-Preview-2.png">
+<img src="Hibur-Mono-Preview-3.png">
+<img src="Hibur-Mono-Preview-4.png">
+<img src="Hibur-Mono-Preview-5.png">
+<img src="Hibur-Mono-Preview-6.png">
+<img src="Hibur-Mono-Preview-7.png">
+<img src="Hibur-Mono-Preview-8.png">
+<p>The Charles Bluemlein Script Collection is an intriguing reminder of the heady days of hand lettering and calligraphy in the United States. From the early 1930s through World War II, there were about 200 professional hand letterers working in New York City alone. This occupation saw its demise with the advent of photo lettering, and after digital typography it became virtually extinct. The odd way in which the Bluemlein scripts were assembled and created - by collecting different signatures and then building complete alphabets from them - is a fascinating calligraphic adventure. Because the set of constructed designs looked nothing like the original signatures, fictitious names were assigned to the new script typefaces. The typeface styles were then showcased in Higgins Ink catalogs.</p> <p>Alejandro Paul and Sudtipos bring the Bluemlein scripts back to life in a set of expanded digital versions, reflecting the demands of today’s designer. Extreme care has been taken to render the original scripts authentically, keeping the fictitious names originally assigned to them by Bluemlein.</p><p>Hermeneus is a grecian style font, inspired by the works of Jim Parkinson
 and Ortiz Lopez. It condensation lets you put more characters into a line of
 text giving your paragraphs more efficiency. It is intended to be read at small
 size text, but also works on large headers and titles.</p>
@@ -24068,7 +24192,7 @@ Gurajada is Telugu handwriting font, suitable for headings, posters, and invitat
 </p>
 <p>
 The Telugu is designed and developed by Purushoth Kumar Guttula in 2013 and made available by Silicon Andhra under the SIL Open Font License v1.1.
-The Latin is developed by Juan Pablo del Peral at Huerta Tipografia, a type foundry in Argentina, and originally published as <a href="http://www.google.com/fonts/specimen/Alegreya+Sans">Alegreya Sans</a>.
+The Latin is developed by Juan Pablo del Peral at HT Fonts, a type foundry in Argentina, and originally published as <a href="http://www.google.com/fonts/specimen/Alegreya+Sans">Alegreya Sans</a>.
 The Gurajada project is led by Appaji Ambarisha Darbha, a type designer based in Hyderabad, India. 
 To contribute, see <a href="https://github.com/appajid/gurajada">github.com/appajid/gurajada</a></p>
 </p>
@@ -24317,12 +24441,15 @@ Dipre</a>.</p>
 <p>The Goldman font family includes two weights. Regular, designed for the large headers or titles, and Bold, designed for heavyweight title designs.</p>
 <p>Each font includes 640 glyphs that covers Western, Central and South Latin as well as Vietnamese.</p>
 <p>To contribute, see <a href="https://github.com/magictype/goldman" target="_blank">https://github.com/magictype/goldman</a></p>
-<p>Gochi Hand is a typographic interpretation of the handwriting of a teenager. The style is fresh, not like the letters made by a calligrapher, but those of an ordinary person. The text line is spontaneous but solid and consistent, expressive and works well on screen, even in small sizes. The glyphs were carefully designed with a good curve quality that makes it able to look good when printed too.</p> 
+<p>Gochi Hand is a typographic interpretation of the handwriting of a teenager. The style is fresh, not like the letters
+    made by a calligrapher, but those of an ordinary person. The text line is spontaneous but solid and consistent,
+    expressive and works well on screen, even in small sizes. The glyphs were carefully designed with a good curve
+    quality that makes it able to look good when printed too.</p>
 
-<p>Designed by Juan Pablo del Peral for <a href="https://www.huertatipografica.com">Huerta Tipográfica</a>.</p>
+<p>Designed by Juan Pablo del Peral for <a href="https://www.htfonts.com">HT Fonts</a>.</p>
 
-<p>To contribute, see <a href="https://github.com/huertatipografica/gochi-hand">github.com/huertatipografica/gochi-hand</a>.</p>
-<p><strong>Foundry: <a href="http://www.sorkintype.com">Sorkin Type Co</a></strong></p>
+<p>To contribute, see <a
+        href="https://github.com/huertatipografica/gochi-hand">github.com/huertatipografica/gochi-hand</a>.</p><p><strong>Foundry: <a href="http://www.sorkintype.com">Sorkin Type Co</a></strong></p>
 
 <p>Goblin One belongs to the category of display types called "Latin". This is
 because of its sharp triangular serifs. Goblin One was inspired by a hand
@@ -24441,6 +24568,17 @@ The typeface is accompanied by a matching Latin design, inspired by Hermann Zapf
 
 <p>To contribute, please see <a href="https://github.com/productiontype/Georama">github.com/productiontype/Georama</a>.
 </p><p>
+    Geomini is a compact geometric font inspired by Swedish traffic signs. With its super high x-height, Geomini is perfect for text, branding and interfaces. This font is published by the FontBob team: FontBob is a font editor focused on making type design more accessible.
+</p>
+
+<p>To contribute, see <a href="https://github.com/fontbob/geomini">github.com/fontbob/geomini</a>.</p>
+
+<hr>
+<img src="image-1.png">
+<img src="image-2.png">
+<img src="image-3.png">
+<img src="image-4.png">
+<p>
     Geom is a contemporary geometric sans-serif typeface designed with a balance between precision and expressiveness. While it draws inspiration from the classic geometric tradition, it introduces subtle dynamic elements that bring rhythm and energy to the letterforms. These details make Geom more than a strictly geometric construction — they lend it character and movement, setting it apart from similar typefaces.
 </p>
 
@@ -24528,6 +24666,15 @@ To contribute, see <a href="https://github.com/googlefonts/genos" target="_blank
 <p>In March 2024, the glyph set for GF Africa Pri has been enhanced with improved diacritics, along with the addition of some other basic language support from the 'Beyond' glyph set. Updates were also made to currency symbols, other symbols, spaces, and NSM localization.</p>
 
 <p>To contribute, see <a href="https://github.com/SorkinType/Gelasio">github.com/SorkinType/Gelasio</a>.</p>
+<p>
+    Geist Pixel is a display typeface family of five pixel-based styles, each with a distinct visual character. It joins Vercel's Geist family alongside its sans-serif and monospace counterparts, <a href="https://fonts.google.com/specimen/Geist">Geist</a> and <a href="https://fonts.google.com/specimen/Geist+Mono">Geist Mono</a>.
+</p>
+<p>
+    The five styles — Square, Circle, Grid, Triangle, and Line — each build letters from a different pixel element, giving every variant its own look. Geist Pixel is made for decorative use in headlines, logos, and other display contexts where a pixelated aesthetic is desired.
+</p>
+<p>
+    Created by Vercel, Geist embodies their design principles of simplicity, minimalism, and speed, drawing inspiration from the renowned Swiss design movement. To contribute, see <a href="https://github.com/vercel/geist-font">github.com/vercel/geist-font</a>.
+</p>
 <p>
     Geist Mono is a monospace typeface that prioritizes readability and seamless integration into coding environments. It is complemented by its sans-serif counterpart, <a href="https://fonts.google.com/specimen/Geist">Geist</a>.
 </p>
@@ -26569,7 +26716,10 @@ To contribute to the project contact <a href="mailto:sorkineben@gmail.com">Eben 
 <p> In October 2022 some metadata were fixed such as license clification, style name and style linking. Users may notice that the style "Oblique" has changed to "Italic".</p>
 
 <p>To contribute, see <a href="https://github.com/davelab6/cantarell">github.com/davelab6/cantarell</a>.</p>
-<p>Candal is an original and fun sans serif type design by Vernon Adams which was inspired by historical types.</p><p>Cambo is a modern Latin typeface inspired by the contrast, style and ornaments of Khmer typefaces and writing styles. Its main objective is to be used to write Latin texts in a Khmer context, but it is also an elegant choice for all kinds of texts.</p> <p>Designed by Carolina Giovagnoli and Andrés Torresi for <a href="https://www.huertatipografica.com">Huerta Tipográfica</a>.</p><p>
+<p>Candal is an original and fun sans serif type design by Vernon Adams which was inspired by historical types.</p><p>Cambo is a modern Latin typeface inspired by the contrast, style and ornaments of Khmer typefaces and writing styles.
+    Its main objective is to be used to write Latin texts in a Khmer context, but it is also an elegant choice for all
+    kinds of texts.</p>
+<p>Designed by Carolina Giovagnoli and Andrés Torresi for <a href="https://www.htfonts.com">HT Fonts</a>.</p><p>
 Cambay is a libre Devanagari typeface family designed to match the Latin <a href="https://www.google.com/fonts/specimen/Cantarell">Cantarell</a>. 
 It comes in two weights, Regular and Bold, in upright and oblique styles.
 The oblique styles are slanted with only the absolutely necessary optical corrections.
@@ -26638,19 +26788,21 @@ To contribute, see <a href="https://github.com/anexasajoop/cambay">Cambay on Git
   github.com/SorkinType/Calistoga
  </a>
 </p>
-<p>Caladea is a free modern, friendly serif font family based on <a href="https://fonts.google.com/specimen/Cambo">Cambo</a>, designed by Carolina Giovagnoli and Andrés Torresi for Huerta Tipográfica.</p>
+<p>Caladea is a free modern, friendly serif font family based on <a
+        href="https://fonts.google.com/specimen/Cambo">Cambo</a>, designed by Carolina Giovagnoli and Andrés Torresi for
+    HT Fonts.</p>
 
 <p>Caladea has the following differences:</p>
 
 <ul>
-<li>More condensed width</li>
-<li>New metrics</li>
-<li>4 styles. Regular, Bold, Italic, and Bold Italic</li>
-<li>Character set expanded to WGL (418 glyphs)</li>
+    <li>More condensed width</li>
+    <li>New metrics</li>
+    <li>4 styles. Regular, Bold, Italic, and Bold Italic</li>
+    <li>Character set expanded to WGL (418 glyphs)</li>
 </ul>
 
-<p>To contribute, see <a href="https://github.com/huertatipografica/Caladea" target="_blank">github.com/huertatipografica/Caladea</a>.</p>
-<p>Cairo Play is a color font version of <a href="https://fonts.google.com/specimen/Cairo">Cairo</a> which features colored marks.</p>
+<p>To contribute, see <a href="https://github.com/huertatipografica/Caladea"
+        target="_blank">github.com/huertatipografica/Caladea</a>.</p><p>Cairo Play is a color font version of <a href="https://fonts.google.com/specimen/Cairo">Cairo</a> which features colored marks.</p>
 
 <p>
     This font uses the COLRv0 and CPAL tables. Please visit 
@@ -26701,6 +26853,19 @@ Cabin has wide language support, including full Latin coverage of Vietnamese, ad
 <p>
 To contribute, see <a href="https://github.com/impallari/Cabin" target="_blank">github.com/impallari/Cabin</a>
 </p>
+<p>
+    Caacupé is a condensed, heavy display typeface designed for headlines and short text at large sizes, born from fieldwork conducted in Villa de Emergencia 21-24, an informal settlement in Buenos Aires. It translates two visual elements of the neighborhood into type: the hand-painted, brush-lettered signage of local shops and the bold, high-impact graphic language of popular tabloid newspapers. Particular attention was given to the neighborhood's large Paraguayan community and to the Guaraní language, with careful design of the letters and diacritical marks that appear most frequently in Guaraní, alongside broad Latin coverage (full Spanish set, extended Latin, currency symbols, fractions, mathematical signs, and ligatures). Developed in Glyphs, the typeface is currently available in a single style, visually equivalent to a Bold weight.
+
+</p>
+
+<p>
+    The project grew out of situated research rather than an abstract design approach: a 2014 study of newspapers circulating in the neighborhood found that existing professional typefaces failed to reflect its visual culture, which is instead shaped by hand-painted lettering and a distinct communicative logic. Caacupé was designed from within that context, treating Guaraní as a first-class citizen of the design rather than an afterthought. It stands as a rare example of a typeface developed through direct research in an informal settlement, now openly available on Google Fonts under the Open Font License.
+</p>
+
+<p>To contribute, see <a href="https://github.com/googlefonts/caacupe">github.com/googlefonts/caacupe</a>.</p>
+
+<hr>
+<img src="image1.jpg">
 <p>Bytesized is a miniscule monospace pixel font - 3x4 modulo diacritics - made to be as legible as possible within these restrictions.</p>
 
 <p>The name comes from the fact that, if you restrict the font to ASCII only, you can store it raw in just under 150 bytes!</p>
@@ -33668,12 +33833,15 @@ The font has been upgraded in May 2022. This upgrade gives additional weight sty
 Read more at <a href="http://software.sil.org/andika/">software.sil.org/andika</a>
 </p>
 <p>To contribute, see <a href="https://github.com/silnrsi/font-andika">github.com/silnrsi/font-andika</a>.</p>
-<p>Andada Pro is an organic-slab serif, hybrid style and medium contrast type for text, initially designed to be used in a specific bilingual context, Spanish and Guaraní (pre-hispanic) languages. This font has received an award at the Ibero-America Design Biennial. The Biennial has been shown in Spain, Argentina, Chile, El Salvador, Uruguay, Bolivia, Colombia and Venezuela.</p>
+<p>Andada Pro is an organic-slab serif, hybrid style and medium contrast type for text, initially designed to be used in
+    a specific bilingual context, Spanish and Guaraní (pre-hispanic) languages. This font has received an award at the
+    Ibero-America Design Biennial. The Biennial has been shown in Spain, Argentina, Chile, El Salvador, Uruguay,
+    Bolivia, Colombia and Venezuela.</p>
 
-<p>Designed by Carolina Giovagnoli for <a href="https://www.huertatipografica.com">Huerta Tipográfica</a>.</p>
+<p>Designed by Carolina Giovagnoli for <a href="https://www.htfonts.com">HT Fonts</a>.</p>
 
-<p>To contribute see <a href="https://github.com/huertatipografica/Andada-Pro">github.com/huertatipografica/Andada-Pro</a>.</p>
-<p>
+<p>To contribute see <a
+        href="https://github.com/huertatipografica/Andada-Pro">github.com/huertatipografica/Andada-Pro</a>.</p><p>
     UNAL Ancízar is a highly versatile and legible typeface family, initially designed in 2014 to strengthen the
     institutional image of Universidad Nacional de Colombia, the country's largest public university. This typeface was
     initially designed by Professor César Puertas (Faculty of Arts, Bogotá Campus), Viviana Monsalve, and Julián
@@ -34214,66 +34382,90 @@ To contribute, see <a href="https://github.com/googlefonts/alex-brush" target="_
 <p>The June 2023 update expanded the family from 6 style to 18 and became variable. It offers also a better language support (Pan African and Vietnamese added), and the design and spacing have been improved.</p>
 
 <p>To contribute, see <a href="https://github.com/AlessioLaiso/aleo">github.com/AlessioLaiso/aleo</a>.</p>
-<p>Alegreya was chosen as one of 53 "Fonts of the Decade" at the ATypI Letter2 competition in September 2011, and one of the top 14 text type systems. It was also selected in the 2nd Bienal Iberoamericana de Diseño, competition held in Madrid in 2010.</p>
+<p>Alegreya was chosen as one of 53 "Fonts of the Decade" at the ATypI Letter2 competition in September 2011, and one of
+    the top 14 text type systems. It was also selected in the 2nd Bienal Iberoamericana de Diseño, competition held in
+    Madrid in 2010.</p>
 
-<p>Alegreya is a typeface originally intended for literature. Among its crowning characteristics, it conveys a dynamic and varied rhythm which facilitates the reading of long texts. Also, it provides freshness to the page while referring to the calligraphic letter, not as a literal interpretation, but rather in a contemporary typographic language.</p>
+<p>Alegreya is a typeface originally intended for literature. Among its crowning characteristics, it conveys a dynamic
+    and varied rhythm which facilitates the reading of long texts. Also, it provides freshness to the page while
+    referring to the calligraphic letter, not as a literal interpretation, but rather in a contemporary typographic
+    language.</p>
 
-<p>The italic has just as much care and attention to detail in the design as the roman. The bold weights are strong, and the Black weights are really experimental for the genre. This is the Small Caps sister family that complements <a href="http://www.google.com/fonts/specimen/Alegreya">Alegreya</a>, the main family.</p>
+<p>The italic has just as much care and attention to detail in the design as the roman. The bold weights are strong, and
+    the Black weights are really experimental for the genre. This is the Small Caps sister family that complements <a
+        href="http://www.google.com/fonts/specimen/Alegreya">Alegreya</a>, the main family.</p>
 
-<p>Not only does Alegreya provide great performance, but also achieves a strong and harmonious text by means of elements designed in an atmosphere of diversity.</p>
+<p>Not only does Alegreya provide great performance, but also achieves a strong and harmonious text by means of elements
+    designed in an atmosphere of diversity.</p>
 
-<p>The Alegreya type system is a "super family", originally intended for literature, and includes serif and <a href="http://www.google.com/fonts/specimen/Alegreya+Sans">sans serif</a> sister families.</p>
+<p>The Alegreya type system is a "super family", originally intended for literature, and includes serif and <a
+        href="http://www.google.com/fonts/specimen/Alegreya+Sans">sans serif</a> sister families.</p>
 
-<p>Designed by Juan Pablo del Peral for <a href="https://www.huertatipografica.com">Huerta Tipográfica</a>.</p>
+<p>Designed by Juan Pablo del Peral for <a href="https://www.htfonts.com">HT Fonts</a>.</p>
 
-<p>To contribute, see <a href="https://github.com/huertatipografica/Alegreya">github.com/huertatipografica/Alegreya</a>.</p>
-<p>
-Alegreya Sans SC is a Small Caps companion family to <a href="http://www.google.com/fonts/specimen/Alegreya+Sans">Alegreya Sans</a>, a humanist sans serif family with a calligraphic feeling that conveys a dynamic and varied rhythm. 
-This gives a pleasant feeling to readers of long texts.
-</p> 
-<p>
-The Alegreya type system is a "super family", originally intended for literature, and includes sans and <a href="http://www.google.com/fonts/specimen/Alegreya">serif</a> sibling families.
-The family follows humanist proportions and principles, and achieves a ludic and harmonious paragraph through elements carefully designed in an atmosphere of diversity.
-The italics bring a strong emphasis to the roman styles.
+<p>To contribute, see <a href="https://github.com/huertatipografica/Alegreya">github.com/huertatipografica/Alegreya</a>.
+</p><p>
+    Alegreya Sans SC is a Small Caps companion family to <a
+        href="http://www.google.com/fonts/specimen/Alegreya+Sans">Alegreya Sans</a>, a humanist sans serif family with a
+    calligraphic feeling that conveys a dynamic and varied rhythm.
+    This gives a pleasant feeling to readers of long texts.
 </p>
 <p>
-Designed by Juan Pablo del Peral for <a href="https://www.huertatipografica.com">Huerta Tipográfica</a>.
-</p>
-
-<p>
-To contribute, see <a href="https://github.com/huertatipografica/Alegreya-Sans">github.com/huertatipografica/Alegreya-Sans</a>.
-</p>
-<p>
-Alegreya Sans is a humanist sans serif family with a calligraphic feeling that conveys a dynamic and varied rhythm. 
-This gives a pleasant feeling to readers of long texts.
-There is also a <a href="http://www.google.com/fonts/specimen/Alegreya+Sans+SC">Small Caps</a> companion family. 
-</p> 
-<p>
-The Alegreya type system is a "super family", originally intended for literature, and includes sans and <a href="http://www.google.com/fonts/specimen/Alegreya">serif</a> sibling families.
-The family follows humanist proportions and principles, and achieves a ludic and harmonious paragraph through elements carefully designed in an atmosphere of diversity.
-The italics bring a strong emphasis to the roman styles.
+    The Alegreya type system is a "super family", originally intended for literature, and includes sans and <a
+        href="http://www.google.com/fonts/specimen/Alegreya">serif</a> sibling families.
+    The family follows humanist proportions and principles, and achieves a ludic and harmonious paragraph through
+    elements carefully designed in an atmosphere of diversity.
+    The italics bring a strong emphasis to the roman styles.
 </p>
 <p>
-Designed by Juan Pablo del Peral for <a href="https://www.huertatipografica.com">Huerta Tipográfica</a>.
+    Designed by Juan Pablo del Peral for <a href="https://www.htfonts.com">HT Fonts</a>.
 </p>
 
 <p>
-To contribute, see <a href="https://github.com/huertatipografica/Alegreya-Sans">github.com/huertatipografica/Alegreya-Sans</a>.
+    To contribute, see <a
+        href="https://github.com/huertatipografica/Alegreya-Sans">github.com/huertatipografica/Alegreya-Sans</a>.
+</p><p>
+    Alegreya Sans is a humanist sans serif family with a calligraphic feeling that conveys a dynamic and varied rhythm.
+    This gives a pleasant feeling to readers of long texts.
+    There is also a <a href="http://www.google.com/fonts/specimen/Alegreya+Sans+SC">Small Caps</a> companion family.
 </p>
-<p>Alegreya was chosen as one of 53 "Fonts of the Decade" at the ATypI Letter2 competition in September 2011, and one of the top 14 text type systems. It was also selected in the 2nd Bienal Iberoamericana de Diseño, competition held in Madrid in 2010.</p>
-
-<p>Alegreya is a typeface originally intended for literature. Among its crowning characteristics, it conveys a dynamic and varied rhythm which facilitates the reading of long texts. Also, it provides freshness to the page while referring to the calligraphic letter, not as a literal interpretation, but rather in a contemporary typographic language.</p>
-
-<p>The italic has just as much care and attention to detail in the design as the roman. The bold weights are strong, and the Black weights are really experimental for the genre. There is also a <a href="http://www.google.com/fonts/specimen/Alegreya+SC"> Small Caps</a> sibling family.</p>
-
-<p>Not only does Alegreya provide great performance, but also achieves a strong and harmonious text by means of elements designed in an atmosphere of diversity.</p>
-
-<p>The Alegreya type system is a "super family", originally intended for literature, and includes serif and <a href="http://www.google.com/fonts/specimen/Alegreya+Sans">sans serif</a> sister families.</p>
-
-<p>Designed by Juan Pablo del Peral for <a href="https://www.huertatipografica.com">Huerta Tipográfica</a>.</p>
-
-<p>To contribute, see <a href="https://github.com/huertatipografica/Alegreya">github.com/huertatipografica/Alegreya</a>.</p>
 <p>
+    The Alegreya type system is a "super family", originally intended for literature, and includes sans and <a
+        href="http://www.google.com/fonts/specimen/Alegreya">serif</a> sibling families.
+    The family follows humanist proportions and principles, and achieves a ludic and harmonious paragraph through
+    elements carefully designed in an atmosphere of diversity.
+    The italics bring a strong emphasis to the roman styles.
+</p>
+<p>
+    Designed by Juan Pablo del Peral for <a href="https://www.htfonts.com">HT Fonts</a>.
+</p>
+
+<p>
+    To contribute, see <a
+        href="https://github.com/huertatipografica/Alegreya-Sans">github.com/huertatipografica/Alegreya-Sans</a>.
+</p><p>Alegreya was chosen as one of 53 "Fonts of the Decade" at the ATypI Letter2 competition in September 2011, and one of
+    the top 14 text type systems. It was also selected in the 2nd Bienal Iberoamericana de Diseño, competition held in
+    Madrid in 2010.</p>
+
+<p>Alegreya is a typeface originally intended for literature. Among its crowning characteristics, it conveys a dynamic
+    and varied rhythm which facilitates the reading of long texts. Also, it provides freshness to the page while
+    referring to the calligraphic letter, not as a literal interpretation, but rather in a contemporary typographic
+    language.</p>
+
+<p>The italic has just as much care and attention to detail in the design as the roman. The bold weights are strong, and
+    the Black weights are really experimental for the genre. There is also a <a
+        href="http://www.google.com/fonts/specimen/Alegreya+SC"> Small Caps</a> sibling family.</p>
+
+<p>Not only does Alegreya provide great performance, but also achieves a strong and harmonious text by means of elements
+    designed in an atmosphere of diversity.</p>
+
+<p>The Alegreya type system is a "super family", originally intended for literature, and includes serif and <a
+        href="http://www.google.com/fonts/specimen/Alegreya+Sans">sans serif</a> sister families.</p>
+
+<p>Designed by Juan Pablo del Peral for <a href="https://www.htfonts.com">HT Fonts</a>.</p>
+
+<p>To contribute, see <a href="https://github.com/huertatipografica/Alegreya">github.com/huertatipografica/Alegreya</a>.
+</p><p>
 Alef was born in the screen and designed to the pixel in an attempt to extend the palette of Hebrew fonts available for web design.
 It challenges the default, Arial.
 Alef supports both the Hebrew and Latin writing systems. 
@@ -34347,20 +34539,16 @@ To contribute, see <a href="http://alef.hagilda.com">alef.hagilda.com</a>
 <p>Alan Sans is an exercise in style, balancing the utilitarian side of typography with its expressive potential. 
 We wanted a typeface that could remain functional in an interface context for instance, while also standing out more vividly on marketing applications. 
 The result is a playful sans-serif, built on a traditional "grotesque" skeleton, but reinterpreted with a softer, more flexible visual treatment.</p>
-
 <p>This tension between simplicity and expressiveness is also reflected in the weight progression of Alan Sans's seven styles: the bolder you go, the more personality the typeface reveals.
 In short, Alan Sans is a reflection of our brand's dual nature. It aims to be robust *yet* gentle, serious *yet* personable, simple *yet* sophisticated, transparent *yet* noticeable. 
 It's our "not so corporate" corporate typeface.</p>
-
 <p>You can also read a detailed blog article about its creation <a href="https://typeface.alan.com/how-we-created-alan-sans">here</a>.</p>
-
 <p>To contribute, see <a href="https://github.com/alan-eu/Alan-Sans">github.com/alan-eu/Alan-Sans</a>.</p>
-
-<img src="image00.jpeg">
-<img src="image01.jpeg">
-<img src="image03.jpeg">
-<img src="image02.jpeg">
-<img src="image04.jpeg">
+<img src="image00.jpeg"/>
+<img src="image01.jpeg"/>
+<img src="image03.jpeg"/>
+<img src="image02.jpeg"/>
+<img src="image04.jpeg"/>
 <p>
 Aladin is a calligraphic vintage face with a middle eastern touch, designed by Angel Koziupa and produced by Alejandro Paul.
 </p>
@@ -34525,8 +34713,11 @@ To contribute to the project, visit <a href="https://github.com/cyrealtype/Adami
 <p>
 <b>Updated:</b> January 2016 to Version 1.012, to correct GPOS table (enabling kerning.)
 </p>
-<p>A diploma thesis project from the Aachen University of Applied Sciences at Karl-Friedrich (Kai) Oetzbach. The font originated in a course in type design. The idea was to learn through the creation of a typeface about writing as an information carrier. It was created entirely digitally, so the path to the current version is very rocky and winding.</p> <p>Actor has a strong x-height, which is why it always requires a fairly high line spacing. The digits of Actor are created as old style figures. The forms of 6 and 9 are more dynamic and more tense than usual. The 8 has significantly shifted interiors and the 7 is slightly curved to the left.</p><p>Acme is a condensed display typeface inspired by the visual language of classic cartoons and comics. It is designed to be used in headlines, and has a particular and groovy rhythm. The resulting texts are vivid but consistent, and its expressive characteristics work as well on screen as in print. The glyphs were each carefully designed, with top curve quality. It is well balanced, and carefully spaced by eye.</p> <p>Designed by Juan Pablo del Peral for <a href="https://www.huertatipografica.com">Huerta Tipográfica</a>.</p>
-<p>
+<p>A diploma thesis project from the Aachen University of Applied Sciences at Karl-Friedrich (Kai) Oetzbach. The font originated in a course in type design. The idea was to learn through the creation of a typeface about writing as an information carrier. It was created entirely digitally, so the path to the current version is very rocky and winding.</p> <p>Actor has a strong x-height, which is why it always requires a fairly high line spacing. The digits of Actor are created as old style figures. The forms of 6 and 9 are more dynamic and more tense than usual. The 8 has significantly shifted interiors and the 7 is slightly curved to the left.</p><p>Acme is a condensed display typeface inspired by the visual language of classic cartoons and comics. It is designed
+    to be used in headlines, and has a particular and groovy rhythm. The resulting texts are vivid but consistent, and
+    its expressive characteristics work as well on screen as in print. The glyphs were each carefully designed, with top
+    curve quality. It is well balanced, and carefully spaced by eye.</p>
+<p>Designed by Juan Pablo del Peral for <a href="https://www.htfonts.com">HT Fonts</a>.</p><p>
 Abyssinica SIL is a Unicode font that supports Ethiopic and Latin languages.
 </p>
 <p>

@@ -184,7 +184,7 @@ for (const f of liveMetadata.familyMetadataList) {
 
 logProgress('Reading and parsing all language metadata...');
 const gflanguagesDir = path.join(fontsDir, 'lang/Lib/gflanguages');
-const languageDataNamespace = await load(path.join(gflanguagesDir, 'languages_public.proto'));
+const languageDataNamespace = await load(path.join(fontsDir, 'lang/resources/protos/languages_public.proto'));
 const languageType = languageDataNamespace.lookupType('LanguageProto');
 const scriptType = languageDataNamespace.lookupType('ScriptProto');
 //const regionType = languageDataNamespace.lookupType('RegionProto');
@@ -313,7 +313,7 @@ logProgress(`Total shaping and analysis time: ${((performance.now() - startTime)
 
 logProgress('Reading and parsing all variation axis metadata...');
 const axisRegistryDir = path.join(fontsDir, 'axisregistry/Lib/axisregistry');
-const axisDataNamespace = await load(path.join(axisRegistryDir, 'axes.proto'));
+const axisDataNamespace = await load(path.join(SCRIPTS_DIR, 'axes.proto'));
 const axisType = axisDataNamespace.lookupType('AxisProto');
 
 const axesData: ParsedAxisProto[] = [];

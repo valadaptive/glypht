@@ -182,6 +182,7 @@ em++ \
     -I. \
     --no-warnings \
     -DNDEBUG \
+    -DHB_NO_GETENV \
     -DHB_USE_INTERNAL_QSORT \
     -DHB_EXPERIMENTAL_API \
     --no-entry \
