@@ -5,8 +5,8 @@ import './shared.tsx';
 
 import AppInner from './components/App/App';
 import {AppContext, createStore} from './app-state';
-import {OverlayProvider} from './components/Overlay/Overlay';
-import {ToastProvider} from './components/Toast/Toast';
+import {OverlayProvider} from 'valadaptive-lib/Overlay';
+import {ToastProvider} from 'valadaptive-lib/Toast';
 
 const store = createStore();
 

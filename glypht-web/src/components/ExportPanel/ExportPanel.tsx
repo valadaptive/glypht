@@ -8,20 +8,25 @@ import classNames from 'clsx';
 import {flip, offset, shift, size} from '@floating-ui/dom';
 import {ExportedFont, exportedFontsToCSS, NodeType} from '@glypht/bundler-utils';
 
-import {useAddErrorToast} from '../Toast/Toast';
-import {Button, CheckboxToggle, SpinBox, TextBox, ToggleIcon} from '../Widgets/Widgets';
-import Loader from '../Loader/Loader';
-import Icon, {IconButton} from '../Icon/Icon';
-import {Overlay} from '../Overlay/Overlay';
+import {useAddErrorToast} from 'valadaptive-lib/Toast';
+import {Button} from 'valadaptive-lib/Button';
+import {CheckboxToggle} from 'valadaptive-lib/CheckboxToggle';
+import {SpinBox} from 'valadaptive-lib/SpinBox';
+import {TextBox} from 'valadaptive-lib/TextBox';
+import {ToggleIcon} from 'valadaptive-lib/ToggleButton';
+import Loader from 'valadaptive-lib/Loader';
+import Icon, {IconButton} from 'valadaptive-lib/Icon';
+import {Overlay} from 'valadaptive-lib/Overlay';
+import ResizablePanel from 'valadaptive-lib/ResizablePanel';
 import {useAppState} from '../../app-state';
 
-import {useThrottledSignal} from '../../util/throttle';
-import formatFileSize from '../../util/format-file-size';
+import {useThrottledSignal} from 'valadaptive-lib/util/throttle';
+import formatFileSize from 'valadaptive-lib/util/format-file-size';
 import {packageFonts} from '../../util/package-fonts';
-import saveToFile from '../../util/save-to-file';
-import showOpenFilePicker, {showFontPicker} from '../../util/file-picker';
-import useFloating from '../../util/floating';
-import useResizablePanel from '../../util/resizable-panel';
+import saveToFile from 'valadaptive-lib/util/save-to-file';
+import showOpenFilePicker from 'valadaptive-lib/util/file-picker';
+import showFontPicker from '../../util/font-picker';
+import useFloating from 'valadaptive-lib/util/floating';
 import {copyText} from '../../util/clipboard';
 
 import blobCat from '../../assets/blobcat.svg';
@@ -220,11 +225,11 @@ const MoreSettings = ({relativeTo, active}: {relativeTo: RefObject<HTMLElement>;
             <div className={style.moreSettings} tabIndex={0} ref={popupRef} onBlur={handleBlur}>
                 <div className={classNames(style.setting, style.spinboxSetting)}>
                     <label>WOFF compression level</label>
-                    <SpinBox min={1} max={100} step={1} value={exportSettings.woffCompression} />
+                    <SpinBox min={1} max={100} step={1} value={exportSettings.woffCompression} width={3} />
                 </div>
                 <div className={classNames(style.setting, style.spinboxSetting)}>
                     <label>WOFF2 compression level</label>
-                    <SpinBox min={1} max={11} step={1} value={exportSettings.woff2Compression} />
+                    <SpinBox min={1} max={11} step={1} value={exportSettings.woff2Compression} width={3} />
                 </div>
                 <div className={style.setting}>
                     <CheckboxToggle
@@ -318,13 +323,6 @@ const ExportPanel = () => {
         };
     }, [isPortrait]);
 
-    const {resizerRef, panelRef, panelSize} = useResizablePanel(
-        500,
-        isPortrait ? 200 : 400,
-        10000,
-        isPortrait ? 'vertical' : 'horizontal',
-    );
-
     if (fonts.value.length === 0) {
         return null;
     }
@@ -349,12 +347,14 @@ const ExportPanel = () => {
     }
 
     return (
-        <div
+        <ResizablePanel
             className={classNames(style.exportPanel, isPortrait ? style.vertical : style.horizontal)}
-            ref={panelRef}
-            style={{[isPortrait ? 'height' : 'width']: `${panelSize.value}px`}}
+            initialSize={500}
+            minSize={isPortrait ? 200 : 400}
+            maxSize={10000}
+            edge={isPortrait ? 'top' : 'left'}
+            separatorLabel="Resize export panel"
         >
-            <div className={style.splitter} ref={resizerRef} />
             <div className={style.exportButtons}>
                 <div className={style.row}>
                     <Button
@@ -408,7 +408,7 @@ const ExportPanel = () => {
             <div className={style.footer}>
                 <span>Made with <img src={blobCat} alt='blobCat' width='128' height='128' style='width: 1em; height: 1em; vertical-align: middle' /> by <a href='https://github.com/valadaptive'>valadaptive</a></span>
             </div>
-        </div>
+        </ResizablePanel>
     );
 };
 

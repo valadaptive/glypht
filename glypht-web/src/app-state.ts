@@ -24,7 +24,7 @@ import {
 } from './util/font-settings';
 import type GoogleFontsModalInner from './components/GoogleFontsModal/GoogleFontsModalInner';
 import type {GoogleFontsFamily} from './components/GoogleFontsModal/GoogleFontsModalInner';
-import throttle from './util/throttle';
+import throttle from 'valadaptive-lib/util/throttle';
 import generateConfig from './util/generate-cli-config';
 import {AsyncZipDeflate, Zip} from 'fflate';
 

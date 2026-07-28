@@ -1,5 +1,3 @@
-@use './theme.scss';
-
 .tsd-kind-icon, .tsd-anchor-icon svg {
     width: 24px;
     height: 24px;
@@ -83,7 +81,7 @@ pre, .tsd-signature {
 .tsd-sources ul {
     list-style-type: none;
     font-size: 0.875rem;
-    color: theme.$text-detail;
+    color: var(--text-detail);
     padding: 0;
 }
 
@@ -101,30 +99,30 @@ pre, .tsd-signature {
         border-collapse: collapse;
         width: 100%;
         margin: 1rem 0;
-        border: 1px solid theme.$divider;
+        border: 1px solid var(--divider);
 
         & th {
-            background-color: theme.$base-color-tertiary;
-            color: theme.$text;
+            background-color: var(--base-color-tertiary);
+            color: var(--text);
             font-weight: 600;
             text-align: left;
             padding: 0.5rem 0.75rem;
-            border: 1px solid theme.$divider;
+            border: 1px solid var(--divider);
         }
 
         & td {
             padding: 0.5rem 0.75rem;
-            border: 1px solid theme.$divider;
-            color: theme.$text;
+            border: 1px solid var(--divider);
+            color: var(--text);
         }
 
         & tbody tr:nth-child(even) {
-            background-color: theme.$base-color-secondary;
+            background-color: var(--base-color-secondary);
         }
 
         // Special styling for code in tables
         & code {
-            background-color: theme.$base-color-secondary;
+            background-color: var(--base-color-secondary);
             padding: 0.125rem 0.25rem;
             border-radius: 0.125rem;
             font-family: var(--font-mono);

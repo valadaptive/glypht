@@ -2,6 +2,7 @@
 	"extends": "../tsconfig.base.json",
 	"compilerOptions": {
 		"moduleResolution": "bundler",
+		"noEmit": true,
 		"types": ["node"]
 	},
 	"include": ["src/**/*.ts", "test/**/*.ts", "vitest.config.ts"],

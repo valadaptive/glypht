@@ -5,7 +5,7 @@
 
 :root {
     --hl-accessor: #DCDCAA;
-    --hl-background: var(--base-color-secondary-dark);
+    --hl-background: var(--base-color-tertiary);
     --hl-call-signature: #DCDCAA;
     --hl-class: #4EC9B0;
     --hl-comment: #6A9955;
@@ -35,4 +35,40 @@
     --hl-type-alias: #4EC9B0;
     --hl-type-parameter: #4EC9B0;
     --hl-variable: #9CDCFE;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --hl-accessor: #795E26;
+        --hl-background: var(--base-color-tertiary);
+        --hl-call-signature: #795E26;
+        --hl-class: #267f99;
+        --hl-comment: #008000;
+        --hl-constructor: #795E26;
+        --hl-constructor-signature: #795E26;
+        --hl-enum: #267f99;
+        --hl-enum-member: #0070C1;
+        --hl-foreground: var(--text);
+        --hl-function: #795E26;
+        --hl-get-signature: #795E26;
+        --hl-index-signature: #795E26;
+        --hl-interface: #267f99;
+        --hl-keyword: #0000ff;
+        --hl-method: #795E26;
+        --hl-module: #267f99;
+        --hl-namespace: #267f99;
+        --hl-number: #098658;
+        --hl-operator: #000000;
+        --hl-parameter: #001080;
+        --hl-project: #267f99;
+        --hl-property: #0070C1;
+        --hl-punctuation: var(--text);
+        --hl-reference: #001080;
+        --hl-set-signature: #795E26;
+        --hl-string: #a31515;
+        --hl-type: #267f99;
+        --hl-type-alias: #267f99;
+        --hl-type-parameter: #267f99;
+        --hl-variable: #001080;
+    }
 }

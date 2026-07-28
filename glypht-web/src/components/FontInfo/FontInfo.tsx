@@ -6,7 +6,12 @@ import classNames from 'clsx';
 import type {FeatureInfo, FontRef} from '@glypht/core/subsetting.js';
 
 import {useAppState} from '../../app-state';
-import {Button, CheckboxToggle, CollapsibleHeader, SelectableIcon, SpinBox, TextBox} from '../Widgets/Widgets';
+import {Button} from 'valadaptive-lib/Button';
+import {CheckboxToggle} from 'valadaptive-lib/CheckboxToggle';
+import {CollapsibleHeader} from 'valadaptive-lib/CollapsibleHeader';
+import {SelectableButton} from 'valadaptive-lib/ToggleButton';
+import {SpinBox} from 'valadaptive-lib/SpinBox';
+import {TextBox} from 'valadaptive-lib/TextBox';
 import {
     AxisSettingState,
     CharacterSetSettingsState,
@@ -25,13 +30,13 @@ import {
     StyleSettingState,
     StyleSettingsState,
 } from '../../util/font-settings';
-import {useThrottledSignal} from '../../util/throttle';
-import Icon, {IconButton} from '../Icon/Icon';
+import {useThrottledSignal} from 'valadaptive-lib/util/throttle';
+import Icon, {IconButton} from 'valadaptive-lib/Icon';
 import {copyText, pasteText} from '../../util/clipboard';
-import {useAddErrorToast} from '../Toast/Toast';
-import Loader from '../Loader/Loader';
-import {showFontPicker} from '../../util/file-picker';
-import formatFileSize from '../../util/format-file-size';
+import {useAddErrorToast} from 'valadaptive-lib/Toast';
+import Loader from 'valadaptive-lib/Loader';
+import showFontPicker from '../../util/font-picker';
+import formatFileSize from 'valadaptive-lib/util/format-file-size';
 import {ComponentChildren} from 'preact';
 import {useLiveSignal} from '../../util/signal-utils';
 import {featureMetadata} from '@glypht/bundler-utils/feature-metadata.js';
@@ -48,7 +53,8 @@ const AxisSettingComponent = ({axis}: {axis: AxisSettingState}) => {
     switch (axis.mode.value) {
         case 'single': {
             modeControl = <>
-                <SpinBox min={axis.min} max={axis.max} value={axis.curSingle} step={step} smartAim={smartAim} />
+                <SpinBox
+                    min={axis.min} max={axis.max} value={axis.curSingle} step={step} smartAim={smartAim} width={4} />
                 <IconButton
                     type="reset"
                     title="Reset to default value"
@@ -60,9 +66,9 @@ const AxisSettingComponent = ({axis}: {axis: AxisSettingState}) => {
         }
         case 'range': {
             modeControl = <div className={style.spinboxRange}>
-                <SpinBox min={axis.min} max={axis.max} value={axis.curMin} step={step} smartAim={smartAim} />
+                <SpinBox min={axis.min} max={axis.max} value={axis.curMin} step={step} smartAim={smartAim} width={4} />
                 <span className={style.label}>to</span>
-                <SpinBox min={axis.min} max={axis.max} value={axis.curMax} step={step} smartAim={smartAim} />
+                <SpinBox min={axis.min} max={axis.max} value={axis.curMax} step={step} smartAim={smartAim} width={4} />
             </div>;
             break;
         }
@@ -75,12 +81,21 @@ const AxisSettingComponent = ({axis}: {axis: AxisSettingState}) => {
     return (
         <div className={style.axisSetting}>
             <div className={style.axisSettingModes} role="radiogroup" aria-label="Axis modes">
-                <SelectableIcon
-                    type="range" title="Limit range of values" currentValue={axis.mode} value="range" />
-                <SelectableIcon
-                    type="pin" title="Pin to single value" currentValue={axis.mode} value="single" />
-                <SelectableIcon
-                    type="stack" title="Instance into multiple font files" currentValue={axis.mode} value="multiple" />
+                <SelectableButton
+                    title="Limit range of values" currentValue={axis.mode} value="range"
+                >
+                    <Icon type="range" title="" />
+                </SelectableButton>
+                <SelectableButton
+                    title="Pin to single value" currentValue={axis.mode} value="single"
+                >
+                    <Icon type="pin" title="" />
+                </SelectableButton>
+                <SelectableButton
+                    title="Instance into multiple font files" currentValue={axis.mode} value="multiple"
+                >
+                    <Icon type="stack" title="" />
+                </SelectableButton>
             </div>
             {modeControl}
         </div>

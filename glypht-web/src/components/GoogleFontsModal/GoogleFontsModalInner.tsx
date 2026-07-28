@@ -1,21 +1,19 @@
 import style from './style.module.scss';
 
 import {LoadedGoogleFontsModalState, useAppState} from '../../app-state';
-import {
-    CheckboxToggle,
-    TextBox,
-    Slider,
-    SpinBox,
-    CollapsibleHeader,
-    SearchableCheckboxDropdown,
-    ToggleIcon,
-    Dropdown,
-    Button,
-} from '../Widgets/Widgets';
+import {CheckboxToggle} from 'valadaptive-lib/CheckboxToggle';
+import {TextBox} from 'valadaptive-lib/TextBox';
+import {Slider} from 'valadaptive-lib/Slider';
+import {SpinBox} from 'valadaptive-lib/SpinBox';
+import {CollapsibleHeader} from 'valadaptive-lib/CollapsibleHeader';
+import {SearchableCheckboxDropdown} from 'valadaptive-lib/SearchableCheckboxDropdown';
+import {ToggleIcon} from 'valadaptive-lib/ToggleButton';
+import {Dropdown} from 'valadaptive-lib/Dropdown';
+import {Button} from 'valadaptive-lib/Button';
 import {AxisSegmentProto, FamilyProto, FontProto, LanguageProto, ScriptProto} from '../../google-fonts-types';
-import Icon, {IconButton} from '../Icon/Icon';
+import Icon, {IconButton} from 'valadaptive-lib/Icon';
 import {useCallback, useId, useMemo} from 'preact/hooks';
-import {useAddErrorToast} from '../Toast/Toast';
+import {useAddErrorToast} from 'valadaptive-lib/Toast';
 
 import classnames from 'clsx';
 import uFuzzy from '@leeoniya/ufuzzy';
@@ -25,11 +23,11 @@ import {decompress} from '@smol-range/decompress';
 import type {ComponentChildren, JSX} from 'preact';
 
 import axisSpinboxParams from '../../util/axis-spinbox-params';
-import {useThrottledSignal} from '../../util/throttle';
+import {useThrottledSignal} from 'valadaptive-lib/util/throttle';
 
 import fontsListJson from '../../generated/google-fonts.json';
 import langListJson from '../../generated/languages.json';
-import Loader from '../Loader/Loader';
+import Loader from 'valadaptive-lib/Loader';
 import useVirtualList from '../../util/virtual-list';
 import axisMetadata, {axesList} from '../../util/axis-metadata';
 
@@ -171,6 +169,7 @@ const AxisSlider = ({
                     step={step}
                     smartAim={smartAim}
                     className={style.axisSpinBox}
+                    width={4}
                 />
                 <IconButton
                     type='reset'
@@ -424,7 +423,7 @@ const FontPreview = ({family}: {
             </div>
             <div className={style.previewFontSize}>
                 <Slider value={fontSize} min={9} max={144} step={1} className={style.previewFontSizeSlider} />
-                <SpinBox value={fontSize} min={9} max={144} step={1} />
+                <SpinBox value={fontSize} min={9} max={144} step={1} width={4} />
                 <IconButton
                     type='reset'
                     title='Reset to default value'

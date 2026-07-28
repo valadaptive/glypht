@@ -49,8 +49,9 @@
 }
 
 .navbar-logo-icon {
-    background-image: url('/src/assets/icons/logo-plain.svg');
-    background-size: contain;
+    background-color: var(--text);
+    mask-image: url('/src/assets/icons/logo-plain.svg');
+    mask-size: contain;
     display: inline-flex;
     width: 48px;
     height: 48px;

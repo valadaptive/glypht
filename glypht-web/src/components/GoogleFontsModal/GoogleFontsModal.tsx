@@ -3,8 +3,8 @@ import style from './style.module.scss';
 import {useCallback, useEffect} from 'preact/hooks';
 import {signal, Signal} from '@preact/signals';
 
-import Loader from '../Loader/Loader';
-import Modal from '../Modal/Modal';
+import Loader from 'valadaptive-lib/Loader';
+import Modal from 'valadaptive-lib/Modal';
 import {useAppState} from '../../app-state';
 
 import {axesList} from '../../util/axis-metadata';
@@ -62,7 +62,7 @@ const GoogleFontsModal = () => {
         googleFontsModalState.open.value = false;
     }, [googleFontsModalState.open]);
 
-    return <Modal onClose={onCloseModal} className={style.fontsModal}>
+    return <Modal onClose={onCloseModal} className={style.fontsModal} aria-label="Browse Google Fonts">
         {inner}
     </Modal>;
 };

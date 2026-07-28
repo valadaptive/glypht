@@ -37,7 +37,7 @@ function extractColors(theme: ThemeRegistration): Colors {
         // foreground: theme.colors?.['editor.foreground'],
         // background: theme.colors?.['editor.background'],
         foreground: 'var(--text)',
-        background: 'var(--base-color-secondary-dark)',
+        background: 'var(--base-color-tertiary)',
 
         // Semantic token colors
         ...theme.semanticTokenColors,
@@ -130,25 +130,29 @@ function mapTypeScriptColors(colors: Colors) {
     };
 }
 
-// Generate SCSS content
-function generateSCSS(colorMap: Partial<Record<string, string>>) {
+// Generate SCSS content. Takes the dark color map (used as the default) and the light color map (applied under
+// prefers-color-scheme: light, mirroring valadaptive-lib's theme).
+function generateSCSS(darkColorMap: Partial<Record<string, string>>, lightColorMap: Partial<Record<string, string>>) {
     let scss = `/**
  * TypeScript/TypeDoc/CSS syntax highlighting colors
  * Generated from scripts/gen-syntax-colors.ts
  */
 
-:root {
 `;
 
-    // Sort keys for consistent output
-    const sortedKeys = Object.keys(colorMap).sort();
+    const emitColorMap = (colorMap: Partial<Record<string, string>>, indent: string) => {
+        // Sort keys for consistent output
+        const sortedKeys = Object.keys(colorMap).sort();
+        let out = '';
+        sortedKeys.forEach(key => {
+            const value = colorMap[key];
+            out += `${indent}--${key}: ${value};\n`;
+        });
+        return out;
+    };
 
-    sortedKeys.forEach(key => {
-        const value = colorMap[key];
-        scss += `    --${key}: ${value};\n`;
-    });
-
-    scss += '}\n';
+    scss += `:root {\n${emitColorMap(darkColorMap, '    ')}}\n`;
+    scss += `\n@media (prefers-color-scheme: light) {\n    :root {\n${emitColorMap(lightColorMap, '        ')}    }\n}\n`;
 
     return scss;
 }
@@ -264,27 +268,33 @@ function generateShikiTheme(originalTheme: ThemeRegistration) {
     return JSON.stringify(theme, null, 2);
 }
 
-async function main() {
-    const themeName = process.argv[2] ?? 'dark-plus';
-
-    console.log(`Extracting colors from theme ${themeName}...`);
+const loadTheme = async(themeName: string) => {
     if (!(themeName in bundledThemes)) {
         throw new Error(`${themeName} is not a valid theme (themes are ${Object.keys(bundledThemes).join(', ')})`);
     }
-    const theme = (await bundledThemes[themeName as BundledTheme]()).default;
-    const extractedColors = extractColors(theme);
+    return (await bundledThemes[themeName as BundledTheme]()).default;
+};
+
+async function main() {
+    const themeName = process.argv[2] ?? 'dark-plus';
+    const lightThemeName = process.argv[3] ?? 'light-plus';
+
+    console.log(`Extracting colors from themes ${themeName} (dark) and ${lightThemeName} (light)...`);
+    const theme = await loadTheme(themeName);
+    const lightTheme = await loadTheme(lightThemeName);
 
     console.log('Mapping TypeScript colors...');
-    const tsColorMap = mapTypeScriptColors(extractedColors);
+    const tsColorMap = mapTypeScriptColors(extractColors(theme));
+    const tsLightColorMap = mapTypeScriptColors(extractColors(lightTheme));
 
     // Log the color mappings for verification
-    console.log('\nColor mappings:');
+    console.log('\nColor mappings (dark):');
     Object.entries(tsColorMap).forEach(([key, value]) => {
         console.log(`  ${key}: ${value}`);
     });
 
     console.log('\nGenerating SCSS...');
-    const scss = generateSCSS(tsColorMap);
+    const scss = generateSCSS(tsColorMap, tsLightColorMap);
 
     console.log('Generating Shiki theme...');
     const shikiTheme = generateShikiTheme(theme);

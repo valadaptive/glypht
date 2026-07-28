@@ -2,6 +2,8 @@ import {ComponentChild, JSX, render} from 'preact';
 import {useRef} from 'preact/hooks';
 import {useSignal, useComputed, useSignalEffect, signal, Signal} from '@preact/signals';
 
+import {IconButton} from 'valadaptive-lib/Icon';
+
 // pagefind-web is aliased to a relative import path, resolved by just copying the JS in via Eleventy. It seems to be
 // the only way to get TypeScript to recognize the tyoe declarations, even though it kinda sucks.
 import type * as pagefind from 'pagefind-web';
@@ -88,8 +90,8 @@ const SearchResults = ({results, resultsPerPage}: {
     return (
         <div class="search-results">
             <div class="pagination">
-                <button
-                    class="icon-button arrow-left"
+                <IconButton
+                    type="arrow-left"
                     onClick={prevPage.value}
                     disabled={page.value <= 1}
                     title="Previous page"
@@ -102,8 +104,8 @@ const SearchResults = ({results, resultsPerPage}: {
                     disabled={numPages === 0}
                 />
                 <span> of {numPages}</span>
-                <button
-                    class="icon-button arrow-right"
+                <IconButton
+                    type="arrow-right"
                     onClick={nextPage.value}
                     disabled={page.value >= numPages}
                     title="Next page"

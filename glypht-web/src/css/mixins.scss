@@ -1,0 +1,13 @@
+// SCSS-only helpers for use in component style modules. Emits no CSS of its own;
+// everything is built on the shared valadaptive-lib CSS variables.
+
+@mixin label {
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+@mixin detail-label {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--text-detail);
+}

@@ -4,7 +4,8 @@
         "glypht-core",
         "glypht-web",
         "glypht-bundler-utils",
-        "glypht-cli"
+        "glypht-cli",
+        "valadaptive-lib"
     ],
     "type": "module",
     "scripts": {

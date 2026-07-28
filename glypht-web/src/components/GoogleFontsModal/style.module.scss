@@ -1,5 +1,4 @@
-@use '../../css/theme.scss';
-@use '../../css/global.scss';
+@use '../../css/mixins.scss' as global;
 
 .fonts-modal {
     overflow: auto;
@@ -18,7 +17,7 @@
 }
 
 .top-bar {
-    background-color: theme.$base-color-secondary-dark;
+    background-color: var(--base-color-tertiary);
     padding: 0.5rem 0.75rem;
     flex: 0 0 auto;
     display: flex;
@@ -50,14 +49,14 @@
     overflow: auto;
     flex: 0 0 3in;
     max-width: 25%;
-    border-right: 1px solid theme.$divider;
+    border-right: 1px solid var(--divider);
     display: flex;
     flex-direction: column;
 }
 
 .fonts-list-sort {
     padding: 0.5rem;
-    border-bottom: 1px solid theme.$divider;
+    border-bottom: 1px solid var(--divider);
     box-sizing: border-box;
     flex: 0 0 auto;
 }
@@ -81,18 +80,18 @@
     box-sizing: border-box;
 
     &:hover {
-        background-color: theme.$toggle-hover;
+        background-color: var(--toggle-hover);
     }
 
     &:active, &.selected {
-        background-color: theme.$toggle-active;
+        background-color: var(--toggle-active);
     }
 
     & .add-font-button {
         margin-left: auto;
     }
 
-    @include theme.bg-fade();
+    transition: background-color var(--fade);
 }
 
 .font-name {
@@ -132,7 +131,7 @@
 .font-meta {
     margin-bottom: 1rem;
     font-size: 0.875rem;
-    color: theme.$text-detail;
+    color: var(--text-detail);
 }
 
 .font-meta-line {
@@ -150,7 +149,7 @@
 
 .filters-pane {
     flex: 0 0 200px;
-    border-right: 1px solid theme.$divider;
+    border-right: 1px solid var(--divider);
     padding: 1rem;
     overflow-y: auto;
 }
@@ -181,8 +180,7 @@
 .preview-text-input {
     min-width: 0;
     flex: 1;
-    padding: 0.5rem;
-    border: 1px solid theme.$divider;
+    border: 1px solid var(--divider);
     border-radius: 4px;
     font-size: 1rem;
 }
@@ -213,9 +211,9 @@
 }
 
 .font-sample {
-    border: 1px solid theme.$divider;
+    border: 1px solid var(--divider);
     border-radius: 4px;
-    background: theme.$base-color-primary;
+    background: var(--base-color-primary);
     padding: 0.75rem;
 }
 
@@ -262,9 +260,9 @@
 
 .axis-controls {
     padding: 1rem;
-    border: 1px solid theme.$divider;
+    border: 1px solid var(--divider);
     border-radius: 4px;
-    background: theme.$base-color-secondary;
+    background: var(--base-color-secondary);
     margin-bottom: 1rem;
 }
 
@@ -277,7 +275,7 @@
 .axis-controls-title {
     font-size: 1rem;
     font-weight: 600;
-    color: theme.$text;
+    color: var(--text);
     margin-bottom: 1rem;
 }
 
@@ -333,8 +331,8 @@
         left: 0;
         right: 0;
         z-index: 10;
-        background-color: theme.$base-color-primary;
-        border: 1px solid theme.$divider;
+        background-color: var(--base-color-primary);
+        border: 1px solid var(--divider);
         border-radius: 0 0 4px 4px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         transform: translateY(-100%);

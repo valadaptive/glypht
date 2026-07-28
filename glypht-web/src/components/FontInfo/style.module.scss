@@ -1,5 +1,4 @@
-@use '../../css/theme.scss';
-@use '../../css/global.scss';
+@use '../../css/mixins.scss';
 
 .loading {
     flex: 1 1 0;
@@ -33,11 +32,11 @@
 
 .upload-sub {
     font-size: 2rem;
-    color: theme.$text-detail;
+    color: var(--text-detail);
 }
 
 .upload-icon {
-    color: theme.$interactive-muted;
+    color: var(--interactive-muted);
 }
 
 .font table {
@@ -45,7 +44,7 @@
 }
 
 .font td, .font th {
-    border: 1px solid theme.$divider;
+    border: 1px solid var(--divider);
 }
 
 .families {
@@ -55,9 +54,9 @@
 }
 
 .family-settings {
-    border-radius: theme.$radius;
+    border-radius: var(--corner-radius);
     margin-bottom: 1rem;
-    border: 1px solid theme.$divider;
+    border: 1px solid var(--divider);
     overflow: auto;
 
     &:last-child {
@@ -66,8 +65,8 @@
 }
 
 .family-header {
-    background-color: theme.$base-color-secondary-dark;
-    padding: 0.75rem 1rem;
+    background-color: var(--base-color-tertiary);
+    padding: 0.5rem 1rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -88,15 +87,15 @@
 
 .num-fonts {
     margin-left: 0.375rem;
-    color: theme.$text-detail;
+    color: var(--text-detail);
     font-size: 0.875rem;
 }
 
 .single-font-settings {
-    background-color: theme.$base-color-secondary-dark;
-    border-radius: theme.$radius;
+    background-color: var(--base-color-tertiary);
+    border-radius: var(--corner-radius);
     margin-bottom: 1rem;
-    border: 1px solid theme.$divider;
+    border: 1px solid var(--divider);
     overflow: auto;
 
     &:last-child {
@@ -111,7 +110,7 @@
 }
 
 .single-font-file-info {
-    color: theme.$text-detail;
+    color: var(--text-detail);
     font-size: 0.75rem;
 }
 
@@ -120,12 +119,12 @@
 }
 
 .family-settings-body {
-    background-color: theme.$base-color-primary;
+    background-color: var(--base-color-primary);
     padding: 1rem;
 }
 
 .settings-section {
-    border-bottom: 1px solid theme.$divider;
+    border-bottom: 1px solid var(--divider);
     padding: 0.75rem 0;
 
     &:first-child {
@@ -169,7 +168,7 @@
 }
 
 .single-font-settings-body {
-    background-color: theme.$base-color-primary;
+    background-color: var(--base-color-primary);
     padding: 0.5rem;
 }
 
@@ -192,7 +191,7 @@
     }
 
     &.disabled > header {
-        color: theme.$text-detail;
+        color: var(--text-detail);
     }
 }
 
@@ -218,7 +217,7 @@
 }
 
 .static-setting {
-    color: theme.$text-detail;
+    color: var(--text-detail);
 }
 
 .axis-setting {
@@ -240,7 +239,7 @@
 }
 
 .label {
-    @include global.label();
+    @include mixins.label();
 }
 
 .checkboxes {
@@ -257,14 +256,14 @@
 
 .header-divider {
     width: 1px;
-    background-color: theme.$divider;
+    background-color: var(--divider);
     align-self: stretch;
     margin-right: 0.25rem;
 }
 
 .character-set {
     padding: 1rem 0;
-    border-top: 1px solid theme.$divider;
+    border-top: 1px solid var(--divider);
 
     &:last-child {
         padding-bottom: 0;
@@ -297,6 +296,6 @@
 
 .unicode-range-textbox, .axis-range-textbox {
     &.invalid, &.invalid:focus {
-        outline-color: theme.$red;
+        outline-color: var(--red);
     }
 }

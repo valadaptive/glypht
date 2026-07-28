@@ -1,6 +1,6 @@
 import type {JSX as PreactJSX} from 'preact';
 import {ReflectionKind} from 'typedoc';
-import type {IconType} from '../../../src/components/Icon/Icon';
+import type {IconType} from 'valadaptive-lib/Icon';
 
 // Icon mapping from TypeDoc icons to your icon system
 const iconMapping: Record<string, IconType> = {

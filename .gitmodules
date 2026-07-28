@@ -19,3 +19,6 @@
 [submodule "c-libs-wrapper/BLAKE3"]
 	path = c-libs-wrapper/BLAKE3
 	url = https://github.com/BLAKE3-team/BLAKE3
+[submodule "valadaptive-lib"]
+	path = valadaptive-lib
+	url = https://github.com/valadaptive/valadaptive-lib
