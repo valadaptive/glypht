@@ -40,7 +40,7 @@ export const init = async(wasmUrl: string) => {
                 set.addRange(start, end);
             }
         });
-        SUBSET_HB_SETS[name as SubsetName] = set;
+        SUBSET_HB_SETS[name] = set;
     }
 
     const subsetInput = hb._hb_subset_input_create_or_fail();
@@ -407,7 +407,7 @@ export class Font {
      * @returns The name string, or null if it doesn't exist or is `HB_OT_NAME_ID_INVALID`.
      */
     private getOpentypeName(id: number) {
-        if (id === OtNameId.INVALID as number) {
+        if (id === OtNameId.INVALID) {
             return null;
         }
 

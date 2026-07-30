@@ -10,6 +10,7 @@ export default tseslint.config(
             '**/public/**/*.{cjs,mjs,js,ts,jsx,tsx}',
             '**/c-libs-wrapper/**/*',
             '**/.rollup.cache/**/*',
+            'valadaptive-lib/**/*',
             'glypht-*/src/generated/**/*',
             'glypht-*/dist/**/*',
             'glypht-web/_site/**/*',
@@ -127,6 +128,9 @@ export default tseslint.config(
             '@typescript-eslint/no-misused-promises': ['error', {
                 checksVoidReturn: false,
             }],
+            // The typescript-eslint maintainers have yet another strong and incorrect opinion:
+            // https://github.com/typescript-eslint/typescript-eslint/issues/8557
+            '@typescript-eslint/no-unsafe-enum-comparison': ['off'],
         },
     },
     {

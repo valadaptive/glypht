@@ -70,9 +70,7 @@ export const fetchFile = async(path: string | URL): Promise<Uint8Array<ArrayBuff
             // just implement support for fetching $&#! file URIs...
         }
         if (fsp) {
-            // TypeScript changed the array buffer view types to be parameterized over the buffer type, but *didn't*
-            // update the type definitions for Node APIs!
-            const buf = await fsp.readFile(filePath) as Buffer<ArrayBuffer>;
+            const buf = await fsp.readFile(filePath);
             // We return a Uint8Array instead of an ArrayBuffer just in case Node pools buffers for file loads. I don't
             // think it does, but you never know...
             return new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength);

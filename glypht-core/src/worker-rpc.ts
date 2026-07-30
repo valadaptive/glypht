@@ -188,7 +188,8 @@ export default class RpcDispatcher<T extends MessageSchema> {
                 } else {
                     ac.abort();
                     if (data.type === 'error') {
-                        reject(data.message as Error);
+                        // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
+                        reject(data.message);
                     } else {
                         reject(new Error(`Unexpected response of type ${data.type}`));
                     }

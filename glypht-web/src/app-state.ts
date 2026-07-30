@@ -456,7 +456,7 @@ export class AppState {
                 return;
             }
 
-            chunks.push(data as Uint8Array<ArrayBuffer>);
+            chunks.push(data);
 
             if (final) {
                 const blob = new Blob(chunks, {type: 'application/zip'});

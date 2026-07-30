@@ -33,6 +33,6 @@ export const testCompressionContext = () => {
 };
 
 export const readFixtureFile = async(path: string, base: string) => {
-    const contents = await fs.readFile(new URL(path, base)) as Buffer<ArrayBuffer>;
+    const contents = await fs.readFile(new URL(path, base));
     return new Uint8Array(contents.buffer, contents.byteOffset, contents.byteLength);
 };
