@@ -2,7 +2,12 @@
 
 @layer valadaptive.base, valadaptive.shared;
 
+:root {
+    --font-mono: 'Fira Code', monospace;
+}
+
 @layer valadaptive.base {
+
     html {
         overflow: auto;
     }
