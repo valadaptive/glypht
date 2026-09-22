@@ -67,6 +67,9 @@ export class WoffCompressionContext {
             }
             return new WorkerPool(workers);
         })();
+        // Initialization may fail before an operation consumes the promise.
+        // Keep the original promise rejected so operations still receive the error.
+        void this.pool.catch(() => {});
     }
 
     /**
@@ -167,7 +170,7 @@ export class WoffCompressionContext {
      * processing work is finished.
      */
     public destroy() {
-        void this.pool.then(pool => pool.destroy());
+        void this.pool.then(pool => pool.destroy(), () => {});
         this.destroyed = true;
     }
 }
