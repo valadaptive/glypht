@@ -393,7 +393,7 @@ Finally, Liu and other designers from his workshop, including Yang Kang and Wu S
 </p>
 
 <p>
-    The family consists of two variations that share the same capital letters: Yuyu and Yuyu Short. Yuyu was developed with a clear focus on legibility and accessibility, making it the more practical choice for extended use. Yuyu Short, by contrast, is intended purely for aesthetic and display purposes.
+    The family consists of two variations that share the same capital letters: Yuyu Mid and Yuyu Short. Yuyu Mid was developed with a clear focus on legibility and accessibility, making it the more practical choice for extended use. Yuyu Short, by contrast, is intended purely for aesthetic and display purposes.
 </p>
 
 <p>
@@ -401,6 +401,12 @@ Finally, Liu and other designers from his workshop, including Yang Kang and Wu S
 </p>
 
 <p>To contribute, see <a href="https://github.com/JuliaGarciaLopez/Yuyu-Font">github.com/JuliaGarciaLopez/Yuyu-Font</a>.</p>
+
+<hr>
+<img src="yuyu-promotional-sample1.png">
+<img src="yuyu-promotional-sample2.png">
+<img src="yuyu-promotional-sample3.png">
+<img src="yuyu-promotional-sample4.png">
 <p>
     Yuyu is a slender, stylized handwritten typeface designed by Julia García López. Originally created as a personal tool for the designer's own visual identity, Yuyu is the product of years of manual refinement and care.
 </p>
@@ -418,6 +424,12 @@ Finally, Liu and other designers from his workshop, including Yang Kang and Wu S
 </p>
 
 <p>To contribute, see <a href="https://github.com/JuliaGarciaLopez/Yuyu-Font">github.com/JuliaGarciaLopez/Yuyu-Font</a>.</p>
+
+<hr>
+<img src="yuyu-promotional-sample1.png">
+<img src="yuyu-promotional-sample2.png">
+<img src="yuyu-promotional-sample3.png">
+<img src="yuyu-promotional-sample4.png">
 <p>
 Yusei Magic is a font based on handwritten letters written with permanent marker. It has a thick vertical stroke and a thin horizontal stroke, so it is highly visible. The design of the letters has both the strength of bold lines and the softness of spaciousness. Highly recommended for handwriting on blackboards and pop art designs.
 </p>
@@ -1109,6 +1121,64 @@ To contribute to the project contact <a href="mailto:sorkineben@gmail.com">Eben 
 <b>Updated September 2015:</b> Internal metadata corrected.
 </p>
 <p>
+    Valley Sans is a clear, versatile typeface intended to work with editorial content, as well as lending a warm charm to user interfaces.
+</p>
+
+<p>
+    To contribute, see <a href="https://github.com/HelsinkiTypeStudio/valley-sans">github.com/HelsinkiTypeStudio/valley-sans</a>.
+</p>
+
+<img src="valley-sans.jpeg">
+
+<p>
+    The Moomins are beloved characters created by Tove Jansson, known for wit, warmth, and charm. Valley Sans translates that spirit into a contemporary type system for brand communication, publishing, and digital interfaces while preserving a distinct connection to the Moomin visual world.
+</p>
+
+<img src="valley-sans-flotsam.jpeg">
+
+<p>
+    The design of the typeface draws from Tove Jansson's original lettering, the typographic landscape of her era, and details from life in the Finnish archipelago.
+</p>
+
+<p>
+    Tove Jansson produced a plethora of lettering in many styles. The sans serif work is sturdy and often includes slightly flared terminals, which gave a very clear direction for Valley Sans. However the sans serif lettering is always uppercase.
+</p>
+
+<img src="valley-sans-moomin-archive-trollvinter.jpeg">
+
+<p>
+    To build a complete contemporary family, the lowercase and broader stylistic system were complemented with compatible historical models. The design team focused on late-1800s American modern gothic typefaces, chosen for their suitable warmth, practicality, and expressive charm, and also because of a surprising oblique connection to the Moomins.
+</p>
+
+<img src="valley-sans-island-cabin.jpeg">
+
+<p>
+    In the Finnish archipelago, where Jansson spent most summers, cargo crates and other branded pieces of driftwood have washed ashore over time. This inspired the idea of transatlantic flotsam, where distant typographic influences arrive by sea and settle into local visual culture, becoming part of the conceptual foundation of Valley Sans.
+</p>
+
+<p>
+    The result is a typeface rooted in heritage and storytelling, designed for clarity, rhythm, and usability across styles.
+</p>
+
+<img src="valley-sans-all-styles.jpeg">
+
+<p>
+    Valley Sans is delivered as a variable-weight family, covering styles from Thin to Black in both roman and italic. This structure provides a broad expressive range while keeping behaviour consistent across editorial and interface contexts.
+</p>
+
+<img src="valley-sans-character.jpeg">
+
+<p>
+    The family is currently developed for Latin-script use and is intended to support a wide range of contemporary brand and publishing needs in digital and print environments.
+</p>
+
+<img src="valley-sans-abc-island.jpeg">
+<img src="valley-sans-comet.jpeg">
+
+<p>
+    Valley Sans was designed for Moomin Characters by Niklas Ekholm and Lari Mörö at Helsinki Type Studio. Images courtesy of Moomin Characters Ltd.
+</p>
+<p>
     Urbanist is a low-contrast, geometric sans-serif inspired by Modernist typography and design. The project was launched by Corey Hu in 2020 with 9 weights and accompanying italics. Conceived from elementary shapes, Urbanist's neutrality makes it a versatile
     display font for print and digital mediums. It is currently available as a variable font with a weight axis.
 </p>
@@ -1420,7 +1490,37 @@ Diego Giusti, design of the first prototype</p><p>Titan One is a really fat disp
 </p>
 <p>
     To learn more, read <a href="https://design.google/library/new-Indic-fonts/">Modern Tiro Indic collection for classical South Asian texts</a>.
-</p><p>
+</p><p><strong>Tiny5 Duo</strong> is the bolder sibling of Tiny5, bringing extra presence to its compact 5-pixel aesthetic while preserving the charm and precision of 1980s–90s digital minimalism.</p>
+
+<p>To contribute, see <a href="https://github.com/Gissio/font_tiny5">github.com/Gissio/font_tiny5</a>.</p>
+
+<p>Inspired by graphing calculators, pocket gadgets, LCD displays and early digital interfaces, Tiny5 Duo turns ultra-small letterforms into a distinctive typographic voice. Its heavier construction gives text more impact and visibility, while staying faithful to the crisp, pixel-perfect character of the original Tiny5.</p>
+
+<img src="tiny5-sample3.jpg">
+
+<p>Like Tiny5, the family offers six variable axes — <strong>Weight, Width, Italic, Roundness, Bleed and Jitter</strong> — allowing you to move effortlessly between sharp geometric forms, chunky LCD lettering, soft CRT-like shapes, dot-matrix textures and deliberately imperfect digital artifacts.</p>
+
+<p>Tiny5 Duo is particularly suited to moments that need a little more typographic weight:</p>
+
+<ul>
+<li>Pixel art and lo-fi games</li>
+<li>Retro-futuristic interfaces and terminal screens</li>
+<li>Bold UI labels, menus and micro-typography</li>
+<li>Posters, titles and display typography</li>
+<li>Branding inspired by 8/16-bit graphics and vintage electronics</li>
+</ul>
+
+<p>The Tiny5 family supports <strong>Latin, Greek, Cyrillic and Armenian scripts</strong>, covering <strong>974 languages</strong> with <strong>1,749 glyphs</strong>.</p>
+
+<p>For pixel-perfect results, use font sizes in <strong>6 pt (8 px) increments</strong>.</p>
+
+<img src="tiny5-presentation.jpg">
+<img src="tiny5-sample1.jpg">
+<img src="tiny5-sample2.jpg">
+<img src="tiny5-sample4.jpg">
+<img src="tiny5-sample5.jpg">
+<img src="tiny5-sample6.jpg">
+<p>
 tiny5 is a variable-width, 5-pixel font playing with the concept of least amount of information while producing both legible and aesthetically pleasing text.
 </p>
 <p>
@@ -18850,6 +18950,8 @@ To contribute, see <a href="https://github.com/googlefonts/oooh-baby" target="_b
     
 <p>Onest is a modern typeface, so it has a lot of useful conveniences. The subtleties of correct speech transmission are Onest's strong points. It knows like no other the importance and value of using the right diacritics and the difference between cedilla, ogonek and and the way things should be. For all its versatility, Onest allows text to keep its individuality. All thanks to alternative symbols that set the tone and even the character of the message.</p>
 
+<p>Version 2.000 grows the character set to 876 glyphs. Cyrillic now covers 56 languages, among them Ukrainian, Belarusian, Bulgarian, Serbian, Macedonian, Kazakh, Kyrgyz, Uzbek, Tatar, Bashkir, Chuvash, Mongolian, Tajik, Chechen, Ossetic, Kabardian, Udmurt, Mari, Komi and Sakha. On the Latin side the release adds Vietnamese and Yoruba, along with vulgar fractions, numerators, denominators and superiors.</p>
+
 <p>To contribute, please see <a href="https://github.com/simpals/onest">github.com/simpals/onest</a>.</p>
 <hr>
 <img src="image1.jpg">
@@ -20074,13 +20176,9 @@ To contribute, see <a href="https://github.com/appajid/ntr">github.com/appajid/n
   has 922 glyphs.
 </p>
 <p>
- Noto is a global font collection for writing in all modern and ancient languages.
- Noto Sans Devanagari is an unmodulated (“sans serif”) design for texts in the Indic
- <em>
-  Devanagari
- </em>
- script.
- It has 954 glyphs.
+  Noto is a global font collection for writing in all modern and ancient
+  languages. Noto Sans Devanagari is an unmodulated (“sans serif”) design for
+  texts in the Indic <em>Devanagari</em> script. It has 954 glyphs.
 </p>
 <p>
   Noto is a global font collection for writing in all modern and ancient
@@ -20304,9 +20402,9 @@ It features thousands of emoji.
 </p>
 
 <p>
-  This font uses the COLRv1, CPAL and SVG tables. Please visit 
-  <a href="https://googlefonts.github.io/gf-guide/color.html">the gf-guide color page</a>
-  to learn more about Color Fonts technology.
+This font is available in the COLRv1/CPAL and SVG format. Please visit 
+<a href="https://developer.chrome.com/blog/colrv1-fonts/">the Chrome Developer blog</a>
+to learn more about COLRv1 color fonts technology.
 </p>
 <p>Noticia Text is a contemporary humanist slab serif typeface designed to be used for running text on digital newspapers (both on websites and mobile apps). It has a large x-height, ample proportions, big serifs and large apertures that allow the letters to be clear, even at small sizes on low resolution screens. The capitals are unusually small, allowing them to be used as substitutes for small caps. (It's recommended to add some tracking if used in this way.)</p> <p>One major feature is the break in the internal curves of round characters. While this break makes some interesting forms at large sizes, their true purpose is to help make the counterforms more open at small sizes by allowing straighter stems. This reasoning is famously known as W.A. Dwiggins' “M-formula.”</p> <p>The italics were designed to contrast with the roman styles while maintaining good legibility. The true italic forms also have big counterforms and simple curves.</p> <p>The fonts have been manually hinted to get the best possible rasterization in Windows.</p> <p>The Noticia font family project is envisioned as 18 different fonts styles, with text, condensed, display and sans variants, different weights and including italic versions, all designed and hinted to work well on computer and mobile devices screens.</p>
 <p>Nothing You Could Do is based on the handwriting of a photographer friend. I chose the name because it echoes my love for my husband and children and how my love for them is unconditional and not based on anything they could do or say. I love this handwriting because it is human, it is imperfect, and it is natural.  Real humans don’t write perfectly neatly, and this font creates that feeling of authenticity.</p><p>
@@ -20358,6 +20456,13 @@ To contribute, visit <a href="https://launchpad.net/newscycle">launchpad.net/new
 <img src="image1.png">
 <img src="image2.png">
 <img src="image3.png">
+<p>Nevermind is Xmind's signature typeface, derived from the Xmind logo design. This modern font combines geometric and humanist styles, offering both professionalism and approachability for various design applications. The font family comes in 9 weights (100-900) and supports 109 languages, including German, French, Greek, Russian, and more.</p>
+
+<p>To contribute, see <a href="https://github.com/lamzhonghang/nevermind">github.com/lamzhonghang/nevermind</a>.</p>
+
+<hr>
+<img src="image1.png">
+<img src="image2.png">
 <p>Neuton is a clean, dark, somewhat Dutch-inspired serif font which reminds you a little of Times. It has a large height, short extenders, and a compact width for better screen use, and economy of space.</p> <p>The family will comprise a regular, italic, and cursive, each in five weights and with smallcaps. Two italics &mdash; one will be called "italic", and the other "cursive" &mdash; are uncommon, but very useful. Ever tried emphasizing something already emphasized? Beyond that obvious example, there are other uses.</p> <p>Sometimes a text needs a different flavor or feel. While one roman can work for a variety of texts, the companion italics don't always. In more classical or personal documents, a stiff, sober, modern and down-to-earth italic will never work. And in many essays, some of the fancier italics look ridiculous. Who said a roman needs only one companion?</p><p>You will throw tomatoes at me when I say that the font Neucha was invented for the sake of one and only one phrase: “I love you”. It was 2005 and I was in love. The first version of the font was done in 8 hours. I recently redid this fastfont from scratch, some glyphs have changed greatly but most of them I did not touch – just polished. Neucha very strong in terms of energy and I love it. Neucha translated from the Russian language means “not knowing how to create fonts right”.</p><p>Nerko is a chunky ‘marker’ effect font. It gives a funky, exciting and modern look while staying smooth and sleek. Be
     as bold as the font while using a friendly style that makes users feel welcome in any circumstances.</p>
 <p>From paper to screen, this font was created using traditional Marker Pens on paper for guidance to give it a natural
@@ -21936,7 +22041,15 @@ To contribute, see <a href="https://github.com/googlefonts/Libre-Franklin">githu
 
 <p>Kerning by Igino Marini with iKern.</p>
 
-<p>Libre Caslon Display also include some nice, extra Open Type features (available in the downloadable files), and a big Pro character-set covering 103 Latin languages: Afar, Afrikaans, Albanian, Azerbaijani, Basque, Belarusian, Bislama, Bosnian, Breton, Catalan, Chamorro, Chichewa, Comorian, Czech, Danish, Dutch, English, Esperanto, Estonian, Faroese, Fijian, Filipino/Tagalog, Finnish, Flemish, French, Gaelic (Irish/Manx/Scottish), Gagauz, German, Gikuyu, Gilbertese/Kiribati, Greenlandic, Guarani, Haitian_Creole, Hawaiian, Hungarian, Icelandic, Igo/Igbo, Indonesian, Irish, Italian, Javanese, Kashubian, Kinyarwanda, Kirundi, Latin, Latvian, Lithuanian, Luba/Ciluba/Kasai, Luxembourgish, Malagasy, Malay, Maltese, Maori, Marquesan, Marshallese, Moldovan/Moldovian/Romanian, Montenegrin, Nauruan, Ndebele, Norwegian, Oromo, Palauan/Belauan, Polish, Portuguese, Quechua, Romanian, Romansh, Sami, Samoan, Sango, Serbian, Sesotho, Setswana/Sitswana/Tswana, Seychellois_Creole, SiSwati/Swati/Swazi, Silesian, Slovak, Slovenian, Somali, Sorbian, Sotho, Spanish, Swahili, Swedish, Tahitian, Tetum, Tok_Pisin, Tongan, Tsonga, Tswana, Tuareg/Berber, Turkish, Turkmen, Tuvaluan, Uzbek/Usbek, Wallisian, Walloon, Welsh, Xhosa, Yoruba, Zulu.</p><p>The Libre Bodoni fonts are based on the 19th century Morris Fuller Benton's ATF design, but specifically adapted for today's web requirements. They are a perfect choice for everything related to elegance, style, luxury and fashion. Libre Bodoni currently features four styles: Regular, Italic, Bold and Bold Italic.</p>
+<p>Libre Caslon Display also include some nice, extra Open Type features (available in the downloadable files), and a big Pro character-set covering 103 Latin languages: Afar, Afrikaans, Albanian, Azerbaijani, Basque, Belarusian, Bislama, Bosnian, Breton, Catalan, Chamorro, Chichewa, Comorian, Czech, Danish, Dutch, English, Esperanto, Estonian, Faroese, Fijian, Filipino/Tagalog, Finnish, Flemish, French, Gaelic (Irish/Manx/Scottish), Gagauz, German, Gikuyu, Gilbertese/Kiribati, Greenlandic, Guarani, Haitian_Creole, Hawaiian, Hungarian, Icelandic, Igo/Igbo, Indonesian, Irish, Italian, Javanese, Kashubian, Kinyarwanda, Kirundi, Latin, Latvian, Lithuanian, Luba/Ciluba/Kasai, Luxembourgish, Malagasy, Malay, Maltese, Maori, Marquesan, Marshallese, Moldovan/Moldovian/Romanian, Montenegrin, Nauruan, Ndebele, Norwegian, Oromo, Palauan/Belauan, Polish, Portuguese, Quechua, Romanian, Romansh, Sami, Samoan, Sango, Serbian, Sesotho, Setswana/Sitswana/Tswana, Seychellois_Creole, SiSwati/Swati/Swazi, Silesian, Slovak, Slovenian, Somali, Sorbian, Sotho, Spanish, Swahili, Swedish, Tahitian, Tetum, Tok_Pisin, Tongan, Tsonga, Tswana, Tuareg/Berber, Turkish, Turkmen, Tuvaluan, Uzbek/Usbek, Wallisian, Walloon, Welsh, Xhosa, Yoruba, Zulu.</p><p>
+    Libre Caslon Condensed is an open-source condensed serif alternative designed to fill the gap in the market for high-quality condensed serif alternatives. This font, which is created by modifying the "Libre Caslon Text" font family, offers a harmonious blend of elegance and readability, making it an ideal choice for various design projects.
+</p>
+
+<p>To contribute, see <a href="https://github.com/ertekinno/libre-caslon-condensed">github.com/ertekinno/libre-caslon-condensed</a>.</p>
+
+<hr>
+<img src="cover.png">
+<p>The Libre Bodoni fonts are based on the 19th century Morris Fuller Benton's ATF design, but specifically adapted for today's web requirements. They are a perfect choice for everything related to elegance, style, luxury and fashion. Libre Bodoni currently features four styles: Regular, Italic, Bold and Bold Italic.</p>
 
 <p>To contribute, see <a href="https://github.com/googlefonts/Libre-Bodoni" target="_blank">github.com/googlefonts/Libre-Bodoni</a>.</p>
 <p>
@@ -22476,6 +22589,13 @@ The name of the font is a common Estonian girls name.
 The most distinctive characteristics of this type are tall ascenders and descenders, slim vertical lines and little twists like the letter "g" in the text. 
 Kristi can be used large size, for example as in logotype or headlines. 
 </p>
+<p>Kripa (कृपा) is a contemporary, geometric sans-serif with support for Latin and Devanagari scripts. The font balances sharp, circular forms and has an approchable “human” undertone. It has tight apertures and minimalist structures, and the font avoids the formality of traditional, neo-grotesque typefaces. With a tall x-height and a relatively short ascender height, it is more practical than a standard geometric typeface, allowing the lowercase letters to remain legible across a variety of text sizes and environments.</p>
+
+<p>With its support for both Latin and Devanagari scripts, Kripa covers a wide range of languages including Hindi and Marathi. The Latin set includes an extensive collection of accented characters. Both scripts were developed to share a unified visual rhythm and optical weight, allowing for an organic transition between different languages within a single layout.</p>
+
+<p>Kripa is an OpenType variable font. It is not only available in multiple individual weights, but is also available as a single file supporting the axis of weight variation. It also features 20 character variants and a suite of OpenType features, including stylistic alternates, discretionary ligatures, and contextual alternates. It also includes tabular numbers and fractions.</p>
+
+<p>To contribute, see <a href="https://github.com/kedar9/kripa">github.com/kedar9/kripa</a>.</p>
 <p>Kreon targets text typesetting for magazines and news sites. With a slight slab-serif look and the low contrast design, it is a sturdy typeface for your website, blog or online magazine. Its friendly feel will soon be accompanied by a sans serif as well as italics. Enjoy.</p><p>
 Koulen is a Khmer font for headlines, titles and subtitles, and even banner designs.
 </p>
@@ -23300,6 +23420,14 @@ homogeneous.</p>
 this 'Web' version has modified vertical metrics.</p>
 
 <p><b>Updated:</b> June 2014 to version 1.0.2g</p><p>
+    Isometra is a slab-serif styled font that conforms loosely to a 60 degree isometric grid. It is bold by design. It has a sophisticated, authentic feel. It is ideal for signage, titles or logos.
+</p>
+
+<p>To contribute, see <a href="https://github.com/field2/isometra">github.com/field2/isometra</a>.</p>
+
+<hr>
+<img src="isometra.png">
+<p>
 Take a trip to a tropical paradise. This brush style font has an exotic appeal with alternate uppercase characters borrowed from the font, Babylonica. This OpenType Pro version offers extra alternate characters.
 </p>
 <p>
@@ -23966,35 +24094,29 @@ To contribute to the project, visit <a href="https://github.com/satsuyako/Hina-M
 <p>Hi Melody is a Korean and Latin font.</p><p>
     Hibur Mono is a single weight, monospaced, Ethiopic typeface designed for columnar display environments such as computer terminals and software code development interfaces.
 </p>
-
 <p>
     The Hibur Mono Ethiopic glyphs have been designed from the ground up and optimized for the fixed width constraints of a monospaced typeface. Hibur Mono is compatible with the Noto Sans Mono geometric dimensions. The non-Ethiopic glyphs in Hibur Mono have also been leveraged from Noto Sans Mono.
 </p>
-
 <p>
     To contribute, see <a href="https://github.com/typehabesha/HiburMono">github.com/typehabesha/HiburMono</a>.
 </p>
-
 <p>
     የኅቡር ሞኖ መልከፊደል ቅርጾች (glyphs) ለቋሚ ስፋት የፊደል ቅርጽ ገደቦች እጅግ ተስማሚ በሆነ መልኩ የተመቻቹ (optimized) ናቸው። ኅቡር ሞኖ ከኖቶ ሳንስ ሞኖ (Noto Sans Mono) የጂኦሜትሪክ ልኬቶች (geometric dimensions) ጋር የተጣጣመ ሲሆን በተጨማሪም በኅቡር ሞኖ ውስጥ የተካተቱት ኢትዮጵያዊ ያልሆኑት የፊደላት ቅርጾች ከኖቶ ሳንስ ሞኖ (Noto Sans Mono) መልከፊደል የተወሰዱ ናቸው።
 </p>
-
 <p>
     ኅቡር ሞኖ በታይፕ ሐበሻ እና በራእይ ታይፕ ጥምረት እንደ ኮምፒውተር ተርሚናሎች እና የሶፍትዌር ኮድ ማበልጸጊያ በይነገጾች (interfaces) ላሉ አገልግሎቶች ተብሎ የተነደፈ፣ ነጠላ ውፍረት ያለው እና ቋሚ ስፋት ያለው (monospaced) ኢትዮጵያዊ መልከፊደል ነው።
 </p>
-
 <p>
     ለዚህ ፕሮጀክት አስተዋጽኦ ለማድረግ <a href="https://github.com/typehabesha/HiburMono">github.com/typehabesha/HiburMono</a>
 </p>
-
-<img src="Hibur-Mono-Preview-1.png">
-<img src="Hibur-Mono-Preview-2.png">
-<img src="Hibur-Mono-Preview-3.png">
-<img src="Hibur-Mono-Preview-4.png">
-<img src="Hibur-Mono-Preview-5.png">
-<img src="Hibur-Mono-Preview-6.png">
-<img src="Hibur-Mono-Preview-7.png">
-<img src="Hibur-Mono-Preview-8.png">
+<img src="Hibur-Mono-Preview-1.png"/>
+<img src="Hibur-Mono-Preview-2.png"/>
+<img src="Hibur-Mono-Preview-3.png"/>
+<img src="Hibur-Mono-Preview-4.png"/>
+<img src="Hibur-Mono-Preview-5.png"/>
+<img src="Hibur-Mono-Preview-6.png"/>
+<img src="Hibur-Mono-Preview-7.png"/>
+<img src="Hibur-Mono-Preview-8.png"/>
 <p>The Charles Bluemlein Script Collection is an intriguing reminder of the heady days of hand lettering and calligraphy in the United States. From the early 1930s through World War II, there were about 200 professional hand letterers working in New York City alone. This occupation saw its demise with the advent of photo lettering, and after digital typography it became virtually extinct. The odd way in which the Bluemlein scripts were assembled and created - by collecting different signatures and then building complete alphabets from them - is a fascinating calligraphic adventure. Because the set of constructed designs looked nothing like the original signatures, fictitious names were assigned to the new script typefaces. The typeface styles were then showcased in Higgins Ink catalogs.</p> <p>Alejandro Paul and Sudtipos bring the Bluemlein scripts back to life in a set of expanded digital versions, reflecting the demands of today’s designer. Extreme care has been taken to render the original scripts authentically, keeping the fictitious names originally assigned to them by Bluemlein.</p><p>Hermeneus is a grecian style font, inspired by the works of Jim Parkinson
 and Ortiz Lopez. It condensation lets you put more characters into a line of
 text giving your paragraphs more efficiency. It is intended to be read at small
@@ -24013,15 +24135,13 @@ size text, but also works on large headers and titles.</p>
 <p>The Heebo project is led by Oded Ezer, a type designer based in Tel Aviv, Israel. To contribute, see <a href="https://github.com/OdedEzer/heebo">github.com/OdedEzer/heebo</a></p>
 <p>Hedvig is a digital insurance company that is challenging the traditional insurance industry by providing a predictable insurance experience.</p>
 
-<p>The Hedvig typeface family was created by Kanon Foundry in collaboration with Hedvig’s in-house design department. The typface reflects Hedvig’s brand philosophy “Stuff happens” – embracing all the things that happen in life, without worry or fear.</p>
+<p>The Hedvig typeface family was created by Kanon Foundry in collaboration with Hedvig’s in-house design department. The typeface reflects Hedvig’s brand philosophy “Stuff happens” – embracing all the things that happen in life, without worry or fear.</p>
 
-<p>
-    The typeface family Hedvig Letters consists of two fonts:<br>
-        <ul>
-            <li>Hedvig Letters Serif is designed to balance punchy and honest copy with responsibility and comfort.</li>
-            <li><a href="https://fonts.google.com/specimen/Hedvig+Letters+Sans"></a>Hedvig Letters Sans</a> takes the role of the work-horse typeface in Hedvig’s visual toolbox.</li>
-        </ul>
-</p>
+<p>The typeface family Hedvig Letters consists of two fonts:</p>
+<ul>
+    <li><a href="https://fonts.google.com/specimen/Hedvig+Letters+Serif">Hedvig Letters Serif</a> is designed to balance punchy and honest copy with responsibility and comfort.</li>
+    <li><a href="https://fonts.google.com/specimen/Hedvig+Letters+Sans">Hedvig Letters Sans</a> takes the role of the work-horse typeface in Hedvig’s visual toolbox.</li>
+</ul>
 
 <p>The concept for the typeface was developed by approaching a “non-type-designer” point of view. Optical corrections are usually applied to a typeface to fool the eye that certain shapes are balanced or aligned, when in reality they are not. For this typeface, the imperfections were embraced instead of corrected. The result is a typeface where some letters have a slightly odd, yet characteristic look that effectively communicates Hedvig’s brand and design philosophy.</p>
 
@@ -24030,13 +24150,11 @@ size text, but also works on large headers and titles.</p>
 
 <p>The Hedvig typeface family was created by Kanon Foundry in collaboration with Hedvig’s in-house design department. The typface reflects Hedvig’s brand philosophy “Stuff happens” – embracing all the things that happen in life, without worry or fear.</p>
 
-<p>
-    The typeface family Hedvig Letters consists of two fonts:<br>
-        <ul>
-            <li><a href="https://fonts.google.com/specimen/Hedvig+Letters+Serif">Hedvig Letters Serif</a> is designed to balance punchy and honest copy with responsibility and comfort.</li>
-            <li>Hedvig Letters Sans takes the role of the work-horse typeface in Hedvig’s visual toolbox.</li>
-        </ul>
-</p>
+<p>The typeface family Hedvig Letters consists of two fonts:</p>
+<ul>
+    <li><a href="https://fonts.google.com/specimen/Hedvig+Letters+Serif">Hedvig Letters Serif</a> is designed to balance punchy and honest copy with responsibility and comfort.</li>
+    <li>Hedvig Letters Sans takes the role of the work-horse typeface in Hedvig's visual toolbox.</li>
+</ul>
 
 <p>The concept for the typeface was developed by approaching a “non-type-designer” point of view. Optical corrections are usually applied to a typeface to fool the eye that certain shapes are balanced or aligned, when in reality they are not. For this typeface, the imperfections were embraced instead of corrected. The result is a typeface where some letters have a slightly odd, yet characteristic look that effectively communicates Hedvig’s brand and design philosophy.</p>
 
@@ -24355,7 +24473,28 @@ details - cute like a newborn puppy!</p>
 href="https://plus.google.com/u/0/103824723792416046218/about">Brenda
 Gallo</a> and <a
 href="https://plus.google.com/u/0/111231144350963303515/about">Gustavo
-Dipre</a>.</p>
+Dipre</a>.</p><p>Google Sans Flex is the variable-font member of Google's Sans type family, giving a single font file the range of dozens of styles. Designers can dial in six independent axes — weight, width, optical size, slant and roundedness — to match the typeface's tone to a product, a mood, or a screen size. Developed with variable-font specialists at Font Bureau and Pathfinders, it was released as an open-source font in 2025 alongside <a href="https://github.com/googlefonts/googlesans">Google Sans</a> itself.</p>
+
+<p>That flexibility is more than aesthetic. Research with over 3,000 readers showed that taller, more elegant styles feel more premium and engaging, while the optical size axis automatically adjusts letter shapes to stay legible at any size, from a smartwatch to a billboard — work that earned Google Sans Flex a Red Dot Award in 2024.</p>
+
+<p>Google Sans was originally a proprietary typeface, which meant a fragmented experience across the digital ecosystem — Google Sans in Gmail, but Roboto or a device font elsewhere. Open-sourcing both fonts in 2025 is meant to close that gap, giving developers and designers a shared tool to build more consistent, polished interfaces across first- and third-party apps.</p>
+
+<p>Read more <a href="https://design.google/library/google-sans-flex-font">here</a>.</p>
+
+<p>To contribute, see <a href="https://github.com/googlefonts/googlesans-flex">github.com/googlefonts/googlesans-flex</a>.</p>
+
+<video loop autoplay muted src="video1.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<video loop autoplay muted src="video6.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<video loop autoplay muted src="video7.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 <h4>In Memory of Chris Simpkins</h4>
 <p>
   Dedicated to the memory of Chris Simpkins, whose enthusiasm and efforts were foundational to this project.
@@ -26417,7 +26556,15 @@ sings, and lends a happy go lucky flavor to any design.</p>
 <p>Designed by Brian J. Bonislawsky and Jim Lyles for Astigmatic (AOETI).</p>
 
 <p>To contribute to the project contact
-<a href="mailto:astigma@astigmatic.com">Brian J. Bonislawsky</a>.</p><p>Cinzel is a typeface inspired in first century roman inscriptions, and based
+<a href="mailto:astigma@astigmatic.com">Brian J. Bonislawsky</a>.</p><p>
+    Clarity City is an open source sans-serif typeface. It is the default font for the VMware Clarity Design System.
+</p>
+
+<p>To contribute, see <a href="https://github.com/googlefonts/clarity-city">github.com/googlefonts/clarity-city</a>.</p>
+
+<hr>
+<img src="clarity-city.png">
+<p>Cinzel is a typeface inspired in first century roman inscriptions, and based
 on classical proportions. However it’s not a simple revivalism, while it
 conveys all the ancient history of the latin alphabet it also merges a
 contemporary feel onto it.</p>
@@ -26614,8 +26761,11 @@ To contribute, visit <a href="https://github.com/VanillaandCream/Catamaran">gith
 </p>
 
 <p>
-    To contribute, see <a href="https://github.com/TiroTypeworks/Castoro" target="_blank">github.com/TiroTypeworks/Castoro</a>.
+    To contribute, see <a href="https://github.com/TiroTypeworks/Castoro">github.com/TiroTypeworks/Castoro</a>.
 </p>
+
+<hr>
+<img src="castorobanner.png">
 <p>Cascadia Code is a fun open source font that originated from the Windows Terminal project as a replacement for Consolas. It was intended to bring personality to monospace environemnts (especially in the italic!), while still maintaining a high degree of legibility and performance even on lower resolution screens at smaller sizes. It also offers broad language coverage, including extended Latin (and Vietnamese), Greek, Cyrillic, Arabic and Hebrew.</p>
 
 <p>Cascadia Code also has an alternate version available—Cascadia Mono—which has the programming ligatures disabled for those who prefer to see one glyph per square.</p>
@@ -26854,18 +27004,34 @@ Cabin has wide language support, including full Latin coverage of Vietnamese, ad
 To contribute, see <a href="https://github.com/impallari/Cabin" target="_blank">github.com/impallari/Cabin</a>
 </p>
 <p>
-    Caacupé is a condensed, heavy display typeface designed for headlines and short text at large sizes, born from fieldwork conducted in Villa de Emergencia 21-24, an informal settlement in Buenos Aires. It translates two visual elements of the neighborhood into type: the hand-painted, brush-lettered signage of local shops and the bold, high-impact graphic language of popular tabloid newspapers. Particular attention was given to the neighborhood's large Paraguayan community and to the Guaraní language, with careful design of the letters and diacritical marks that appear most frequently in Guaraní, alongside broad Latin coverage (full Spanish set, extended Latin, currency symbols, fractions, mathematical signs, and ligatures). Developed in Glyphs, the typeface is currently available in a single style, visually equivalent to a Bold weight.
-
+    Caacupé is a condensed, heavy display typeface rooted in the street lettering of Villa 21-24, one of the largest villas, or working-class urban neighborhoods, in Buenos Aires, Argentina, and home to a large Paraguayan community.
 </p>
 
 <p>
-    The project grew out of situated research rather than an abstract design approach: a 2014 study of newspapers circulating in the neighborhood found that existing professional typefaces failed to reflect its visual culture, which is instead shaped by hand-painted lettering and a distinct communicative logic. Caacupé was designed from within that context, treating Guaraní as a first-class citizen of the design rather than an afterthought. It stands as a rare example of a typeface developed through direct research in an informal settlement, now openly available on Google Fonts under the Open Font License.
+    The typeface began in 2014 as a piece of field research rather than a commission. Instead of asking how type should look for such a neighborhood, the project asked what its visual language already was. The answer was on its walls: hand-painted, brush-lettered shop signs, where letters work as images before they work as text, and where a message has to catch the eye at a glance to exist at all. A parallel study of the newspapers circulating in the area found the opposite: publications set in technically correct but culturally distant typefaces, designed for the neighborhood rather than from within it.
+</p>
+
+<p>
+    Caacupé translates that vernacular into a working typeface. It is a grotesque sans serif with low contrast, short ascenders and descenders, a generous x-height and a deliberately heavy color, built for headlines and short text at large sizes. Its terminals carry a subtle hint of the brush, a quiet trace of the painted signs it descends from, rather than a literal imitation. Details observed on the street, from the prevalence of uppercase to the hand-drawn flourishes of local sign painters, informed its decisions as the design moved from paper sketches to digital form. The result is a face made to speak loudly and clearly: direct, dense, and full of presence.
+</p>
+
+<p>
+    Language sits at the heart of the project. The neighborhood is home to a large Paraguayan community, and Guaraní is a first or second language for many residents. Caacupé was drawn with that reality in mind, giving particular attention to the letters that recur most often in Guaraní such as "y" and "v", and to the marks the language needs, so that Guaraní text reads as naturally as Spanish. The typeface also includes broad Latin coverage, spanning the full Spanish set, extended Latin, currency symbols, fractions, mathematical signs and ligatures.
+</p>
+
+<p>
+    Caacupé is currently available in a Bold weight. Released under the SIL Open Font License, it aims to give a formal, open and freely available voice to a vernacular that rarely finds its way into type, and to stand as a small counterexample to the habit of designing for people whose context we have never looked at closely.
 </p>
 
 <p>To contribute, see <a href="https://github.com/googlefonts/caacupe">github.com/googlefonts/caacupe</a>.</p>
 
 <hr>
-<img src="image1.jpg">
+<img src="Caacupe-specimen-hero.jpg">
+<img src="Caacupe-specimen-guarani.jpg">
+<img src="Caacupe-specimen-alphabet.jpg">
+<img src="Caacupe-neighborhood-casacultura.jpg">
+<img src="Caacupe-name-mural.jpg">
+<img src="Caacupe-process-proofs-2.jpg">
 <p>Bytesized is a miniscule monospace pixel font - 3x4 modulo diacritics - made to be as legible as possible within these restrictions.</p>
 
 <p>The name comes from the fact that, if you restrict the font to ASCII only, you can store it raw in just under 150 bytes!</p>
@@ -33265,6 +33431,14 @@ In general the letters are designed so as to not require further adjustment, but
 This project is led by Sorkin Type, an international type foundry based in Boston. 
 To contribute, see <a href="https://github.com/EbenSorkin/Asar">github.com/EbenSorkin/Asar</a>
 </p><p>
+    Asap Sharp is the non-rounded version of the Asap family. It features a uniform stroke and clean, sharp corners for a more technical, geometric feel. Like the original, it offers standardized character widths across all styles, allowing you to change weights on-the-go without reflowing the text. Designed by Pablo Cosgaya and developed by the Omnibus-Type team, it is optimized for both screen and desktop use.
+</p>
+
+<p>To contribute, see <a href="https://github.com/Omnibus-Type/Asap_Sharp">github.com/Omnibus-Type/Asap_Sharp</a>.</p>
+
+<hr>
+<img src="asap_Sharp-1.png">
+<p>
 Asap Condensed is the condensed version of the <a href="https://fonts.google.com/specimen/Asap">Asap family</a>. Its a contemporary sans-serif family with subtle rounded corners. 
 Designed by Pablo Cosgaya and Nicolás Silva, Asap ("as soon as possible") has 8 styles: Regular, Medium, Semibold, Bold and its italics. 
 This family, specially developed for screen and desktop use, offers a standarised character width on all styles, which means lines of text remain the same length. 
@@ -34576,15 +34750,16 @@ It also serves quite well on posters and book jackets where relaying the famous 
 
 <hr>
 <img src="image1.png">
-<p>Akshar is a variable display sans-serif font family that supports Latin and Devanagari.
-    It is designed for titles, statements, headlines, annoucements, intros, outros, and other display texts.
-    Akshar (Hindi: अक्षर) literally means an alphabet or a letter in Hindi, Marathi, Gujarati and other Indic languages.
+<p> 
+  Akshar is a variable display sans-serif font family that supports Latin and Devanagari. It is designed for titles, statements, headlines, annoucements, intros, outros, and other display texts. Akshar (Hindi: अक्षर) literally means an alphabet or a letter in Hindi, Marathi, Gujarati and other Indic languages.
 </p>
-<p>Akshar is an OpenType Variable Font. It offers 2 axes: Weight (<code>wght</code>) and Contrast (<code>CNTR</code>).
-    The Weight axis ranges from 300 to 700. The Contrast axis ranges from 0 to 100.</p>
-<p>Note: The Contrast axis is currently not supported by Google Fonts API. The fonts will be updated once it is
-    supported.</p>
-<p>To contribute, visit <a href="https://github.com/tallchai/akshar-type">github.com/tallchai/akshar-type</a>.</p><p>Akronim is a brand-new, original, brush like, stylish font with a Western
+
+<p> 
+  Akshar is an OpenType Variable Font. It offers 2 axes: Weight (<code>wght</code>) and Contrast (<code>CTRS</code>). The Weight axis ranges from 300 to 700. The Contrast axis ranges from 0 to 100.
+</p>
+
+<p>To contribute, see <a href="https://github.com/tallchai/akshar-type">github.com/tallchai/akshar-type</a>.</p>
+<p>Akronim is a brand-new, original, brush like, stylish font with a Western
 and Central European (e.g. Polish, Croatian, Czech, Magyar etc.) Latin
 character set. Handmade in Poland, Europe, by <a
 href="https://plus.google.com/113476868403882918498">Grzegorz
