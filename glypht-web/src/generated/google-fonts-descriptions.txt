@@ -688,6 +688,13 @@ To learn more, see <a href="https://github.com/mooniak/yaldevi-fonts/">github.co
   Initial development and release was funded by Google Fonts in 2015.
   Project sources are hosted and developed on <a href="https://github.com/mooniak/yaldevi-font/">Github</a> and Mooniak welcomes suggestions and contributions to the development.
 </p>
+<p>Xmind is Xmind's signature typeface, derived from the Xmind logo design. This modern font combines geometric and humanist styles, offering both professionalism and approachability for various design applications. The font family comes in 9 weights (100-900) and supports 109 languages, including German, French, Greek, Russian, and more.</p>
+
+<p>To contribute, see <a href="https://github.com/lamzhonghang/xmind">github.com/lamzhonghang/xmind</a>.</p>
+
+<hr>
+<img src="image1.png">
+<img src="image2.png">
 <p>
 Xanh Mono is a mono-serif typeface, designed by Lam Bao and Duy Dao. 
 In Vietnamese, “Xanh” has a lot of meanings, including blue; green; young; etc. We believe that Xanh Mono will not only present a fresh and gentle look, but also a stylish and unique approach for both reading and display purposes.
@@ -1490,52 +1497,73 @@ Diego Giusti, design of the first prototype</p><p>Titan One is a really fat disp
 </p>
 <p>
     To learn more, read <a href="https://design.google/library/new-Indic-fonts/">Modern Tiro Indic collection for classical South Asian texts</a>.
-</p><p><strong>Tiny5 Duo</strong> is the bolder sibling of Tiny5, bringing extra presence to its compact 5-pixel aesthetic while preserving the charm and precision of 1980s–90s digital minimalism.</p>
+</p><p><b>Tiny5 Duo</b> is the bold companion to <a href="https://fonts.google.com/specimen/Tiny5">Tiny5</a>, a compact 5-pixel variable font that captures the essence of 1980s–90s digital minimalism. Where Tiny5 draws every stroke one pixel wide, Tiny5 Duo doubles its vertical stems, giving the same essential letterforms a sturdier, more emphatic presence—ideal for headlines, labels and anywhere a little extra weight helps the text hold its own.</p>
 
-<p>To contribute, see <a href="https://github.com/Gissio/font_tiny5">github.com/Gissio/font_tiny5</a>.</p>
+<p>Like Tiny5, it features six variable axes — <b>Weight, Width, Italic, Roundness, Bleed and Jitter</b> — giving you precise control over its look: from crisp geometric shapes and sharp LCD edges to the soft glow of CRT monitors and the subtle ink spread of dot-matrix printers. Set alongside Tiny5, it provides a natural bold counterpart that stays true to the pixel-perfect aesthetic.</p>
 
-<p>Inspired by graphing calculators, pocket gadgets, LCD displays and early digital interfaces, Tiny5 Duo turns ultra-small letterforms into a distinctive typographic voice. Its heavier construction gives text more impact and visibility, while staying faithful to the crisp, pixel-perfect character of the original Tiny5.</p>
-
-<img src="tiny5-sample3.jpg">
-
-<p>Like Tiny5, the family offers six variable axes — <strong>Weight, Width, Italic, Roundness, Bleed and Jitter</strong> — allowing you to move effortlessly between sharp geometric forms, chunky LCD lettering, soft CRT-like shapes, dot-matrix textures and deliberately imperfect digital artifacts.</p>
-
-<p>Tiny5 Duo is particularly suited to moments that need a little more typographic weight:</p>
+<p>Tiny5 Duo excels at evoking retro-futurism, constrained-tech nostalgia, and clean minimalism. It's especially well-suited for:</p>
 
 <ul>
-<li>Pixel art and lo-fi games</li>
-<li>Retro-futuristic interfaces and terminal screens</li>
-<li>Bold UI labels, menus and micro-typography</li>
-<li>Posters, titles and display typography</li>
-<li>Branding inspired by 8/16-bit graphics and vintage electronics</li>
+  <li>Titles, headings and HUDs in pixel art and lo-fi games</li>
+  <li>Emphasis in terminal-style interfaces and embedded systems</li>
+  <li>Labels and buttons in UI/UX design</li>
+  <li>Branding with a distinct 8/16-bit or vintage electronics vibe</li>
 </ul>
 
-<p>The Tiny5 family supports <strong>Latin, Greek, Cyrillic and Armenian scripts</strong>, covering <strong>974 languages</strong> with <strong>1,749 glyphs</strong>.</p>
+<p>Tiny5 Duo shares the broad language support of Tiny5, covering <b>Latin, Greek, Cyrillic and Armenian scripts</b> across <b>974 languages</b> and <b>1,771 glyphs</b>.</p>
 
-<p>For pixel-perfect results, use font sizes in <strong>6 pt (8 px) increments</strong>.</p>
+<p>For pixel-perfect results, set the font size to <b>increments of 6 pt (8 px)</b>.</p>
 
-<img src="tiny5-presentation.jpg">
-<img src="tiny5-sample1.jpg">
-<img src="tiny5-sample2.jpg">
-<img src="tiny5-sample4.jpg">
-<img src="tiny5-sample5.jpg">
-<img src="tiny5-sample6.jpg">
-<p>
-tiny5 is a variable-width, 5-pixel font playing with the concept of least amount of information while producing both legible and aesthetically pleasing text.
-</p>
-<p>
-It is inspired by the graphing calculators and digital gadgets of the 1980s-90s, where the constraints of limited pixel space demanded efficient and minimalist design. It can be used for invoking a retro or nostalgic feel, for conveying the idea of minimalism, or for efficiently presenting information on small displays.
-</p>
-<p>
-tiny5 supports the Google Fonts Latin Kernel, Latin Core, Latin Plus, Latin African, Greek Core, Cyrillic Core and Cyrillic Plus character set.
-</p>
-<p>
-To contribute, see <a href="https://github.com/Gissio/font_tiny5">github.com/Gissio/font_tiny5</a>.
-</p>
-<hr>
-<img src="tiny5-presentation.png">
-<img src="tiny5-sample1.png">
-<img src="tiny5-sample2.png"><p>Tinos was designed by Steve Matteson as an innovative, refreshing serif
+<p>To contribute to the project, visit <a href="https://github.com/Gissio/font_Tiny5">github.com/Gissio/font_Tiny5</a>.</p>
+
+<img src="tiny5duo-presentation-google.jpg" alt="Presentation" />
+
+<img src="tiny5duo-sample1-google.jpg" alt="Character ROM" />
+
+<img src="tiny5duo-sample2-google.jpg" alt="Size ramp" />
+
+<img src="tiny5duo-sample3-google.jpg" alt="Departures board" />
+
+<img src="tiny5duo-sample4-google.jpg" alt="Variation axes" />
+
+<img src="tiny5duo-sample5-google.jpg" alt="Amber CRT" />
+
+<img src="tiny5duo-sample6-google.jpg" alt="9-pin printer self test" />
+<p><b>Tiny5</b> is a compact 5-pixel variable font that captures the essence of 1980s–90s digital minimalism. Inspired by the graphing calculators and pocket gadgets of the era, it distills letterforms to their absolute essentials—proving that even at just five pixels tall, clarity, charm, and personality can thrive together.</p>
+
+<p>It features six variable axes — <b>Weight, Width, Italic, Roundness, Bleed and Jitter</b> — giving you precise control over its look: from crisp geometric shapes and sharp LCD edges to the soft glow of CRT monitors and the subtle ink spread of dot-matrix printers.</p>
+
+<p>Tiny5 is part of a family that also includes <a href="https://fonts.google.com/specimen/Tiny5+Duo"><b>Tiny5 Duo</b></a>. Where Tiny5 draws every stroke one pixel wide, Tiny5 Duo uses two-pixel stems for bolder emphasis, while sharing the same letterforms, variable axes and character set. Used together, they give you a light and a heavy voice that stay true to the pixel-perfect aesthetic.</p>
+
+<p>Tiny5 excels at evoking retro-futurism, constrained-tech nostalgia, and clean minimalism. It's especially well-suited for:</p>
+
+<ul>
+  <li>Pixel art and lo-fi games</li>
+  <li>Terminal-style interfaces and embedded systems</li>
+  <li>Micro-typography in UI/UX design</li>
+  <li>Branding with a distinct 8/16-bit or vintage electronics vibe</li>
+</ul>
+
+<p>The family provides broad language support, covering <b>Latin, Greek, Cyrillic and Armenian scripts</b> across <b>974 languages</b> and <b>1,771 glyphs</b>.</p>
+
+<p>For pixel-perfect results, set the font size to <b>increments of 6 pt (8 px)</b>.</p>
+
+<p>To contribute to the project, visit <a href="https://github.com/Gissio/font_Tiny5">github.com/Gissio/font_Tiny5</a>.</p>
+
+<img src="tiny5-presentation-google.jpg" alt="Presentation" />
+
+<img src="tiny5-sample1-google.jpg" alt="Character ROM" />
+
+<img src="tiny5-sample2-google.jpg" alt="Size ramp" />
+
+<img src="tiny5-sample3-google.jpg" alt="Departures board" />
+
+<img src="tiny5-sample4-google.jpg" alt="Variation axes" />
+
+<img src="tiny5-sample5-google.jpg" alt="Amber CRT" />
+
+<img src="tiny5-sample6-google.jpg" alt="9-pin printer self test" />
+<p>Tinos was designed by Steve Matteson as an innovative, refreshing serif
 design that is metrically compatible with Times New Roman™. Tinos offers
 improved on-screen readability characteristics and the pan-European WGL
 character set and solves the needs of developers looking for width-compatible
@@ -3057,11 +3085,10 @@ Designed by Dave 'Squid' Cohen of Neapolitan, a Font Diner brand.
 <p>
      To contribute, see <a href="https://github.com/sursly/scoutie">github.com/sursly/scoutie</a>.
 </p>
-
-<img src="image1.png">
-<img src="image2.png">
-<img src="image3.png">
-<img src="image4.png">
+<img src="image1.png"/>
+<img src="image2.png"/>
+<img src="image3.png"/>
+<img src="image4.png"/>
 <p>
 Scope One is a light slab serif typeface with elegant expressions that make it broadly useful for many different contexts. 
 The design is optimized for titling and display usage and is ideally used at 14 points and above. 
@@ -4037,6 +4064,69 @@ To contribute, see <a href="https://github.com/RedHatOfficial/RedHatFont">github
 </p>
 <p>Reddit Mono is a humanist sans-serif designed for Reddit. Reddit Mono is complemented by Reddit Sans and Reddit Sans Condensed.</p>
 <p>To contribute to this project, see <a href="https://github.com/reddit/redditsans">github.com/reddit/redditsans</a></p>
+<p>
+    Redaction is a serif typeface designed by Jeremy Mickel (MCKL) with creative direction by Forest Young. It was commissioned for The Redaction, the 2019 collaboration between artist Titus Kaphar and poet and lawyer Reginald Dwayne Betts at MoMA PS1, which drew on lawsuits filed by the Civil Rights Corps on behalf of people jailed because they could not pay bail, fines and fees.
+</p>
+
+<p>
+    The design is rooted in Times New Roman and Century Schoolbook, the de facto typefaces of American legal documents, but the familiar forms are heightened: soft round terminals meet razor-sharp thin strokes, a nod to the eagle of the presidential seal holding both the olive branch and the arrows.
+</p>
+
+<p>To contribute, see <a href="https://github.com/jeremymickel/Redaction">github.com/jeremymickel/Redaction</a>.</p>
+<p>
+    Redaction is a serif typeface designed by Jeremy Mickel (MCKL) with creative direction by Forest Young. It was commissioned for The Redaction, the 2019 collaboration between artist Titus Kaphar and poet and lawyer Reginald Dwayne Betts at MoMA PS1, which drew on lawsuits filed by the Civil Rights Corps on behalf of people jailed because they could not pay bail, fines and fees.
+</p>
+
+<p>
+    The design is rooted in Times New Roman and Century Schoolbook, the de facto typefaces of American legal documents, but the familiar forms are heightened: soft round terminals meet razor-sharp thin strokes, a nod to the eagle of the presidential seal holding both the olive branch and the arrows.
+</p>
+
+<p>To contribute, see <a href="https://github.com/jeremymickel/Redaction">github.com/jeremymickel/Redaction</a>.</p>
+<p>
+    Redaction is a serif typeface designed by Jeremy Mickel (MCKL) with creative direction by Forest Young. It was commissioned for The Redaction, the 2019 collaboration between artist Titus Kaphar and poet and lawyer Reginald Dwayne Betts at MoMA PS1, which drew on lawsuits filed by the Civil Rights Corps on behalf of people jailed because they could not pay bail, fines and fees.
+</p>
+
+<p>
+    The design is rooted in Times New Roman and Century Schoolbook, the de facto typefaces of American legal documents, but the familiar forms are heightened: soft round terminals meet razor-sharp thin strokes, a nod to the eagle of the presidential seal holding both the olive branch and the arrows.
+</p>
+
+<p>To contribute, see <a href="https://github.com/jeremymickel/Redaction">github.com/jeremymickel/Redaction</a>.</p>
+<p>
+    Redaction is a serif typeface designed by Jeremy Mickel (MCKL) with creative direction by Forest Young. It was commissioned for The Redaction, the 2019 collaboration between artist Titus Kaphar and poet and lawyer Reginald Dwayne Betts at MoMA PS1, which drew on lawsuits filed by the Civil Rights Corps on behalf of people jailed because they could not pay bail, fines and fees.
+</p>
+
+<p>
+    The design is rooted in Times New Roman and Century Schoolbook, the de facto typefaces of American legal documents, but the familiar forms are heightened: soft round terminals meet razor-sharp thin strokes, a nod to the eagle of the presidential seal holding both the olive branch and the arrows.
+</p>
+
+<p>To contribute, see <a href="https://github.com/jeremymickel/Redaction">github.com/jeremymickel/Redaction</a>.</p>
+<p>
+    Redaction is a serif typeface designed by Jeremy Mickel (MCKL) with creative direction by Forest Young. It was commissioned for The Redaction, the 2019 collaboration between artist Titus Kaphar and poet and lawyer Reginald Dwayne Betts at MoMA PS1, which drew on lawsuits filed by the Civil Rights Corps on behalf of people jailed because they could not pay bail, fines and fees.
+</p>
+
+<p>
+    The design is rooted in Times New Roman and Century Schoolbook, the de facto typefaces of American legal documents, but the familiar forms are heightened: soft round terminals meet razor-sharp thin strokes, a nod to the eagle of the presidential seal holding both the olive branch and the arrows.
+</p>
+
+<p>To contribute, see <a href="https://github.com/jeremymickel/Redaction">github.com/jeremymickel/Redaction</a>.</p>
+<p>
+    Redaction is a serif typeface designed by Jeremy Mickel (MCKL) with creative direction by Forest Young. It was commissioned for The Redaction, the 2019 collaboration between artist Titus Kaphar and poet and lawyer Reginald Dwayne Betts at MoMA PS1, which drew on lawsuits filed by the Civil Rights Corps on behalf of people jailed because they could not pay bail, fines and fees.
+</p>
+
+<p>
+    The design is rooted in Times New Roman and Century Schoolbook, the de facto typefaces of American legal documents, but the familiar forms are heightened: soft round terminals meet razor-sharp thin strokes, a nod to the eagle of the presidential seal holding both the olive branch and the arrows.
+</p>
+
+<p>To contribute, see <a href="https://github.com/jeremymickel/Redaction">github.com/jeremymickel/Redaction</a>.</p>
+<p>
+    Redaction is a serif typeface designed by Jeremy Mickel (MCKL) with creative direction by Forest Young. It was commissioned for The Redaction, the 2019 collaboration between artist Titus Kaphar and poet and lawyer Reginald Dwayne Betts at MoMA PS1, which drew on lawsuits filed by the Civil Rights Corps on behalf of people jailed because they could not pay bail, fines and fees.
+</p>
+
+<p>
+    The design is rooted in Times New Roman and Century Schoolbook, the de facto typefaces of American legal documents, but the familiar forms are heightened: soft round terminals meet razor-sharp thin strokes, a nod to the eagle of the presidential seal holding both the olive branch and the arrows.
+</p>
+
+<p>To contribute, see <a href="https://github.com/jeremymickel/Redaction">github.com/jeremymickel/Redaction</a>.</p>
 <p>
     <a href="https://fonts.google.com/specimen/Redacted">Redacted</a> and Redacted Script are suitable for wireframing and rapid prototyping. Designed to be unreadable, it keeps your wireframes free of distracting Lorem Ipsum or other dummy text.
 </p>
@@ -21624,7 +21714,7 @@ To contribute to the project, visit <a href="https://github.com/omnibus-Type/Man
 <p>To contribute, see <a href="https://github.com/carolinashort/mansalva">github.com/carolinashort/mansalva</a>.</p>
 <p>Manrope is an open-source modern sans-serif font family, designed by Mikhail Sharanda in 2018. In 2019, Mirko Velimirovic worked with Mikhail Sharanda to convert Manrope into a variable font.</p>
 
-<p>To contribute, see <a href="https://github.com/sharanda/manrope">github.com/sharanda/manrope</a>.</p>
+<p>To contribute, see <a href="https://github.com/googlefonts/manrope">github.com/googlefonts/manrope</a>.</p>
 <p>Manjari is a Malayalam and Latin family whose name means pearl in Malayalam. It's also the name of a poetic metre. This family is suitable for body text and titles.</p>
 
 <p>To contribute, see <a href="https://github.com/smc/manjari">github.com/smc/manjari</a></p>
@@ -22625,11 +22715,17 @@ Koh Santepheap is a Khmer font for body text, that pairs well with Latin serif f
 To contribute, see <a href="https://github.com/danhhong/KohSantepheap">github.com/danhhong/KohSantepheap</a>.
 </p>
 <p>KoHo is a Thai and Latin family inspired by geometric and humanist san serifs. The letterforms appear neither too mechanical or too calligraphic. Such a juxtaposition has resulted in a unique family which works well for both text and display purposes.</p><p>
-    A custom-designed typeface explicitly created for the developer community.
+    <strong>Kode Mono</strong> is a <strong>variable monospaced</strong> typeface designed specifically for the
+    developer
+    community. Its key feature is clarity and functionality, making it ideal for coding environments where legibility
+    is crucial. The font includes ligatures, which are combinations of multiple characters into a single glyph—helpful
+    in improving the readability of common programming symbols in languages like JavaScript, Python, Haskell, and Rust.
 </p>
 <p>
-    This typeface is designed to enhance the user experience and reflect our principles of functionality and
-    timelessness.
+    Kode Mono has three variable axes: <strong>Weight</strong> (400–700), <strong>Width</strong> (75–125, from
+    Condensed to Expanded) and <strong>Roundness</strong> (0–100, from the original sharp corners to fully rounded).
+    Stylistic set 1 (<code>ss01</code>) offers alternates for D, Q and 8 that are easier to tell apart from O, 0 and
+    B, useful for identity documents, scanned text and OCR.
 </p>
 <p>
     To contribute, see <a href="https://github.com/isaozler/kode-mono">github.com/isaozler/kode-mono</a>.
@@ -24573,6 +24669,110 @@ Dipre</a>.</p><p>Google Sans Flex is the variable-font member of Google's Sans t
   box-drawing characters and geometric symbols. Google Sans Code also accommodates a comprehensive
   range of human languages that utilize the Latin writing system.
 </p>
+<figure>
+  <img src="hero.svg" alt="" class="rounded" />
+  <figcaption>Google Sans is the current generation of Google’s brand typeface, with wide language support.</figcaption>
+</figure>
+
+<br />
+
+<div class="columns-3">
+  <div>
+    <h2>Variable fonts</h2>
+    <p>
+      Google Sans is available as a variable font with axes for weight, grade and optical size,
+      across Roman and Italic styles.
+    </p>
+    <p>
+      <em>
+        Note: Italic styles are in a separate VF font file, that contains the same axes.
+      </em>
+    </p>
+  </div>
+  <figure>
+    <img src="static.svg" alt="" class="rounded" />
+    <figcaption>Previous static font families, Google Sans and Google Sans Text</figcaption>
+  </figure>
+  <figure>
+    <img src="axes.svg" alt="" class="rounded" />
+    <figcaption>Google Sans now includes the entire design range as a variable font</figcaption>
+  </figure>
+</div>
+
+<h2>Weight axis</h2>
+
+<p>
+  The weight axis provides a full, continuous range of weights between Regular (400) and Bold (700).
+</p>
+
+<figure>
+  <video src="axis-weight.mp4" loop autoplay muted playsinline class="rounded"></video>
+  <figcaption>Weight axis</figcaption>
+</figure>
+
+<div class="columns-2">
+  <figure>
+    <img src="weight.png" alt="" class="rounded" />
+    <figcaption>Full weight range of Google Sans</figcaption>
+  </figure>
+  <div>
+    <h3>Weight range</h3>
+    <p>
+      Beyond what was originally offered within the Google Sans static fonts, the weight axis now offers
+      the ability to use incremental weights, like Semi-Bold (600).
+    </p>
+  </div>
+</div>
+
+<h2>Optical size axis</h2>
+
+<figure>
+  <video src="axis-opsz.mp4" loop autoplay muted playsinline class="rounded"></video>
+  <figcaption>Optical Size axis</figcaption>
+</figure>
+
+<p>
+  The optical size axis acts like a toggle between the maximum optical size (18pt and larger) and
+  the minimum optical size (17pt and smaller) that was originally offered as the Google Sans Text
+  static fonts.
+</p>
+
+<div class="columns-2">
+  <div>
+    <h3>Grade axis</h3>
+    <p>
+      The grade axis is optically similar to weight, but much more nuanced.
+    </p>
+
+    <p>
+      With a grade axis, letters are adjusted to render lighter or darker, yet still occupy the same
+      horizontal space and avoid reflow of text.
+    </p>
+  </div>
+  <figure>
+    <img src="grade-split.png" alt="" />
+    <figcaption>Grade axis shown effecting just one glyph</figcaption>
+  </figure>
+</div>
+
+<div class="columns-2">
+  <div>
+    <p>
+      A grade adjustment can give your text better optical parity between light and dark themes, 
+      which means that although the letterforms in the two examples are different, they’re more
+      compatible in terms of appearance and legibility.
+    </p>
+
+    <p>
+      With dark UI themes, these micro adjustments at a global scale can deliver a more refined
+      experience.
+    </p>
+  </div>
+  <figure>
+    <video src="grade-white-black.mp4" loop autoplay muted playsinline></video>
+    <figcaption>Grade adjustments made to light text on dark surfaces.</figcaption>
+  </figure>
+</div>
 <p>Golos is a versatile closed sans-serif commissioned by Smena and AIC Media for state and social service websites. Golos Text suits perfectly for continuous reading on screen. It includes five weights from Regular to Black. Golos was designed by Alexandra Korolkova and Vitaly Kuzmin and released by Paratype in 2019.</p>
 
 <p>To contribute, see <a href="https://github.com/googlefonts/golos-text">github.com/googlefonts/golos-text</a>.</p>
@@ -25173,6 +25373,35 @@ characteristics Fjalla One can be used in a wide range of sizes.</p>
 
 
 <p>To contribute, see <a href="https://github.com/SorkinType/FjallaOne">github.com/SorkinType/FjallaOne</a>.</p>
+<p>
+    Firjar is a contemporary Kufic-inspired and minimalist bilingual typeface, covering both Arabic and Latin scripts with precision and harmony. Its name means compass in Arabic. The naming reflects the typeface design philosophy of flexibility and balance.
+</p>
+
+<p>
+    The concept of Firjar design is inspired by the compass's capabilities, which are designed using quarter-circled curves combined with clean straight lines.
+</p>
+
+<p>
+    The typeface spans a wide range of styles, from condensed to extended widths and from thin to black weights, making it highly versatile for bold headlines, branding, user interfaces, editorial design, and display applications.
+Firjar has the following axes:
+</p>
+
+<ul>
+    <li>The <code>wght</code> axis spans Thin (100) to Black (800)</li>
+    <li>The <code>wdth</code> axis spans Condensed (75) to Expanded (125)</li>
+</ul>
+
+<p>
+    The Firjar project is led by <a href="https://mestara.com">Mestara Type</a> a type foundry specialized in creating and designing Arabic typefaces. Founded by a professional calligrapher and designer, Mestara aims to reflect the beauty, and modernity while respecting traditional calligraphic principles.
+</p>
+
+<p>
+    To contribute, see <a href="https://github.com/MestaraType/Firjar">github.com/MestaraType/Firjar</a>.
+</p>
+
+<img src="image-preview3.png">
+<img src="image-preview4.png">
+<img src="image-preview5.png">
 <p>
 Designed to integrate with the character of the Mozilla FirefoxOS, the Fira typefaces also aim to cover the legibility needs for a large range of handsets varying in screen quality and rendering.
 </p>
@@ -34798,6 +35027,27 @@ typeface.</p><p>Akaya is a single weight experimental display typeface in Kannad
     To contribute, see <a href="https://github.com/theseunbadejo/nsibidi-libre">github.com/theseunbadejo/nsibidi-libre</a>.
 </p>
 <p>Semi-formal and eye-catching elegance is the name of the game, says Aguafina Script.</p> <p>Graceful, but not too casual. Knowledgeable and artistic, but not too imposing. The characters flow into each other, making a very saucy script with appetizing color. The narrow lowercase allows for efficient use of space, while the long ascenders and descenders help maintain the legibility.</p> <p>A unique find among scripts, Aguafina is useful for product packaging, glossy magazine work, and book covers.</p><p>
+    Agràve Pro is a handwritten typeface for longer texts, with open counters, short ascenders and descenders, uniform strokes, and solid legibility. The family offers three weights and supports multiple languages, with ligatures, unique accented glyphs, small caps, and a full range of figure styles.
+</p>
+
+<p>To contribute, see <a href="https://github.com/daanjobsis/agrave-pro">github.com/daanjobsis/agrave-pro</a>.</p>
+
+<hr>
+<img src="image1.png">
+<img src="image2.png">
+<img src="image3.png">
+<img src="image4.png">
+<img src="image5.png">
+<img src="image6.png">
+<img src="image7.png">
+<img src="image8.png">
+<img src="image9.png">
+<img src="image10.png">
+<img src="image11.png">
+<img src="image12.png">
+<img src="image13.png">
+<img src="image14.png">
+<p>
     Agdasima is a DocRepair font, intended to improve compliance with the ISO/IEC
     29500 standard by providing fallback for Agency FB that minimizes text reflow in Office Open
     XML documents. Agdasima is based on Big Shoulders, a condensed American Gothic
